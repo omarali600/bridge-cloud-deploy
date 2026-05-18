@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: bridge-gbrain-http
+    runtime: docker
+    plan: starter
+    region: frankfurt
+    rootDir: gbrain-http
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /health
+    envVars:
+      - key: GBRAIN_DISABLE_DIRECT_POOL
+        value: "1"
+      - key: DATABASE_URL
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: OPENROUTER_API_KEY
+        sync: false
