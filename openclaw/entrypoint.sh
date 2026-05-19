@@ -48,6 +48,28 @@ if os.path.exists(target_path):
 else:
     target = {}
 
+# First, gather all dev_ids currently in any seed file
+seed_dev_ids = set()
+for sf in seed_files:
+    with open(sf) as f:
+        seed = json.load(f)
+    seed_dev_ids.update(seed.keys())
+
+# Sweep stale seed-managed entries that are no longer in any seed file.
+# Convention: anything whose clientId starts with "bridge-" was placed by
+# this entrypoint; if it's not in the current seed, drop it. Manually-paired
+# devices (clientId != "bridge-*") are always preserved.
+removed = 0
+for dev_id in list(target.keys()):
+    entry = target.get(dev_id)
+    if not isinstance(entry, dict):
+        continue
+    cid = entry.get('clientId', '')
+    if isinstance(cid, str) and cid.startswith('bridge-') and dev_id not in seed_dev_ids:
+        print(f'[entrypoint] removing stale seed-managed device {dev_id[:12]}... ({cid})')
+        del target[dev_id]
+        removed += 1
+
 added = 0
 updated = 0
 for sf in seed_files:
@@ -70,10 +92,10 @@ for sf in seed_files:
             added += 1
             print(f'[entrypoint] paired device {dev_id[:12]}... ({entry.get("clientId", "?")}) from {os.path.basename(sf)}')
 
-if added or updated:
+if added or updated or removed:
     with open(target_path, 'w') as f:
         json.dump(target, f, indent=2)
-    print(f'[entrypoint] paired.json: +{added} new, {updated} updated, {len(target)} total')
+    print(f'[entrypoint] paired.json: +{added} new, {updated} updated, -{removed} removed, {len(target)} total')
 PYEOF
 
 PORT="${PORT:-8080}"

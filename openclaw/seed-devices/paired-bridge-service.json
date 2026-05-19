@@ -1,7 +1,7 @@
 {
-  "4f6d94177721f3112a07cdfa82be0de29b81aca29f488971afc7f8d7c63c51ac": {
-    "deviceId": "4f6d94177721f3112a07cdfa82be0de29b81aca29f488971afc7f8d7c63c51ac",
-    "publicKey": "4zHVM5tRDl1gid32C4OsXAF6rQQf6diVJm4FU7jTPgk",
+  "634974ad8eaf0c0529fdb10f101015cfd7579d1b540e466e52936f87d331c4ce": {
+    "deviceId": "634974ad8eaf0c0529fdb10f101015cfd7579d1b540e466e52936f87d331c4ce",
+    "publicKey": "Kzndoou3ujSA7l_aQmWxcj8FeLIkgX_nrlsQFDplzuc",
     "clientId": "bridge-service",
     "clientMode": "service",
     "role": "operator",
@@ -24,7 +24,23 @@
       "operator.pairing",
       "operator.talk.secrets"
     ],
-    "createdAtMs": 1779193688271,
-    "approvedAtMs": 1779193688271
+    "tokens": {
+      "operator": {
+        "token": "KaljBTiTmez7LRCXrT_hci28sXBqSVuFG5jjA-ByENg",
+        "role": "operator",
+        "scopes": [
+          "operator.admin",
+          "operator.read",
+          "operator.write",
+          "operator.approvals",
+          "operator.pairing",
+          "operator.talk.secrets"
+        ],
+        "createdAtMs": 1779194568123,
+        "rotatedAtMs": 1779194568123
+      }
+    },
+    "createdAtMs": 1779194568123,
+    "approvedAtMs": 1779194568123
   }
 }
