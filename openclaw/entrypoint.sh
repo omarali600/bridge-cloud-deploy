@@ -7,7 +7,7 @@ if [ ! -f /opt/data/openclaw.json ]; then
   cp -R /opt/data-seed/. /opt/data/
 fi
 
-# Substitute env vars into openclaw.json (gateway token)
+# Substitute env-vars into openclaw.json (gateway token)
 if [ -n "${OPENCLAW_GATEWAY_TOKEN:-}" ]; then
   python3 -c "
 import json, os
@@ -20,7 +20,7 @@ with open('/opt/data/openclaw.json', 'w') as f:
 " 2>&1 || true
 fi
 
-# Bind to 0.0.0.0 so Render's port scanner finds us; --port from $PORT
 PORT="${PORT:-8080}"
-echo "[entrypoint] Starting OpenClaw gateway on 0.0.0.0:$PORT"
-exec openclaw gateway --port "$PORT" --bind 0.0.0.0
+echo "[entrypoint] Starting OpenClaw gateway on :$PORT (bind=lan, behind Render proxy)"
+# OpenClaw bind modes: loopback|lan|tailnet|auto|custom — "lan" listens on all interfaces (right for cloud behind proxy)
+exec openclaw gateway --port "$PORT" --bind lan
