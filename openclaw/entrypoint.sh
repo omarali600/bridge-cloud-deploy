@@ -20,6 +20,52 @@ with open('/opt/data/openclaw.json', 'w') as f:
 " 2>&1 || true
 fi
 
+# Ensure bridge-service device is pre-paired (idempotent merge on every boot).
+# Lets external clients holding the bridge-service private key authenticate
+# without the manual approval dance. Public key only — private stays in
+# ~/.bridge-migration-2026-05-18/secrets/ on the operator's machine.
+python3 - <<'PYEOF' 2>&1 || true
+import json, os, glob
+
+target_dir = '/opt/data/devices'
+target_path = os.path.join(target_dir, 'paired.json')
+seed_files = sorted(glob.glob('/opt/data-seed/devices/paired-*.json'))
+
+if not seed_files:
+    print('[entrypoint] No seed devices found; skipping device pre-pairing')
+    raise SystemExit(0)
+
+os.makedirs(target_dir, exist_ok=True)
+
+if os.path.exists(target_path):
+    with open(target_path) as f:
+        try:
+            target = json.load(f)
+            if not isinstance(target, dict):
+                target = {}
+        except Exception:
+            target = {}
+else:
+    target = {}
+
+added = 0
+for sf in seed_files:
+    with open(sf) as f:
+        seed = json.load(f)
+    for dev_id, entry in seed.items():
+        if dev_id in target:
+            print(f'[entrypoint] device {dev_id[:12]}... already paired (from {os.path.basename(sf)})')
+        else:
+            target[dev_id] = entry
+            added += 1
+            print(f'[entrypoint] paired device {dev_id[:12]}... ({entry.get("clientId", "?")}) from {os.path.basename(sf)}')
+
+if added:
+    with open(target_path, 'w') as f:
+        json.dump(target, f, indent=2)
+    print(f'[entrypoint] merged {added} pre-paired device(s) into paired.json')
+PYEOF
+
 PORT="${PORT:-8080}"
 echo "[entrypoint] Starting OpenClaw gateway on :$PORT (bind=lan, behind Render proxy)"
 # OpenClaw bind modes: loopback|lan|tailnet|auto|custom — "lan" listens on all interfaces (right for cloud behind proxy)

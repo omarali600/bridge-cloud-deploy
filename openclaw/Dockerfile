@@ -23,6 +23,7 @@ COPY workspace-benson /opt/data-seed/workspace-benson
 COPY workspace-clem /opt/data-seed/workspace-clem
 COPY agents /opt/data-seed/agents
 COPY openclaw.json /opt/data-seed/openclaw.json
+COPY seed-devices /opt/data-seed/devices
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
