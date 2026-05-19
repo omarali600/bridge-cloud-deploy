@@ -9,7 +9,9 @@ RUN curl -fsSL https://bun.sh/install | bash -s -- "bun-v1.3.10" \
  && ln -sf /usr/local/.bun/bin/bun /usr/local/bin/bun
 
 # Install OpenClaw (Node) and gbrain (Bun)
-RUN npm install -g openclaw
+# Pinned to 2026.4.12 to match local install. 2026.5.x adds device pairing
+# bootstrap we have not yet built; revisit at Phase 11 retro.
+RUN npm install -g openclaw@2026.4.12
 RUN bun install -g github:garrytan/gbrain
 RUN ln -sf /usr/local/.bun/install/global/node_modules/gbrain/src/cli.ts /usr/local/bin/gbrain || true
 
