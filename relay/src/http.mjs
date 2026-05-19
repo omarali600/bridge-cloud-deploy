@@ -1,24 +1,42 @@
 /**
- * HTTP server — endpoints for ops + Twilio voice webhook + /admin/pair.
+ * HTTP server — endpoints for ops + Twilio WhatsApp + voice webhooks.
  *
- * Endpoints:
- *   GET  /health          — liveness probe ({"ok":true,"channels":[...]})
- *   GET  /admin/pair      — current WhatsApp pairing QR as PNG (admin-only)
- *   POST /voice/incoming  — Twilio voice webhook (scaffolded; see voice.mjs)
+ *   GET  /health             liveness probe ({"ok":true,"channels":{...}})
+ *   POST /whatsapp/incoming  Twilio WhatsApp webhook (form-encoded)
+ *   POST /voice/incoming     Twilio voice webhook (returns TwiML)
  *
- * Admin endpoints require ?token=<ADMIN_TOKEN> matching the
- * ADMIN_TOKEN env var. Don't expose ADMIN_TOKEN publicly; treat it like
- * a service secret.
+ * Twilio signs each request with X-Twilio-Signature. We verify against
+ * the auth token before processing.
  */
 
 import http from 'node:http';
-import qrcode from 'qrcode';
-import { getPendingQr } from './channels/whatsapp.mjs';
+import twilio from 'twilio';
+import { handleWhatsappIncoming, isWhatsappReady } from './channels/whatsapp.mjs';
 import { log } from './log.mjs';
 
-const ADMIN_TOKEN = process.env.ADMIN_TOKEN || '';
+const TWILIO_AUTH_TOKEN = process.env.TWILIO_AUTH_TOKEN || '';
+
+function readBody(req) {
+  return new Promise((resolve) => {
+    let buf = '';
+    req.on('data', (c) => (buf += c));
+    req.on('end', () => resolve(buf));
+  });
+}
+
+function verifyTwilio(req, body, publicUrl) {
+  if (!TWILIO_AUTH_TOKEN) return true; // dev convenience; in prod always sign
+  const signature = req.headers['x-twilio-signature'];
+  if (!signature) return false;
+  const params = Object.fromEntries(new URLSearchParams(body));
+  return twilio.validateRequest(TWILIO_AUTH_TOKEN, signature, publicUrl, params);
+}
 
 export function startHttpServer({ port }) {
+  const publicHost = process.env.RENDER_EXTERNAL_HOSTNAME
+    || process.env.PUBLIC_HOSTNAME
+    || `bridge-relay-hdmy.onrender.com`;
+
   const server = http.createServer(async (req, res) => {
     const url = new URL(req.url, `http://${req.headers.host}`);
 
@@ -29,49 +47,39 @@ export function startHttpServer({ port }) {
         ts: new Date().toISOString(),
         channels: {
           telegram: !!(process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_CHAT_ID),
-          whatsapp: process.env.WHATSAPP_ENABLED === '1',
+          whatsapp: isWhatsappReady(),
           voice: !!process.env.TWILIO_AUTH_TOKEN,
         },
       }));
       return;
     }
 
-    if (url.pathname === '/admin/pair') {
-      if (!ADMIN_TOKEN || url.searchParams.get('token') !== ADMIN_TOKEN) {
-        res.writeHead(401, { 'Content-Type': 'text/plain' });
-        res.end('admin token required (?token=...)');
+    if (url.pathname === '/whatsapp/incoming' && req.method === 'POST') {
+      const body = await readBody(req);
+      const publicUrl = `https://${publicHost}${url.pathname}`;
+      if (!verifyTwilio(req, body, publicUrl)) {
+        log(`WhatsApp: signature verification failed for ${publicUrl}`);
+        res.writeHead(403, { 'Content-Type': 'text/plain' });
+        res.end('signature verification failed');
         return;
       }
-      const { qr, ageSeconds } = getPendingQr();
-      if (!qr) {
-        res.writeHead(404, { 'Content-Type': 'text/plain' });
-        res.end(
-          'No pairing QR available right now. Either WhatsApp is already paired, or the Baileys client has not emitted a QR yet. Try restarting the service (Render dashboard → Manual Deploy → "Clear cache & deploy") to force a fresh pair.'
-        );
-        return;
-      }
-      try {
-        const png = await qrcode.toBuffer(qr, { type: 'png', width: 480, margin: 2 });
-        res.writeHead(200, {
-          'Content-Type': 'image/png',
-          'X-QR-Age-Seconds': String(ageSeconds),
-          'Cache-Control': 'no-store',
-        });
-        res.end(png);
-      } catch (e) {
-        res.writeHead(500, { 'Content-Type': 'text/plain' });
-        res.end(`QR render failed: ${e.message}`);
-      }
+
+      // Acknowledge fast (empty TwiML) — async-process the message.
+      res.writeHead(200, { 'Content-Type': 'application/xml' });
+      res.end('<?xml version="1.0" encoding="UTF-8"?><Response/>');
+
+      const params = new URLSearchParams(body);
+      handleWhatsappIncoming(params).catch((e) => log(`WhatsApp handler error: ${e.message}`));
       return;
     }
 
     if (url.pathname === '/voice/incoming' && req.method === 'POST') {
-      // Twilio voice webhook scaffold. Real handling lives in voice.mjs
-      // when wired; for now we respond with a polite TwiML message so
-      // misconfigured callers don't get a 500.
+      // Voice surface scaffold. Existing Mac-side voice-agent continues to
+      // handle real calls via ngrok; this endpoint will take over when we
+      // migrate voice fully to the cloud (Phase 6 step 4 in current plan).
       res.writeHead(200, { 'Content-Type': 'application/xml' });
       res.end(
-        `<?xml version="1.0" encoding="UTF-8"?><Response><Say voice="alice">Voice surface is not yet active. Please text me instead.</Say><Hangup/></Response>`
+        '<?xml version="1.0" encoding="UTF-8"?><Response><Say voice="alice">Voice surface is being migrated. Please text me on Telegram or WhatsApp meanwhile.</Say><Hangup/></Response>',
       );
       return;
     }

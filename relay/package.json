@@ -1,15 +1,13 @@
 {
   "name": "bridge-relay",
-  "version": "0.1.0",
-  "description": "Multi-channel phone surface for BRIDGE — Telegram (live), WhatsApp + voice (scaffolded). Bridget's voice on Omar's phone.",
+  "version": "0.2.0",
+  "description": "Multi-channel phone surface for BRIDGE — Telegram (live), WhatsApp via Twilio (scaffolded), voice via Twilio (scaffolded). Bridget's voice on Omar's phone.",
   "type": "module",
   "main": "src/relay.mjs",
   "scripts": {
     "start": "node src/relay.mjs"
   },
   "dependencies": {
-    "@whiskeysockets/baileys": "^6.7.18",
-    "qrcode": "^1.5.4",
     "twilio": "^5.4.5"
   },
   "engines": {

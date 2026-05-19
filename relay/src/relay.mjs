@@ -24,7 +24,7 @@
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import { setTimeout as sleep } from 'node:timers/promises';
 import { startTelegramChannel } from './channels/telegram.mjs';
-import { startWhatsappChannel } from './channels/whatsapp.mjs';
+import { initWhatsapp } from './channels/whatsapp.mjs';
 import { startHttpServer } from './http.mjs';
 import { initRouting } from './routing.mjs';
 import { initAgentClient } from './agents.mjs';
@@ -105,14 +105,10 @@ if (process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_CHAT_ID) {
   log('Telegram: missing TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID, channel disabled');
 }
 
-if (process.env.WHATSAPP_ENABLED === '1') {
-  startWhatsappChannel({
-    stateDir: STATE_DIR,
-    ownerPhone: process.env.WHATSAPP_OWNER_PHONE,
-  });
-} else {
-  log('WhatsApp: disabled (set WHATSAPP_ENABLED=1 to enable + scan QR via /admin/pair)');
-}
+// WhatsApp via Twilio — inbound goes to /whatsapp/incoming, replies via
+// Twilio API. Ready as soon as TWILIO_ACCOUNT_SID/AUTH_TOKEN/
+// WHATSAPP_FROM env vars are set + Twilio's webhook config points here.
+initWhatsapp();
 
 // Voice (Twilio) handlers live inside the HTTP server (/voice/* routes).
 // They're always wired; Twilio just won't hit them until you point its
