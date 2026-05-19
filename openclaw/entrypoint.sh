@@ -98,6 +98,25 @@ if added or updated or removed:
     print(f'[entrypoint] paired.json: +{added} new, {updated} updated, -{removed} removed, {len(target)} total')
 PYEOF
 
+# Refresh per-agent workspace config files (IDENTITY.md, SOUL.md, AGENTS.md,
+# USER.md, TOOLS.md, HEARTBEAT.md) from the seed on every boot. These are
+# config, not state — keeping them seed-driven means edits in
+# bridge-cloud-deploy propagate to live agents on next redeploy. State that
+# lives inside workspace-*/<subdirs/> (sessions, memory, etc.) is preserved.
+for ws_seed in /opt/data-seed/workspace-*; do
+  [ -d "$ws_seed" ] || continue
+  ws_name=$(basename "$ws_seed")
+  ws_live="/opt/data/$ws_name"
+  if [ ! -d "$ws_live" ]; then
+    continue  # first-boot seed already copied via cp -R above
+  fi
+  for md in "$ws_seed"/*.md; do
+    [ -f "$md" ] || continue
+    cp -f "$md" "$ws_live/$(basename "$md")"
+  done
+  echo "[entrypoint] refreshed config .md files in $ws_name"
+done
+
 PORT="${PORT:-8080}"
 echo "[entrypoint] Starting OpenClaw gateway on :$PORT (bind=lan, behind Render proxy)"
 # OpenClaw bind modes: loopback|lan|tailnet|auto|custom — "lan" listens on all interfaces (right for cloud behind proxy)
