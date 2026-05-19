@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: bridge-voice
+    runtime: docker
+    plan: starter
+    region: frankfurt
+    rootDir: voice-agent
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /health
+    disk:
+      name: voice-data
+      mountPath: /opt/data
+      sizeGB: 1
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: TWILIO_AUTH_TOKEN
+        sync: false
+      - key: DATABASE_URL
+        sync: false                # required by gbrain CLI for brain reads/writes
+      - key: VOICE_AGENT_OWNER_PHONE
+        sync: false
+      - key: VOICE_AGENT_VOICE
+        value: "marin"
+      - key: VOICE_AGENT_OPENAI_MODEL
+        value: "gpt-realtime"
+      - key: VOICE_AGENT_SUMMARY_MODEL
+        value: "gpt-4.1-mini"
+      - key: GBRAIN_DISABLE_DIRECT_POOL
+        value: "1"
