@@ -22,9 +22,20 @@ export function startTelegramChannel(opts) {
 }
 
 function loadOffset() {
-  if (!existsSync(offsetFile)) return 0;
-  try { return parseInt(readFileSync(offsetFile, 'utf-8'), 10) || 0; }
-  catch { return 0; }
+  if (existsSync(offsetFile)) {
+    try { return parseInt(readFileSync(offsetFile, 'utf-8'), 10) || 0; }
+    catch { /* fall through */ }
+  }
+  // First-boot resume: honor TELEGRAM_INITIAL_OFFSET so the cloud relay
+  // picks up where the local relay left off (no replay of historical
+  // messages, no duplicate handling). Set it once via env, then the
+  // persistent offset.txt takes over.
+  const initial = parseInt(process.env.TELEGRAM_INITIAL_OFFSET ?? '0', 10) || 0;
+  if (initial > 0) {
+    saveOffset(initial);
+    log(`Telegram: seeded initial offset = ${initial} (from env)`);
+  }
+  return initial;
 }
 
 function saveOffset(n) { writeFileSync(offsetFile, String(n)); }
