@@ -1,0 +1,4 @@
+workspace/.git/
+workspace-*/. git/
+workspace-*/.git/
+**/.DS_Store

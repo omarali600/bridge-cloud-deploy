@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: bridge-openclaw
+    runtime: docker
+    plan: starter
+    region: frankfurt
+    rootDir: openclaw
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /health
+    disk:
+      name: openclaw-data
+      mountPath: /opt/data
+      sizeGB: 1
+    envVars:
+      - key: OPENCLAW_GATEWAY_TOKEN
+        generateValue: true
+      - key: OPENROUTER_API_KEY
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: GBRAIN_DISABLE_DIRECT_POOL
+        value: "1"

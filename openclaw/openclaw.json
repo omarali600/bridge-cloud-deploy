@@ -1,0 +1,124 @@
+{
+  "agents": {
+    "defaults": {
+      "workspace": "/opt/data/workspace",
+      "models": {
+        "openai-codex/gpt-5.4": {}
+      },
+      "model": {
+        "primary": "openrouter/anthropic/claude-sonnet-4-6"
+      }
+    },
+    "list": [
+      {
+        "id": "main",
+        "model": "openrouter/anthropic/claude-sonnet-4-6"
+      },
+      {
+        "id": "beatrix",
+        "name": "beatrix",
+        "workspace": "/opt/data/workspace-beatrix",
+        "agentDir": "/opt/data/agents/beatrix/agent",
+        "model": "openrouter/anthropic/claude-sonnet-4-6",
+        "identity": {
+          "name": "Beatrix",
+          "emoji": "🧭",
+          "theme": "Explorer kestrel"
+        }
+      },
+      {
+        "id": "basil",
+        "name": "basil",
+        "workspace": "/opt/data/workspace-basil",
+        "agentDir": "/opt/data/agents/basil/agent",
+        "model": "openrouter/openai/gpt-4o-mini"
+      },
+      {
+        "id": "benson",
+        "name": "benson",
+        "workspace": "/opt/data/workspace-benson",
+        "agentDir": "/opt/data/agents/benson/agent",
+        "model": "openrouter/openai/gpt-4o-mini"
+      },
+      {
+        "id": "clem",
+        "name": "clem",
+        "workspace": "/opt/data/workspace-clem",
+        "agentDir": "/opt/data/agents/clem/agent",
+        "model": "openrouter/anthropic/claude-sonnet-4-6",
+        "identity": {
+          "name": "Clem",
+          "emoji": "🌍",
+          "theme": "CRREM steward"
+        }
+      }
+    ]
+  },
+  "gateway": {
+    "mode": "local",
+    "auth": {
+      "mode": "token",
+      "token": "${OPENCLAW_GATEWAY_TOKEN}"
+    },
+    "port": 8080,
+    "bind": "lan",
+    "tailscale": {
+      "mode": "off",
+      "resetOnExit": false
+    },
+    "controlUi": {
+      "allowInsecureAuth": false
+    },
+    "nodes": {
+      "denyCommands": [
+        "camera.snap",
+        "camera.clip",
+        "screen.record",
+        "contacts.add",
+        "calendar.add",
+        "reminders.add",
+        "sms.send",
+        "sms.search"
+      ]
+    }
+  },
+  "session": {
+    "dmScope": "per-channel-peer"
+  },
+  "tools": {
+    "profile": "coding"
+  },
+  "auth": {
+    "profiles": {}
+  },
+  "wizard": {
+    "lastRunAt": "2026-04-14T00:55:10.135Z",
+    "lastRunVersion": "2026.4.12",
+    "lastRunCommand": "onboard",
+    "lastRunMode": "local"
+  },
+  "meta": {
+    "lastTouchedVersion": "2026.4.12",
+    "lastTouchedAt": "2026-04-16T23:10:26.189Z"
+  },
+  "plugins": {
+    "entries": {
+      "openai": {
+        "enabled": true
+      },
+      "openrouter": {
+        "enabled": true
+      }
+    }
+  },
+  "mcp": {
+    "servers": {
+      "gbrain": {
+        "command": "gbrain",
+        "args": [
+          "serve"
+        ]
+      }
+    }
+  }
+}
