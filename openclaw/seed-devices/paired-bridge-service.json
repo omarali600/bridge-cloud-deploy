@@ -2,7 +2,6 @@
   "4f6d94177721f3112a07cdfa82be0de29b81aca29f488971afc7f8d7c63c51ac": {
     "deviceId": "4f6d94177721f3112a07cdfa82be0de29b81aca29f488971afc7f8d7c63c51ac",
     "publicKey": "4zHVM5tRDl1gid32C4OsXAF6rQQf6diVJm4FU7jTPgk",
-    "platform": "linux",
     "clientId": "bridge-service",
     "clientMode": "service",
     "role": "operator",

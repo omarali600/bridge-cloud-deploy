@@ -49,21 +49,31 @@ else:
     target = {}
 
 added = 0
+updated = 0
 for sf in seed_files:
     with open(sf) as f:
         seed = json.load(f)
     for dev_id, entry in seed.items():
         if dev_id in target:
-            print(f'[entrypoint] device {dev_id[:12]}... already paired (from {os.path.basename(sf)})')
+            # Upsert: seed is the source of truth for these service identities,
+            # so newer seed entries override older ones (e.g., scope or platform
+            # changes after a re-deploy). Manually-paired devices that are NOT
+            # in the seed are preserved.
+            if target[dev_id] != entry:
+                target[dev_id] = entry
+                updated += 1
+                print(f'[entrypoint] updated device {dev_id[:12]}... ({entry.get("clientId", "?")}) from {os.path.basename(sf)}')
+            else:
+                print(f'[entrypoint] device {dev_id[:12]}... already current (from {os.path.basename(sf)})')
         else:
             target[dev_id] = entry
             added += 1
             print(f'[entrypoint] paired device {dev_id[:12]}... ({entry.get("clientId", "?")}) from {os.path.basename(sf)}')
 
-if added:
+if added or updated:
     with open(target_path, 'w') as f:
         json.dump(target, f, indent=2)
-    print(f'[entrypoint] merged {added} pre-paired device(s) into paired.json')
+    print(f'[entrypoint] paired.json: +{added} new, {updated} updated, {len(target)} total')
 PYEOF
 
 PORT="${PORT:-8080}"
