@@ -1,0 +1,36 @@
+services:
+  - type: web
+    name: bridge-relay
+    runtime: docker
+    plan: starter
+    region: frankfurt
+    rootDir: relay
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /health
+    disk:
+      name: relay-data
+      mountPath: /opt/data
+      sizeGB: 1
+    envVars:
+      - key: BRIDGE_GATEWAY_URL
+        value: "wss://bridge-openclaw.onrender.com"
+      - key: OPENCLAW_GATEWAY_TOKEN
+        sync: false
+      - key: OPENROUTER_API_KEY
+        sync: false
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: TELEGRAM_CHAT_ID
+        sync: false
+      - key: BRIDGE_SERVICE_DEVICE_JSON_B64
+        sync: false
+      - key: BRIDGE_SERVICE_DEVICE_AUTH_JSON_B64
+        sync: false
+      - key: ADMIN_TOKEN
+        generateValue: true
+      - key: WHATSAPP_ENABLED
+        value: "0"
+      - key: WHATSAPP_OWNER_PHONE
+        sync: false
+      - key: TWILIO_AUTH_TOKEN
+        sync: false
