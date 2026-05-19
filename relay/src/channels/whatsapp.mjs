@@ -22,6 +22,7 @@
 import twilio from 'twilio';
 import { classify } from '../routing.mjs';
 import { invokeAgent } from '../agents.mjs';
+import { forward, intakeEnabled } from '../intake-client.mjs';
 import { log } from '../log.mjs';
 
 let twilioClient = null;
@@ -71,9 +72,25 @@ export async function handleWhatsappIncoming(params) {
   log(`WhatsApp [in:${from}] ${text.slice(0, 100)}${text.length > 100 ? '…' : ''} sid=${messageSid}`);
 
   try {
-    const agentId = await classify(text);
-    const reply = await invokeAgent(agentId, text);
-    log(`WhatsApp [out:${agentId}] ${reply.slice(0, 80)}${reply.length > 80 ? '…' : ''}`);
+    let reply = null;
+    let agentLabel = 'unknown';
+
+    if (intakeEnabled()) {
+      const out = await forward('whatsapp', Object.fromEntries(params));
+      reply = out?.outcome?.reply ?? null;
+      agentLabel = out?.outcome?.target ?? out?.classification?.suggested_route ?? 'intake';
+      // Intake handles escalation directly; skip thread reply if so.
+      if (!reply) {
+        log(`WhatsApp [intake] ${out?.outcome?.effective_action ?? 'no-reply'}; nothing to send back`);
+        return;
+      }
+    } else {
+      const agentId = await classify(text);
+      reply = await invokeAgent(agentId, text);
+      agentLabel = agentId;
+    }
+
+    log(`WhatsApp [out:${agentLabel}] ${reply.slice(0, 80)}${reply.length > 80 ? '…' : ''}`);
     await twilioClient.messages.create({
       from: whatsappFrom,
       to: from,

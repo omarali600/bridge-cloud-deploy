@@ -1,0 +1,18 @@
+{
+  "surface": "email",
+  "from": {
+    "identifier": "andrea.palmer@crrem.org",
+    "display": "Andrea Palmer",
+    "kind": "contact"
+  },
+  "content": {
+    "subject": "V2.04 methodology question — urgent",
+    "text": "Omar — quick one from Andrea here. A licensee partner is asking how to interpret the V2.04 pathway under a portfolio with mixed asset types in Germany. They need an answer by Friday for a board meeting. Can you weigh in or should I forward to the methodology team? Andrea",
+    "rawSurfaceMetadata": {
+      "gmail_message_id": "fixture-001",
+      "thread_id": "fixture-thread-001",
+      "labels": ["INBOX", "IMPORTANT"]
+    }
+  },
+  "hints": { "suspectedDomain": "crrem" }
+}

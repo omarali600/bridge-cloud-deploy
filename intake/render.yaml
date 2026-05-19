@@ -1,0 +1,65 @@
+services:
+  - type: web
+    name: bridge-intake
+    runtime: docker
+    plan: starter
+    region: frankfurt
+    rootDir: intake
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /health
+    disk:
+      name: intake-data
+      mountPath: /opt/data
+      sizeGB: 1
+    envVars:
+      # OpenClaw gateway — same identity the relay uses, so intake can invoke
+      # Beatrix/Clem sessions directly.
+      - key: BRIDGE_GATEWAY_URL
+        value: "wss://bridge-openclaw.onrender.com"
+      - key: OPENCLAW_GATEWAY_TOKEN
+        sync: false
+      - key: BRIDGE_SERVICE_DEVICE_JSON_B64
+        sync: false
+      - key: BRIDGE_SERVICE_DEVICE_AUTH_JSON_B64
+        sync: false
+      # Classifier LLM. Falls back to Claude Haiku if cost-guard tightens.
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: CLASSIFIER_PRIMARY_MODEL
+        value: "claude-sonnet-4-5"
+      - key: CLASSIFIER_FALLBACK_MODEL
+        value: "claude-haiku-4-5"
+      # Telegram — used both for inbound (via relay HTTP) and for omar-direct escalation messages.
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: TELEGRAM_CHAT_ID
+        sync: false
+      # gbrain HTTP for brain writes (alternative to spawning gbrain locally).
+      - key: GBRAIN_HTTP_URL
+        value: "https://bridge-gbrain-http.onrender.com"
+      - key: GBRAIN_HTTP_TOKEN
+        sync: false
+      # Google OAuth (Gmail + Calendar + Drive). Refresh tokens persist to /opt/data/oauth/.
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: GOOGLE_OAUTH_REDIRECT_URI
+        sync: false
+      # Microsoft 365 / SharePoint — credentials for Graph API.
+      - key: MICROSOFT_TENANT_ID
+        sync: false
+      - key: MICROSOFT_CLIENT_ID
+        sync: false
+      - key: MICROSOFT_CLIENT_SECRET
+        sync: false
+      # OpenAI for Whisper transcription on voice memos.
+      - key: OPENAI_API_KEY
+        sync: false
+      # Admin token for /admin/* endpoints.
+      - key: ADMIN_TOKEN
+        generateValue: true
+      # Whether to actually act on classifications or just classify + log.
+      # Set to "1" once Omar's reviewed the audit log for a few days.
+      - key: INTAKE_LIVE_ROUTING
+        value: "1"

@@ -1,0 +1,20 @@
+{
+  "surface": "sharepoint",
+  "from": {
+    "identifier": "missy.morrow@crrem.org",
+    "display": "Missy Morrow",
+    "kind": "contact"
+  },
+  "content": {
+    "subject": "Methodology V2.05 — draft.docx",
+    "text": "SharePoint file: /CRREM Vault/Methodology/Methodology V2.05 — draft.docx\nModified by Missy Morrow at 2026-05-20T10:15:00Z\nLink: https://crrem.sharepoint.com/sites/methodology/V2.05.docx",
+    "rawSurfaceMetadata": {
+      "file_id": "01ABCDEFG",
+      "path": "/CRREM Vault/Methodology/Methodology V2.05 — draft.docx",
+      "web_url": "https://crrem.sharepoint.com/sites/methodology/V2.05.docx",
+      "size": 124800,
+      "mime_type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    }
+  },
+  "hints": { "suspectedDomain": "crrem-internal" }
+}

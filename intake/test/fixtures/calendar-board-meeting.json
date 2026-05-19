@@ -1,0 +1,25 @@
+{
+  "surface": "calendar",
+  "from": {
+    "identifier": "hans@crrem.org",
+    "display": "Hans Müller",
+    "kind": "contact"
+  },
+  "content": {
+    "subject": "CRREM Board Quarterly Review",
+    "text": "created: CRREM Board Quarterly Review\nWhen: 2026-06-12T14:00:00+02:00 to 2026-06-12T16:30:00+02:00\nWhere: Amsterdam HQ + Teams link\nAttendees: hans@crrem.org, omar@crrem.org, board@crrem.org\n\nQuarterly review with full board. Methodology update, ASP cohort growth, funding pipeline.",
+    "rawSurfaceMetadata": {
+      "event_id": "fixture-cal-001",
+      "status": "confirmed",
+      "start": "2026-06-12T14:00:00+02:00",
+      "end": "2026-06-12T16:30:00+02:00",
+      "location": "Amsterdam HQ + Teams link",
+      "attendees": [
+        {"email": "hans@crrem.org", "responseStatus": "accepted"},
+        {"email": "omar@crrem.org", "responseStatus": "needsAction"},
+        {"email": "board@crrem.org", "responseStatus": "needsAction"}
+      ]
+    }
+  },
+  "hints": { "suspectedDomain": "admin" }
+}

@@ -28,6 +28,7 @@ import { initWhatsapp } from './channels/whatsapp.mjs';
 import { startHttpServer } from './http.mjs';
 import { initRouting } from './routing.mjs';
 import { initAgentClient } from './agents.mjs';
+import { initIntake } from './intake-client.mjs';
 import { log } from './log.mjs';
 
 // ───── identity bootstrap ─────
@@ -90,6 +91,10 @@ initAgentClient({
   gatewayUrl: GATEWAY_URL,
   gatewayToken: GATEWAY_TOKEN,
   stateDir: STATE_DIR,
+});
+initIntake({
+  intakeUrl: process.env.INTAKE_URL,
+  adminToken: process.env.INTAKE_ADMIN_TOKEN,
 });
 
 const httpPort = Number(process.env.PORT ?? 8080);

@@ -1,0 +1,20 @@
+{
+  "surface": "photo",
+  "from": {
+    "identifier": "omar",
+    "display": "Omar (photo)",
+    "kind": "self"
+  },
+  "content": {
+    "subject": "IMG_5183.jpeg",
+    "ocr": "ALBERT HEIJN\nAmsterdam Centrum\n2026-05-19 18:42\nMilk 2L  EUR 2.49\nBread     EUR 3.10\nTomatoes  EUR 4.80\nTotal     EUR 10.39\nDank u wel!",
+    "vision": "A grocery store receipt from Albert Heijn in Amsterdam Centrum, dated May 19 2026. Total 10.39 EUR.",
+    "rawSurfaceMetadata": {
+      "filename": "receipt-IMG_5183.jpeg",
+      "source_dir": "/Users/omar/Downloads",
+      "sha256": "rcptfixture",
+      "dimensions": {"width": 1024, "height": 1768}
+    }
+  },
+  "hints": {}
+}

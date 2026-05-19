@@ -34,3 +34,9 @@ services:
         sync: false
       - key: TWILIO_AUTH_TOKEN
         sync: false
+      # When set, relay forwards inbound channel messages through bridge-intake
+      # (Bridget's classifier + router). Unset = legacy direct-classify path.
+      - key: INTAKE_URL
+        value: "https://bridge-intake.onrender.com"
+      - key: INTAKE_ADMIN_TOKEN
+        sync: false

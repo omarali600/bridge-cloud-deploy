@@ -1,0 +1,18 @@
+{
+  "surface": "voice-memo",
+  "from": {
+    "identifier": "omar",
+    "display": "Omar (voice memo)",
+    "kind": "self"
+  },
+  "content": {
+    "subject": "voice-memo-2026-05-20-thinking.m4a",
+    "transcript": "Thinking about CRREM V2.04 misalignment year reporting. We need a cleaner way to show portfolio-level misalignment vs asset-level. Maybe a stacked bar — colored by year of first misalignment — could be the chart. Bring this up with the methodology team next call.",
+    "rawSurfaceMetadata": {
+      "filename": "voice-memo-2026-05-20-thinking.m4a",
+      "duration_sec": 38,
+      "sha256": "abc123fixture"
+    }
+  },
+  "hints": {}
+}

@@ -1,0 +1,21 @@
+{
+  "name": "bridge-intake",
+  "version": "0.1.0",
+  "description": "Bridget's intake engine — the membrane between every inbound surface and Omar's inner agents. Every email, message, voice memo, photo, file flows through this service first. Classifier, router, audit log, surface adapters. Capability #22 from the BRIDGE canvas.",
+  "type": "module",
+  "main": "src/daemon.mjs",
+  "scripts": {
+    "start": "node src/daemon.mjs",
+    "test": "node test/run.mjs",
+    "test:e2e": "node test/e2e.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.62.0",
+    "google-auth-library": "^10.4.0",
+    "googleapis": "^165.0.0",
+    "twilio": "^5.4.5"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

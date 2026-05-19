@@ -1,0 +1,16 @@
+{
+  "surface": "telegram",
+  "from": {
+    "identifier": "5372586465",
+    "display": "Omar",
+    "kind": "self"
+  },
+  "content": {
+    "text": "Reuters journalist just messaged asking for a quote on the EU taxonomy update by end of day. What do I do?",
+    "rawSurfaceMetadata": {
+      "message_id": 9999,
+      "chat_id": "5372586465"
+    }
+  },
+  "hints": {}
+}

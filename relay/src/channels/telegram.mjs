@@ -9,6 +9,7 @@ import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { setTimeout as sleep } from 'node:timers/promises';
 import { classify } from '../routing.mjs';
 import { invokeAgent } from '../agents.mjs';
+import { forward, intakeEnabled } from '../intake-client.mjs';
 import { log } from '../log.mjs';
 
 let token, chatId, offsetFile;
@@ -117,11 +118,40 @@ async function handleMessage(msg) {
 
   const stopTyping = startTyping();
   try {
-    const agentId = await classify(text);
-    const reply = await invokeAgent(agentId, text);
+    let reply = null;
+    let agentLabel = 'unknown';
+
+    if (intakeEnabled()) {
+      // Forward to bridge-intake. Intake classifies, routes, returns the reply
+      // text (if any) for us to send back on the same Telegram thread.
+      const out = await forward('telegram', { message: msg });
+      reply = out?.outcome?.reply ?? null;
+      agentLabel = out?.outcome?.target ?? out?.classification?.suggested_route ?? 'intake';
+      // If intake escalated to Omar, the omar-direct message already went out
+      // via Telegram from the intake service itself. Don't double-message.
+      if (out?.outcome?.effective_action === 'escalate' && !reply) {
+        log(`Telegram [intake] escalated to Omar (no reply on thread)`);
+        stopTyping();
+        return;
+      }
+      // Queued / archived items also don't get a thread reply.
+      if (!reply && ['queue', 'archive'].includes(out?.outcome?.effective_action)) {
+        log(`Telegram [intake] ${out.outcome.effective_action} (no reply on thread)`);
+        stopTyping();
+        return;
+      }
+    } else {
+      // Legacy path: classify + invoke directly. Kept until intake is verified.
+      const agentId = await classify(text);
+      reply = await invokeAgent(agentId, text);
+      agentLabel = agentId;
+    }
+
     stopTyping();
-    log(`Telegram [out:${agentId}] ${reply.slice(0, 80)}${reply.length > 80 ? '…' : ''}`);
-    await tgSendMessage(reply, msg.message_id);
+    if (reply) {
+      log(`Telegram [out:${agentLabel}] ${reply.slice(0, 80)}${reply.length > 80 ? '…' : ''}`);
+      await tgSendMessage(reply, msg.message_id);
+    }
   } catch (e) {
     stopTyping();
     log(`Telegram error: ${e.message}`);

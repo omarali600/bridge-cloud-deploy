@@ -1,0 +1,16 @@
+{
+  "surface": "telegram",
+  "from": {
+    "identifier": "5372586465",
+    "display": "Omar",
+    "kind": "self"
+  },
+  "content": {
+    "text": "remind me to call my dad on saturday, his birthday's coming up next week",
+    "rawSurfaceMetadata": {
+      "message_id": 1234,
+      "chat_id": "5372586465"
+    }
+  },
+  "hints": {}
+}
