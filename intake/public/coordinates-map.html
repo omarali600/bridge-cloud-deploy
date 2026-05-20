@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Omar — Six-Plane Atlas</title>
+  <title>Omar · A Six-Plane Atlas</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,200..900,0..100;1,9..144,200..900,0..100&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=JetBrains+Mono:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
@@ -19,16 +19,26 @@
       --ink-ghost:#b6ad97;
       --rust:#a8543b;
       --rust-dark:#7e3e2c;
+      --rust-soft:#c97a5c;
       --teal:#2f5d5a;
       --moss:#4d6a3e;
       --ochre:#b88a1f;
-      --hairline:rgba(28,29,32,.18);
-      --hairline-soft:rgba(28,29,32,.10);
-      --hairline-warm:rgba(168,84,59,.25);
-      --chart-bg:#f9f4e6;
+      --hairline:rgba(28,29,32,.16);
+      --hairline-soft:rgba(28,29,32,.08);
+      --plot-bg:#f9f4e6;
     }
     *,*::before,*::after{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);font-family:'Newsreader',Georgia,serif;font-weight:380;line-height:1.5;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;font-feature-settings:"kern","liga","calt","ss01"}
+    html,body{
+      margin:0;padding:0;
+      background:var(--paper);
+      color:var(--ink);
+      font-family:'Newsreader',Georgia,serif;
+      font-weight:380;
+      line-height:1.5;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+      font-feature-settings:"kern","liga","calt","ss01";
+    }
     body{
       min-height:100vh;
       background-image:
@@ -40,253 +50,442 @@
     }
     ::selection{background:var(--rust);color:var(--paper)}
 
-    .header{
+    /* ═════════════ MASTHEAD ═════════════ */
+    .masthead{
       max-width:1500px;
       margin:0 auto;
-      padding:32px 48px 18px;
+      padding:36px 56px 18px;
       border-bottom:1px solid var(--ink);
       display:grid;
       grid-template-columns:1fr auto 1fr;
       align-items:end;
-      gap:24px;
+      gap:32px;
     }
-    .header-left,.header-right{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft)}
-    .header-right{text-align:right}
-    .header-title{font-family:'Fraunces',serif;font-variation-settings:"opsz" 144,"wght" 400,"SOFT" 40;font-size:30px;letter-spacing:.01em;text-align:center;color:var(--ink)}
-    .header-title em{font-style:italic;font-variation-settings:"opsz" 144,"wght" 280,"SOFT" 100;color:var(--rust)}
-
-    .tabs{
-      max-width:1500px;
-      margin:0 auto;
-      padding:0 48px;
-      display:flex;
-      gap:0;
-      border-bottom:1px solid var(--hairline);
-      overflow-x:auto;
-    }
-    .tab{
-      flex:1;
-      min-width:120px;
-      padding:18px 14px 16px;
+    .mast-left,.mast-right{
       font-family:'JetBrains Mono',monospace;
-      font-size:11px;
-      letter-spacing:.16em;
+      font-size:10.5px;
+      letter-spacing:.2em;
       text-transform:uppercase;
-      color:var(--ink-fade);
-      cursor:pointer;
-      text-align:center;
-      border-bottom:2px solid transparent;
-      transition:all .15s ease;
-      background:transparent;
-      border-left:1px solid var(--hairline-soft);
-      border-right:none;
-      border-top:none;
+      color:var(--ink-soft);
     }
-    .tab:first-child{border-left:none}
-    .tab:hover{color:var(--ink)}
-    .tab.active{color:var(--rust);border-bottom-color:var(--rust)}
-    .tab .num{display:block;font-size:9px;letter-spacing:.2em;color:var(--ink-ghost);margin-bottom:4px}
-    .tab.active .num{color:var(--rust)}
-    .tab .pos{display:block;margin-top:4px;font-family:'Fraunces',serif;font-variation-settings:"opsz" 60,"wght" 380,"SOFT" 80;font-style:italic;font-size:13px;text-transform:none;letter-spacing:.01em;color:var(--ink-2)}
+    .mast-right{text-align:right}
+    .mast-center{
+      font-family:'Fraunces',serif;
+      font-variation-settings:"opsz" 144,"wght" 400,"SOFT" 40;
+      font-size:28px;
+      letter-spacing:.01em;
+      text-align:center;
+      color:var(--ink);
+    }
+    .mast-center em{
+      font-style:italic;
+      font-variation-settings:"opsz" 144,"wght" 280,"SOFT" 100;
+      color:var(--rust);
+    }
 
-    .body-wrap{
+    /* ═════════════ HERO WHEEL ═════════════ */
+    .hero{
       max-width:1500px;
       margin:0 auto;
-      padding:48px 48px 80px;
+      padding:64px 56px 72px;
       display:grid;
-      grid-template-columns:520px 1fr;
-      gap:72px;
-      align-items:start;
+      grid-template-columns:1fr 1.4fr 1fr;
+      gap:48px;
+      align-items:center;
     }
-    @media(max-width:1280px){
-      .body-wrap{grid-template-columns:1fr 1fr;gap:48px}
-    }
-    @media(max-width:1000px){
-      .body-wrap{grid-template-columns:1fr;gap:48px}
-      .header{padding:24px 28px 14px}
-      .tabs{padding:0 28px}
+    @media(max-width:1100px){
+      .hero{grid-template-columns:1fr;gap:32px;padding:48px 32px 56px}
+      .hero-side{order:2}
     }
     @media(max-width:700px){
-      .body-wrap{padding:36px 24px 60px}
-      .header{grid-template-columns:1fr;text-align:left;padding:20px 20px 12px}
-      .header-title,.header-right{text-align:left}
-      .tabs{padding:0 24px}
+      .hero{padding:32px 20px 40px}
+      .masthead{padding:24px 24px 14px;grid-template-columns:1fr;text-align:left;gap:6px}
+      .mast-center,.mast-right{text-align:left}
     }
 
-    /* chart column */
-    .chart-col{position:sticky;top:24px;align-self:start}
-    @media(max-width:1000px){.chart-col{position:relative;top:0}}
-
-    .chart-eyebrow{
+    .hero-eyebrow-left{
       font-family:'JetBrains Mono',monospace;
-      font-size:11px;
+      font-size:10.5px;
       letter-spacing:.22em;
       text-transform:uppercase;
       color:var(--rust);
-      margin-bottom:14px;
+      margin-bottom:18px;
       display:flex;
       align-items:center;
       gap:14px;
     }
-    .chart-eyebrow::before{content:'';width:32px;height:1px;background:var(--rust)}
-    .chart-title{
+    .hero-eyebrow-left::before{content:'';width:32px;height:1px;background:var(--rust)}
+
+    .hero-headline{
       font-family:'Fraunces',serif;
-      font-variation-settings:"opsz" 144,"wght" 380,"SOFT" 30;
-      font-size:clamp(40px,5vw,68px);
+      font-variation-settings:"opsz" 144,"wght" 360,"SOFT" 30;
+      font-size:clamp(36px,4.4vw,68px);
       line-height:.95;
       letter-spacing:-0.03em;
-      margin:0 0 8px;
+      margin:0 0 24px;
+      color:var(--ink);
     }
-    .chart-title em{font-style:italic;font-variation-settings:"opsz" 144,"wght" 280,"SOFT" 100;color:var(--rust)}
-    .chart-position{font-family:'Newsreader',serif;font-size:17px;font-style:italic;color:var(--ink-soft);margin:0 0 28px;font-weight:300;line-height:1.4}
-    .chart-position strong{color:var(--rust);font-style:normal;font-weight:500;letter-spacing:.02em}
+    .hero-headline em{
+      font-style:italic;
+      font-variation-settings:"opsz" 144,"wght" 260,"SOFT" 100;
+      color:var(--rust);
+    }
+    .hero-dek{
+      font-family:'Newsreader',serif;
+      font-size:18px;
+      line-height:1.55;
+      color:var(--ink-2);
+      max-width:36ch;
+      font-style:italic;
+      font-weight:300;
+      margin:0;
+    }
 
-    .chart{
+    .wheel-wrap{
       position:relative;
       width:100%;
       aspect-ratio:1;
-      background:var(--chart-bg);
-      border:1px solid var(--hairline);
-      box-shadow:inset 0 0 60px rgba(168,84,59,.04);
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
-    .chart-corner{position:absolute;width:14px;height:14px;border-color:var(--ink-soft);border-style:solid;border-width:0;opacity:.5}
-    .chart-corner.tl{top:-1px;left:-1px;border-top-width:1px;border-left-width:1px}
-    .chart-corner.tr{top:-1px;right:-1px;border-top-width:1px;border-right-width:1px}
-    .chart-corner.bl{bottom:-1px;left:-1px;border-bottom-width:1px;border-left-width:1px}
-    .chart-corner.br{bottom:-1px;right:-1px;border-bottom-width:1px;border-right-width:1px}
-    .chart-svg{width:100%;height:100%;display:block}
+    .wheel-svg{width:100%;height:100%;display:block;cursor:default}
 
-    /* SVG element styling — light touch */
-    .grid-line{stroke:rgba(28,29,32,.06);stroke-width:.25;fill:none}
-    .axis-line{stroke:var(--ink-fade);stroke-width:.25;fill:none}
-    .compass-rose{fill:none;stroke:rgba(28,29,32,.10);stroke-width:.3}
-    .compass-rose-inner{fill:none;stroke:rgba(28,29,32,.14);stroke-width:.35}
-    .center-mark{fill:var(--ink-fade);opacity:.4}
-    .dot{fill:var(--rust)}
-    .dot-ring{fill:none;stroke:var(--rust);stroke-width:.6;opacity:.4}
-    .dot-ring-2{fill:none;stroke:var(--rust);stroke-width:.3;opacity:.18}
-    @keyframes radar-pulse{0%{r:2;opacity:.55}100%{r:11;opacity:0}}
-    .dot-pulse{fill:none;stroke:var(--rust);stroke-width:.5;animation:radar-pulse 2.6s ease-out infinite}
-    .leader-line{stroke:var(--rust);stroke-width:.3;opacity:.55;fill:none}
-
-    /* Cardinal axis names (URBAN/REMOTE/DYNAMIC/STATIC) — fully outside the chart, very light */
-    .axis-cardinal{
+    .hero-side.right{
+      display:flex;
+      flex-direction:column;
+      gap:24px;
+    }
+    .legend-line{
       font-family:'JetBrains Mono',monospace;
-      font-size:2.6px;
-      letter-spacing:.32em;
+      font-size:10px;
+      letter-spacing:.16em;
       text-transform:uppercase;
-      fill:var(--ink-fade);
+      color:var(--ink-fade);
+      display:grid;
+      grid-template-columns:auto 1fr;
+      gap:18px;
+      align-items:start;
+    }
+    .legend-line .key{color:var(--ink-soft);font-weight:500;white-space:nowrap}
+    .legend-line .val{color:var(--ink);font-family:'Newsreader',serif;font-style:italic;font-size:14px;letter-spacing:0;line-height:1.4;text-transform:none}
+    .legend-divider{height:1px;background:var(--hairline);margin:8px 0}
+
+    /* ═════════════ SVG WHEEL STYLING ═════════════ */
+    .wheel-outer-circle{fill:none;stroke:var(--ink);stroke-width:.25}
+    .wheel-inner-circle{fill:none;stroke:var(--hairline);stroke-width:.2}
+    .wheel-sector-divider{stroke:var(--hairline);stroke-width:.2;fill:none}
+    .wheel-grid{stroke:rgba(28,29,32,.05);stroke-width:.15;fill:none}
+    .wheel-axis-line{stroke:var(--ink-fade);stroke-width:.18;fill:none;stroke-dasharray:.6 .6}
+    .wheel-plot-bg{fill:var(--plot-bg);opacity:.5}
+    .wheel-plot-border{fill:none;stroke:var(--hairline);stroke-width:.15}
+    .wheel-sector-label{
+      font-family:'JetBrains Mono',monospace;
+      font-size:1.6px;
+      letter-spacing:.26em;
+      text-transform:uppercase;
+      fill:var(--ink-soft);
       font-weight:500;
     }
-
-    /* Quadrant landmarks (jetsetter/entrepreneur/etc) — italic Fraunces, set on the diagonal at quadrant centers */
-    .quadrant-landmark{
-      font-family:'Fraunces',serif;
-      font-variation-settings:"opsz" 60,"wght" 340,"SOFT" 80;
-      font-style:italic;
-      font-size:3.4px;
-      fill:var(--ink-ghost);
-      text-anchor:middle;
-      letter-spacing:.01em;
-    }
-    .quadrant-landmark.near{fill:var(--rust-dark);opacity:.9}
-
-    .landmark-label{
-      font-family:'Fraunces',serif;
-      font-variation-settings:"opsz" 60,"wght" 500,"SOFT" 80;
-      font-style:italic;
-      font-size:4px;
+    .wheel-sector-roman{
+      font-family:'JetBrains Mono',monospace;
+      font-size:1.2px;
+      letter-spacing:.18em;
       fill:var(--rust);
     }
-    .position-readout{
+    .wheel-landmark{
+      font-family:'Fraunces',serif;
+      font-variation-settings:"opsz" 60,"wght" 400,"SOFT" 90;
+      font-style:italic;
+      font-size:2.8px;
+      fill:var(--ink);
+      letter-spacing:.01em;
+    }
+    .wheel-axis-label{
       font-family:'JetBrains Mono',monospace;
-      font-size:2.2px;
+      font-size:1.1px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
       fill:var(--ink-fade);
-      letter-spacing:.08em;
     }
-
-    .legend-box{
-      margin-top:24px;
-      padding:18px 22px;
-      border:1px solid var(--hairline);
-      background:rgba(244,239,227,.6);
-      display:grid;
-      grid-template-columns:auto 1fr auto 1fr;
-      gap:12px 24px;
-      font-family:'JetBrains Mono',monospace;
-      font-size:11px;
-      letter-spacing:.04em;
+    .wheel-quadrant-label{
+      font-family:'Fraunces',serif;
+      font-style:italic;
+      font-variation-settings:"opsz" 60,"wght" 320,"SOFT" 80;
+      font-size:1.3px;
+      fill:var(--ink-ghost);
+      text-anchor:middle;
     }
-    .legend-label{color:var(--ink-fade);text-transform:uppercase;letter-spacing:.14em;font-size:10px;white-space:nowrap}
-    .legend-value{color:var(--ink);font-weight:500;font-size:12px}
-
-    /* reading column */
-    .reading{padding-top:6px}
-    .reading-section{margin-bottom:40px}
-    .reading-section h3{
+    .wheel-quadrant-label.lit{fill:var(--rust-dark);opacity:.85}
+    .wheel-confidence{
       font-family:'JetBrains Mono',monospace;
-      font-size:11px;
+      font-size:1.2px;
+      letter-spacing:.1em;
+      fill:var(--rust);
+    }
+    .silhouette{
+      fill:rgba(168,84,59,.06);
+      stroke:var(--rust);
+      stroke-width:.35;
+      stroke-linejoin:round;
+    }
+    .dot-ring{fill:none;stroke:var(--rust);stroke-width:.25;opacity:.45}
+    .dot-fill{fill:var(--rust)}
+    @keyframes radar-pulse{0%{r:.7;opacity:.6}100%{r:3.2;opacity:0}}
+    .dot-pulse{fill:none;stroke:var(--rust);stroke-width:.18;animation:radar-pulse 3s ease-out infinite}
+
+    .center-medallion-bg{fill:var(--paper);stroke:var(--ink);stroke-width:.3}
+    .center-name{
+      font-family:'Fraunces',serif;
+      font-variation-settings:"opsz" 144,"wght" 380,"SOFT" 40;
+      font-size:5px;
+      fill:var(--ink);
+      letter-spacing:-.02em;
+    }
+    .center-sub{
+      font-family:'JetBrains Mono',monospace;
+      font-size:1.4px;
       letter-spacing:.22em;
+      text-transform:uppercase;
+      fill:var(--ink-fade);
+    }
+    .center-conf{
+      font-family:'Fraunces',serif;
+      font-style:italic;
+      font-size:2.6px;
+      fill:var(--rust);
+      font-variation-settings:"opsz" 60,"wght" 380,"SOFT" 80;
+    }
+
+    /* tooltips on dot hover */
+    .wheel-sector-group{cursor:pointer}
+    .wheel-sector-group .sector-hit{fill:transparent}
+    .wheel-sector-group:hover .wheel-landmark{fill:var(--rust-dark)}
+    .wheel-sector-group:hover .wheel-plot-bg{opacity:.85}
+
+    /* ═════════════ DRILL-IN EDITORIAL ═════════════ */
+    .drill-section{
+      border-top:1px solid var(--ink);
+      padding:80px 0;
+      position:relative;
+    }
+    .drill-section:nth-child(odd){background:linear-gradient(180deg, transparent 0%, rgba(168,84,59,.025) 100%)}
+    .drill-inner{
+      max-width:1500px;
+      margin:0 auto;
+      padding:0 56px;
+      display:grid;
+      grid-template-columns:1fr 1.5fr;
+      gap:80px;
+    }
+    @media(max-width:1100px){
+      .drill-inner{grid-template-columns:1fr;gap:40px;padding:0 32px}
+      .drill-section{padding:56px 0}
+    }
+    @media(max-width:700px){
+      .drill-inner{padding:0 20px}
+    }
+
+    .drill-left{position:sticky;top:24px;align-self:start;height:fit-content}
+    @media(max-width:1100px){.drill-left{position:relative;top:0}}
+
+    .drill-eyebrow{
+      font-family:'JetBrains Mono',monospace;
+      font-size:10.5px;
+      letter-spacing:.24em;
+      text-transform:uppercase;
+      color:var(--rust);
+      margin-bottom:18px;
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+    .drill-eyebrow::before{content:'';width:32px;height:1px;background:var(--rust)}
+    .drill-eyebrow .roman{font-weight:500;color:var(--rust)}
+
+    .drill-landmark{
+      font-family:'Fraunces',serif;
+      font-variation-settings:"opsz" 144,"wght" 380,"SOFT" 30;
+      font-size:clamp(56px,7vw,108px);
+      font-style:italic;
+      line-height:.9;
+      letter-spacing:-0.035em;
+      margin:0 0 18px;
+      color:var(--rust);
+      font-variation-settings:"opsz" 144,"wght" 260,"SOFT" 100;
+    }
+    .drill-description{
+      font-family:'Newsreader',serif;
+      font-size:18px;
+      font-style:italic;
+      color:var(--ink-soft);
+      font-weight:300;
+      line-height:1.45;
+      margin:0 0 28px;
+      max-width:34ch;
+    }
+    .drill-mini-chart{
+      width:100%;
+      max-width:280px;
+      aspect-ratio:1;
+      margin-bottom:24px;
+    }
+    .drill-mini-chart svg{width:100%;height:100%;display:block}
+
+    .drill-stats{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:20px 32px;
+      padding:20px 0;
+      border-top:1px solid var(--hairline);
+      border-bottom:1px solid var(--hairline);
+      max-width:280px;
+    }
+    .drill-stat .key{
+      font-family:'JetBrains Mono',monospace;
+      font-size:9.5px;
+      letter-spacing:.2em;
+      text-transform:uppercase;
+      color:var(--ink-fade);
+      margin-bottom:4px;
+    }
+    .drill-stat .val{
+      font-family:'Newsreader',serif;
+      font-style:italic;
+      font-size:15px;
+      color:var(--ink);
+      line-height:1.3;
+    }
+    .drill-stat .val.mono{font-family:'JetBrains Mono',monospace;font-style:normal;font-size:13px;letter-spacing:.04em}
+    .drill-stat .val.accent{color:var(--rust)}
+
+    .drill-right h3{
+      font-family:'JetBrains Mono',monospace;
+      font-size:10.5px;
+      letter-spacing:.24em;
       text-transform:uppercase;
       color:var(--rust);
       margin:0 0 14px;
       padding-bottom:8px;
       border-bottom:1px solid var(--hairline);
     }
-    .summary{font-family:'Newsreader',serif;font-size:18px;line-height:1.55;color:var(--ink-2);max-width:60ch;margin:0}
-    .summary::first-letter{
+    .drill-summary{
+      font-family:'Newsreader',serif;
+      font-size:19px;
+      line-height:1.55;
+      color:var(--ink-2);
+      max-width:60ch;
+      margin:0 0 56px;
+    }
+    .drill-summary::first-letter{
       font-family:'Fraunces',serif;
-      font-variation-settings:"opsz" 144,"wght" 380,"SOFT" 60;
-      font-size:54px;
-      line-height:.85;
+      font-variation-settings:"opsz" 144,"wght" 400,"SOFT" 80;
+      font-size:64px;
+      line-height:.82;
       float:left;
-      margin:6px 10px 0 0;
+      margin:6px 12px 0 0;
       color:var(--rust);
     }
 
-    .evidence-list{list-style:none;padding:0 0 0 44px;margin:0;counter-reset:ev}
-    @media(max-width:1000px){.evidence-list{padding-left:0}}
-    .evidence-item{padding:22px 0;border-bottom:1px solid var(--hairline-soft);counter-increment:ev;position:relative}
-    .evidence-item:last-child{border-bottom:none}
-    .evidence-item::before{
-      content:counter(ev,decimal-leading-zero);
-      position:absolute;top:22px;left:-44px;
-      font-family:'JetBrains Mono',monospace;
-      font-size:11px;letter-spacing:.1em;color:var(--rust);font-weight:500;
+    .evidence-grid{
+      list-style:none;
+      padding:0;
+      margin:0 0 56px;
+      counter-reset:ev;
     }
-    @media(max-width:1000px){.evidence-item::before{left:0;top:0;position:relative;display:block;margin-bottom:8px}}
+    .evidence-row{
+      display:grid;
+      grid-template-columns:36px 1fr;
+      gap:14px;
+      padding:22px 0;
+      border-bottom:1px solid var(--hairline-soft);
+      counter-increment:ev;
+      position:relative;
+    }
+    .evidence-row:last-child{border-bottom:none}
+    .evidence-row::before{
+      content:counter(ev,decimal-leading-zero);
+      font-family:'JetBrains Mono',monospace;
+      font-size:11px;
+      letter-spacing:.1em;
+      color:var(--rust);
+      font-weight:500;
+      padding-top:2px;
+    }
+    .evidence-row .body{min-width:0}
     .evidence-quote{
       font-family:'Fraunces',serif;
       font-variation-settings:"opsz" 60,"wght" 360,"SOFT" 80;
       font-style:italic;
-      font-size:17px;line-height:1.45;color:var(--ink);
-      margin:0 0 10px;padding-left:14px;
-      border-left:2px solid var(--rust);max-width:54ch;
+      font-size:18px;
+      line-height:1.45;
+      color:var(--ink);
+      margin:0 0 10px;
+      padding-left:14px;
+      border-left:2px solid var(--rust);
+      max-width:54ch;
     }
-    .evidence-source{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.05em;color:var(--ink-fade);margin-bottom:6px;line-height:1.4}
-    .evidence-source code{background:none;color:var(--ink-soft);font-size:11px;padding:0;font-family:'JetBrains Mono',monospace}
-    .evidence-commentary{font-family:'Newsreader',serif;font-size:14.5px;line-height:1.5;color:var(--ink-soft);font-style:italic;max-width:54ch;margin:0}
+    .evidence-source{
+      font-family:'JetBrains Mono',monospace;
+      font-size:10.5px;
+      letter-spacing:.04em;
+      color:var(--ink-fade);
+      margin-bottom:6px;
+      line-height:1.4;
+    }
+    .evidence-source code{
+      font-family:'JetBrains Mono',monospace;
+      background:none;
+      padding:0;
+      color:var(--ink-soft);
+      font-size:11px;
+    }
+    .evidence-commentary{
+      font-family:'Newsreader',serif;
+      font-size:14.5px;
+      line-height:1.5;
+      color:var(--ink-soft);
+      font-style:italic;
+      max-width:54ch;
+      margin:0;
+    }
 
     .gaps-list{list-style:none;padding:0;margin:0}
-    .gaps-list li{padding:14px 0 14px 28px;border-bottom:1px solid var(--hairline-soft);font-family:'Newsreader',serif;font-size:15px;line-height:1.55;color:var(--ink-soft);position:relative;max-width:60ch}
+    .gaps-list li{
+      padding:14px 0 14px 30px;
+      border-bottom:1px solid var(--hairline-soft);
+      font-family:'Newsreader',serif;
+      font-size:15px;
+      line-height:1.55;
+      color:var(--ink-soft);
+      position:relative;
+      max-width:54ch;
+    }
     .gaps-list li:last-child{border-bottom:none}
-    .gaps-list li::before{content:'⊘';position:absolute;left:0;top:13px;color:var(--ochre);font-size:14px}
+    .gaps-list li::before{
+      content:'';
+      position:absolute;
+      left:4px;top:24px;
+      width:10px;height:10px;
+      border:1px solid var(--ochre);
+      transform:rotate(45deg);
+    }
 
-    /* cross-plane observations panel */
+    /* ═════════════ CROSS-PLANE ═════════════ */
     .cross-plane{
+      border-top:1px solid var(--ink);
+      padding:96px 56px 64px;
       max-width:1500px;
       margin:0 auto;
-      padding:56px 48px 24px;
-      border-top:1px solid var(--ink);
     }
-    @media(max-width:700px){.cross-plane{padding:40px 24px 18px}}
+    @media(max-width:700px){.cross-plane{padding:64px 24px 48px}}
     .cross-eyebrow{
       font-family:'JetBrains Mono',monospace;
-      font-size:11px;
-      letter-spacing:.22em;
+      font-size:10.5px;
+      letter-spacing:.24em;
       text-transform:uppercase;
       color:var(--rust);
-      margin-bottom:14px;
+      margin-bottom:18px;
       display:flex;
       align-items:center;
       gap:14px;
@@ -295,185 +494,369 @@
     .cross-title{
       font-family:'Fraunces',serif;
       font-variation-settings:"opsz" 144,"wght" 380,"SOFT" 40;
-      font-size:clamp(32px,4vw,52px);
-      letter-spacing:-0.02em;
-      line-height:1.05;
-      margin:0 0 36px;
+      font-size:clamp(36px,4.4vw,56px);
+      line-height:1.0;
+      letter-spacing:-0.025em;
+      margin:0 0 56px;
+      max-width:24ch;
     }
     .cross-title em{font-style:italic;font-variation-settings:"opsz" 144,"wght" 300,"SOFT" 100;color:var(--rust)}
-    .cross-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:32px}
-    @media(max-width:900px){.cross-grid{grid-template-columns:1fr;gap:24px}}
+
+    .cross-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:48px;
+      counter-reset:cross;
+    }
+    @media(max-width:900px){.cross-grid{grid-template-columns:1fr;gap:36px}}
     .cross-item{
-      padding:24px 28px;
-      background:rgba(244,239,227,.6);
-      border:1px solid var(--hairline);
-      border-left:3px solid var(--rust);
-      font-family:'Newsreader',serif;
-      font-size:16px;
-      line-height:1.55;
-      color:var(--ink-2);
       counter-increment:cross;
       position:relative;
+      padding-left:50px;
     }
     .cross-item::before{
       content:counter(cross,decimal-leading-zero);
-      display:block;
+      position:absolute;
+      left:0;top:0;
       font-family:'JetBrains Mono',monospace;
-      font-size:10px;
-      letter-spacing:.2em;
+      font-size:11px;
+      letter-spacing:.16em;
       color:var(--rust);
-      margin-bottom:10px;
+      font-weight:500;
     }
-    .cross-grid{counter-reset:cross}
+    .cross-item p{
+      font-family:'Newsreader',serif;
+      font-size:17px;
+      line-height:1.55;
+      color:var(--ink-2);
+      margin:0;
+    }
 
-    .footer-note{
+    /* ═════════════ COLOPHON ═════════════ */
+    .colophon{
+      border-top:1px solid var(--ink);
+      padding:32px 56px 28px;
       max-width:1500px;
       margin:0 auto;
-      padding:36px 48px 28px;
-      border-top:1px solid var(--hairline);
       font-family:'JetBrains Mono',monospace;
       font-size:10px;
-      letter-spacing:.14em;
+      letter-spacing:.18em;
       text-transform:uppercase;
       color:var(--ink-fade);
       display:flex;
       justify-content:space-between;
-      gap:16px;
+      gap:24px;
     }
-    @media(max-width:700px){.footer-note{padding:28px 24px 18px;flex-direction:column}}
+    @media(max-width:700px){
+      .colophon{padding:24px 24px 20px;flex-direction:column;gap:8px}
+    }
 
-    @keyframes fade-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-    .plane-content{animation:fade-in .5s ease both}
+    /* ═════════════ ANIMATIONS ═════════════ */
+    @keyframes fade-up{
+      from{opacity:0;transform:translateY(12px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+    .hero-eyebrow-left,
+    .hero-headline,
+    .hero-dek,
+    .wheel-wrap,
+    .legend-line{animation:fade-up .9s ease both}
+    .hero-headline{animation-delay:.1s}
+    .hero-dek{animation-delay:.2s}
+    .wheel-wrap{animation-delay:.3s}
+
+    @keyframes dot-draw{
+      from{transform:scale(0);opacity:0}
+      to{transform:scale(1);opacity:1}
+    }
+    .dot-fill,.dot-ring,.dot-pulse{
+      transform-origin:center;
+      transform-box:fill-box;
+    }
+    @keyframes silhouette-draw{
+      from{stroke-dashoffset:1000;opacity:0}
+      to{stroke-dashoffset:0;opacity:1}
+    }
+    .silhouette{
+      stroke-dasharray:1000;
+      animation:silhouette-draw 2.5s ease 1s both;
+    }
   </style>
 </head>
 <body>
-  <header class="header">
-    <div class="header-left">FROM THE VAULT · READ 2026-05-19</div>
-    <div class="header-title">A <em>six-plane</em> atlas of Omar</div>
-    <div class="header-right">AVG CONFIDENCE 83% · 39 SOURCES</div>
+  <header class="masthead">
+    <div class="mast-left">FROM THE VAULT · READ 2026-05-19</div>
+    <div class="mast-center">A <em>six-plane</em> atlas of Omar</div>
+    <div class="mast-right">AVG CONFIDENCE 83% · 39 SOURCES READ</div>
   </header>
 
-  <nav class="tabs" id="tabs"></nav>
-
-  <div class="body-wrap">
-    <div class="chart-col">
-      <div class="chart-eyebrow" id="chart-eyebrow">PLANE I · LIFESTYLE</div>
-      <h1 class="chart-title" id="chart-title"></h1>
-      <p class="chart-position" id="chart-position"></p>
-
-      <div class="chart">
-        <span class="chart-corner tl"></span>
-        <span class="chart-corner tr"></span>
-        <span class="chart-corner bl"></span>
-        <span class="chart-corner br"></span>
-        <svg class="chart-svg" id="chart-svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet"></svg>
-      </div>
-
-      <div class="legend-box">
-        <div class="legend-label">x-axis</div>
-        <div class="legend-value" id="legend-x">—</div>
-        <div class="legend-label">y-axis</div>
-        <div class="legend-value" id="legend-y">—</div>
-        <div class="legend-label">position</div>
-        <div class="legend-value" id="legend-pos">—</div>
-        <div class="legend-label">confidence</div>
-        <div class="legend-value" id="legend-conf">—</div>
-      </div>
+  <section class="hero">
+    <div class="hero-side left">
+      <div class="hero-eyebrow-left">Plane atlas · 2026-05-19</div>
+      <h1 class="hero-headline">The <em>shape</em> of one person, read from his own writing.</h1>
+      <p class="hero-dek">Thirty-nine pages from Omar's vault, drawn into six planes. The composite figure at right is his signature — drawn by Claude Sonnet 4.6 from the words he's already written.</p>
     </div>
 
-    <div class="reading">
-      <div class="plane-content" id="plane-content">
-        <div class="reading-section">
-          <h3>The Read</h3>
-          <p class="summary" id="summary"></p>
-        </div>
+    <div class="wheel-wrap">
+      <svg class="wheel-svg" viewBox="0 0 200 200" id="wheel-svg" preserveAspectRatio="xMidYMid meet" aria-label="Composite six-plane wheel"></svg>
+    </div>
 
-        <div class="reading-section">
-          <h3>Evidence, verbatim</h3>
-          <ol class="evidence-list" id="evidence-list"></ol>
-        </div>
-
-        <div class="reading-section">
-          <h3>What's thin</h3>
-          <ul class="gaps-list" id="gaps-list"></ul>
-        </div>
+    <div class="hero-side right">
+      <div id="legend-rows"></div>
+      <div class="legend-divider"></div>
+      <div class="legend-line">
+        <span class="key">Engine</span>
+        <span class="val">Claude Sonnet 4.6 · Run 0MPD9X1JZQKK2XH28</span>
+      </div>
+      <div class="legend-line">
+        <span class="key">Read</span>
+        <span class="val">39 high-signal pages from the vault — soul, focus, the campfire transcript, the voice corpus, BRIDGE canon.</span>
+      </div>
+      <div class="legend-line">
+        <span class="key">Caveat</span>
+        <span class="val">This is a mirror, not a label. The shape moves as he does.</span>
       </div>
     </div>
-  </div>
+  </section>
+
+  <!-- Per-plane drill-ins, populated by JS -->
+  <div id="drills"></div>
 
   <section class="cross-plane">
-    <div class="cross-eyebrow">CROSS-PLANE</div>
-    <h2 class="cross-title">What the engine <em>noticed</em>, across planes.</h2>
+    <div class="cross-eyebrow">Cross-plane observations</div>
+    <h2 class="cross-title">What the engine <em>noticed</em>, across all six.</h2>
     <div class="cross-grid" id="cross-grid"></div>
   </section>
 
-  <footer class="footer-note">
+  <footer class="colophon">
     <span id="run-meta">RUN — · CLAUDE — · ENGINE —</span>
-    <span>This is a mirror, not a label. The map moves as you do.</span>
+    <span>The map moves as he does.</span>
   </footer>
 
   <script id="coord-data" type="application/json">{"planes": {"lifestyle": {"name": "lifestyle", "x": -0.55, "y": -0.65, "confidence": 0.82, "landmark": "bohemian", "summary": "Omar lives in Amsterdam — a dense, networked European city — and has built his life there over eight years, yet the pattern across his vault is restless movement: solo interrailing trips, India twice, Egypt visits, a background spanning Japan, Egypt, St Louis, Scotland, and the Netherlands. His days follow a distinct rhythm: sharp mornings for deep work, dead afternoons for gym and walking, evenings conditional on excitement. The city has 'tried to push him out multiple times' yet he stays, anchored partly by a pending house purchase. His perfect week oscillates between Amsterdam-based fulfilment and travel-rich novelty, suggesting a dynamic urban person who is slowly building a static anchor without fully committing to either pole.", "gaps": ["No data on actual travel frequency in the current chapter — the vault describes aspirations and history but not how much Omar actually moves right now versus how much he wishes he did.", "Income and financial constraints (debt repayment at ~€950/month) likely suppress lifestyle dynamism below stated preference — the gap between desired and actual lifestyle is not fully visible in the corpus."], "axes": {"x": ["dynamic", "static"], "y": ["urban", "remote"]}, "evidence": [{"quote": "Amsterdam is beautiful, isolating, full of FOMO. The city has tried to push me out multiple times. I stay because leaving without an anchor feels like failure.", "source": "`soul.md` · The Amsterdam Question", "commentary": "Confirms urban placement with tension toward static anchoring; the Amsterdam house deal is a pull toward +x (static) while his instincts remain dynamic."}, {"quote": "A perfect week for me. Would involve travel, meeting new people, reconnecting with old ones, working on something that I'm very passionate about, having a sense of achievement, feeling like it's building towards something bigger.", "source": "`memory/threads/2026-03-27-campfire-intake-transcript.md` · Section 1: Lifestyle", "commentary": "Travel and meeting new people as primary ingredients of a perfect week confirms dynamic orientation despite Amsterdam anchor."}, {"quote": "Solo interrailing trip across Europe in senior year of high school. Solo trip across the US East Coast. Both trips: choosing where to go based on where I came from. Perpetual motion.", "source": "`soul.md` · The Builder Pattern", "commentary": "Perpetual motion is explicitly named; movement as identity, not just preference."}, {"quote": "I think a perfect week could also be one spent in Amsterdam at home. As long as I'm working on something that I find fulfilling and hanging out with friends and spending some time in nature and being active, and balancing myself, then can really find true fulfillment and enjoyment in that.", "source": "`memory/threads/2026-03-27-campfire-intake-transcript.md` · Section 1: Lifestyle", "commentary": "The self-correction here shows the tension between dynamic aspiration and a present reality that can satisfy from a single place — neither fully nomadic nor homesteader."}, {"quote": "Japanese-born, UK-educated, Egyptian American based in Amsterdam.", "source": "`soul.md` · Part I: Runtime Identity", "commentary": "The biographical headline encodes the lifestyle geography: born mobile, currently urban-anchored, identity spanning multiple cities and cultures."}]}, "behaviour": {"name": "behaviour", "x": -0.6, "y": 0.3, "confidence": 0.78, "landmark": "initiating", "summary": "Omar's behavioural pattern is fast, directive, and results-led — he rebuilds websites in days, expands contracts by showing rather than asking, and operates as a 'pirate in a navy' in every institutional role he has held. His task selection is reactive and deadline-driven rather than planned, his capture systems are scattered, and his procrastination drivers are well-documented and self-named. He is dominant-leaning with influencing energy: he uses narrative and persuasion as primary tools, steamrolls in conversation when excited, and struggles to slow down and listen despite genuinely wanting to. The focus document reveals a highly self-aware attempt to impose conscientious structure on an inherently influencing-dominant operating style.", "gaps": ["Conflict behaviour in peer relationships (as opposed to institutional/hierarchical ones) is underrepresented in the corpus — most examples involve upward or lateral institutional dynamics.", "The focus document's elaborate conscientious scaffolding (rules, gates, kill lists) may represent aspirational behaviour rather than current default behaviour — the pattern log explicitly names architecture excitement as an escape hatch from real work, suggesting the system describes what Omar wants to do more than what he currently does."], "axes": {"x": ["dominant", "agreeable"], "y": ["conscientious", "influencing"]}, "evidence": [{"quote": "Every role follows the same arc: arrive at a pivotal moment, see the vision before others, operate as a pirate inside a navy, leave carrying the lesson and not the reward.", "source": "`soul.md` · Career Pattern", "commentary": "Dominant-initiating pattern confirmed across multiple roles; the pirate metaphor captures directive independence inside institutional constraints."}, {"quote": "I don't know. Whatever's the loudest. Whatever has a deadline coming up. Sometimes I have a feeling of inspiration on something. Sometimes I see someone working on something that makes me wanna work on it too.", "source": "`memory/threads/2026-03-27-campfire-intake-transcript.md` · Section 2: Behaviour", "commentary": "Reactive task selection, social mimicry, inspiration-driven — influencing side of the behaviour plane, with low conscientious planning structure."}, {"quote": "I also tend to steamroll people when I have an idea about something or when I wanna get a point across. I have so much to say and then they feel like maybe they're not being heard even though I am listening and I am processing everything they're saying.", "source": "`soul.md` · How Values Get Me Into Trouble", "commentary": "Self-named dominant-influencing behaviour pattern: fast processing speed reads as not listening, directness reads as abrasion. (evidence flagged: excerpt not verbatim match)"}, {"quote": "Going from 1 day/week to 3 days/week by showing, not asking.", "source": "`soul.md` · CRREM", "commentary": "Classic dominant-initiating move: demonstrate value to earn scope rather than negotiating for it through consensus."}, {"quote": "Ship weekly or the project is lying to me.", "source": "`focus.md` · 7) Default Operating Rules", "commentary": "Results-led commitment: output as the unit of truth. Conscientious-style rules being applied to manage a dominant-influencing default."}]}, "intelligence": {"name": "intelligence", "x": -0.75, "y": 0.35, "confidence": 0.88, "landmark": "holistic", "summary": "Omar is a wide-ranging generalist synthesiser whose thinking runs through narrative and spatial metaphor — he finds the story thread and then visualises spatially, and ideas only fully click when he can explain them to someone else. His perennial obsessions (AI, ecological design, eusocial insects) orbit a single question about complex systems self-organising toward emergent properties. He consumes approximately thirty hours per week across all mediums and is a pattern-matching learner who integrates new information by connecting it to an existing constellation. The acknowledged knowledge gap — mathematics and economics — and the explicit compensating move toward qualitative narrative framing confirm a generalist intelligence with deep humanities and systems-thinking channels.", "gaps": ["The vault is rich with meta-description of thinking style but thin on extended examples of Omar actually thinking through a hard problem in writing — most evidence is self-report rather than demonstrated cognition.", "The 42,000-word BRIDGE vision document exists in the corpus but its internal argument quality cannot be assessed from the excerpts available — this would be the strongest direct evidence of actual intelligence level and synthesis style."], "axes": {"x": ["generalist", "specialist"], "y": ["solo", "social"]}, "evidence": [{"quote": "Thinking style: Narrative-spatial. Find the story thread, then visualize spatially. Only clicks when I can explain it to someone else. Conversations (with AI and humans) are part of the thinking process — thinking surfaces, not communication tools.", "source": "`soul.md` · Intellectual Architecture", "commentary": "Explicit self-description of a social-generalist intelligence: synthesis happens in dialogue, visualisation is spatial, the mode is holistic rather than specialist."}, {"quote": "Perennial obsessions: AI and its implications. Ecological design principles (seeded by my father). Eusocial insects, honeybees specifically. All three orbit the same question: how complex systems self-organize to produce something greater than the sum of their parts.", "source": "`soul.md` · Intellectual Architecture", "commentary": "Three domains converge on one meta-question — cross-domain synthesis is the actual cognitive mode, not specialist depth in any single field."}, {"quote": "I am finding the story thread and then visualising spatially to solve complex problems. It only clicks when I can explain it to someone else.", "source": "`memory/threads/2026-03-27-campfire-intake-transcript.md` · Section 3: Intelligence", "commentary": "Confirms the social dimension: intelligence is social and externalised, not solo and inward-processing."}, {"quote": "Signal/noise filter: Intuitive pattern-matching against a dense internal model. If it lights up the constellation, it gets in. Risk: the filter selects for interesting over actionable.", "source": "`soul.md` · Intellectual Architecture", "commentary": "The self-named risk reveals the generalist's characteristic trap: breadth over depth, interesting over useful."}, {"quote": "I wish I understood math / economics better. I shy away from numbers.", "source": "`memory/threads/2026-03-27-campfire-intake-transcript.md` · Section 3: Intelligence", "commentary": "The knowledge gap confirms generalist placement: the specialist's domain (quantitative analysis) is explicitly avoided and compensated by qualitative narrative."}]}, "values": {"name": "values", "x": -0.65, "y": -0.25, "confidence": 0.85, "landmark": "autonomy", "summary": "Omar explicitly self-maps to the progressive self-enhancing quadrant — autonomy and originality as current operating values — with stated aspiration toward progressive self-transcending: advocacy, compassion, service. His revealed behaviour confirms the self-enhancing placement: he operates as a pirate inside navies, refuses to leave Amsterdam until he has achieved something, builds things from scratch rather than joining at steady state, and names 'going my own way' as non-negotiable even when it leads to regret. The aspiration toward self-transcending is genuine and recurrent (the BRIDGE civilisational play, the 'bee percentage' he wants to increase), but the vault's behavioural evidence sits solidly in the progressive self-enhancing zone with movement toward the boundary.", "gaps": ["The gap between stated compassion aspiration and revealed velocity/steamrolling behaviour is the sharpest Dunning-Kruger signal in the corpus — the vault names this explicitly ('the compassion I want to lead with gets buried under velocity') but does not show evidence of this gap closing.", "Financial values are partially visible (debt, spending patterns, the Amsterdam house deal) but not fully mapped — the relationship between stated values and money behaviour is a known gap that BASIN is designed to address."], "axes": {"x": ["progressive", "conservative"], "y": ["self-enhancing", "self-transcending"]}, "evidence": [{"quote": "I never compromise on going my own way, even if it goes against conventional wisdom and even if I come to regret it later.", "source": "`memory/threads/2026-03-27-campfire-intake-transcript.md` · Section 4: Values", "commentary": "The single non-negotiable named is autonomy — progressive self-enhancing placement confirmed at the core."}, {"quote": "Currently in the progressive self-enhancing quadrant: autonomy, originality, creative independence. Aspiring toward progressive self-transcending: advocacy, compassion, service.", "source": "`soul.md` · Values Orientation", "commentary": "Explicit self-mapping. The stated gap between current and aspired values is the key signal — the aspiration is genuine but not yet the dominant operating mode."}, {"quote": "1. Finishing over starting — the word is finish\n> 2. People over isolation — peak moments involve sparring partners; isolation is where I rot\n> 3. Story as infrastructure — narrative is load-bearing", "source": "`soul.md` · Values (ranked)", "commentary": "Ranked values reveal a mix: finishing (self-enhancing achievement), people (self-transcending connection), story (originality). The ranking itself is a values act — finishing tops connection."}, {"quote": "Formative influence: The Righteous Mind by Jonathan Haidt. Moral intuitions first, reasoning follows. It became a lens, not a reference. 'Humans are 90% chimp, 10% bee' — and I want the bee percentage to be higher.", "source": "`soul.md` · Intellectual Architecture", "commentary": "The bee aspiration is a values statement: wanting to shift from individual competitive instinct toward collective contribution. Confirms the progressive self-transcending direction of travel."}, {"quote": "My value of autonomy gets me in trouble in group work because I will follow my own schedule and kind of coast on the assumption that everyone thinks I'm a genius and will give me the space to cook on my own terms.", "source": "`memory/threads/2026-03-27-campfire-intake-transcript.md` · Section 4: Values", "commentary": "Revealed behaviour under pressure: autonomy overrides team coordination. Self-enhancing placement is demonstrated, not just stated. (evidence flagged: excerpt not verbatim match)"}]}, "identity": {"name": "identity", "x": -0.6, "y": -0.45, "confidence": 0.8, "landmark": "campaigner", "summary": "Omar's self-narrative is shaped by two persistent forces: the builder pattern (first graduating class, first BRIDGE pilot, pirate in every navy) and the river metaphor (movement, civilisations along water, the eternal cycle, the gate he hasn't crossed yet). He identifies most strongly as someone who arrives at pivotal moments and sees the vision before others — a protagonist-campaigner identity. He facilitates and enables (BRIDGE, CRREM, the Year of Interfaith Dialogue) while also doing the work directly (rebuilt the website himself, built the school newspaper, wrote 42,000 words). The self-described misread — 'I am capable of changing despite how stubborn I appear. I am soft inside despite sometimes being hard' — names the gap between his presented identity and his felt interior, which is the characteristic identity tension of someone in active identity work.", "gaps": ["The vault is rich on biographical identity narrative but thinner on current identity — who Omar is right now in Amsterdam, post-layoff, pre-house-purchase, building BRIDGE — compared to the retrospective chapters.", "The fears section ('ending up alone, without friends or love' as the first fear) suggests an attachment dimension of identity that is named but not elaborated in the corpus — the relational self is present but underexplored relative to the builder self."], "axes": {"x": ["optimistic", "pragmatic"], "y": ["facilitator", "participator"]}, "evidence": [{"quote": "I am a founder by instinct. I don't join things at steady state — I join at the beginning or I try to create it.", "source": "`soul.md` · The Builder Pattern", "commentary": "The builder identity is explicit and consistent across every biographical chapter cited. This is the stable core of self-narrative."}, {"quote": "Rivers are my central metaphor for existence. Every major chapter of my identity maps to a river.", "source": "`soul.md` · Origin: A Life in Rivers", "commentary": "The river metaphor is not incidental — it is the organising schema for self-understanding across time. The BRIDGE name itself is a structural expression of this identity."}, {"quote": "I am someone who was raised by the world I was born in Japan. I grew up in Egypt. Across Europe and The US. I studied at Scotland, and then I moved to The Netherlands after graduating.", "source": "`memory/threads/2026-03-27-campfire-intake-transcript.md` · Section 5: Identity", "commentary": "The geographic identity ('raised by the world') is foundational — multicultural cosmopolitanism as the self-concept, not any single national identity."}, {"quote": "A tagline. An identity line. Japan → UK → Egypt → America → Netherlands. The hyphenation isn't confusion — it's range.", "source": "`memory/threads/writing/born-in-the-eccentric-east-raised-in-the-wild-west.md` · full", "commentary": "The reframe of hyphenation from confusion to range is a self-authoring move: taking what others might read as rootlessness and claiming it as capability."}, {"quote": "I am capable of changing despite how stubborn I appear. I am soft inside despite sometimes being hard or difficult. I am capable of deep listening.", "source": "`soul.md` · The Misread I'm Tired Of", "commentary": "The named misread reveals the gap between presented and interior identity — the self Omar wants to be known as versus the self others observe. This tension is active and unresolved."}]}, "mission": {"name": "mission", "x": 0.3, "y": -0.7, "confidence": 0.87, "landmark": "inspiration", "summary": "The mission is explicitly and repeatedly named: BRIDGE — aligning humans to themselves and to each other before AI disrupts everything. The 42,000-word vision document, the seven years of obsession, the 'civilisational play' framing, and the 'I want to see this take off before AGI arrives' urgency all confirm a world-facing mission with high stakes and long arc. The current execution path (CRREM pilot, proof before spectacle, service before product) shows a controlled, deliberate trajectory rather than open-ended optionality — Omar is not exploring what his mission might be, he knows it and is executing a sequenced plan toward it. The x-axis placement leans toward control because the mission is directed and owned, not exploratory; the y-axis is strongly external because the mission is explicitly civilisational and world-facing rather than self-cultivating.", "gaps": ["The gap between the civilisational ambition of BRIDGE and the current financial reality (debt repayment, €4,800/month, 12-week north star focused on security) is the sharpest tension in the mission plane — whether the long-arc mission and the near-term survival constraints are genuinely integrated or running in parallel is not fully visible.", "The 'why does it have to be you' answer ('It doesn't have to be me. I just feel like I'm onto something') suggests the mission is more held as a felt calling than as a argued claim — the vault does not show extended engagement with the strongest counter-arguments to why Omar specifically should be the one to build this."], "axes": {"x": ["flexibility", "control"], "y": ["external", "internal"]}, "evidence": [{"quote": "BRIDGE. The one word. The vision no one else sees yet. The civilizational play. 'I want to see this take off before AGI arrives.'", "source": "`soul.md` · Legacy", "commentary": "The mission is collapsed to a single word with civilisational stakes and temporal urgency. External, directed, owned — all three."}, {"quote": "The central bet — that human self-knowledge and economic ownership are the two bridges that determine whether AI makes things better or worse — that one I'd stake everything on. I have, actually. This is it.", "source": "`work/active/bridge/bridge-vision-v8.md` · A Letter", "commentary": "The staking-everything framing confirms that BRIDGE is not a project but a mission — the organising principle of a life, not a career move."}, {"quote": "It's an operating system to align humans to each other and to themselves before AI disrupts and accelerates every aspect of our society. The opportunity is to revolutionise the way we work and relate to the economy and to our sense of purpose and each other.", "source": "`memory/threads/2026-03-27-campfire-intake-transcript.md` · Section 6: Mission", "commentary": "The mission is world-facing (external axis) and explicitly about changing systems, not self-cultivation."}, {"quote": "The pattern: movement + curiosity = collision = next chapter. Chance encounters are the mechanism, not networking.", "source": "`soul.md` · Career Pattern", "commentary": "The career pattern reveals mission-level operating logic: open to serendipitous collisions but always carrying the same underlying direction. Flexibility in mechanism, control in direction."}, {"quote": "The right near-term path is not a giant product reveal. It is a real pilot inside CRREM that produces evidence, trust, and usable workflows.", "source": "`memory/notes/beliefs-and-shifts.md` · 2026-03-31", "commentary": "The service-first sequencing decision confirms controlled trajectory: mission is directed and deliberate, not exploratory. The x-axis leans toward control even though the vision is broad."}]}}, "cross_plane": ["The most consistent cross-plane signal in this vault is the builder pattern: it appears in lifestyle (perpetual motion, building from scratch), behaviour (pirate in a navy, showing not asking), identity (founder by instinct, first graduating class), and mission (seven years of obsession, the civilisational play). This is the load-bearing beam of the whole structure.", "The gap between stated values (compassion, listening, self-transcending aspiration) and revealed behavioural patterns (steamrolling, velocity, autonomy-first under pressure) is the clearest Dunning-Kruger signal in the corpus. The vault names this explicitly and repeatedly, which suggests self-awareness is present; the question is whether the awareness translates to changed behaviour or remains at the level of articulately described limitation.", "There is a recurring tension between the civilisational scope of the mission (aligning humanity before AGI) and the constrained near-term reality (debt, isolation, ADHD activation problems, weed habit, 2-3 productive hours per day). The vault handles this tension through the North Star reframe (CRREM pilot as proof surface, financial security as prerequisite) but the integration between the long arc and the short arc is more stated than demonstrated.", "The identity plane shows active work in progress: the misread Omar names ('soft inside despite being hard') and the fears he lists ('ending up alone') suggest someone engaged with the deeper identity questions, not someone who has resolved them. The river metaphor is a sophisticated organising schema that Omar has held for decades, suggesting the intellectual framework for identity is mature even where the lived resolution is incomplete.", "The social isolation signal is strong and consistent across multiple files: no deep social network in Amsterdam, no partner, the BRIDGE loneliness ('my systems-thinking vision is not understood or believed by most people around me'), and isolation named as both symptom and trigger for the ADHD procrastination loop. This is a structural constraint on all six planes, not just lifestyle.", "The shiny object graveyard and the kill list in focus.md reveal a consistent pattern: the recurring temptation is public visibility and optionality before proof. The underlying itch (visibility, expression, public validation) is named but not resolved — it reappears in the graveyard entries across multiple dates, suggesting the system is working as designed (catching the pattern) but the underlying drive has not been metabolised.", "Overall confidence in the mapping is moderate-high (0.82 average across planes). The corpus is unusually rich with self-reflective material, which reduces the risk of projection. The main uncertainty is the gap between self-report and observed behaviour — the vault is largely Omar describing himself rather than third-party observation or demonstrated outputs."], "run": {"id": "0MPD9X1JZQKK2XH28", "model": "claude-sonnet-4-6", "engine_version": "0.1.0", "started": "2026-05-19T23:38:07Z", "finished": "2026-05-19T23:40:30Z", "sources_read": 39, "tokens_in": 112537, "tokens_out": 6355}}
 </script>
   <script>
     const FULL = JSON.parse(document.getElementById('coord-data').textContent);
-    const DATA = FULL.planes;
+    const PLANES = FULL.planes;
     const CROSS = FULL.cross_plane;
     const RUN = FULL.run;
     const PLANE_ORDER = ['lifestyle','behaviour','intelligence','values','identity','mission'];
     const ROMAN = ['I','II','III','IV','V','VI'];
 
-    // tabs
-    const tabsEl = document.getElementById('tabs');
-    PLANE_ORDER.forEach((name, i) => {
-      const p = DATA[name];
-      const t = document.createElement('button');
-      t.className = 'tab';
-      t.dataset.plane = name;
-      t.innerHTML = `<span class="num">${ROMAN[i]}</span>${name}<span class="pos">${p.landmark}</span>`;
-      t.onclick = () => render(name);
-      tabsEl.appendChild(t);
-    });
+    /* ───── 1. The composite wheel ───── */
+    function drawWheel(){
+      const svg = document.getElementById('wheel-svg');
+      const C = 100;                     // viewBox center
+      const R_OUTER = 96;                // outer wheel circle
+      const R_RING = 78;                 // inner ring where landmarks sit
+      const R_SECTOR_OUTER = 73;         // outer edge of micro-charts
+      const R_SECTOR_INNER = 36;         // inner edge of micro-charts (toward center)
+      const SECTOR_INSET = 2;            // gap between sectors
 
-    // cross-plane
-    document.getElementById('cross-grid').innerHTML = CROSS.map(o => `<div class="cross-item">${escapeHtml(o)}</div>`).join('');
+      const N = 6;
+      const ANGLE_STEP = (2 * Math.PI) / N; // 60°
+      // Start at top (-90°), going clockwise
+      const sectorAngle = (i) => -Math.PI / 2 + i * ANGLE_STEP;
 
-    // run meta
-    document.getElementById('run-meta').textContent = `RUN ${RUN.id} · ${RUN.model.toUpperCase()} · ENGINE ${RUN.engine_version}`;
+      let html = '';
 
-    function render(planeName) {
-      const p = DATA[planeName];
-      const idx = PLANE_ORDER.indexOf(planeName);
+      // Outer + inner reference circles
+      html += `<circle class="wheel-outer-circle" cx="${C}" cy="${C}" r="${R_OUTER}"/>`;
+      html += `<circle class="wheel-inner-circle" cx="${C}" cy="${C}" r="${R_RING}"/>`;
+      html += `<circle class="wheel-inner-circle" cx="${C}" cy="${C}" r="${R_SECTOR_INNER - 1}"/>`;
 
-      document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.plane === planeName));
+      // Sector dividers (radial lines at half-angles)
+      for (let i = 0; i < N; i++){
+        const a = sectorAngle(i) - ANGLE_STEP/2;
+        const x1 = C + Math.cos(a) * (R_SECTOR_INNER - 2);
+        const y1 = C + Math.sin(a) * (R_SECTOR_INNER - 2);
+        const x2 = C + Math.cos(a) * R_OUTER;
+        const y2 = C + Math.sin(a) * R_OUTER;
+        html += `<line class="wheel-sector-divider" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`;
+      }
 
-      document.getElementById('chart-eyebrow').textContent = `Plane ${ROMAN[idx]} · ${planeName}`;
-      document.getElementById('chart-title').innerHTML = `<em>${p.landmark}</em>`;
-      document.getElementById('chart-position').innerHTML =
-        `${planeDescription(planeName)} — <strong>${(p.confidence * 100).toFixed(0)}% confidence</strong>`;
+      // For each plane: draw a micro-chart inside the sector
+      const dotPositions = [];
 
-      document.getElementById('legend-x').textContent = `${p.axes.x[0]} ↔ ${p.axes.x[1]}`;
-      document.getElementById('legend-y').textContent = `${p.axes.y[0]} ↔ ${p.axes.y[1]}`;
-      document.getElementById('legend-pos').textContent = `${formatCoord(p.x)}, ${formatCoord(p.y)}`;
-      document.getElementById('legend-conf').textContent = `${(p.confidence * 100).toFixed(0)}%`;
+      PLANE_ORDER.forEach((name, i) => {
+        const p = PLANES[name];
+        const aMid = sectorAngle(i);
+        const aLeft = aMid - ANGLE_STEP/2 + SECTOR_INSET * 0.012;
+        const aRight = aMid + ANGLE_STEP/2 - SECTOR_INSET * 0.012;
 
-      drawChart(p);
+        // Cell corners — define a trapezoidal area along the sector
+        // We'll place a square micro-chart centered along the sector midline
+        const cellR = (R_SECTOR_OUTER + R_SECTOR_INNER) / 2;  // radial center of cell
+        const cellHalfWidth = 12;   // half-width in svg units
+        const cellHalfHeight = 14;  // half-height in svg units
 
-      const content = document.getElementById('plane-content');
-      content.style.animation = 'none';
-      void content.offsetHeight;
-      content.style.animation = '';
+        const cellCx = C + Math.cos(aMid) * cellR;
+        const cellCy = C + Math.sin(aMid) * cellR;
 
-      document.getElementById('summary').textContent = p.summary;
-      document.getElementById('evidence-list').innerHTML = p.evidence.map(e => `
-        <li class="evidence-item">
-          <p class="evidence-quote">${escapeHtml(e.quote)}</p>
-          <div class="evidence-source">${formatSource(e.source)}</div>
-          ${e.commentary ? `<p class="evidence-commentary">${escapeHtml(e.commentary)}</p>` : ''}
-        </li>
-      `).join('');
-      document.getElementById('gaps-list').innerHTML = p.gaps.map(g => `<li>${escapeHtml(g)}</li>`).join('');
+        // Rotation so cell's "up" axis points outward from center
+        const rotateDeg = (aMid * 180 / Math.PI) + 90;
+
+        // Plot Omar's position in this plane's 2D space within the cell
+        // x: -1 to 1 maps to ±cellHalfWidth
+        // y: -1 to 1 maps to ∓cellHalfHeight (BRIDGE convention: y- is "outer" of wheel)
+        const dotLocalX = p.x * cellHalfWidth * 0.85;
+        const dotLocalY = -p.y * cellHalfHeight * 0.85;  // y inverted
+
+        // Determine which corner the dot is in to highlight the quadrant adjective
+        const adjQuadrants = quadrantsFor(p.axes.x, p.axes.y);
+
+        // Build the cell group
+        html += `<g class="wheel-sector-group" data-plane="${name}" transform="translate(${cellCx} ${cellCy}) rotate(${rotateDeg})">`;
+
+        // Cell background
+        html += `<rect class="wheel-plot-bg" x="${-cellHalfWidth}" y="${-cellHalfHeight}" width="${cellHalfWidth*2}" height="${cellHalfHeight*2}" rx=".5"/>`;
+        html += `<rect class="wheel-plot-border" x="${-cellHalfWidth}" y="${-cellHalfHeight}" width="${cellHalfWidth*2}" height="${cellHalfHeight*2}" rx=".5"/>`;
+
+        // Axis lines (cross at cell center)
+        html += `<line class="wheel-axis-line" x1="${-cellHalfWidth}" y1="0" x2="${cellHalfWidth}" y2="0"/>`;
+        html += `<line class="wheel-axis-line" x1="0" y1="${-cellHalfHeight}" x2="0" y2="${cellHalfHeight}"/>`;
+
+        // Quadrant labels (four corners) — diagonal italics, faint, with active one tinted rust
+        const inWhichQuad =
+          (p.x < 0 ? 'l' : 'r') + (p.y > 0 ? 't' : 'b');
+        const cornerOffsetX = cellHalfWidth - 3;
+        const cornerOffsetY = cellHalfHeight - 2;
+        const quadCorners = [
+          {key:'lt', x:-cornerOffsetX, y:-cornerOffsetY, anchor:'start', text: adjQuadrants.lt},
+          {key:'rt', x: cornerOffsetX, y:-cornerOffsetY, anchor:'end',   text: adjQuadrants.rt},
+          {key:'lb', x:-cornerOffsetX, y: cornerOffsetY + 1, anchor:'start', text: adjQuadrants.lb},
+          {key:'rb', x: cornerOffsetX, y: cornerOffsetY + 1, anchor:'end',   text: adjQuadrants.rb},
+        ];
+        quadCorners.forEach(q => {
+          const lit = q.key === inWhichQuad ? ' lit' : '';
+          html += `<text class="wheel-quadrant-label${lit}" x="${q.x}" y="${q.y}" text-anchor="${q.anchor}">${q.text}</text>`;
+        });
+
+        // Axis labels (tiny mono caps at cell edges)
+        html += `<text class="wheel-axis-label" x="0" y="${-cellHalfHeight - 0.5}" text-anchor="middle" dominant-baseline="text-after-edge">${p.axes.y[0]}</text>`;
+        html += `<text class="wheel-axis-label" x="0" y="${cellHalfHeight + 1.5}" text-anchor="middle" dominant-baseline="hanging">${p.axes.y[1]}</text>`;
+        html += `<text class="wheel-axis-label" x="${-cellHalfWidth - 0.5}" y="0" text-anchor="end" dominant-baseline="middle">${p.axes.x[0]}</text>`;
+        html += `<text class="wheel-axis-label" x="${cellHalfWidth + 0.5}" y="0" text-anchor="start" dominant-baseline="middle">${p.axes.x[1]}</text>`;
+
+        // Dot for this plane in this cell
+        const confRing = 1.4 + (1 - p.confidence) * 2.2;
+        html += `<circle class="dot-pulse" cx="${dotLocalX}" cy="${dotLocalY}" r=".7"/>`;
+        html += `<circle class="dot-ring" cx="${dotLocalX}" cy="${dotLocalY}" r="${confRing}"/>`;
+        html += `<circle class="dot-fill" cx="${dotLocalX}" cy="${dotLocalY}" r=".7"/>`;
+
+        html += `</g>`;
+
+        // Outside the cell: landmark name + roman + plane label, rotated to face outward
+        const labelR = R_OUTER - 4;
+        const labelX = C + Math.cos(aMid) * labelR;
+        const labelY = C + Math.sin(aMid) * labelR;
+        const labelRotation = (aMid * 180 / Math.PI) + (aMid > Math.PI/2 || aMid < -Math.PI/2 ? -90 : 90);
+
+        // Plane name (small caps, mono)
+        const planeNameR = R_RING + 2;
+        const pnX = C + Math.cos(aMid) * planeNameR;
+        const pnY = C + Math.sin(aMid) * planeNameR;
+        const pnRot = (aMid * 180 / Math.PI) + 90;
+        const planeNameUpper = name.toUpperCase();
+        html += `<g transform="translate(${pnX} ${pnY}) rotate(${pnRot})"><text class="wheel-sector-label" x="0" y="0" text-anchor="middle" dominant-baseline="middle">${planeNameUpper}</text></g>`;
+
+        // Landmark (italic Fraunces) on the very outer band
+        const landmarkR = R_OUTER - 6.5;
+        const lmX = C + Math.cos(aMid) * landmarkR;
+        const lmY = C + Math.sin(aMid) * landmarkR;
+        html += `<g transform="translate(${lmX} ${lmY}) rotate(${pnRot})"><text class="wheel-landmark" x="0" y="0" text-anchor="middle" dominant-baseline="middle">${p.landmark}</text></g>`;
+
+        // Confidence as small italic underneath landmark
+        const confR_pos = R_OUTER - 3.5;
+        const cfX = C + Math.cos(aMid) * confR_pos;
+        const cfY = C + Math.sin(aMid) * confR_pos;
+        html += `<g transform="translate(${cfX} ${cfY}) rotate(${pnRot})"><text class="wheel-confidence" x="0" y="0" text-anchor="middle" dominant-baseline="middle">${Math.round(p.confidence * 100)}%</text></g>`;
+
+        // Roman numeral at the inner edge (toward center)
+        const rnR = R_SECTOR_INNER - 4;
+        const rnX = C + Math.cos(aMid) * rnR;
+        const rnY = C + Math.sin(aMid) * rnR;
+        html += `<g transform="translate(${rnX} ${rnY}) rotate(${pnRot})"><text class="wheel-sector-roman" x="0" y="0" text-anchor="middle" dominant-baseline="middle">${ROMAN[i]}</text></g>`;
+
+        // Compute the position of this dot in world coordinates (for the silhouette polygon)
+        const dotWorldX = cellCx + dotLocalX * Math.cos(rotateDeg * Math.PI / 180) - dotLocalY * Math.sin(rotateDeg * Math.PI / 180);
+        const dotWorldY = cellCy + dotLocalX * Math.sin(rotateDeg * Math.PI / 180) + dotLocalY * Math.cos(rotateDeg * Math.PI / 180);
+        dotPositions.push({ x: dotWorldX, y: dotWorldY, plane: name });
+      });
+
+      // The silhouette — connect each plane's dot through world coordinates
+      const silPath = dotPositions.map((d, i) => `${i === 0 ? 'M' : 'L'} ${d.x.toFixed(2)} ${d.y.toFixed(2)}`).join(' ') + ' Z';
+      // Prepend silhouette to appear behind dots
+      html = `<path class="silhouette" d="${silPath}"/>` + html;
+      // But sectors come after wheel circles
+      const wheelCircles = `<circle class="wheel-outer-circle" cx="${C}" cy="${C}" r="${R_OUTER}"/><circle class="wheel-inner-circle" cx="${C}" cy="${C}" r="${R_RING}"/><circle class="wheel-inner-circle" cx="${C}" cy="${C}" r="${R_SECTOR_INNER - 1}"/>`;
+
+      // Center medallion
+      const centerR = R_SECTOR_INNER - 6;
+      html += `<circle class="center-medallion-bg" cx="${C}" cy="${C}" r="${centerR}"/>`;
+      html += `<text class="center-sub" x="${C}" y="${C - 9}" text-anchor="middle" dominant-baseline="middle">A SIX-PLANE ATLAS</text>`;
+      html += `<text class="center-name" x="${C}" y="${C - 2}" text-anchor="middle" dominant-baseline="middle">Omar</text>`;
+      html += `<line stroke="var(--rust)" stroke-width=".25" x1="${C-6}" y1="${C+2}" x2="${C+6}" y2="${C+2}"/>`;
+      html += `<text class="center-conf" x="${C}" y="${C + 7}" text-anchor="middle" dominant-baseline="middle">${avgConfidence()}% confident</text>`;
+      html += `<text class="center-sub" x="${C}" y="${C + 11}" text-anchor="middle" dominant-baseline="middle">2026 · I</text>`;
+
+      svg.innerHTML = html;
+
+      // Wire up click-to-scroll for each sector
+      svg.querySelectorAll('.wheel-sector-group').forEach(g => {
+        g.addEventListener('click', () => {
+          const planeName = g.dataset.plane;
+          const target = document.getElementById('drill-' + planeName);
+          if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
     }
 
+    function quadrantsFor(xAxis, yAxis){
+      // Given two axis-pole arrays, return labels for each corner of a cell
+      // lt = x[0]+y[0], rt = x[1]+y[0], lb = x[0]+y[1], rb = x[1]+y[1]
+      const map = {
+        'dynamic+urban':'jetsetter','static+urban':'entrepreneur',
+        'dynamic+remote':'trailblazer','static+remote':'homesteader',
+        'dominant+conscientious':'analysing','agreeable+conscientious':'editing',
+        'dominant+influencing':'driving','agreeable+influencing':'harmonising',
+        'generalist+solo':'investigative','specialist+solo':'holistic',
+        'generalist+social':'logical','specialist+social':'artistic',
+        'progressive+self-enhancing':'achievement','conservative+self-enhancing':'authority',
+        'progressive+self-transcending':'compassion','conservative+self-transcending':'reliability',
+        'optimistic+facilitator':'composer','pragmatic+facilitator':'commander',
+        'optimistic+participator':'virtuoso','pragmatic+participator':'mastermind',
+        'flexibility+external':'self-direction','control+external':'reputation',
+        'flexibility+internal':'improvement','control+internal':'investment',
+      };
+      return {
+        lt: map[`${xAxis[0]}+${yAxis[0]}`] || '',
+        rt: map[`${xAxis[1]}+${yAxis[0]}`] || '',
+        lb: map[`${xAxis[0]}+${yAxis[1]}`] || '',
+        rb: map[`${xAxis[1]}+${yAxis[1]}`] || '',
+      };
+    }
+
+    function avgConfidence(){
+      const sum = PLANE_ORDER.reduce((s, n) => s + PLANES[n].confidence, 0);
+      return Math.round(sum * 100 / PLANE_ORDER.length);
+    }
+
+    /* ───── 2. Legend (right column of hero) ───── */
+    function buildLegend(){
+      const el = document.getElementById('legend-rows');
+      el.innerHTML = PLANE_ORDER.map((name, i) => {
+        const p = PLANES[name];
+        return `
+          <div class="legend-line">
+            <span class="key">${ROMAN[i]} · ${name}</span>
+            <span class="val"><em style="color:var(--rust);font-style:italic">${p.landmark}</em> · ${Math.round(p.confidence * 100)}% confidence</span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    /* ───── 3. Per-plane drill-ins ───── */
     function planeDescription(name){
       return {
         lifestyle:'How he lives day to day',
@@ -484,7 +867,6 @@
         mission:'What he is here to do',
       }[name];
     }
-
     function formatCoord(v){return (v>=0?'+':'')+v.toFixed(2)}
     function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
     function formatSource(src){
@@ -493,117 +875,113 @@
       return escapeHtml(src);
     }
 
-    function drawChart(p){
-      // viewBox 0..100. Generous margins so cardinals + quadrant labels breathe.
-      const C = 50;
-      const R = 30; // plotting radius (was 34 — more breathing room now)
+    function buildMiniChart(p){
+      // A clean 80x80 viewBox standalone chart of just this plane
+      const C = 40, R = 30;
       const px = C + p.x * R;
       const py = C - p.y * R;
+      const confR = 2 + (1 - p.confidence) * 4;
+      return `
+        <svg viewBox="0 0 80 80" preserveAspectRatio="xMidYMid meet">
+          <!-- Concentric -->
+          <circle cx="${C}" cy="${C}" r="${R}" fill="none" stroke="var(--hairline)" stroke-width=".4"/>
+          <circle cx="${C}" cy="${C}" r="${R*.5}" fill="none" stroke="var(--hairline-soft)" stroke-width=".3"/>
 
-      // Confidence ring (tighter = higher confidence)
-      const confR = 1.6 + (1 - p.confidence) * 6;
+          <!-- Axes -->
+          <line x1="${C-R}" y1="${C}" x2="${C+R}" y2="${C}" stroke="var(--ink-fade)" stroke-width=".25" stroke-dasharray="1 1"/>
+          <line x1="${C}" y1="${C-R}" x2="${C}" y2="${C+R}" stroke="var(--ink-fade)" stroke-width=".25" stroke-dasharray="1 1"/>
 
-      // Quadrant label positions (diagonals at ~45°, midway out)
-      // For x: q0=-, q1=+. For y: q0=top, q1=bottom.
-      const QD = R * 0.72;
-      const quadPos = [
-        // [xAxis, yAxis, dx, dy] — order matters: TL, TR, BL, BR
-        { xKey: p.axes.x[0], yKey: p.axes.y[0], dx: -QD, dy: -QD, sign: { x: -1, y:  1 } }, // TL
-        { xKey: p.axes.x[1], yKey: p.axes.y[0], dx:  QD, dy: -QD, sign: { x:  1, y:  1 } }, // TR
-        { xKey: p.axes.x[0], yKey: p.axes.y[1], dx: -QD, dy:  QD, sign: { x: -1, y: -1 } }, // BL
-        { xKey: p.axes.x[1], yKey: p.axes.y[1], dx:  QD, dy:  QD, sign: { x:  1, y: -1 } }, // BR
-      ];
+          <!-- Cardinal labels -->
+          <text x="${C}" y="${C-R-1.5}" text-anchor="middle" font-family="JetBrains Mono" font-size="2.4" letter-spacing=".2em" fill="var(--ink-fade)" text-transform="uppercase">${p.axes.y[0].toUpperCase()}</text>
+          <text x="${C}" y="${C+R+3.5}" text-anchor="middle" font-family="JetBrains Mono" font-size="2.4" letter-spacing=".2em" fill="var(--ink-fade)" text-transform="uppercase">${p.axes.y[1].toUpperCase()}</text>
+          <text x="${C-R-1}" y="${C+.7}" text-anchor="end" font-family="JetBrains Mono" font-size="2.4" letter-spacing=".2em" fill="var(--ink-fade)" text-transform="uppercase">${p.axes.x[0].toUpperCase()}</text>
+          <text x="${C+R+1}" y="${C+.7}" text-anchor="start" font-family="JetBrains Mono" font-size="2.4" letter-spacing=".2em" fill="var(--ink-fade)" text-transform="uppercase">${p.axes.x[1].toUpperCase()}</text>
 
-      // Which quadrant is the dot in? (so we can subtly highlight that label)
-      const inQuad = (q) => {
-        const xMatch = (p.x < 0 && q.sign.x < 0) || (p.x >= 0 && q.sign.x > 0);
-        const yMatch = (p.y > 0 && q.sign.y > 0) || (p.y <= 0 && q.sign.y < 0);
-        return xMatch && yMatch;
-      };
+          <!-- Quadrant adjectives (diagonal corners) -->
+          ${(() => {
+            const q = quadrantsFor(p.axes.x, p.axes.y);
+            const inQ = (p.x < 0 ? 'l' : 'r') + (p.y > 0 ? 't' : 'b');
+            const items = [
+              {k:'lt',x:C-R*.65,y:C-R*.65+1,a:'middle',t:q.lt},
+              {k:'rt',x:C+R*.65,y:C-R*.65+1,a:'middle',t:q.rt},
+              {k:'lb',x:C-R*.65,y:C+R*.65+1,a:'middle',t:q.lb},
+              {k:'rb',x:C+R*.65,y:C+R*.65+1,a:'middle',t:q.rb},
+            ];
+            return items.map(i => `<text x="${i.x}" y="${i.y}" text-anchor="${i.a}" font-family="Fraunces" font-style="italic" font-size="3" fill="${i.k===inQ?'var(--rust-dark)':'var(--ink-ghost)'}" opacity=".85">${i.t}</text>`).join('');
+          })()}
 
-      // Decide which side to put the dot's landmark label on
-      const labelOnRight = px < 60;
-      const labelDx = labelOnRight ? 4 : -4;
-      const labelAnchor = labelOnRight ? 'start' : 'end';
-      const labelX = px + labelDx;
-      // Push label vertically away from the closest quadrant label
-      const labelY = py + (py > C ? -3.5 : 5.5);
-
-      // Cardinal label positions — orthogonal, off-axis, in the outer margin
-      const CARD_OFFSET = R + 8;
-
-      const svg = document.getElementById('chart-svg');
-      svg.innerHTML = `
-        <!-- Whisper-light grid (very faint) -->
-        ${[26,38,50,62,74].map(t => `
-          <line class="grid-line" x1="20" y1="${t}" x2="80" y2="${t}"/>
-          <line class="grid-line" x1="${t}" y1="20" x2="${t}" y2="80"/>
-        `).join('')}
-
-        <!-- Concentric circles (compass rose) — outer = chart edge, inner two are halves -->
-        <circle class="compass-rose" cx="${C}" cy="${C}" r="${R}"/>
-        <circle class="compass-rose-inner" cx="${C}" cy="${C}" r="${R * 0.5}"/>
-
-        <!-- Main axes — hair-thin -->
-        <line class="axis-line" x1="${C - R}" y1="${C}" x2="${C + R}" y2="${C}"/>
-        <line class="axis-line" x1="${C}" y1="${C - R}" x2="${C}" y2="${C + R}"/>
-
-        <!-- Center mark — tiny dot, not crosshair -->
-        <circle class="center-mark" cx="${C}" cy="${C}" r=".5"/>
-
-        <!-- Cardinal axis labels: just outside the circle, no arrows, very faint -->
-        <text class="axis-cardinal" x="${C}" y="${C - CARD_OFFSET + 2}" text-anchor="middle">${p.axes.y[0]}</text>
-        <text class="axis-cardinal" x="${C}" y="${C + CARD_OFFSET}" text-anchor="middle" dominant-baseline="hanging">${p.axes.y[1]}</text>
-        <text class="axis-cardinal" x="${C - CARD_OFFSET}" y="${C}" text-anchor="end" dominant-baseline="middle">${p.axes.x[0]}</text>
-        <text class="axis-cardinal" x="${C + CARD_OFFSET}" y="${C}" text-anchor="start" dominant-baseline="middle">${p.axes.x[1]}</text>
-
-        <!-- Quadrant landmarks (jetsetter / entrepreneur / trailblazer / homesteader) — italic, in their own corner of the chart -->
-        ${quadPos.map(q => {
-          const adj = quadAdjective(q.xKey, q.yKey, p.name);
-          if (!adj) return '';
-          const cls = inQuad(q) ? 'quadrant-landmark near' : 'quadrant-landmark';
-          return `<text class="${cls}" x="${C + q.dx}" y="${C + q.dy + 1.2}">${adj}</text>`;
-        }).join('')}
-
-        <!-- The dot — soft ring + radar pulse + filled dot -->
-        <circle class="dot-ring-2" cx="${px}" cy="${py}" r="${confR + 1.4}"/>
-        <circle class="dot-ring" cx="${px}" cy="${py}" r="${confR}"/>
-        <circle class="dot-pulse" cx="${px}" cy="${py}" r="2"/>
-        <circle class="dot" cx="${px}" cy="${py}" r="1.4"/>
-
-        <!-- Leader line + landmark label for the dot itself -->
-        <line class="leader-line" x1="${px}" y1="${py}" x2="${labelX}" y2="${labelY - 1}"/>
-        <text class="landmark-label" x="${labelX + (labelOnRight ? .8 : -.8)}" y="${labelY}" text-anchor="${labelAnchor}">${p.landmark}</text>
-        <text class="position-readout" x="${labelX + (labelOnRight ? .8 : -.8)}" y="${labelY + 2.8}" text-anchor="${labelAnchor}">${formatCoord(p.x)}, ${formatCoord(p.y)}</text>
+          <!-- Dot -->
+          <circle cx="${px}" cy="${py}" r="${confR}" fill="none" stroke="var(--rust)" stroke-width=".4" opacity=".4"/>
+          <circle cx="${px}" cy="${py}" r="1.4" fill="var(--rust)"/>
+        </svg>
       `;
     }
 
-    // Quadrant adjective map — pairs each (x-axis-pole, y-axis-pole) with the canonical landmark name
-    function quadAdjective(xPole, yPole, planeName){
-      const map = {
-        // lifestyle: dynamic/static × urban/remote
-        'dynamic+urban':'jetsetter', 'static+urban':'entrepreneur',
-        'dynamic+remote':'trailblazer', 'static+remote':'homesteader',
-        // behaviour: dominant/agreeable × conscientious/influencing
-        'dominant+conscientious':'analysing', 'agreeable+conscientious':'editing',
-        'dominant+influencing':'driving', 'agreeable+influencing':'harmonising',
-        // intelligence: generalist/specialist × solo/social
-        'generalist+solo':'investigative', 'specialist+solo':'holistic',
-        'generalist+social':'logical', 'specialist+social':'artistic',
-        // values: progressive/conservative × self-enhancing/self-transcending
-        'progressive+self-enhancing':'achievement', 'conservative+self-enhancing':'authority',
-        'progressive+self-transcending':'compassion', 'conservative+self-transcending':'reliability',
-        // identity: optimistic/pragmatic × facilitator/participator
-        'optimistic+facilitator':'composer', 'pragmatic+facilitator':'commander',
-        'optimistic+participator':'virtuoso', 'pragmatic+participator':'mastermind',
-        // mission: flexibility/control × external/internal
-        'flexibility+external':'self-direction', 'control+external':'reputation',
-        'flexibility+internal':'improvement', 'control+internal':'investment',
-      };
-      return map[`${xPole}+${yPole}`] || '';
+    function buildDrills(){
+      const root = document.getElementById('drills');
+      root.innerHTML = PLANE_ORDER.map((name, i) => {
+        const p = PLANES[name];
+        const evidenceHtml = p.evidence.map(e => `
+          <li class="evidence-row">
+            <div class="body">
+              <p class="evidence-quote">${escapeHtml(e.quote)}</p>
+              <div class="evidence-source">${formatSource(e.source)}</div>
+              ${e.commentary ? `<p class="evidence-commentary">${escapeHtml(e.commentary)}</p>` : ''}
+            </div>
+          </li>
+        `).join('');
+        const gapsHtml = p.gaps.map(g => `<li>${escapeHtml(g)}</li>`).join('');
+
+        return `
+          <section class="drill-section" id="drill-${name}">
+            <div class="drill-inner">
+              <div class="drill-left">
+                <div class="drill-eyebrow"><span class="roman">PLANE ${ROMAN[i]}</span> · ${name}</div>
+                <h2 class="drill-landmark">${p.landmark}</h2>
+                <p class="drill-description">${planeDescription(name)}.</p>
+                <div class="drill-mini-chart">${buildMiniChart(p)}</div>
+                <div class="drill-stats">
+                  <div class="drill-stat">
+                    <div class="key">Position</div>
+                    <div class="val mono accent">${formatCoord(p.x)}, ${formatCoord(p.y)}</div>
+                  </div>
+                  <div class="drill-stat">
+                    <div class="key">Confidence</div>
+                    <div class="val mono">${Math.round(p.confidence * 100)}%</div>
+                  </div>
+                  <div class="drill-stat">
+                    <div class="key">x-axis</div>
+                    <div class="val">${p.axes.x[0]} ↔ ${p.axes.x[1]}</div>
+                  </div>
+                  <div class="drill-stat">
+                    <div class="key">y-axis</div>
+                    <div class="val">${p.axes.y[0]} ↔ ${p.axes.y[1]}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="drill-right">
+                <h3>The Read</h3>
+                <p class="drill-summary">${escapeHtml(p.summary)}</p>
+
+                <h3>Evidence, verbatim</h3>
+                <ol class="evidence-grid">${evidenceHtml}</ol>
+
+                <h3>What's thin</h3>
+                <ul class="gaps-list">${gapsHtml}</ul>
+              </div>
+            </div>
+          </section>
+        `;
+      }).join('');
     }
 
-    render('lifestyle');
+    /* ───── 4. Cross-plane + run meta ───── */
+    document.getElementById('cross-grid').innerHTML = CROSS.map(o => `<div class="cross-item"><p>${escapeHtml(o)}</p></div>`).join('');
+    document.getElementById('run-meta').textContent = `RUN ${RUN.id} · ${RUN.model.toUpperCase()} · ENGINE ${RUN.engine_version}`;
+
+    drawWheel();
+    buildLegend();
+    buildDrills();
   </script>
 </body>
 </html>
