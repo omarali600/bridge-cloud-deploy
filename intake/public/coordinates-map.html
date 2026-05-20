@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Omar · A Six-Plane Core</title>
+  <title>Omar · A Six-Plane Core Sample</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,200..900,0..100;1,9..144,200..900,0..100&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=JetBrains+Mono:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
@@ -26,13 +26,20 @@
       --hairline:rgba(28,29,32,.16);
       --hairline-soft:rgba(28,29,32,.08);
 
-      /* stratigraphic palette — surface to bedrock */
-      --strat-1:#efe1c4;  /* lifestyle — topsoil */
-      --strat-2:#d9b88e;  /* behaviour */
-      --strat-3:#b8855b;  /* intelligence */
-      --strat-4:#8b5a3a;  /* values */
-      --strat-5:#5d3a26;  /* identity */
-      --strat-6:#2a1f1a;  /* mission — bedrock */
+      /* Refined strata palette — softer earth tones, surface → bedrock */
+      --strat-1:#f0e4ca;  /* lifestyle — alluvium */
+      --strat-2:#dec39a;  /* behaviour — clay */
+      --strat-3:#b88f6a;  /* intelligence — siltstone */
+      --strat-4:#8a5f44;  /* values — shale */
+      --strat-5:#5a3a2a;  /* identity — bedrock */
+      --strat-6:#27201c;  /* mission — core */
+
+      --strat-1-ink:#5a3a2a;
+      --strat-2-ink:#3e2818;
+      --strat-3-ink:#fbf4e3;
+      --strat-4-ink:#fbf4e3;
+      --strat-5-ink:#fbf4e3;
+      --strat-6-ink:#f0e4ca;
     }
     *,*::before,*::after{box-sizing:border-box}
     html,body{
@@ -49,14 +56,15 @@
     body{
       min-height:100vh;
       background-image:
-        radial-gradient(ellipse 900px 700px at 20% 0%, rgba(168,84,59,.04), transparent 60%),
-        radial-gradient(ellipse 700px 800px at 80% 100%, rgba(47,93,90,.04), transparent 60%),
+        radial-gradient(ellipse 1000px 800px at 15% 0%, rgba(168,84,59,.04), transparent 60%),
+        radial-gradient(ellipse 800px 900px at 85% 100%, rgba(47,93,90,.04), transparent 60%),
         url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .035 0'/></filter><rect width='240' height='240' filter='url(%23n)'/></svg>");
       background-size:auto,auto,240px 240px;
       background-attachment:fixed;
     }
     ::selection{background:var(--rust);color:var(--paper)}
 
+    /* ═════════ MASTHEAD ═════════ */
     .masthead{
       max-width:1500px;
       margin:0 auto;
@@ -72,21 +80,21 @@
     .mast-center{font-family:'Fraunces',serif;font-variation-settings:"opsz" 144,"wght" 400,"SOFT" 40;font-size:28px;letter-spacing:.01em;text-align:center}
     .mast-center em{font-style:italic;font-variation-settings:"opsz" 144,"wght" 280,"SOFT" 100;color:var(--rust)}
 
-    /* ═════════ HERO: STRATIGRAPHIC CORE ═════════ */
+    /* ═════════ HERO ═════════ */
     .hero{
       max-width:1500px;
       margin:0 auto;
-      padding:56px 56px 80px;
+      padding:72px 56px 96px;
       display:grid;
-      grid-template-columns:1fr 1.1fr;
-      gap:64px;
+      grid-template-columns:.9fr 1.3fr;
+      gap:72px;
       align-items:center;
     }
     @media(max-width:1100px){
-      .hero{grid-template-columns:1fr;gap:40px;padding:48px 32px 56px}
+      .hero{grid-template-columns:1fr;gap:48px;padding:48px 32px 72px}
     }
     @media(max-width:700px){
-      .hero{padding:32px 20px 40px}
+      .hero{padding:32px 20px 48px}
       .masthead{padding:24px 24px 14px;grid-template-columns:1fr;text-align:left;gap:6px}
       .mast-center,.mast-right{text-align:left}
     }
@@ -97,7 +105,7 @@
       letter-spacing:.22em;
       text-transform:uppercase;
       color:var(--rust);
-      margin-bottom:22px;
+      margin-bottom:24px;
       display:flex;
       align-items:center;
       gap:14px;
@@ -107,8 +115,8 @@
     .hero-headline{
       font-family:'Fraunces',serif;
       font-variation-settings:"opsz" 144,"wght" 360,"SOFT" 30;
-      font-size:clamp(40px,5.2vw,84px);
-      line-height:.95;
+      font-size:clamp(44px,5.6vw,92px);
+      line-height:.92;
       letter-spacing:-0.035em;
       margin:0 0 30px;
       color:var(--ink);
@@ -126,17 +134,18 @@
       max-width:42ch;
       font-style:italic;
       font-weight:300;
-      margin:0 0 32px;
+      margin:0 0 36px;
     }
-    .hero-meta{
+
+    .hero-key{
       display:grid;
       grid-template-columns:auto 1fr;
       gap:14px 28px;
       padding-top:24px;
       border-top:1px solid var(--hairline);
-      max-width:42ch;
+      max-width:44ch;
     }
-    .hero-meta .k{
+    .hero-key .k{
       font-family:'JetBrains Mono',monospace;
       font-size:10px;
       letter-spacing:.2em;
@@ -144,7 +153,7 @@
       color:var(--ink-fade);
       white-space:nowrap;
     }
-    .hero-meta .v{
+    .hero-key .v{
       font-family:'Newsreader',serif;
       font-size:14.5px;
       font-style:italic;
@@ -152,142 +161,140 @@
       line-height:1.4;
     }
 
-    .core{
+    /* ═════════ CORE ═════════ */
+    .core-frame{
       position:relative;
       width:100%;
-      max-width:640px;
+      max-width:680px;
       margin:0 auto;
-      aspect-ratio:1.05;
     }
-    .core svg{
-      width:100%;
-      height:100%;
-      display:block;
-      overflow:visible;
-    }
+    .core-svg{width:100%;height:auto;display:block;overflow:visible}
 
-    /* Layer interactivity */
-    .layer-group{
-      cursor:pointer;
-      transition:transform .35s cubic-bezier(.34,1.56,.64,1);
-      transform-origin:center;
-      transform-box:fill-box;
-    }
-    .layer-group:hover{transform:translateX(-4px)}
-    .layer-group:hover .strat-body{filter:brightness(1.08)}
-    .layer-group .tab-label{transition:transform .35s cubic-bezier(.34,1.56,.64,1)}
-    .layer-group:hover .tab-label{transform:translateX(8px)}
-    .layer-group:hover .tab-bg{filter:brightness(1.08)}
-
-    .strat-body{transition:filter .25s ease}
-    .strat-top{stroke:rgba(0,0,0,.18);stroke-width:.6;fill:none}
-    .strat-rim-hi{stroke:rgba(255,255,255,.25);stroke-width:.5;fill:none}
-    .strat-divider{stroke:rgba(0,0,0,.22);stroke-width:.4;fill:none;stroke-dasharray:1.5 1.5;opacity:.55}
-    .layer-cell-bg{fill:rgba(244,239,227,.92);stroke:rgba(28,29,32,.35);stroke-width:.4}
-    .layer-cell-axis{stroke:rgba(28,29,32,.25);stroke-width:.3;fill:none}
-    .layer-cell-tick{stroke:rgba(28,29,32,.45);stroke-width:.4;fill:none}
-    .layer-cell-axislabel{
-      font-family:'JetBrains Mono',monospace;
-      font-size:3.2px;
-      letter-spacing:.16em;
-      text-transform:uppercase;
-      fill:rgba(28,29,32,.7);
-    }
-    .layer-cell-quad{
-      font-family:'Fraunces',serif;
-      font-variation-settings:"opsz" 60,"wght" 360,"SOFT" 90;
-      font-style:italic;
-      font-size:3.6px;
-      fill:rgba(28,29,32,.5);
-    }
-    .layer-cell-quad.lit{fill:var(--rust-dark);opacity:.9}
-    .layer-cell-coord-label{
-      font-family:'JetBrains Mono',monospace;
-      font-size:2.8px;
-      letter-spacing:.06em;
-      fill:rgba(28,29,32,.55);
-    }
-    .layer-dot{fill:var(--rust)}
-    .layer-dot-ring{fill:none;stroke:var(--rust);stroke-width:.4;opacity:.55}
-    @keyframes layer-pulse{0%{r:1.4;opacity:.6}100%{r:5;opacity:0}}
-    .layer-dot-pulse{fill:none;stroke:var(--rust);stroke-width:.4;animation:layer-pulse 2.8s ease-out infinite}
-
+    /* SVG element styling for the cone */
+    .core-bg-noise{opacity:.4}
+    .strat-body{transition:filter .35s ease, transform .35s cubic-bezier(.34,1.56,.64,1)}
+    .strat-rim-hi{stroke:rgba(255,255,255,.4);stroke-width:.5;fill:none;opacity:.6}
+    .strat-rim-shadow{stroke:rgba(0,0,0,.15);stroke-width:.6;fill:none}
+    .strat-divider{stroke:rgba(0,0,0,.12);stroke-width:.5;fill:none;stroke-dasharray:.8 1.5}
+    .strat-dot{fill:var(--rust);filter:drop-shadow(0 1px 2px rgba(168,84,59,.45))}
+    .strat-dot-halo{fill:none;stroke:var(--rust);stroke-width:.5;opacity:.45}
+    @keyframes radar-pulse{0%{r:1.6;opacity:.55}100%{r:7;opacity:0}}
+    .strat-dot-pulse{fill:none;stroke:var(--rust);stroke-width:.4;animation:radar-pulse 3.2s ease-out infinite}
     .thread{
       fill:none;
       stroke:var(--rust);
-      stroke-width:1;
-      opacity:.85;
+      stroke-width:1.6;
       stroke-linecap:round;
       stroke-linejoin:round;
+      opacity:.85;
+      filter:drop-shadow(0 1px 2px rgba(168,84,59,.2));
     }
 
-    /* Pill tab (label on the right) */
-    .tab-bg{transition:filter .25s ease}
-    .tab-roman{
-      font-family:'JetBrains Mono',monospace;
-      font-size:6px;
-      letter-spacing:.18em;
-      font-weight:500;
+    /* Tabs (specimen labels) */
+    .layer-group{cursor:pointer}
+    .layer-group .tab-bg{
+      transition:transform .35s cubic-bezier(.34,1.56,.64,1), filter .25s ease;
+      transform-origin:left center;
+      transform-box:fill-box;
+    }
+    .layer-group:hover .tab-bg{transform:translateX(6px);filter:brightness(1.05)}
+    .layer-group:hover .tab-label{transform:translateX(6px)}
+    .layer-group:hover .strat-body{filter:brightness(1.05)}
+    .layer-group .tab-label{
+      transition:transform .35s cubic-bezier(.34,1.56,.64,1);
+      transform-origin:left center;
+      transform-box:fill-box;
     }
     .tab-plane{
       font-family:'JetBrains Mono',monospace;
-      font-size:6.5px;
-      letter-spacing:.32em;
-      text-transform:uppercase;
+      font-size:11px;
+      letter-spacing:.4em;
       font-weight:600;
+      text-transform:uppercase;
+    }
+    .tab-roman{
+      font-family:'JetBrains Mono',monospace;
+      font-size:9px;
+      letter-spacing:.18em;
+      font-weight:500;
+      opacity:.6;
     }
     .tab-landmark{
       font-family:'Fraunces',serif;
-      font-variation-settings:"opsz" 60,"wght" 420,"SOFT" 80;
+      font-variation-settings:"opsz" 60,"wght" 380,"SOFT" 90;
       font-style:italic;
-      font-size:6.5px;
+      font-size:14px;
+      letter-spacing:.005em;
+    }
+    .tab-brief{
+      font-family:'Newsreader',serif;
+      font-style:italic;
+      font-size:11px;
+      letter-spacing:.005em;
+      opacity:.65;
     }
     .tab-conf{
       font-family:'JetBrains Mono',monospace;
-      font-size:4.5px;
-      letter-spacing:.1em;
-    }
-    .strat-glyph{
-      font-family:'JetBrains Mono',monospace;
-      font-size:5px;
-      letter-spacing:.18em;
+      font-size:11px;
+      letter-spacing:.04em;
       font-weight:500;
     }
-    .strat-description{
-      font-family:'Newsreader',serif;
+    .tab-conf .pct{opacity:.55;font-size:9px;letter-spacing:.18em;margin-left:1px}
+
+    /* Depth ruler (left side of cone) */
+    .depth-axis-line{stroke:var(--ink-fade);stroke-width:.5;fill:none;stroke-dasharray:2 3}
+    .depth-tick{stroke:var(--ink-fade);stroke-width:.5;fill:none}
+    .depth-label-major{
+      font-family:'Fraunces',serif;
       font-style:italic;
-      font-size:4.5px;
-      letter-spacing:.005em;
+      font-variation-settings:"opsz" 60,"wght" 360,"SOFT" 80;
+      font-size:14px;
+      fill:var(--ink-soft);
+      letter-spacing:.01em;
+    }
+    .depth-label-minor{
+      font-family:'JetBrains Mono',monospace;
+      font-size:9px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      fill:var(--ink-fade);
     }
 
-    /* ═════════ DRILL-IN EDITORIAL ═════════ */
+    /* Center stamp */
+    .core-stamp{
+      font-family:'JetBrains Mono',monospace;
+      font-size:9.5px;
+      letter-spacing:.4em;
+      text-transform:uppercase;
+      fill:var(--ink-soft);
+    }
+
+    /* ═════════ DRILL-IN ═════════ */
     .drill-section{
       border-top:1px solid var(--ink);
-      padding:80px 0;
+      padding:96px 0;
       position:relative;
     }
-    .drill-section.l1{background:linear-gradient(180deg, transparent, rgba(239,225,196,.18))}
-    .drill-section.l2{background:linear-gradient(180deg, transparent, rgba(217,184,142,.16))}
-    .drill-section.l3{background:linear-gradient(180deg, transparent, rgba(184,133,91,.14))}
-    .drill-section.l4{background:linear-gradient(180deg, transparent, rgba(139,90,58,.12))}
-    .drill-section.l5{background:linear-gradient(180deg, transparent, rgba(93,58,38,.10))}
-    .drill-section.l6{background:linear-gradient(180deg, transparent, rgba(42,31,26,.08))}
+    .drill-section.l1{background:linear-gradient(180deg, transparent, rgba(240,228,202,.20))}
+    .drill-section.l2{background:linear-gradient(180deg, transparent, rgba(222,195,154,.18))}
+    .drill-section.l3{background:linear-gradient(180deg, transparent, rgba(184,143,106,.16))}
+    .drill-section.l4{background:linear-gradient(180deg, transparent, rgba(138,95,68,.14))}
+    .drill-section.l5{background:linear-gradient(180deg, transparent, rgba(90,58,42,.12))}
+    .drill-section.l6{background:linear-gradient(180deg, transparent, rgba(39,32,28,.10))}
 
     .drill-inner{
       max-width:1500px;
       margin:0 auto;
       padding:0 56px;
       display:grid;
-      grid-template-columns:1fr 1.5fr;
+      grid-template-columns:1fr 1.4fr;
       gap:80px;
     }
     @media(max-width:1100px){
-      .drill-inner{grid-template-columns:1fr;gap:40px;padding:0 32px}
-      .drill-section{padding:56px 0}
+      .drill-inner{grid-template-columns:1fr;gap:48px;padding:0 32px}
+      .drill-section{padding:64px 0}
     }
-    @media(max-width:700px){
-      .drill-inner{padding:0 20px}
-    }
+    @media(max-width:700px){.drill-inner{padding:0 20px}}
 
     .drill-left{position:sticky;top:24px;align-self:start;height:fit-content}
     @media(max-width:1100px){.drill-left{position:relative;top:0}}
@@ -295,35 +302,36 @@
     .drill-depth-badge{
       display:inline-flex;
       align-items:center;
-      gap:8px;
-      padding:8px 14px;
+      gap:12px;
+      padding:9px 18px;
       border:1px solid var(--ink);
       background:var(--paper);
       font-family:'JetBrains Mono',monospace;
       font-size:10px;
-      letter-spacing:.22em;
+      letter-spacing:.24em;
       text-transform:uppercase;
       color:var(--ink);
-      margin-bottom:24px;
+      margin-bottom:26px;
     }
     .drill-depth-badge .swatch{
       width:14px;height:14px;
+      border:1px solid rgba(0,0,0,.2);
     }
-    .drill-depth-badge .roman{color:var(--rust);font-weight:500}
+    .drill-depth-badge .roman{color:var(--rust);font-weight:600}
 
-    .drill-eyebrow{
+    .drill-brief{
       font-family:'JetBrains Mono',monospace;
       font-size:10.5px;
       letter-spacing:.24em;
       text-transform:uppercase;
       color:var(--ink-soft);
-      margin-bottom:14px;
+      margin-bottom:16px;
     }
 
     .drill-landmark{
       font-family:'Fraunces',serif;
       font-variation-settings:"opsz" 144,"wght" 260,"SOFT" 100;
-      font-size:clamp(56px,7vw,108px);
+      font-size:clamp(56px,7vw,112px);
       font-style:italic;
       line-height:.9;
       letter-spacing:-0.035em;
@@ -332,38 +340,40 @@
     }
     .drill-description{
       font-family:'Newsreader',serif;
-      font-size:18px;
+      font-size:19px;
       font-style:italic;
       color:var(--ink-soft);
       font-weight:300;
       line-height:1.45;
-      margin:0 0 28px;
+      margin:0 0 32px;
       max-width:34ch;
     }
-    .drill-mini-chart{
+
+    .drill-chart{
       width:100%;
-      max-width:300px;
+      max-width:360px;
       aspect-ratio:1;
-      margin-bottom:24px;
+      margin-bottom:28px;
+      position:relative;
     }
-    .drill-mini-chart svg{width:100%;height:100%;display:block}
+    .drill-chart svg{width:100%;height:100%;display:block}
 
     .drill-stats{
       display:grid;
       grid-template-columns:1fr 1fr;
-      gap:20px 32px;
-      padding:20px 0;
+      gap:24px 36px;
+      padding:24px 0;
       border-top:1px solid var(--hairline);
       border-bottom:1px solid var(--hairline);
-      max-width:300px;
+      max-width:360px;
     }
     .drill-stat .key{
       font-family:'JetBrains Mono',monospace;
       font-size:9.5px;
-      letter-spacing:.2em;
+      letter-spacing:.22em;
       text-transform:uppercase;
       color:var(--ink-fade);
-      margin-bottom:4px;
+      margin-bottom:6px;
     }
     .drill-stat .val{
       font-family:'Newsreader',serif;
@@ -381,34 +391,34 @@
       letter-spacing:.24em;
       text-transform:uppercase;
       color:var(--rust);
-      margin:0 0 14px;
-      padding-bottom:8px;
+      margin:0 0 16px;
+      padding-bottom:10px;
       border-bottom:1px solid var(--hairline);
     }
     .drill-summary{
       font-family:'Newsreader',serif;
-      font-size:19px;
+      font-size:20px;
       line-height:1.55;
       color:var(--ink-2);
-      max-width:60ch;
+      max-width:62ch;
       margin:0 0 56px;
     }
     .drill-summary::first-letter{
       font-family:'Fraunces',serif;
       font-variation-settings:"opsz" 144,"wght" 400,"SOFT" 80;
-      font-size:64px;
+      font-size:68px;
       line-height:.82;
       float:left;
-      margin:6px 12px 0 0;
+      margin:8px 14px 0 0;
       color:var(--rust);
     }
 
     .evidence-grid{list-style:none;padding:0;margin:0 0 56px;counter-reset:ev}
     .evidence-row{
       display:grid;
-      grid-template-columns:36px 1fr;
-      gap:14px;
-      padding:22px 0;
+      grid-template-columns:40px 1fr;
+      gap:18px;
+      padding:24px 0;
       border-bottom:1px solid var(--hairline-soft);
       counter-increment:ev;
     }
@@ -420,42 +430,42 @@
       letter-spacing:.1em;
       color:var(--rust);
       font-weight:500;
-      padding-top:2px;
+      padding-top:4px;
     }
     .evidence-row .body{min-width:0}
     .evidence-quote{
       font-family:'Fraunces',serif;
       font-variation-settings:"opsz" 60,"wght" 360,"SOFT" 80;
       font-style:italic;
-      font-size:18px;
+      font-size:19px;
       line-height:1.45;
       color:var(--ink);
-      margin:0 0 10px;
-      padding-left:14px;
+      margin:0 0 12px;
+      padding-left:16px;
       border-left:2px solid var(--rust);
-      max-width:54ch;
+      max-width:56ch;
     }
-    .evidence-source{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.04em;color:var(--ink-fade);margin-bottom:6px;line-height:1.4}
+    .evidence-source{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.04em;color:var(--ink-fade);margin-bottom:8px;line-height:1.4}
     .evidence-source code{font-family:'JetBrains Mono',monospace;background:none;padding:0;color:var(--ink-soft);font-size:11px}
-    .evidence-commentary{font-family:'Newsreader',serif;font-size:14.5px;line-height:1.5;color:var(--ink-soft);font-style:italic;max-width:54ch;margin:0}
+    .evidence-commentary{font-family:'Newsreader',serif;font-size:15px;line-height:1.5;color:var(--ink-soft);font-style:italic;max-width:56ch;margin:0}
 
     .gaps-list{list-style:none;padding:0;margin:0}
     .gaps-list li{
-      padding:14px 0 14px 30px;
+      padding:16px 0 16px 34px;
       border-bottom:1px solid var(--hairline-soft);
       font-family:'Newsreader',serif;
-      font-size:15px;
+      font-size:16px;
       line-height:1.55;
       color:var(--ink-soft);
       position:relative;
-      max-width:54ch;
+      max-width:56ch;
     }
     .gaps-list li:last-child{border-bottom:none}
     .gaps-list li::before{
       content:'';
       position:absolute;
       left:4px;top:24px;
-      width:10px;height:10px;
+      width:11px;height:11px;
       border:1px solid var(--ochre);
       transform:rotate(45deg);
     }
@@ -473,25 +483,24 @@
     .cross-title{
       font-family:'Fraunces',serif;
       font-variation-settings:"opsz" 144,"wght" 380,"SOFT" 40;
-      font-size:clamp(36px,4.4vw,56px);
+      font-size:clamp(38px,4.6vw,60px);
       line-height:1.0;
       letter-spacing:-0.025em;
       margin:0 0 56px;
       max-width:24ch;
     }
     .cross-title em{font-style:italic;font-variation-settings:"opsz" 144,"wght" 300,"SOFT" 100;color:var(--rust)}
-    .cross-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:48px;counter-reset:cross}
-    @media(max-width:900px){.cross-grid{grid-template-columns:1fr;gap:36px}}
-    .cross-item{counter-increment:cross;position:relative;padding-left:50px}
+    .cross-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:56px;counter-reset:cross}
+    @media(max-width:900px){.cross-grid{grid-template-columns:1fr;gap:40px}}
+    .cross-item{counter-increment:cross;position:relative;padding-left:56px}
     .cross-item::before{
       content:counter(cross,decimal-leading-zero);
       position:absolute;left:0;top:0;
       font-family:'JetBrains Mono',monospace;
-      font-size:11px;letter-spacing:.16em;color:var(--rust);font-weight:500;
+      font-size:12px;letter-spacing:.16em;color:var(--rust);font-weight:500;
     }
-    .cross-item p{font-family:'Newsreader',serif;font-size:17px;line-height:1.55;color:var(--ink-2);margin:0}
+    .cross-item p{font-family:'Newsreader',serif;font-size:18px;line-height:1.55;color:var(--ink-2);margin:0}
 
-    /* ═════════ COLOPHON ═════════ */
     .colophon{
       border-top:1px solid var(--ink);
       padding:32px 56px 28px;
@@ -505,23 +514,27 @@
 
     /* ═════════ ANIMATIONS ═════════ */
     @keyframes fade-up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-    .hero-eyebrow,.hero-headline,.hero-dek,.hero-meta{animation:fade-up .9s ease both}
+    .hero-eyebrow,.hero-headline,.hero-dek,.hero-key{animation:fade-up .9s ease both}
     .hero-headline{animation-delay:.1s}
     .hero-dek{animation-delay:.2s}
-    .hero-meta{animation-delay:.35s}
+    .hero-key{animation-delay:.35s}
 
-    .core{animation:fade-up 1.1s ease .25s both}
-    @keyframes layer-drop{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}
-    .layer-group{opacity:0;animation:layer-drop .7s ease forwards}
-    .layer-group:nth-child(1){animation-delay:.4s}
-    .layer-group:nth-child(2){animation-delay:.55s}
-    .layer-group:nth-child(3){animation-delay:.7s}
-    .layer-group:nth-child(4){animation-delay:.85s}
-    .layer-group:nth-child(5){animation-delay:1s}
-    .layer-group:nth-child(6){animation-delay:1.15s}
+    .core-frame{animation:fade-up 1s ease .3s both}
 
-    @keyframes thread-draw{from{stroke-dashoffset:600;opacity:0}to{stroke-dashoffset:0;opacity:.85}}
-    .thread{stroke-dasharray:600;animation:thread-draw 2.2s ease 1.4s both}
+    @keyframes layer-rise{
+      from{opacity:0;transform:translateY(10px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+    .layer-group{opacity:0;animation:layer-rise .65s ease forwards}
+    .layer-group:nth-of-type(1){animation-delay:.5s}
+    .layer-group:nth-of-type(2){animation-delay:.62s}
+    .layer-group:nth-of-type(3){animation-delay:.74s}
+    .layer-group:nth-of-type(4){animation-delay:.86s}
+    .layer-group:nth-of-type(5){animation-delay:.98s}
+    .layer-group:nth-of-type(6){animation-delay:1.10s}
+
+    @keyframes thread-draw{from{stroke-dashoffset:800;opacity:0}to{stroke-dashoffset:0;opacity:.85}}
+    .thread{stroke-dasharray:800;animation:thread-draw 2.4s ease 1.3s both}
   </style>
 </head>
 <body>
@@ -532,19 +545,19 @@
   </header>
 
   <section class="hero">
-    <div class="hero-side">
+    <div>
       <div class="hero-eyebrow">A stratigraphic read · 2026-05-19</div>
-      <h1 class="hero-headline">From <em>surface</em> to <em>bedrock</em>.</h1>
-      <p class="hero-dek">A core sample drawn from thirty-nine pages of Omar's vault. Lifestyle on top — daily rhythms, the surface he moves through. Mission at the bottom — the long-arc commitment that holds everything above it.</p>
-      <div class="hero-meta">
+      <h1 class="hero-headline">From <em>surface</em><br>to <em>bedrock</em>.</h1>
+      <p class="hero-dek">A core sample drawn from thirty-nine pages of Omar's vault. Lifestyle at the top — the surface he moves through. Mission at the bottom — the long arc that holds everything above it.</p>
+      <div class="hero-key">
         <span class="k">Engine</span><span class="v">Claude Sonnet 4.6 · Run 0MPD9X1JZQKK2XH28</span>
         <span class="k">Read</span><span class="v">39 high-signal pages — soul, focus, the campfire transcript, the voice corpus, BRIDGE canon.</span>
-        <span class="k">Caveat</span><span class="v">This is a mirror, not a label. The core sample changes as he does.</span>
+        <span class="k">Caveat</span><span class="v">This is a mirror, not a label. The core changes as he does.</span>
       </div>
     </div>
 
-    <div class="core">
-      <svg id="core-svg" viewBox="0 0 600 580" preserveAspectRatio="xMidYMid meet" aria-label="Six-plane stratigraphic core"></svg>
+    <div class="core-frame">
+      <svg id="core-svg" class="core-svg" viewBox="0 0 720 760" preserveAspectRatio="xMidYMid meet" aria-label="Six-plane stratigraphic core sample"></svg>
     </div>
   </section>
 
@@ -558,7 +571,7 @@
 
   <footer class="colophon">
     <span id="run-meta">RUN — · CLAUDE — · ENGINE —</span>
-    <span>The core sample changes as he does.</span>
+    <span>The core changes as he does.</span>
   </footer>
 
   <script id="coord-data" type="application/json">{"planes": {"lifestyle": {"name": "lifestyle", "x": -0.55, "y": -0.65, "confidence": 0.82, "landmark": "bohemian", "summary": "Omar lives in Amsterdam — a dense, networked European city — and has built his life there over eight years, yet the pattern across his vault is restless movement: solo interrailing trips, India twice, Egypt visits, a background spanning Japan, Egypt, St Louis, Scotland, and the Netherlands. His days follow a distinct rhythm: sharp mornings for deep work, dead afternoons for gym and walking, evenings conditional on excitement. The city has 'tried to push him out multiple times' yet he stays, anchored partly by a pending house purchase. His perfect week oscillates between Amsterdam-based fulfilment and travel-rich novelty, suggesting a dynamic urban person who is slowly building a static anchor without fully committing to either pole.", "gaps": ["No data on actual travel frequency in the current chapter — the vault describes aspirations and history but not how much Omar actually moves right now versus how much he wishes he did.", "Income and financial constraints (debt repayment at ~€950/month) likely suppress lifestyle dynamism below stated preference — the gap between desired and actual lifestyle is not fully visible in the corpus."], "axes": {"x": ["dynamic", "static"], "y": ["urban", "remote"]}, "evidence": [{"quote": "Amsterdam is beautiful, isolating, full of FOMO. The city has tried to push me out multiple times. I stay because leaving without an anchor feels like failure.", "source": "`soul.md` · The Amsterdam Question", "commentary": "Confirms urban placement with tension toward static anchoring; the Amsterdam house deal is a pull toward +x (static) while his instincts remain dynamic."}, {"quote": "A perfect week for me. Would involve travel, meeting new people, reconnecting with old ones, working on something that I'm very passionate about, having a sense of achievement, feeling like it's building towards something bigger.", "source": "`memory/threads/2026-03-27-campfire-intake-transcript.md` · Section 1: Lifestyle", "commentary": "Travel and meeting new people as primary ingredients of a perfect week confirms dynamic orientation despite Amsterdam anchor."}, {"quote": "Solo interrailing trip across Europe in senior year of high school. Solo trip across the US East Coast. Both trips: choosing where to go based on where I came from. Perpetual motion.", "source": "`soul.md` · The Builder Pattern", "commentary": "Perpetual motion is explicitly named; movement as identity, not just preference."}, {"quote": "I think a perfect week could also be one spent in Amsterdam at home. As long as I'm working on something that I find fulfilling and hanging out with friends and spending some time in nature and being active, and balancing myself, then can really find true fulfillment and enjoyment in that.", "source": "`memory/threads/2026-03-27-campfire-intake-transcript.md` · Section 1: Lifestyle", "commentary": "The self-correction here shows the tension between dynamic aspiration and a present reality that can satisfy from a single place — neither fully nomadic nor homesteader."}, {"quote": "Japanese-born, UK-educated, Egyptian American based in Amsterdam.", "source": "`soul.md` · Part I: Runtime Identity", "commentary": "The biographical headline encodes the lifestyle geography: born mobile, currently urban-anchored, identity spanning multiple cities and cultures."}]}, "behaviour": {"name": "behaviour", "x": -0.6, "y": 0.3, "confidence": 0.78, "landmark": "initiating", "summary": "Omar's behavioural pattern is fast, directive, and results-led — he rebuilds websites in days, expands contracts by showing rather than asking, and operates as a 'pirate in a navy' in every institutional role he has held. His task selection is reactive and deadline-driven rather than planned, his capture systems are scattered, and his procrastination drivers are well-documented and self-named. He is dominant-leaning with influencing energy: he uses narrative and persuasion as primary tools, steamrolls in conversation when excited, and struggles to slow down and listen despite genuinely wanting to. The focus document reveals a highly self-aware attempt to impose conscientious structure on an inherently influencing-dominant operating style.", "gaps": ["Conflict behaviour in peer relationships (as opposed to institutional/hierarchical ones) is underrepresented in the corpus — most examples involve upward or lateral institutional dynamics.", "The focus document's elaborate conscientious scaffolding (rules, gates, kill lists) may represent aspirational behaviour rather than current default behaviour — the pattern log explicitly names architecture excitement as an escape hatch from real work, suggesting the system describes what Omar wants to do more than what he currently does."], "axes": {"x": ["dominant", "agreeable"], "y": ["conscientious", "influencing"]}, "evidence": [{"quote": "Every role follows the same arc: arrive at a pivotal moment, see the vision before others, operate as a pirate inside a navy, leave carrying the lesson and not the reward.", "source": "`soul.md` · Career Pattern", "commentary": "Dominant-initiating pattern confirmed across multiple roles; the pirate metaphor captures directive independence inside institutional constraints."}, {"quote": "I don't know. Whatever's the loudest. Whatever has a deadline coming up. Sometimes I have a feeling of inspiration on something. Sometimes I see someone working on something that makes me wanna work on it too.", "source": "`memory/threads/2026-03-27-campfire-intake-transcript.md` · Section 2: Behaviour", "commentary": "Reactive task selection, social mimicry, inspiration-driven — influencing side of the behaviour plane, with low conscientious planning structure."}, {"quote": "I also tend to steamroll people when I have an idea about something or when I wanna get a point across. I have so much to say and then they feel like maybe they're not being heard even though I am listening and I am processing everything they're saying.", "source": "`soul.md` · How Values Get Me Into Trouble", "commentary": "Self-named dominant-influencing behaviour pattern: fast processing speed reads as not listening, directness reads as abrasion. (evidence flagged: excerpt not verbatim match)"}, {"quote": "Going from 1 day/week to 3 days/week by showing, not asking.", "source": "`soul.md` · CRREM", "commentary": "Classic dominant-initiating move: demonstrate value to earn scope rather than negotiating for it through consensus."}, {"quote": "Ship weekly or the project is lying to me.", "source": "`focus.md` · 7) Default Operating Rules", "commentary": "Results-led commitment: output as the unit of truth. Conscientious-style rules being applied to manage a dominant-influencing default."}]}, "intelligence": {"name": "intelligence", "x": -0.75, "y": 0.35, "confidence": 0.88, "landmark": "holistic", "summary": "Omar is a wide-ranging generalist synthesiser whose thinking runs through narrative and spatial metaphor — he finds the story thread and then visualises spatially, and ideas only fully click when he can explain them to someone else. His perennial obsessions (AI, ecological design, eusocial insects) orbit a single question about complex systems self-organising toward emergent properties. He consumes approximately thirty hours per week across all mediums and is a pattern-matching learner who integrates new information by connecting it to an existing constellation. The acknowledged knowledge gap — mathematics and economics — and the explicit compensating move toward qualitative narrative framing confirm a generalist intelligence with deep humanities and systems-thinking channels.", "gaps": ["The vault is rich with meta-description of thinking style but thin on extended examples of Omar actually thinking through a hard problem in writing — most evidence is self-report rather than demonstrated cognition.", "The 42,000-word BRIDGE vision document exists in the corpus but its internal argument quality cannot be assessed from the excerpts available — this would be the strongest direct evidence of actual intelligence level and synthesis style."], "axes": {"x": ["generalist", "specialist"], "y": ["solo", "social"]}, "evidence": [{"quote": "Thinking style: Narrative-spatial. Find the story thread, then visualize spatially. Only clicks when I can explain it to someone else. Conversations (with AI and humans) are part of the thinking process — thinking surfaces, not communication tools.", "source": "`soul.md` · Intellectual Architecture", "commentary": "Explicit self-description of a social-generalist intelligence: synthesis happens in dialogue, visualisation is spatial, the mode is holistic rather than specialist."}, {"quote": "Perennial obsessions: AI and its implications. Ecological design principles (seeded by my father). Eusocial insects, honeybees specifically. All three orbit the same question: how complex systems self-organize to produce something greater than the sum of their parts.", "source": "`soul.md` · Intellectual Architecture", "commentary": "Three domains converge on one meta-question — cross-domain synthesis is the actual cognitive mode, not specialist depth in any single field."}, {"quote": "I am finding the story thread and then visualising spatially to solve complex problems. It only clicks when I can explain it to someone else.", "source": "`memory/threads/2026-03-27-campfire-intake-transcript.md` · Section 3: Intelligence", "commentary": "Confirms the social dimension: intelligence is social and externalised, not solo and inward-processing."}, {"quote": "Signal/noise filter: Intuitive pattern-matching against a dense internal model. If it lights up the constellation, it gets in. Risk: the filter selects for interesting over actionable.", "source": "`soul.md` · Intellectual Architecture", "commentary": "The self-named risk reveals the generalist's characteristic trap: breadth over depth, interesting over useful."}, {"quote": "I wish I understood math / economics better. I shy away from numbers.", "source": "`memory/threads/2026-03-27-campfire-intake-transcript.md` · Section 3: Intelligence", "commentary": "The knowledge gap confirms generalist placement: the specialist's domain (quantitative analysis) is explicitly avoided and compensated by qualitative narrative."}]}, "values": {"name": "values", "x": -0.65, "y": -0.25, "confidence": 0.85, "landmark": "autonomy", "summary": "Omar explicitly self-maps to the progressive self-enhancing quadrant — autonomy and originality as current operating values — with stated aspiration toward progressive self-transcending: advocacy, compassion, service. His revealed behaviour confirms the self-enhancing placement: he operates as a pirate inside navies, refuses to leave Amsterdam until he has achieved something, builds things from scratch rather than joining at steady state, and names 'going my own way' as non-negotiable even when it leads to regret. The aspiration toward self-transcending is genuine and recurrent (the BRIDGE civilisational play, the 'bee percentage' he wants to increase), but the vault's behavioural evidence sits solidly in the progressive self-enhancing zone with movement toward the boundary.", "gaps": ["The gap between stated compassion aspiration and revealed velocity/steamrolling behaviour is the sharpest Dunning-Kruger signal in the corpus — the vault names this explicitly ('the compassion I want to lead with gets buried under velocity') but does not show evidence of this gap closing.", "Financial values are partially visible (debt, spending patterns, the Amsterdam house deal) but not fully mapped — the relationship between stated values and money behaviour is a known gap that BASIN is designed to address."], "axes": {"x": ["progressive", "conservative"], "y": ["self-enhancing", "self-transcending"]}, "evidence": [{"quote": "I never compromise on going my own way, even if it goes against conventional wisdom and even if I come to regret it later.", "source": "`memory/threads/2026-03-27-campfire-intake-transcript.md` · Section 4: Values", "commentary": "The single non-negotiable named is autonomy — progressive self-enhancing placement confirmed at the core."}, {"quote": "Currently in the progressive self-enhancing quadrant: autonomy, originality, creative independence. Aspiring toward progressive self-transcending: advocacy, compassion, service.", "source": "`soul.md` · Values Orientation", "commentary": "Explicit self-mapping. The stated gap between current and aspired values is the key signal — the aspiration is genuine but not yet the dominant operating mode."}, {"quote": "1. Finishing over starting — the word is finish\n> 2. People over isolation — peak moments involve sparring partners; isolation is where I rot\n> 3. Story as infrastructure — narrative is load-bearing", "source": "`soul.md` · Values (ranked)", "commentary": "Ranked values reveal a mix: finishing (self-enhancing achievement), people (self-transcending connection), story (originality). The ranking itself is a values act — finishing tops connection."}, {"quote": "Formative influence: The Righteous Mind by Jonathan Haidt. Moral intuitions first, reasoning follows. It became a lens, not a reference. 'Humans are 90% chimp, 10% bee' — and I want the bee percentage to be higher.", "source": "`soul.md` · Intellectual Architecture", "commentary": "The bee aspiration is a values statement: wanting to shift from individual competitive instinct toward collective contribution. Confirms the progressive self-transcending direction of travel."}, {"quote": "My value of autonomy gets me in trouble in group work because I will follow my own schedule and kind of coast on the assumption that everyone thinks I'm a genius and will give me the space to cook on my own terms.", "source": "`memory/threads/2026-03-27-campfire-intake-transcript.md` · Section 4: Values", "commentary": "Revealed behaviour under pressure: autonomy overrides team coordination. Self-enhancing placement is demonstrated, not just stated. (evidence flagged: excerpt not verbatim match)"}]}, "identity": {"name": "identity", "x": -0.6, "y": -0.45, "confidence": 0.8, "landmark": "campaigner", "summary": "Omar's self-narrative is shaped by two persistent forces: the builder pattern (first graduating class, first BRIDGE pilot, pirate in every navy) and the river metaphor (movement, civilisations along water, the eternal cycle, the gate he hasn't crossed yet). He identifies most strongly as someone who arrives at pivotal moments and sees the vision before others — a protagonist-campaigner identity. He facilitates and enables (BRIDGE, CRREM, the Year of Interfaith Dialogue) while also doing the work directly (rebuilt the website himself, built the school newspaper, wrote 42,000 words). The self-described misread — 'I am capable of changing despite how stubborn I appear. I am soft inside despite sometimes being hard' — names the gap between his presented identity and his felt interior, which is the characteristic identity tension of someone in active identity work.", "gaps": ["The vault is rich on biographical identity narrative but thinner on current identity — who Omar is right now in Amsterdam, post-layoff, pre-house-purchase, building BRIDGE — compared to the retrospective chapters.", "The fears section ('ending up alone, without friends or love' as the first fear) suggests an attachment dimension of identity that is named but not elaborated in the corpus — the relational self is present but underexplored relative to the builder self."], "axes": {"x": ["optimistic", "pragmatic"], "y": ["facilitator", "participator"]}, "evidence": [{"quote": "I am a founder by instinct. I don't join things at steady state — I join at the beginning or I try to create it.", "source": "`soul.md` · The Builder Pattern", "commentary": "The builder identity is explicit and consistent across every biographical chapter cited. This is the stable core of self-narrative."}, {"quote": "Rivers are my central metaphor for existence. Every major chapter of my identity maps to a river.", "source": "`soul.md` · Origin: A Life in Rivers", "commentary": "The river metaphor is not incidental — it is the organising schema for self-understanding across time. The BRIDGE name itself is a structural expression of this identity."}, {"quote": "I am someone who was raised by the world I was born in Japan. I grew up in Egypt. Across Europe and The US. I studied at Scotland, and then I moved to The Netherlands after graduating.", "source": "`memory/threads/2026-03-27-campfire-intake-transcript.md` · Section 5: Identity", "commentary": "The geographic identity ('raised by the world') is foundational — multicultural cosmopolitanism as the self-concept, not any single national identity."}, {"quote": "A tagline. An identity line. Japan → UK → Egypt → America → Netherlands. The hyphenation isn't confusion — it's range.", "source": "`memory/threads/writing/born-in-the-eccentric-east-raised-in-the-wild-west.md` · full", "commentary": "The reframe of hyphenation from confusion to range is a self-authoring move: taking what others might read as rootlessness and claiming it as capability."}, {"quote": "I am capable of changing despite how stubborn I appear. I am soft inside despite sometimes being hard or difficult. I am capable of deep listening.", "source": "`soul.md` · The Misread I'm Tired Of", "commentary": "The named misread reveals the gap between presented and interior identity — the self Omar wants to be known as versus the self others observe. This tension is active and unresolved."}]}, "mission": {"name": "mission", "x": 0.3, "y": -0.7, "confidence": 0.87, "landmark": "inspiration", "summary": "The mission is explicitly and repeatedly named: BRIDGE — aligning humans to themselves and to each other before AI disrupts everything. The 42,000-word vision document, the seven years of obsession, the 'civilisational play' framing, and the 'I want to see this take off before AGI arrives' urgency all confirm a world-facing mission with high stakes and long arc. The current execution path (CRREM pilot, proof before spectacle, service before product) shows a controlled, deliberate trajectory rather than open-ended optionality — Omar is not exploring what his mission might be, he knows it and is executing a sequenced plan toward it. The x-axis placement leans toward control because the mission is directed and owned, not exploratory; the y-axis is strongly external because the mission is explicitly civilisational and world-facing rather than self-cultivating.", "gaps": ["The gap between the civilisational ambition of BRIDGE and the current financial reality (debt repayment, €4,800/month, 12-week north star focused on security) is the sharpest tension in the mission plane — whether the long-arc mission and the near-term survival constraints are genuinely integrated or running in parallel is not fully visible.", "The 'why does it have to be you' answer ('It doesn't have to be me. I just feel like I'm onto something') suggests the mission is more held as a felt calling than as a argued claim — the vault does not show extended engagement with the strongest counter-arguments to why Omar specifically should be the one to build this."], "axes": {"x": ["flexibility", "control"], "y": ["external", "internal"]}, "evidence": [{"quote": "BRIDGE. The one word. The vision no one else sees yet. The civilizational play. 'I want to see this take off before AGI arrives.'", "source": "`soul.md` · Legacy", "commentary": "The mission is collapsed to a single word with civilisational stakes and temporal urgency. External, directed, owned — all three."}, {"quote": "The central bet — that human self-knowledge and economic ownership are the two bridges that determine whether AI makes things better or worse — that one I'd stake everything on. I have, actually. This is it.", "source": "`work/active/bridge/bridge-vision-v8.md` · A Letter", "commentary": "The staking-everything framing confirms that BRIDGE is not a project but a mission — the organising principle of a life, not a career move."}, {"quote": "It's an operating system to align humans to each other and to themselves before AI disrupts and accelerates every aspect of our society. The opportunity is to revolutionise the way we work and relate to the economy and to our sense of purpose and each other.", "source": "`memory/threads/2026-03-27-campfire-intake-transcript.md` · Section 6: Mission", "commentary": "The mission is world-facing (external axis) and explicitly about changing systems, not self-cultivation."}, {"quote": "The pattern: movement + curiosity = collision = next chapter. Chance encounters are the mechanism, not networking.", "source": "`soul.md` · Career Pattern", "commentary": "The career pattern reveals mission-level operating logic: open to serendipitous collisions but always carrying the same underlying direction. Flexibility in mechanism, control in direction."}, {"quote": "The right near-term path is not a giant product reveal. It is a real pilot inside CRREM that produces evidence, trust, and usable workflows.", "source": "`memory/notes/beliefs-and-shifts.md` · 2026-03-31", "commentary": "The service-first sequencing decision confirms controlled trajectory: mission is directed and deliberate, not exploratory. The x-axis leans toward control even though the vision is broad."}]}}, "cross_plane": ["The most consistent cross-plane signal in this vault is the builder pattern: it appears in lifestyle (perpetual motion, building from scratch), behaviour (pirate in a navy, showing not asking), identity (founder by instinct, first graduating class), and mission (seven years of obsession, the civilisational play). This is the load-bearing beam of the whole structure.", "The gap between stated values (compassion, listening, self-transcending aspiration) and revealed behavioural patterns (steamrolling, velocity, autonomy-first under pressure) is the clearest Dunning-Kruger signal in the corpus. The vault names this explicitly and repeatedly, which suggests self-awareness is present; the question is whether the awareness translates to changed behaviour or remains at the level of articulately described limitation.", "There is a recurring tension between the civilisational scope of the mission (aligning humanity before AGI) and the constrained near-term reality (debt, isolation, ADHD activation problems, weed habit, 2-3 productive hours per day). The vault handles this tension through the North Star reframe (CRREM pilot as proof surface, financial security as prerequisite) but the integration between the long arc and the short arc is more stated than demonstrated.", "The identity plane shows active work in progress: the misread Omar names ('soft inside despite being hard') and the fears he lists ('ending up alone') suggest someone engaged with the deeper identity questions, not someone who has resolved them. The river metaphor is a sophisticated organising schema that Omar has held for decades, suggesting the intellectual framework for identity is mature even where the lived resolution is incomplete.", "The social isolation signal is strong and consistent across multiple files: no deep social network in Amsterdam, no partner, the BRIDGE loneliness ('my systems-thinking vision is not understood or believed by most people around me'), and isolation named as both symptom and trigger for the ADHD procrastination loop. This is a structural constraint on all six planes, not just lifestyle.", "The shiny object graveyard and the kill list in focus.md reveal a consistent pattern: the recurring temptation is public visibility and optionality before proof. The underlying itch (visibility, expression, public validation) is named but not resolved — it reappears in the graveyard entries across multiple dates, suggesting the system is working as designed (catching the pattern) but the underlying drive has not been metabolised.", "Overall confidence in the mapping is moderate-high (0.82 average across planes). The corpus is unusually rich with self-reflective material, which reduces the risk of projection. The main uncertainty is the gap between self-report and observed behaviour — the vault is largely Omar describing himself rather than third-party observation or demonstrated outputs."], "run": {"id": "0MPD9X1JZQKK2XH28", "model": "claude-sonnet-4-6", "engine_version": "0.1.0", "started": "2026-05-19T23:38:07Z", "finished": "2026-05-19T23:40:30Z", "sources_read": 39, "tokens_in": 112537, "tokens_out": 6355}}
@@ -569,11 +582,10 @@
     const CROSS = FULL.cross_plane;
     const RUN = FULL.run;
 
-    /* surface → bedrock order */
     const PLANE_ORDER = ['lifestyle','behaviour','intelligence','values','identity','mission'];
     const ROMAN = ['I','II','III','IV','V','VI'];
-    const STRAT_COLORS = ['#efe1c4','#d9b88e','#b8855b','#8b5a3a','#5d3a26','#2a1f1a'];
-    const STRAT_TEXT  = ['#5d3a26','#5d3a26','#fff7e8','#fff7e8','#fff7e8','#fff7e8'];
+    const STRAT_COLORS = ['#f0e4ca','#dec39a','#b88f6a','#8a5f44','#5a3a2a','#27201c'];
+    const STRAT_INK    = ['#5a3a2a','#3e2818','#fbf4e3','#fbf4e3','#fbf4e3','#f0e4ca'];
 
     function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
     function formatCoord(v){return (v>=0?'+':'')+v.toFixed(2)}
@@ -614,117 +626,105 @@
     function planeBrief(name){
       return {
         lifestyle:'the surface he moves through',
-        behaviour:'how he shows up in the world',
+        behaviour:'how he shows up',
         intelligence:'how he processes',
         values:'what he refuses to compromise',
-        identity:'the self-narrative beneath the masks',
+        identity:'the self beneath the masks',
         mission:'the long arc, the bedrock',
       }[name];
     }
 
-    /* ───── HERO: stratigraphic core ───── */
+    /* ───── HERO: clean stratigraphic core ───── */
     function drawCore(){
       const svg = document.getElementById('core-svg');
-      const W = 600, H = 580;
-      // Cone: wider at top, narrower at bottom
-      const cx = 220;
-      const topY = 30;
-      const bottomY = 520;
-      const topR_x = 165;  // top half-width (horizontal radius)
-      const topR_y = 28;   // top ellipse vertical
-      const botR_x = 65;
-      const botR_y = 14;
-      const layerCount = 6;
-      const layerHeight = (bottomY - topY) / layerCount;
+      const W = 720, H = 760;
 
-      // Tab anchor x — to the right of the core
-      const tabAnchorX = 410;
-      const tabHeight = layerHeight * 0.82;
+      // Cone geometry — dramatic taper, plenty of breathing room
+      const coneTopY = 40;
+      const coneBottomY = 700;
+      const coneCenterX = 200;
+      const coneTopHalfW = 165;
+      const coneBottomHalfW = 50;
+      const ellipseFlattenTop = 24;
+      const ellipseFlattenBot = 8;
 
-      // For each layer compute its top/bottom radius (linear interpolation along the cone)
-      const layerGeom = [];
-      for (let i = 0; i < layerCount; i++){
-        const t0 = i / layerCount;
-        const t1 = (i + 1) / layerCount;
-        const lerp = (a,b,t) => a + (b - a) * t;
-        layerGeom.push({
-          y0: topY + t0 * (bottomY - topY),
-          y1: topY + t1 * (bottomY - topY),
-          rx0: lerp(topR_x, botR_x, t0),
-          ry0: lerp(topR_y, botR_y, t0),
-          rx1: lerp(topR_x, botR_x, t1),
-          ry1: lerp(topR_y, botR_y, t1),
-        });
-      }
+      const N = 6;
+      const layerH = (coneBottomY - coneTopY) / N;
+
+      const lerp = (a,b,t) => a + (b - a) * t;
+      const sliceHalfW = (t) => lerp(coneTopHalfW, coneBottomHalfW, t);
+      const sliceFlatten = (t) => lerp(ellipseFlattenTop, ellipseFlattenBot, t);
 
       let html = '';
 
-      // Defs (gradient for each layer for subtle 3D shading)
-      html += `<defs>`;
-      for (let i = 0; i < layerCount; i++){
+      // SVG defs: gradients for each layer
+      html += '<defs>';
+      for (let i = 0; i < N; i++){
         const c = STRAT_COLORS[i];
         html += `
-          <linearGradient id="grad-l${i}" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stop-color="${c}" stop-opacity="1"/>
-            <stop offset="55%" stop-color="${c}" stop-opacity="1"/>
-            <stop offset="100%" stop-color="${c}" stop-opacity=".82"/>
+          <linearGradient id="cone-grad-${i}" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="${shadeColor(c, -0.10)}"/>
+            <stop offset="50%" stop-color="${c}"/>
+            <stop offset="100%" stop-color="${shadeColor(c, -0.18)}"/>
           </linearGradient>
-          <filter id="layer-shadow-${i}" x="-10%" y="-10%" width="120%" height="120%">
-            <feGaussianBlur in="SourceAlpha" stdDeviation="1.4"/>
-            <feOffset dx="0" dy="2"/>
-            <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.15 0"/>
-            <feBlend in="SourceGraphic" in2="SourceGraphic"/>
-          </filter>
         `;
       }
-      html += `</defs>`;
+      // Soft drop shadow filter
+      html += `
+        <filter id="cone-shadow" x="-10%" y="-10%" width="120%" height="120%">
+          <feGaussianBlur in="SourceAlpha" stdDeviation="4"/>
+          <feOffset dx="0" dy="6"/>
+          <feColorMatrix values="0 0 0 0 .1  0 0 0 0 .05  0 0 0 0 0  0 0 0 .14 0"/>
+          <feComposite in2="SourceGraphic" operator="arithmetic" k1="0" k2="1" k3="1" k4="0"/>
+        </filter>
+      `;
+      html += '</defs>';
 
-      // Track dot world positions for the thread
-      const dotPositions = [];
+      // Soft ambient shadow under the cone
+      html += `<ellipse cx="${coneCenterX}" cy="${coneBottomY + 16}" rx="${coneBottomHalfW * 1.2}" ry="6" fill="rgba(0,0,0,.10)"/>`;
 
-      // Draw each layer (back-to-front: but z-order doesn't really matter here, just stack visually)
+      // Track dot positions for the thread
+      const dots = [];
+
       PLANE_ORDER.forEach((name, i) => {
         const p = PLANES[name];
-        const g = layerGeom[i];
-        const txt = STRAT_TEXT[i];
+        const t0 = i / N;
+        const t1 = (i + 1) / N;
+        const tMid = (t0 + t1) / 2;
+        const y0 = lerp(coneTopY, coneBottomY, t0);
+        const y1 = lerp(coneTopY, coneBottomY, t1);
+        const yMid = lerp(coneTopY, coneBottomY, tMid);
+        const halfW0 = sliceHalfW(t0);
+        const halfW1 = sliceHalfW(t1);
+        const halfWMid = sliceHalfW(tMid);
+        const flat0 = sliceFlatten(t0);
+        const flat1 = sliceFlatten(t1);
+        const flatMid = sliceFlatten(tMid);
 
-        // Layer body: trapezoid-ish shape with curved top and bottom
+        // Layer body — truncated cone slice with elliptical top and bottom
         const layerPath = `
-          M ${cx - g.rx0} ${g.y0}
-          A ${g.rx0} ${g.ry0} 0 0 0 ${cx + g.rx0} ${g.y0}
-          L ${cx + g.rx1} ${g.y1}
-          A ${g.rx1} ${g.ry1} 0 0 1 ${cx - g.rx1} ${g.y1}
+          M ${coneCenterX - halfW0} ${y0}
+          A ${halfW0} ${flat0} 0 0 0 ${coneCenterX + halfW0} ${y0}
+          L ${coneCenterX + halfW1} ${y1}
+          A ${halfW1} ${flat1} 0 0 1 ${coneCenterX - halfW1} ${y1}
           Z
         `;
 
-        // Inner cell: a small flat 2D coordinate cell drawn on the top surface of the layer
-        // Position it centered on the layer's top, oriented as an ellipse (matching the slope)
-        const cellCx = cx;
-        const cellCy = g.y0 + (g.y1 - g.y0) * 0.5; // mid-layer Y
-        const cellW = Math.min(g.rx0, g.rx1) * 1.1; // half-width
-        const cellH = (g.y1 - g.y0) * 0.34;
+        // The dot — positioned on the layer's midline based on p.x (the primary axis)
+        // x: -1..1 maps to ±halfWMid * 0.78 (some inset)
+        const dotX = coneCenterX + p.x * halfWMid * 0.78;
+        const dotY = yMid;
+        dots.push({ x: dotX, y: dotY, plane: name });
 
-        // Dot position within cell (x: -1..1 maps to ±cellW; y similarly)
-        const dotLx = p.x * cellW * 0.85;
-        const dotLy = -p.y * cellH * 0.85; // y inverted
+        html += `<g class="layer-group" data-plane="${name}">`;
 
-        const dotWx = cellCx + dotLx;
-        const dotWy = cellCy + dotLy;
-        dotPositions.push({ x: dotWx, y: dotWy, plane: name });
-
-        const adj = quadrantsFor(p.axes.x, p.axes.y);
-        const inQ = (p.x < 0 ? 'l' : 'r') + (p.y > 0 ? 't' : 'b');
-
-        // Tab geometry — pill-shaped to the right
-        const tabY0 = g.y0 + 4;
-        const tabY1 = g.y1 - 4;
-        const tabCy = (tabY0 + tabY1) / 2;
+        // ── Tab (specimen card) on the right ──
+        const tabX0 = coneCenterX + halfWMid + 12;
+        const tabX1 = 695;
+        const tabY0 = yMid - layerH * 0.42;
+        const tabY1 = yMid + layerH * 0.42;
         const tabH = tabY1 - tabY0;
         const tabRx = tabH / 2;
-
-        // Tab grows in length to the right; bind to core via a "stem"
-        const tabX0 = cx + g.rx0 * 0.6;
-        const tabX1 = 545;
         const tabPath = `
           M ${tabX0} ${tabY0}
           L ${tabX1 - tabRx} ${tabY0}
@@ -732,104 +732,68 @@
           L ${tabX0} ${tabY1}
           Z
         `;
+        html += `<path class="tab-bg" d="${tabPath}" fill="${STRAT_COLORS[i]}" opacity=".96"/>`;
 
-        html += `<g class="layer-group" data-plane="${name}">`;
+        // Tab text (in a label group that translates with hover)
+        const txt = STRAT_INK[i];
+        const padL = tabX0 + 22;
+        const padR = tabX1 - tabRx - 20;
+        html += `<g class="tab-label">`;
+        // Top row: roman + plane
+        html += `<text class="tab-roman" x="${padL}" y="${tabY0 + 17}" fill="${txt}">${ROMAN[i]}</text>`;
+        html += `<text class="tab-plane" x="${padL + 22}" y="${tabY0 + 17}" fill="${txt}">${name.toUpperCase()}</text>`;
+        // Right: confidence
+        html += `<text class="tab-conf" x="${padR}" y="${tabY0 + 17}" fill="${txt}" text-anchor="end">${Math.round(p.confidence * 100)}<tspan class="pct">%</tspan></text>`;
+        // Middle row: landmark (italic, prominent)
+        html += `<text class="tab-landmark" x="${padL}" y="${tabY0 + 34}" fill="${txt}">${p.landmark}</text>`;
+        // Bottom: brief
+        html += `<text class="tab-brief" x="${padL}" y="${tabY0 + 49}" fill="${txt}">${planeBrief(name)}</text>`;
+        html += `</g>`;
 
-        // Tab background (renders behind the layer body)
-        html += `<path class="tab-bg" d="${tabPath}" fill="${STRAT_COLORS[i]}" opacity=".94"/>`;
+        // ── Layer body ──
+        html += `<path class="strat-body" d="${layerPath}" fill="url(#cone-grad-${i})"/>`;
 
-        // Layer body (curved trapezoid)
-        html += `<path class="strat-body" d="${layerPath}" fill="url(#grad-l${i})"/>`;
+        // Subtle top rim — light catching the ellipse rim
+        html += `<ellipse class="strat-rim-hi" cx="${coneCenterX}" cy="${y0}" rx="${halfW0}" ry="${flat0}"/>`;
+        // Subtle shadow on inside of top rim (visible through)
+        html += `<path class="strat-rim-shadow" d="M ${coneCenterX - halfW0 * 0.96} ${y0 + flat0 * 0.05} A ${halfW0 * 0.96} ${flat0 * 0.85} 0 0 0 ${coneCenterX + halfW0 * 0.96} ${y0 + flat0 * 0.05}"/>`;
 
-        // Top ellipse highlight (subtle white rim catching light)
-        html += `<ellipse class="strat-rim-hi" cx="${cx}" cy="${g.y0}" rx="${g.rx0}" ry="${g.ry0}"/>`;
-        // Top ellipse outline
-        html += `<ellipse class="strat-top" cx="${cx}" cy="${g.y0}" rx="${g.rx0}" ry="${g.ry0}" fill="none"/>`;
-
-        // Divider line (faint dashed) at layer bottom — implies sediment seam
-        if (i < layerCount - 1){
-          html += `<ellipse class="strat-divider" cx="${cx}" cy="${g.y1}" rx="${g.rx1}" ry="${g.ry1}"/>`;
+        // Layer divider (faint dashed) between this layer and the next
+        if (i < N - 1){
+          html += `<ellipse class="strat-divider" cx="${coneCenterX}" cy="${y1}" rx="${halfW1}" ry="${flat1}"/>`;
         }
 
-        // Embedded 2D cell on the layer's top surface
-        // We render this as a small rectangular plot, slightly tilted to suggest perspective
-        const cellPath = `
-          M ${cellCx - cellW} ${cellCy - cellH * 0.4}
-          A ${cellW} ${cellH * 0.4} 0 0 0 ${cellCx + cellW} ${cellCy - cellH * 0.4}
-          L ${cellCx + cellW} ${cellCy + cellH * 0.4}
-          A ${cellW} ${cellH * 0.4} 0 0 1 ${cellCx - cellW} ${cellCy + cellH * 0.4}
-          Z
-        `;
-        html += `<path class="layer-cell-bg" d="${cellPath}"/>`;
-
-        // Cell axes (cross)
-        html += `<line class="layer-cell-axis" x1="${cellCx - cellW * 0.95}" y1="${cellCy}" x2="${cellCx + cellW * 0.95}" y2="${cellCy}"/>`;
-        html += `<line class="layer-cell-axis" x1="${cellCx}" y1="${cellCy - cellH * 0.36}" x2="${cellCx}" y2="${cellCy + cellH * 0.36}"/>`;
-
-        // Quadrant labels at the 4 corners
-        const cornerOffX = cellW * 0.68;
-        const cornerOffY = cellH * 0.30;
-        const cornerPos = [
-          {k:'lt', x:cellCx - cornerOffX, y:cellCy - cornerOffY, a:'middle', t:adj.lt},
-          {k:'rt', x:cellCx + cornerOffX, y:cellCy - cornerOffY, a:'middle', t:adj.rt},
-          {k:'lb', x:cellCx - cornerOffX, y:cellCy + cornerOffY + 2, a:'middle', t:adj.lb},
-          {k:'rb', x:cellCx + cornerOffX, y:cellCy + cornerOffY + 2, a:'middle', t:adj.rb},
-        ];
-        cornerPos.forEach(c => {
-          const lit = c.k === inQ ? ' lit' : '';
-          html += `<text class="layer-cell-quad${lit}" x="${c.x}" y="${c.y}" text-anchor="${c.a}">${c.t}</text>`;
-        });
-
-        // Axis labels (tiny mono caps at the cardinal points)
-        html += `<text class="layer-cell-axislabel" x="${cellCx}" y="${cellCy - cellH * 0.42}" text-anchor="middle" dominant-baseline="text-after-edge">${p.axes.y[0]}</text>`;
-        html += `<text class="layer-cell-axislabel" x="${cellCx}" y="${cellCy + cellH * 0.42 + 1.5}" text-anchor="middle" dominant-baseline="hanging">${p.axes.y[1]}</text>`;
-        html += `<text class="layer-cell-axislabel" x="${cellCx - cellW - 1}" y="${cellCy}" text-anchor="end" dominant-baseline="middle">${p.axes.x[0]}</text>`;
-        html += `<text class="layer-cell-axislabel" x="${cellCx + cellW + 1}" y="${cellCy}" text-anchor="start" dominant-baseline="middle">${p.axes.x[1]}</text>`;
-
-        // Coordinate readout (subtle)
-        html += `<text class="layer-cell-coord-label" x="${cellCx + cellW + 1}" y="${cellCy + cellH * 0.40 + 1}" text-anchor="end">${formatCoord(p.x)}, ${formatCoord(p.y)}</text>`;
-
-        // The dot itself
-        html += `<circle class="layer-dot-pulse" cx="${dotWx}" cy="${dotWy}" r="1.4"/>`;
-        html += `<circle class="layer-dot-ring" cx="${dotWx}" cy="${dotWy}" r="${2.2 + (1 - p.confidence) * 1.6}"/>`;
-        html += `<circle class="layer-dot" cx="${dotWx}" cy="${dotWy}" r="1.6"/>`;
-
-        // Tab content: roman + plane + landmark + confidence
-        const tabTextX0 = tabX0 + 10;
-        const tabTextY = tabCy;
-        html += `<g class="tab-label">`;
-        html += `<text class="tab-roman" x="${tabTextX0}" y="${tabTextY - 6}" fill="${txt}" opacity=".7">${ROMAN[i]}</text>`;
-        html += `<text class="tab-plane" x="${tabTextX0 + 14}" y="${tabTextY - 6}" fill="${txt}">${name.toUpperCase()}</text>`;
-        html += `<text class="tab-landmark" x="${tabTextX0}" y="${tabTextY + 4}" fill="${txt}" opacity=".95">${p.landmark}</text>`;
-        html += `<text class="tab-conf" x="${tabX1 - tabRx - 4}" y="${tabTextY + 4}" fill="${txt}" opacity=".7" text-anchor="end">${Math.round(p.confidence * 100)}%</text>`;
-        // tiny strat-glyph between the roman and plane?
-        html += `<text class="strat-description" x="${tabTextX0 + 14 + 70}" y="${tabTextY - 6}" fill="${txt}" opacity=".55">${planeBrief(name)}</text>`;
-        html += `</g>`;
+        // ── The dot, sitting on the layer's mid-surface ──
+        html += `<circle class="strat-dot-pulse" cx="${dotX}" cy="${dotY}" r="1.6"/>`;
+        const confR = 3.5 + (1 - p.confidence) * 3.2;
+        html += `<circle class="strat-dot-halo" cx="${dotX}" cy="${dotY}" r="${confR}"/>`;
+        html += `<circle class="strat-dot" cx="${dotX}" cy="${dotY}" r="3.5"/>`;
 
         html += `</g>`;
       });
 
-      // Thread connecting all dots (drawn last so it sits on top)
-      const threadPath = dotPositions.map((d, i) => `${i === 0 ? 'M' : 'L'} ${d.x.toFixed(2)} ${d.y.toFixed(2)}`).join(' ');
+      // Thread connecting all dots — drawn last so it sits on top
+      const threadPath = dots.map((d, i) => `${i === 0 ? 'M' : 'L'} ${d.x.toFixed(1)} ${d.y.toFixed(1)}`).join(' ');
       html += `<path class="thread" d="${threadPath}"/>`;
 
-      // Small "core sample" label at top
-      html += `
-        <text x="${cx}" y="${topY - 12}" text-anchor="middle"
-              font-family="JetBrains Mono" font-size="10" letter-spacing="3"
-              fill="var(--ink-fade)" text-transform="uppercase">CORE SAMPLE · 2026 · I</text>
-      `;
-      // Depth axis on the left
-      const axX = 80;
-      html += `
-        <line x1="${axX}" y1="${topY}" x2="${axX}" y2="${bottomY}" stroke="var(--ink-fade)" stroke-width=".5" stroke-dasharray="2 3"/>
-        <text x="${axX - 6}" y="${topY + 4}" text-anchor="end" font-family="JetBrains Mono" font-size="9" letter-spacing="2" fill="var(--ink-fade)" text-transform="uppercase">surface</text>
-        <text x="${axX - 6}" y="${bottomY + 2}" text-anchor="end" font-family="JetBrains Mono" font-size="9" letter-spacing="2" fill="var(--ink-fade)" text-transform="uppercase">bedrock</text>
-      `;
+      // ── Depth ruler on the left ──
+      const axX = 60;
+      html += `<line class="depth-axis-line" x1="${axX}" y1="${coneTopY}" x2="${axX}" y2="${coneBottomY}"/>`;
+      // Major depth labels
+      html += `<text class="depth-label-major" x="${axX - 10}" y="${coneTopY + 6}" text-anchor="end">surface</text>`;
+      html += `<text class="depth-label-major" x="${axX - 10}" y="${coneBottomY + 4}" text-anchor="end">bedrock</text>`;
+      // Minor ticks per layer
+      for (let i = 0; i <= N; i++){
+        const yT = lerp(coneTopY, coneBottomY, i / N);
+        html += `<line class="depth-tick" x1="${axX - 6}" y1="${yT}" x2="${axX}" y2="${yT}"/>`;
+      }
+
+      // ── Center stamp above the cone ──
+      html += `<text class="core-stamp" x="${coneCenterX}" y="${coneTopY - 18}" text-anchor="middle">CORE SAMPLE · 2026 · I</text>`;
 
       svg.innerHTML = html;
 
-      // Wire layer clicks → scroll to drill
+      // Click any layer → scroll to its drill-in
       svg.querySelectorAll('.layer-group').forEach(g => {
         g.addEventListener('click', () => {
           const planeName = g.dataset.plane;
@@ -839,32 +803,59 @@
       });
     }
 
-    /* ───── Mini chart for drill-ins ───── */
+    function shadeColor(hex, percent){
+      const c = hex.replace('#','');
+      const num = parseInt(c, 16);
+      let r = (num >> 16) + Math.round(255 * percent);
+      let g = ((num >> 8) & 0xff) + Math.round(255 * percent);
+      let b = (num & 0xff) + Math.round(255 * percent);
+      r = Math.max(0, Math.min(255, r));
+      g = Math.max(0, Math.min(255, g));
+      b = Math.max(0, Math.min(255, b));
+      return '#' + ((r << 16) | (g << 8) | b).toString(16).padStart(6, '0');
+    }
+
+    /* ───── Mini chart for drill-ins (full 2D coordinate space) ───── */
     function buildMiniChart(p){
-      const C = 40, R = 30;
+      // 100x100 viewBox; much more breathing room here
+      const C = 50, R = 36;
       const px = C + p.x * R;
       const py = C - p.y * R;
-      const confR = 2 + (1 - p.confidence) * 4;
+      const confR = 3 + (1 - p.confidence) * 5;
       const q = quadrantsFor(p.axes.x, p.axes.y);
       const inQ = (p.x < 0 ? 'l' : 'r') + (p.y > 0 ? 't' : 'b');
+
       return `
-        <svg viewBox="0 0 80 80" preserveAspectRatio="xMidYMid meet">
+        <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+          <!-- Background ring + faint inner ring -->
           <circle cx="${C}" cy="${C}" r="${R}" fill="none" stroke="var(--hairline)" stroke-width=".4"/>
           <circle cx="${C}" cy="${C}" r="${R*.5}" fill="none" stroke="var(--hairline-soft)" stroke-width=".3"/>
-          <line x1="${C-R}" y1="${C}" x2="${C+R}" y2="${C}" stroke="var(--ink-fade)" stroke-width=".25" stroke-dasharray="1 1"/>
-          <line x1="${C}" y1="${C-R}" x2="${C}" y2="${C+R}" stroke="var(--ink-fade)" stroke-width=".25" stroke-dasharray="1 1"/>
-          <text x="${C}" y="${C-R-1.5}" text-anchor="middle" font-family="JetBrains Mono" font-size="2.6" letter-spacing=".2em" fill="var(--ink-fade)">${p.axes.y[0].toUpperCase()}</text>
-          <text x="${C}" y="${C+R+3.5}" text-anchor="middle" font-family="JetBrains Mono" font-size="2.6" letter-spacing=".2em" fill="var(--ink-fade)">${p.axes.y[1].toUpperCase()}</text>
-          <text x="${C-R-1}" y="${C+.7}" text-anchor="end" font-family="JetBrains Mono" font-size="2.6" letter-spacing=".2em" fill="var(--ink-fade)">${p.axes.x[0].toUpperCase()}</text>
-          <text x="${C+R+1}" y="${C+.7}" text-anchor="start" font-family="JetBrains Mono" font-size="2.6" letter-spacing=".2em" fill="var(--ink-fade)">${p.axes.x[1].toUpperCase()}</text>
+
+          <!-- Hair-thin dashed axes -->
+          <line x1="${C-R}" y1="${C}" x2="${C+R}" y2="${C}" stroke="var(--ink-fade)" stroke-width=".25" stroke-dasharray="1 1.5"/>
+          <line x1="${C}" y1="${C-R}" x2="${C}" y2="${C+R}" stroke="var(--ink-fade)" stroke-width=".25" stroke-dasharray="1 1.5"/>
+
+          <!-- Cardinal labels -->
+          <text x="${C}" y="${C-R-2}" text-anchor="middle" font-family="JetBrains Mono" font-size="3" letter-spacing=".22em" fill="var(--ink-fade)">${p.axes.y[0].toUpperCase()}</text>
+          <text x="${C}" y="${C+R+5}" text-anchor="middle" font-family="JetBrains Mono" font-size="3" letter-spacing=".22em" fill="var(--ink-fade)">${p.axes.y[1].toUpperCase()}</text>
+          <text x="${C-R-1.5}" y="${C+.8}" text-anchor="end" font-family="JetBrains Mono" font-size="3" letter-spacing=".22em" fill="var(--ink-fade)">${p.axes.x[0].toUpperCase()}</text>
+          <text x="${C+R+1.5}" y="${C+.8}" text-anchor="start" font-family="JetBrains Mono" font-size="3" letter-spacing=".22em" fill="var(--ink-fade)">${p.axes.x[1].toUpperCase()}</text>
+
+          <!-- Quadrant adjectives (active one tinted rust) -->
           ${[
-            {k:'lt',x:C-R*.65,y:C-R*.65+1,t:q.lt},
-            {k:'rt',x:C+R*.65,y:C-R*.65+1,t:q.rt},
-            {k:'lb',x:C-R*.65,y:C+R*.65+1,t:q.lb},
-            {k:'rb',x:C+R*.65,y:C+R*.65+1,t:q.rb},
-          ].map(i => `<text x="${i.x}" y="${i.y}" text-anchor="middle" font-family="Fraunces" font-style="italic" font-size="3.2" fill="${i.k===inQ?'var(--rust-dark)':'var(--ink-ghost)'}" opacity=".85">${i.t}</text>`).join('')}
-          <circle cx="${px}" cy="${py}" r="${confR}" fill="none" stroke="var(--rust)" stroke-width=".4" opacity=".4"/>
-          <circle cx="${px}" cy="${py}" r="1.4" fill="var(--rust)"/>
+            {k:'lt',x:C-R*.62,y:C-R*.62+1.3,t:q.lt},
+            {k:'rt',x:C+R*.62,y:C-R*.62+1.3,t:q.rt},
+            {k:'lb',x:C-R*.62,y:C+R*.62+1.3,t:q.lb},
+            {k:'rb',x:C+R*.62,y:C+R*.62+1.3,t:q.rb},
+          ].map(i => `<text x="${i.x}" y="${i.y}" text-anchor="middle" font-family="Fraunces" font-style="italic" font-size="3.6" font-variation-settings="'opsz' 60,'wght' 380,'SOFT' 90" fill="${i.k===inQ?'var(--rust-dark)':'var(--ink-ghost)'}" opacity=".9">${i.t}</text>`).join('')}
+
+          <!-- The dot -->
+          <circle cx="${px}" cy="${py}" r="${confR}" fill="none" stroke="var(--rust)" stroke-width=".4" opacity=".45"/>
+          <circle cx="${px}" cy="${py}" r="1.6" fill="var(--rust)"/>
+
+          <!-- Position tag -->
+          <text x="${px + (px > C ? 2.5 : -2.5)}" y="${py + (py > C ? -2.5 : 4)}" text-anchor="${px > C ? 'start' : 'end'}" font-family="Fraunces" font-style="italic" font-size="4.4" font-variation-settings="'opsz' 60,'wght' 500,'SOFT' 80" fill="var(--rust)">${p.landmark}</text>
+          <text x="${px + (px > C ? 2.5 : -2.5)}" y="${py + (py > C ? 1.5 : 8)}" text-anchor="${px > C ? 'start' : 'end'}" font-family="JetBrains Mono" font-size="2.5" letter-spacing=".08em" fill="var(--ink-fade)">${formatCoord(p.x)}, ${formatCoord(p.y)}</text>
         </svg>
       `;
     }
@@ -898,10 +889,10 @@
                   <span class="swatch" style="background:${STRAT_COLORS[i]}"></span>
                   <span><span class="roman">LAYER ${ROMAN[i]}</span> · ${name}</span>
                 </div>
-                <div class="drill-eyebrow">${planeBrief(name)}</div>
+                <div class="drill-brief">${planeBrief(name)}</div>
                 <h2 class="drill-landmark">${p.landmark}</h2>
                 <p class="drill-description">${planeDescription(name)}.</p>
-                <div class="drill-mini-chart">${buildMiniChart(p)}</div>
+                <div class="drill-chart">${buildMiniChart(p)}</div>
                 <div class="drill-stats">
                   <div class="drill-stat"><div class="key">Position</div><div class="val mono accent">${formatCoord(p.x)}, ${formatCoord(p.y)}</div></div>
                   <div class="drill-stat"><div class="key">Confidence</div><div class="val mono">${Math.round(p.confidence * 100)}%</div></div>
@@ -923,7 +914,6 @@
       }).join('');
     }
 
-    /* ───── Cross-plane + run meta ───── */
     document.getElementById('cross-grid').innerHTML = CROSS.map(o => `<div class="cross-item"><p>${escapeHtml(o)}</p></div>`).join('');
     document.getElementById('run-meta').textContent = `RUN ${RUN.id} · ${RUN.model.toUpperCase()} · ENGINE ${RUN.engine_version}`;
 
