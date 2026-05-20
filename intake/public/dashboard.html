@@ -240,9 +240,9 @@
         <h1 class="hero-title">What's <em>working</em>,<br>what to <em>do</em>.</h1>
         <p class="hero-deck">Your three-agent system, in plain sight. The console below polls live. The action checklist remembers what you've done. The test recipes are buttons, not commands.</p>
         <div class="hero-stats">
-          <div class="hero-stat"><div class="num green" id="stat-built">62</div><div class="lbl">Shipped &amp; tested</div></div>
-          <div class="hero-stat"><div class="num amber" id="stat-pending">35</div><div class="lbl">Pending</div></div>
-          <div class="hero-stat"><div class="num fade" id="stat-skipped">3</div><div class="lbl">Skipped</div></div>
+          <div class="hero-stat"><div class="num green" id="stat-built">79</div><div class="lbl">Shipped &amp; tested</div></div>
+          <div class="hero-stat"><div class="num amber" id="stat-pending">7</div><div class="lbl">Pending</div></div>
+          <div class="hero-stat"><div class="num fade" id="stat-skipped">14</div><div class="lbl">Skipped</div></div>
           <div class="hero-stat"><div class="num rust">~300</div><div class="lbl">Tests passing</div></div>
         </div>
       </section>
@@ -718,6 +718,13 @@
         document.getElementById('ct-built').textContent = `(${builtCount})`;
         document.getElementById('ct-pending').textContent = `(${pendingCount})`;
         document.getElementById('ct-skipped').textContent = `(${skippedCount})`;
+
+        const heroBuilt = document.getElementById('stat-built');
+        const heroPending = document.getElementById('stat-pending');
+        const heroSkipped = document.getElementById('stat-skipped');
+        if (heroBuilt) heroBuilt.textContent = builtCount;
+        if (heroPending) heroPending.textContent = pendingCount;
+        if (heroSkipped) heroSkipped.textContent = skippedCount;
 
         // Group by cluster, preserve order from JSON
         const clusters = {};

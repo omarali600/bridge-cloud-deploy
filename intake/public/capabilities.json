@@ -1,118 +1,685 @@
 {
   "built": [
-    {"n":1,"name":"Capture/comms agent","english":"A new cloud service watches your inbox, calendar, Drive, Telegram and WhatsApp. Anything inbound — a new email, a calendar invite, a message — gets read within 60 seconds, classified by urgency and topic, and routed to the right agent (Beatrix, Clem) or filed straight into your brain.","tests":"26 tests","cluster":"Foundation"},
-    {"n":16,"name":"Trust + permissions audit","english":"Every action any agent takes is logged with a timestamp, the target, and the reasoning. You can see the trail of what your agents did and why.","tests":"shared substrate","cluster":"Foundation"},
-    {"n":22,"name":"Bridget's intake engine","english":"The membrane between every inbound channel and your inner agents. Classifies (urgent / normal / personal / CRREM / admin), decides whether to act unprompted, queue for later, or escalate to you. Sixty seconds end-to-end.","tests":"26 tests","cluster":"Foundation"},
-    {"n":40,"name":"Trust-and-audit substrate","english":"The bedrock that makes safe delegation possible. Permission tiers per agent. 24-hour undo on reversible actions. Per-agent kill switches. Full data export.","tests":"26 tests","cluster":"Foundation"},
-    {"n":41,"name":"Coordinate engine over your vault","english":"Read 39 of your most signal-rich vault pages, computed your position across the 6 BRIDGE planes (lifestyle, behaviour, intelligence, values, identity, mission). Quoted evidence from your own writing anchors each placement.","tests":"13 tests","cluster":"Foundation"},
-    {"n":91,"name":"Per-agent permission tiers","english":"Each agent has 3 levels of authority per scope: advisory (suggests only), delegated (acts and logs), autonomous (acts then reports). Tunable by category.","tests":"part of trust substrate","cluster":"Foundation"},
-    {"n":92,"name":"Weekly audit digest","english":"Every Sunday at 7pm, Bridget sends a Telegram digest in plain English: what your agents did unprompted, what they did on your behalf, what got stuck, what's waiting on you.","tests":"part of trust substrate","cluster":"Foundation"},
-    {"n":93,"name":"24-hour undo","english":"Sent message? Created event? Moved file? One command reverses it. Window: 24 hours after the action.","tests":"part of trust substrate","cluster":"Foundation"},
-    {"n":94,"name":"Kill switches","english":"Per-agent and per-capability kill switches. Master switch shuts everything down. Documented in plain English so you can find the right switch fast.","tests":"part of trust substrate","cluster":"Foundation"},
-    {"n":95,"name":"Full data export","english":"One command produces a tar.gz containing your vault, audit log, agent configs, permissions config, kill-switch state, undo handles. Your data is portable. You can leave anytime.","tests":"part of trust substrate","cluster":"Foundation"},
-
-    {"n":21,"name":"Bridget's life-map state","english":"A continuously-updated model of where you are: location, mood, energy, current week's shape. Other agents query this before responding so they know what's happening in your life.","tests":"-","cluster":"Bridget (identity + behaviors)"},
-    {"n":23,"name":"Bridget's reflection cadence","english":"Daily check-in at 8:30pm, Sunday review at 6pm, monthly retrospective on the first Sunday. Asks the questions you'd ask yourself if you had the discipline.","tests":"part of bridget-behaviors","cluster":"Bridget (identity + behaviors)"},
-    {"n":24,"name":"Bridget's emotional barometer","english":"Reads tone, sleep quality, calendar density, voice signals. When you're frayed, the system softens its tone and prunes the day — silently, without commentary on your state.","tests":"part of bridget-behaviors","cluster":"Bridget (identity + behaviors)"},
-    {"n":25,"name":"Bridget's proactive check-ins","english":"Patterns Bridget notices and surfaces: 'haven't journaled in 9 days, want to?', 'the friend you haven't messaged in 3 months just posted something big.'","tests":"part of bridget-behaviors","cluster":"Bridget (identity + behaviors)"},
-
-    {"n":3,"name":"Finance specialist","english":"Bank + cards ingested via CSV import (live PSD2 ready). Multi-currency EUR/USD/EGP. Spending categorized. NL tax aware. €950/month debt trajectory tracked. Subscription audit. Monthly review in plain English.","tests":"6 tests","cluster":"Beatrix specialists"},
-    {"n":4,"name":"Fitness specialist","english":"Apple Health pipeline (placeholder until wired). 75kg trajectory tracked. Workouts context-aware: gym when home, 15-min routines while traveling, walking-meeting suggestions when calendar's dense.","tests":"4 tests","cluster":"Beatrix specialists"},
-    {"n":5,"name":"Photos specialist","english":"Every photo arriving on any channel flows into a master chronological archive. Auto-labeled. Receipts route to finance, business cards to people-graph. 'One year ago today' notifications.","tests":"2 tests","cluster":"Beatrix specialists"},
-    {"n":6,"name":"People-graph specialist","english":"Living map of every person in your life. Last interaction, important dates, follow-up cadence. Drafts 'thinking of you' messages in your voice when someone goes quiet. Pre-meeting context surfacer.","tests":"5 tests","cluster":"Beatrix specialists"},
-    {"n":7,"name":"Travel logistics specialist","english":"Visa requirements, vaccinations, time-zone shifts, weather, hotel context (where you stayed last time, what you liked), packing list from past trips, currency notes.","tests":"6 tests","cluster":"Beatrix specialists"},
-    {"n":8,"name":"Event-specific agent","english":"For each major upcoming event (wedding, conference, gathering), Beatrix spawns a dedicated mini-agent. Pulls dress code, gifts based on who they are, RSVP, hotel + flights, dietary asks, post-event follow-ups.","tests":"5 tests","cluster":"Beatrix specialists"},
-    {"n":9,"name":"Decision support","english":"When you're facing a real decision, Beatrix pulls relevant prior decisions from the brain, frames the questions you should answer first, presents the case for and against.","tests":"3 tests","cluster":"Beatrix specialists"},
-    {"n":10,"name":"State / wellbeing","english":"Reads tone from messages, sleep from Apple Health, calendar density, voice energy. Notices burnout drift. System calibrates to your state without narrating it back to you.","tests":"3 tests","cluster":"Beatrix specialists"},
-    {"n":11,"name":"Opportunity watcher","english":"Surfaces things you'd want and might miss: jobs in your orbit, speaking invitations, grants/funding for CRREM, residencies, fellowships, conferences.","tests":"3 tests","cluster":"Beatrix specialists"},
-    {"n":12,"name":"Reputation agent","english":"Tracks how you show up publicly. LinkedIn, X/Twitter, articles, talks. Notices inconsistencies between public persona and current values. Drafts content that strengthens the through-line.","tests":"3 tests","cluster":"Beatrix specialists"},
-    {"n":13,"name":"Reading + idea synthesis","english":"Captures everything you read across browser, Kindle, podcasts, articles. Distills key ideas. Creates a brain link when something connects to existing thinking. Weekly emergent-themes digest.","tests":"2 tests","cluster":"Beatrix specialists"},
-    {"n":14,"name":"Presentation / deck agent","english":"Knows your slide library, speaking history, open invitations. Drafts context-aware decks for upcoming talks — pulls relevant slides + current thinking + audience-aware formatting.","tests":"2 tests","cluster":"Beatrix specialists"},
-    {"n":15,"name":"Home ops","english":"Apartment lease, utilities, warranties, repairs, household subscriptions. Surfaces what's due before it bites.","tests":"3 tests","cluster":"Beatrix specialists"},
-    {"n":26,"name":"Beatrix as life director","english":"Beatrix presents as ONE agent. Internally she invokes 13 specialists and synthesizes across them. You ask her anything; she handles the orchestration.","tests":"6 tests","cluster":"Beatrix specialists"},
-    {"n":29,"name":"Beatrix's action thresholds","english":"Default policy: act unprompted on low-stakes things (file an email, create a calendar event from a booking, organize photos), ask before world-touching (send a message, move money, accept invitations). Tunable per category.","tests":"part of umbrella","cluster":"Beatrix specialists"},
-
-    {"n":31,"name":"Clem as CRREM director","english":"Clem presents as one agent for all CRREM work. Internally she invokes 5 specialists (methodology, brand, comms, events, data). User-facing surface always Clem.","tests":"56 tests","cluster":"Clem specialists"},
-    {"n":32,"name":"Clem department tier","english":"Future scaling: when CRREM grows, Clem-Methodology, Clem-Comms, Clem-Data, Clem-Events become independent agents like a leadership team. Architecture ready; activates when CRREM signs up.","tests":"part of clem","cluster":"Clem specialists"},
-    {"n":33,"name":"Clem as spokesperson","english":"When inbound press, podcast invites, or speaking requests arrive, Clem handles intake. Drafts response in CRREM brand voice. Pings you for approval on anything public-facing.","tests":"part of clem","cluster":"Clem specialists"},
-
-    {"n":39,"name":"Agent council","english":"For big decisions, Bridget convenes Beatrix + Clem + relevant external agents. Structured synthesis. Output: a recommendation you review.","tests":"part of bridge-council","cluster":"Cross-agent"},
-
-    {"n":42,"name":"Living soul document","english":"Generated from your coordinate-engine output + voice corpus. Refreshes monthly. Written in your voice using your metaphors. Tracks how you're evolving — every revision archived so you can see the drift.","tests":"6 tests","cluster":"Coordinate-derived"},
-    {"n":43,"name":"Three-journey calibration","english":"System detects whether you're in exploration (green), execution (yellow), or integration (red) per project. Adjusts agent register to match — Beatrix-flavored support during exploration, sharper during execution.","tests":"9 tests","cluster":"Coordinate-derived"},
-    {"n":45,"name":"Proximity map of network","english":"Visual rendering of where people in your life sit relative to you across all 6 planes. Aligned closely on values, divergent on intelligence, etc. Drillable to evidence.","tests":"4 tests","cluster":"Coordinate-derived"},
-    {"n":46,"name":"Productive-tension surfacing","english":"Flags relationships where tight alignment on some planes meets active divergence on others — the conditions for transformative work. 'You and Hans: tight on mission, opposite on intelligence. That's where breakthroughs come from.'","tests":"5 tests","cluster":"Coordinate-derived"},
-    {"n":47,"name":"Mirror-never-label discipline","english":"System-wide rule baked into the linter and verifier: no personality types ever assigned. No 'you are this.' Patterns shown with vault evidence; you do the naming.","tests":"44 + 16 tests","cluster":"Coordinate-derived"},
-    {"n":48,"name":"Dunning-Kruger mirror","english":"When stated values diverge from revealed behavior, Beatrix surfaces gently. 'You describe yourself as values-led; recent spend pattern suggests otherwise this month. Worth a look?' Mirror, not judgment.","tests":"4 tests","cluster":"Coordinate-derived"},
-    {"n":50,"name":"Shadow document","english":"Subjects you systematically avoid in writing. Topics that appear in voice memos but never journal entries. Surfaced only when readiness signals are high — never as accusation.","tests":"5 tests","cluster":"Coordinate-derived"},
-
-    {"n":66,"name":"Mission table protocol","english":"When agents coordinate on substantial work, they meet in structured space — each agent's contribution visible, time invested logged, IP declaration captured. Watchable in real time.","tests":"5 tests","cluster":"Memory + Chronicle"},
-    {"n":67,"name":"Chronicle of completed work","english":"Every shipped artifact gets a permanent ledger entry: contributors, currencies exchanged, IP declaration, lineage of who built on it later. Searchable for years.","tests":"5 tests","cluster":"Memory + Chronicle"},
-    {"n":68,"name":"Reputation lattice","english":"Multi-dimensional drillable trace from your completed work: execution, innovation, integrity, follow-through, contribution depth. You see where you're strong and where you're developing.","tests":"5 tests","cluster":"Memory + Chronicle"},
-    {"n":69,"name":"Agent spawns","english":"When Beatrix and Clem collaborate on something substantial, they produce a specialized sub-agent that knows both contexts and is callable later.","tests":"7 tests","cluster":"Memory + Chronicle"},
-    {"n":70,"name":"Four-currency tracking","english":"Beyond money: track your data contributions (vault growth), time invested per project, IP produced (deliverables, methodologies), money. Shows where your life is being invested beyond what your bank reflects.","tests":"6 tests","cluster":"Memory + Chronicle"},
-    {"n":71,"name":"IP spectrum declarations","english":"Every output — draft, slide, methodology — declared on a spectrum from commons-licensed (default) to private. You see what you've opened up vs kept.","tests":"6 tests","cluster":"Memory + Chronicle"},
-    {"n":72,"name":"Provenance trails","english":"When someone builds on something you wrote (article quoted, framework adapted, phrase reused), Bridget detects it and tells you. Your ideas propagating, visibly.","tests":"6 tests","cluster":"Memory + Chronicle"},
-    {"n":86,"name":"Cognitive directory","english":"Beatrix maintains a map of what you know — domains deep, domains shallow, what you keep vs let go. When you ask her something, she knows whether to answer or hand it back to you.","tests":"4 tests","cluster":"Memory + Chronicle"},
-    {"n":87,"name":"Past-self consultation","english":"When you're wrestling with a decision, Bridget can show what you wrote in past similar moments. Your prior self as advisor — without sanitizing, without smoothing.","tests":"4 tests","cluster":"Memory + Chronicle"},
-    {"n":88,"name":"Forgetting on purpose","english":"Things you've deliberately let go (closed projects, ended relationships, archived dreams) stay archived. Beatrix doesn't make you re-litigate. Intentional silences respected.","tests":"5 tests","cluster":"Memory + Chronicle"},
-    {"n":89,"name":"Polanyi capture","english":"Voice memos with half-thoughts, raw notes, emotional reactions — preserved unprocessed. Tacit knowledge stays raw because that's where its value lives.","tests":"8 tests","cluster":"Memory + Chronicle"},
-    {"n":90,"name":"Cross-generational notes","english":"When today's writing connects deeply to something from years ago, Beatrix surfaces both side-by-side. 'You wrote this in 2021. You're writing this now. The throughline is alive.'","tests":"5 tests","cluster":"Memory + Chronicle"},
-
-    {"n":76,"name":"The newsletter","english":"Daily/weekly digest from Bridget. What your agents did, what they noticed, what's coming up. Plain English. Telegram delivery (and email when Gmail's wired).","tests":"part of discovery","cluster":"Bridget Discovery + Activation"},
-    {"n":77,"name":"Far-field section","english":"Anti-bubble. Surfaces activity from distant parts of your coordinate map — a sustainability researcher in Copenhagen whose work overlaps with your CRREM lens at one strange angle.","tests":"part of discovery","cluster":"Bridget Discovery + Activation"},
-    {"n":78,"name":"Weak-tie reactivation","english":"Bridget scans your network for people who've gone quiet but might have something to share now. 'Helena last spoke 8 months ago. She just published on urban resilience. Worth reaching out?'","tests":"part of discovery","cluster":"Bridget Discovery + Activation"},
-    {"n":79,"name":"Resonance detection","english":"When two people in your world independently arrive at the same theme this week, Bridget surfaces it. 'You and Sara both wrote about the bridge metaphor. Different framings. Worth comparing?'","tests":"part of discovery","cluster":"Bridget Discovery + Activation"},
-    {"n":80,"name":"Structural-hole scout","english":"Watches your network for bridgeable gaps. Two clusters that should know each other but don't, where you're positioned to introduce them.","tests":"part of discovery","cluster":"Bridget Discovery + Activation"},
-    {"n":81,"name":"What-if assistant","english":"When you sketch a new idea, Bridget pulls relevant context, identifies what would need to be true, surfaces 2-3 similar attempts to learn from.","tests":"part of activation","cluster":"Bridget Discovery + Activation"},
-    {"n":82,"name":"Frontier-grant framing","english":"When considering a high-risk piece of work, system frames it as 'you're funding this from your basin' — visibility into cost vs potential return.","tests":"part of activation","cluster":"Bridget Discovery + Activation"},
-    {"n":83,"name":"Smallest next step","english":"When you say 'I should do X,' Bridget proposes the cheapest concrete first action under 15 minutes, the resources you already have, and the people who might collaborate. Makes starting cheap.","tests":"part of activation","cluster":"Bridget Discovery + Activation"},
-    {"n":84,"name":"Five-person summon","english":"When an idea needs others, Bridget identifies 5 candidate collaborators from your network with the right coordinates, drafts personalized intros, queues for your approval.","tests":"part of activation","cluster":"Bridget Discovery + Activation"},
-    {"n":85,"name":"Deep-work block","english":"When you start something hard, Bridget protects your calendar, queues prep materials, sets your agents to passive mode, announces 'deep work' to your channels so no one expects responses.","tests":"part of activation","cluster":"Bridget Discovery + Activation"}
+    {
+      "n": 1,
+      "name": "Capture/comms agent",
+      "english": "A new cloud service watches your inbox, calendar, Drive, Telegram and WhatsApp. Anything inbound — a new email, a calendar invite, a message — gets read within 60 seconds, classified by urgency and topic, and routed to the right agent (Beatrix, Clem) or filed straight into your brain.",
+      "tests": "26 tests",
+      "cluster": "Foundation"
+    },
+    {
+      "n": 16,
+      "name": "Trust + permissions audit",
+      "english": "Every action any agent takes is logged with a timestamp, the target, and the reasoning. You can see the trail of what your agents did and why.",
+      "tests": "shared substrate",
+      "cluster": "Foundation"
+    },
+    {
+      "n": 22,
+      "name": "Bridget's intake engine",
+      "english": "The membrane between every inbound channel and your inner agents. Classifies (urgent / normal / personal / CRREM / admin), decides whether to act unprompted, queue for later, or escalate to you. Sixty seconds end-to-end.",
+      "tests": "26 tests",
+      "cluster": "Foundation"
+    },
+    {
+      "n": 40,
+      "name": "Trust-and-audit substrate",
+      "english": "The bedrock that makes safe delegation possible. Permission tiers per agent. 24-hour undo on reversible actions. Per-agent kill switches. Full data export.",
+      "tests": "26 tests",
+      "cluster": "Foundation"
+    },
+    {
+      "n": 41,
+      "name": "Coordinate engine over your vault",
+      "english": "Read 39 of your most signal-rich vault pages, computed your position across the 6 BRIDGE planes (lifestyle, behaviour, intelligence, values, identity, mission). Quoted evidence from your own writing anchors each placement.",
+      "tests": "13 tests",
+      "cluster": "Foundation"
+    },
+    {
+      "n": 91,
+      "name": "Per-agent permission tiers",
+      "english": "Each agent has 3 levels of authority per scope: advisory (suggests only), delegated (acts and logs), autonomous (acts then reports). Tunable by category.",
+      "tests": "part of trust substrate",
+      "cluster": "Foundation"
+    },
+    {
+      "n": 92,
+      "name": "Weekly audit digest",
+      "english": "Every Sunday at 7pm, Bridget sends a Telegram digest in plain English: what your agents did unprompted, what they did on your behalf, what got stuck, what's waiting on you.",
+      "tests": "part of trust substrate",
+      "cluster": "Foundation"
+    },
+    {
+      "n": 93,
+      "name": "24-hour undo",
+      "english": "Sent message? Created event? Moved file? One command reverses it. Window: 24 hours after the action.",
+      "tests": "part of trust substrate",
+      "cluster": "Foundation"
+    },
+    {
+      "n": 94,
+      "name": "Kill switches",
+      "english": "Per-agent and per-capability kill switches. Master switch shuts everything down. Documented in plain English so you can find the right switch fast.",
+      "tests": "part of trust substrate",
+      "cluster": "Foundation"
+    },
+    {
+      "n": 95,
+      "name": "Full data export",
+      "english": "One command produces a tar.gz containing your vault, audit log, agent configs, permissions config, kill-switch state, undo handles. Your data is portable. You can leave anytime.",
+      "tests": "part of trust substrate",
+      "cluster": "Foundation"
+    },
+    {
+      "n": 21,
+      "name": "Bridget's life-map state",
+      "english": "A continuously-updated model of where you are: location, mood, energy, current week's shape. Other agents query this before responding so they know what's happening in your life.",
+      "tests": "-",
+      "cluster": "Bridget (identity + behaviors)"
+    },
+    {
+      "n": 23,
+      "name": "Bridget's reflection cadence",
+      "english": "Daily check-in at 8:30pm, Sunday review at 6pm, monthly retrospective on the first Sunday. Asks the questions you'd ask yourself if you had the discipline.",
+      "tests": "part of bridget-behaviors",
+      "cluster": "Bridget (identity + behaviors)"
+    },
+    {
+      "n": 24,
+      "name": "Bridget's emotional barometer",
+      "english": "Reads tone, sleep quality, calendar density, voice signals. When you're frayed, the system softens its tone and prunes the day — silently, without commentary on your state.",
+      "tests": "part of bridget-behaviors",
+      "cluster": "Bridget (identity + behaviors)"
+    },
+    {
+      "n": 25,
+      "name": "Bridget's proactive check-ins",
+      "english": "Patterns Bridget notices and surfaces: 'haven't journaled in 9 days, want to?', 'the friend you haven't messaged in 3 months just posted something big.'",
+      "tests": "part of bridget-behaviors",
+      "cluster": "Bridget (identity + behaviors)"
+    },
+    {
+      "n": 3,
+      "name": "Finance specialist",
+      "english": "Bank + cards ingested via CSV import (live PSD2 ready). Multi-currency EUR/USD/EGP. Spending categorized. NL tax aware. €950/month debt trajectory tracked. Subscription audit. Monthly review in plain English.",
+      "tests": "6 tests",
+      "cluster": "Beatrix specialists"
+    },
+    {
+      "n": 4,
+      "name": "Fitness specialist",
+      "english": "Apple Health pipeline (placeholder until wired). 75kg trajectory tracked. Workouts context-aware: gym when home, 15-min routines while traveling, walking-meeting suggestions when calendar's dense.",
+      "tests": "4 tests",
+      "cluster": "Beatrix specialists"
+    },
+    {
+      "n": 5,
+      "name": "Photos specialist",
+      "english": "Every photo arriving on any channel flows into a master chronological archive. Auto-labeled. Receipts route to finance, business cards to people-graph. 'One year ago today' notifications.",
+      "tests": "2 tests",
+      "cluster": "Beatrix specialists"
+    },
+    {
+      "n": 6,
+      "name": "People-graph specialist",
+      "english": "Living map of every person in your life. Last interaction, important dates, follow-up cadence. Drafts 'thinking of you' messages in your voice when someone goes quiet. Pre-meeting context surfacer.",
+      "tests": "5 tests",
+      "cluster": "Beatrix specialists"
+    },
+    {
+      "n": 7,
+      "name": "Travel logistics specialist",
+      "english": "Visa requirements, vaccinations, time-zone shifts, weather, hotel context (where you stayed last time, what you liked), packing list from past trips, currency notes.",
+      "tests": "6 tests",
+      "cluster": "Beatrix specialists"
+    },
+    {
+      "n": 8,
+      "name": "Event-specific agent",
+      "english": "For each major upcoming event (wedding, conference, gathering), Beatrix spawns a dedicated mini-agent. Pulls dress code, gifts based on who they are, RSVP, hotel + flights, dietary asks, post-event follow-ups.",
+      "tests": "5 tests",
+      "cluster": "Beatrix specialists"
+    },
+    {
+      "n": 9,
+      "name": "Decision support",
+      "english": "When you're facing a real decision, Beatrix pulls relevant prior decisions from the brain, frames the questions you should answer first, presents the case for and against.",
+      "tests": "3 tests",
+      "cluster": "Beatrix specialists"
+    },
+    {
+      "n": 10,
+      "name": "State / wellbeing",
+      "english": "Reads tone from messages, sleep from Apple Health, calendar density, voice energy. Notices burnout drift. System calibrates to your state without narrating it back to you.",
+      "tests": "3 tests",
+      "cluster": "Beatrix specialists"
+    },
+    {
+      "n": 11,
+      "name": "Opportunity watcher",
+      "english": "Surfaces things you'd want and might miss: jobs in your orbit, speaking invitations, grants/funding for CRREM, residencies, fellowships, conferences.",
+      "tests": "3 tests",
+      "cluster": "Beatrix specialists"
+    },
+    {
+      "n": 12,
+      "name": "Reputation agent",
+      "english": "Tracks how you show up publicly. LinkedIn, X/Twitter, articles, talks. Notices inconsistencies between public persona and current values. Drafts content that strengthens the through-line.",
+      "tests": "3 tests",
+      "cluster": "Beatrix specialists"
+    },
+    {
+      "n": 13,
+      "name": "Reading + idea synthesis",
+      "english": "Captures everything you read across browser, Kindle, podcasts, articles. Distills key ideas. Creates a brain link when something connects to existing thinking. Weekly emergent-themes digest.",
+      "tests": "2 tests",
+      "cluster": "Beatrix specialists"
+    },
+    {
+      "n": 14,
+      "name": "Presentation / deck agent",
+      "english": "Knows your slide library, speaking history, open invitations. Drafts context-aware decks for upcoming talks — pulls relevant slides + current thinking + audience-aware formatting.",
+      "tests": "2 tests",
+      "cluster": "Beatrix specialists"
+    },
+    {
+      "n": 15,
+      "name": "Home ops",
+      "english": "Apartment lease, utilities, warranties, repairs, household subscriptions. Surfaces what's due before it bites.",
+      "tests": "3 tests",
+      "cluster": "Beatrix specialists"
+    },
+    {
+      "n": 26,
+      "name": "Beatrix as life director",
+      "english": "Beatrix presents as ONE agent. Internally she invokes 13 specialists and synthesizes across them. You ask her anything; she handles the orchestration.",
+      "tests": "6 tests",
+      "cluster": "Beatrix specialists"
+    },
+    {
+      "n": 29,
+      "name": "Beatrix's action thresholds",
+      "english": "Default policy: act unprompted on low-stakes things (file an email, create a calendar event from a booking, organize photos), ask before world-touching (send a message, move money, accept invitations). Tunable per category.",
+      "tests": "part of umbrella",
+      "cluster": "Beatrix specialists"
+    },
+    {
+      "n": 31,
+      "name": "Clem as CRREM director",
+      "english": "Clem presents as one agent for all CRREM work. Internally she invokes 5 specialists (methodology, brand, comms, events, data). User-facing surface always Clem.",
+      "tests": "56 tests",
+      "cluster": "Clem specialists"
+    },
+    {
+      "n": 32,
+      "name": "Clem department tier",
+      "english": "Future scaling: when CRREM grows, Clem-Methodology, Clem-Comms, Clem-Data, Clem-Events become independent agents like a leadership team. Architecture ready; activates when CRREM signs up.",
+      "tests": "part of clem",
+      "cluster": "Clem specialists"
+    },
+    {
+      "n": 33,
+      "name": "Clem as spokesperson",
+      "english": "When inbound press, podcast invites, or speaking requests arrive, Clem handles intake. Drafts response in CRREM brand voice. Pings you for approval on anything public-facing.",
+      "tests": "part of clem",
+      "cluster": "Clem specialists"
+    },
+    {
+      "n": 39,
+      "name": "Agent council",
+      "english": "For big decisions, Bridget convenes Beatrix + Clem + relevant external agents. Structured synthesis. Output: a recommendation you review.",
+      "tests": "part of bridge-council",
+      "cluster": "Cross-agent"
+    },
+    {
+      "n": 42,
+      "name": "Living soul document",
+      "english": "Generated from your coordinate-engine output + voice corpus. Refreshes monthly. Written in your voice using your metaphors. Tracks how you're evolving — every revision archived so you can see the drift.",
+      "tests": "6 tests",
+      "cluster": "Coordinate-derived"
+    },
+    {
+      "n": 43,
+      "name": "Three-journey calibration",
+      "english": "System detects whether you're in exploration (green), execution (yellow), or integration (red) per project. Adjusts agent register to match — Beatrix-flavored support during exploration, sharper during execution.",
+      "tests": "9 tests",
+      "cluster": "Coordinate-derived"
+    },
+    {
+      "n": 45,
+      "name": "Proximity map of network",
+      "english": "Visual rendering of where people in your life sit relative to you across all 6 planes. Aligned closely on values, divergent on intelligence, etc. Drillable to evidence.",
+      "tests": "4 tests",
+      "cluster": "Coordinate-derived"
+    },
+    {
+      "n": 46,
+      "name": "Productive-tension surfacing",
+      "english": "Flags relationships where tight alignment on some planes meets active divergence on others — the conditions for transformative work. 'You and Hans: tight on mission, opposite on intelligence. That's where breakthroughs come from.'",
+      "tests": "5 tests",
+      "cluster": "Coordinate-derived"
+    },
+    {
+      "n": 47,
+      "name": "Mirror-never-label discipline",
+      "english": "System-wide rule baked into the linter and verifier: no personality types ever assigned. No 'you are this.' Patterns shown with vault evidence; you do the naming.",
+      "tests": "44 + 16 tests",
+      "cluster": "Coordinate-derived"
+    },
+    {
+      "n": 48,
+      "name": "Dunning-Kruger mirror",
+      "english": "When stated values diverge from revealed behavior, Beatrix surfaces gently. 'You describe yourself as values-led; recent spend pattern suggests otherwise this month. Worth a look?' Mirror, not judgment.",
+      "tests": "4 tests",
+      "cluster": "Coordinate-derived"
+    },
+    {
+      "n": 50,
+      "name": "Shadow document",
+      "english": "Subjects you systematically avoid in writing. Topics that appear in voice memos but never journal entries. Surfaced only when readiness signals are high — never as accusation.",
+      "tests": "5 tests",
+      "cluster": "Coordinate-derived"
+    },
+    {
+      "n": 66,
+      "name": "Mission table protocol",
+      "english": "When agents coordinate on substantial work, they meet in structured space — each agent's contribution visible, time invested logged, IP declaration captured. Watchable in real time.",
+      "tests": "5 tests",
+      "cluster": "Memory + Chronicle"
+    },
+    {
+      "n": 67,
+      "name": "Chronicle of completed work",
+      "english": "Every shipped artifact gets a permanent ledger entry: contributors, currencies exchanged, IP declaration, lineage of who built on it later. Searchable for years.",
+      "tests": "5 tests",
+      "cluster": "Memory + Chronicle"
+    },
+    {
+      "n": 68,
+      "name": "Reputation lattice",
+      "english": "Multi-dimensional drillable trace from your completed work: execution, innovation, integrity, follow-through, contribution depth. You see where you're strong and where you're developing.",
+      "tests": "5 tests",
+      "cluster": "Memory + Chronicle"
+    },
+    {
+      "n": 69,
+      "name": "Agent spawns",
+      "english": "When Beatrix and Clem collaborate on something substantial, they produce a specialized sub-agent that knows both contexts and is callable later.",
+      "tests": "7 tests",
+      "cluster": "Memory + Chronicle"
+    },
+    {
+      "n": 70,
+      "name": "Four-currency tracking",
+      "english": "Beyond money: track your data contributions (vault growth), time invested per project, IP produced (deliverables, methodologies), money. Shows where your life is being invested beyond what your bank reflects.",
+      "tests": "6 tests",
+      "cluster": "Memory + Chronicle"
+    },
+    {
+      "n": 71,
+      "name": "IP spectrum declarations",
+      "english": "Every output — draft, slide, methodology — declared on a spectrum from commons-licensed (default) to private. You see what you've opened up vs kept.",
+      "tests": "6 tests",
+      "cluster": "Memory + Chronicle"
+    },
+    {
+      "n": 72,
+      "name": "Provenance trails",
+      "english": "When someone builds on something you wrote (article quoted, framework adapted, phrase reused), Bridget detects it and tells you. Your ideas propagating, visibly.",
+      "tests": "6 tests",
+      "cluster": "Memory + Chronicle"
+    },
+    {
+      "n": 86,
+      "name": "Cognitive directory",
+      "english": "Beatrix maintains a map of what you know — domains deep, domains shallow, what you keep vs let go. When you ask her something, she knows whether to answer or hand it back to you.",
+      "tests": "4 tests",
+      "cluster": "Memory + Chronicle"
+    },
+    {
+      "n": 87,
+      "name": "Past-self consultation",
+      "english": "When you're wrestling with a decision, Bridget can show what you wrote in past similar moments. Your prior self as advisor — without sanitizing, without smoothing.",
+      "tests": "4 tests",
+      "cluster": "Memory + Chronicle"
+    },
+    {
+      "n": 88,
+      "name": "Forgetting on purpose",
+      "english": "Things you've deliberately let go (closed projects, ended relationships, archived dreams) stay archived. Beatrix doesn't make you re-litigate. Intentional silences respected.",
+      "tests": "5 tests",
+      "cluster": "Memory + Chronicle"
+    },
+    {
+      "n": 89,
+      "name": "Polanyi capture",
+      "english": "Voice memos with half-thoughts, raw notes, emotional reactions — preserved unprocessed. Tacit knowledge stays raw because that's where its value lives.",
+      "tests": "8 tests",
+      "cluster": "Memory + Chronicle"
+    },
+    {
+      "n": 90,
+      "name": "Cross-generational notes",
+      "english": "When today's writing connects deeply to something from years ago, Beatrix surfaces both side-by-side. 'You wrote this in 2021. You're writing this now. The throughline is alive.'",
+      "tests": "5 tests",
+      "cluster": "Memory + Chronicle"
+    },
+    {
+      "n": 76,
+      "name": "The newsletter",
+      "english": "Daily/weekly digest from Bridget. What your agents did, what they noticed, what's coming up. Plain English. Telegram delivery (and email when Gmail's wired).",
+      "tests": "part of discovery",
+      "cluster": "Bridget Discovery + Activation"
+    },
+    {
+      "n": 77,
+      "name": "Far-field section",
+      "english": "Anti-bubble. Surfaces activity from distant parts of your coordinate map — a sustainability researcher in Copenhagen whose work overlaps with your CRREM lens at one strange angle.",
+      "tests": "part of discovery",
+      "cluster": "Bridget Discovery + Activation"
+    },
+    {
+      "n": 78,
+      "name": "Weak-tie reactivation",
+      "english": "Bridget scans your network for people who've gone quiet but might have something to share now. 'Helena last spoke 8 months ago. She just published on urban resilience. Worth reaching out?'",
+      "tests": "part of discovery",
+      "cluster": "Bridget Discovery + Activation"
+    },
+    {
+      "n": 79,
+      "name": "Resonance detection",
+      "english": "When two people in your world independently arrive at the same theme this week, Bridget surfaces it. 'You and Sara both wrote about the bridge metaphor. Different framings. Worth comparing?'",
+      "tests": "part of discovery",
+      "cluster": "Bridget Discovery + Activation"
+    },
+    {
+      "n": 80,
+      "name": "Structural-hole scout",
+      "english": "Watches your network for bridgeable gaps. Two clusters that should know each other but don't, where you're positioned to introduce them.",
+      "tests": "part of discovery",
+      "cluster": "Bridget Discovery + Activation"
+    },
+    {
+      "n": 81,
+      "name": "What-if assistant",
+      "english": "When you sketch a new idea, Bridget pulls relevant context, identifies what would need to be true, surfaces 2-3 similar attempts to learn from.",
+      "tests": "part of activation",
+      "cluster": "Bridget Discovery + Activation"
+    },
+    {
+      "n": 82,
+      "name": "Frontier-grant framing",
+      "english": "When considering a high-risk piece of work, system frames it as 'you're funding this from your basin' — visibility into cost vs potential return.",
+      "tests": "part of activation",
+      "cluster": "Bridget Discovery + Activation"
+    },
+    {
+      "n": 83,
+      "name": "Smallest next step",
+      "english": "When you say 'I should do X,' Bridget proposes the cheapest concrete first action under 15 minutes, the resources you already have, and the people who might collaborate. Makes starting cheap.",
+      "tests": "part of activation",
+      "cluster": "Bridget Discovery + Activation"
+    },
+    {
+      "n": 84,
+      "name": "Five-person summon",
+      "english": "When an idea needs others, Bridget identifies 5 candidate collaborators from your network with the right coordinates, drafts personalized intros, queues for your approval.",
+      "tests": "part of activation",
+      "cluster": "Bridget Discovery + Activation"
+    },
+    {
+      "n": 85,
+      "name": "Deep-work block",
+      "english": "When you start something hard, Bridget protects your calendar, queues prep materials, sets your agents to passive mode, announces 'deep work' to your channels so no one expects responses.",
+      "tests": "part of activation",
+      "cluster": "Bridget Discovery + Activation"
+    },
+    {
+      "n": 2,
+      "name": "Commitments masterlist",
+      "english": "Every promise to self or others becomes a tracked entry. Auto-extracted from emails, calls, meetings. Calendar gets blocks for prep + delivery time. Daily morning briefing surfaces open commitments by deadline.",
+      "cluster": "Cross-cutting (next agent)",
+      "tests": "24 tests"
+    },
+    {
+      "n": 17,
+      "name": "Cross-agent collaboration protocol",
+      "english": "Agents act on each other's signals. State agent notices stress → asks commitments to prune → asks calendar to find slack → asks Bridget to soften tone. The system behaves like a team that talks.",
+      "cluster": "Cross-cutting (next agent)",
+      "tests": "part of bridge-protocols (16 tests)"
+    },
+    {
+      "n": 19,
+      "name": "Voice corpus pipeline",
+      "english": "Continuous voice-print compounding. Every email you write, every message you send, every meeting you speak in feeds your living voice corpus. Beatrix's drafts stay aligned as you evolve.",
+      "cluster": "Cross-cutting (next agent)",
+      "tests": "part of beatrix-meta (27 tests)"
+    },
+    {
+      "n": 27,
+      "name": "Beatrix's confidante register",
+      "english": "Some moments aren't 'do this for me.' They're 'I need to think out loud.' Beatrix's confidante register: knows everything about you, asks the hard questions, reflects honestly, sometimes pushes back. Distinct from her task-execution register.",
+      "cluster": "Cross-cutting (next agent)",
+      "tests": "part of beatrix-meta (27 tests)"
+    },
+    {
+      "n": 28,
+      "name": "Beatrix's evolving voice corpus",
+      "english": "Every email, message, meeting transcript feeds her sample bank. Her drafts stay aligned with the current you.",
+      "cluster": "Cross-cutting (next agent)",
+      "tests": "part of beatrix-meta (27 tests)"
+    },
+    {
+      "n": 30,
+      "name": "Beatrix's I-noticed surfacing",
+      "english": "Patterns Beatrix sees that you haven't named. 'You've been canceling gym 3 Tuesdays in a row.' 'You mentioned the Berlin opportunity to 4 different people this week — want me to make a brain page on it?'",
+      "cluster": "Cross-cutting (next agent)",
+      "tests": "part of beatrix-meta (27 tests)"
+    },
+    {
+      "n": 34,
+      "name": "Beatrix↔Clem handshake",
+      "english": "When you're doing CRREM-as-founder work (board meeting, partner conversation, strategic decision), Beatrix coordinates with Clem behind the scenes. Clem feeds CRREM context, Beatrix holds personal/strategic frame.",
+      "cluster": "Cross-cutting (next agent)",
+      "tests": "part of bridge-protocols (16 tests)"
+    },
+    {
+      "n": 37,
+      "name": "Cross-agent consultation",
+      "english": "Beatrix can ask Clem 'what's Hans's view on V2.04?' Clem answers from CRREM context. Clem can ask Beatrix 'is Omar up to a hard meeting today?' Formal handshake.",
+      "cluster": "Cross-cutting (next agent)",
+      "tests": "part of bridge-protocols (16 tests)"
+    },
+    {
+      "n": 63,
+      "name": "Browser widget",
+      "english": "Pixel-widget in the corner of any browser tab. Drag URLs, images, text snippets to Bridget's inbox without context-switching.",
+      "cluster": "Surfaces (in scope)",
+      "tests": "part of bridge-integrations (35 tests)"
+    },
+    {
+      "n": 64,
+      "name": "AirPods voice companion",
+      "english": "Bridget narrates the morning brief, summarizes incoming, walks you through your day during commutes. Voice-first when your hands are busy.",
+      "cluster": "Surfaces (in scope)",
+      "tests": "part of bridge-integrations (35 tests)"
+    },
+    {
+      "n": 73,
+      "name": "Cross-agent consultation",
+      "english": "Formal handshake. Beatrix can ask Clem 'what's the CRREM team's view on V2.04 right now?' Clem asks Beatrix 'is Omar's energy up for hard work today?'",
+      "cluster": "Cross-cutting (next agent)",
+      "tests": "part of bridge-protocols (16 tests)"
+    },
+    {
+      "n": 75,
+      "name": "Vault-to-vault navigation",
+      "english": "Beatrix navigates between your vault, CRREM's vault, friends' shared spaces — with doors that visibly open or stay locked based on permissions. Privacy as architecture.",
+      "cluster": "Cross-cutting (next agent)",
+      "tests": "part of bridge-protocols (16 tests)"
+    },
+    {
+      "n": 96,
+      "name": "Apple Health pipeline",
+      "english": "Wire Apple Health into the brain — sleep, HRV, steps, workouts, weight. Fitness specialist + state agent can act on real data.",
+      "cluster": "Integrations (in scope)",
+      "tests": "part of bridge-integrations (35 tests)"
+    },
+    {
+      "n": 97,
+      "name": "Bank ingestion (PSD2)",
+      "english": "Connect KBC / ING / Revolut to finance specialist via licensed open-banking provider. Spending patterns. Subscription audits. Travel-aware budget plans.",
+      "cluster": "Integrations (in scope)",
+      "tests": "part of bridge-integrations (35 tests)"
+    },
+    {
+      "n": 98,
+      "name": "Drive + SharePoint sync",
+      "english": "Every file across both stores becomes searchable from one place inside Beatrix and Clem (separately, per permission). No more 'where did I put that.'",
+      "cluster": "Integrations (in scope, SharePoint LIVE)",
+      "tests": "part of bridge-integrations (35 tests)"
+    },
+    {
+      "n": 99,
+      "name": "Browser history capture",
+      "english": "Articles you read flow into the reading-synthesis tool inside Beatrix. Highlights auto-extracted.",
+      "cluster": "Integrations (in scope)",
+      "tests": "part of bridge-integrations (35 tests)"
+    },
+    {
+      "n": 100,
+      "name": "Walk-and-talk wearable",
+      "english": "Bridget on AirPods + Apple Watch. Voice-driven brain dictation, ambient awareness, hands-free capture.",
+      "cluster": "Surfaces (in scope)",
+      "tests": "part of bridge-integrations (35 tests)"
+    }
   ],
-
   "pending": [
-    {"n":2,"name":"Commitments masterlist","english":"Every promise to self or others becomes a tracked entry. Auto-extracted from emails, calls, meetings. Calendar gets blocks for prep + delivery time. Daily morning briefing surfaces open commitments by deadline.","cluster":"Cross-cutting (next agent)"},
-    {"n":17,"name":"Cross-agent collaboration protocol","english":"Agents act on each other's signals. State agent notices stress → asks commitments to prune → asks calendar to find slack → asks Bridget to soften tone. The system behaves like a team that talks.","cluster":"Cross-cutting (next agent)"},
-    {"n":18,"name":"Voice on every surface","english":"Bridget hearable from AirPods, Apple Watch, hotel speaker, car CarPlay. Speak to her wherever you are.","cluster":"Surfaces (partial — phone live)"},
-    {"n":19,"name":"Voice corpus pipeline","english":"Continuous voice-print compounding. Every email you write, every message you send, every meeting you speak in feeds your living voice corpus. Beatrix's drafts stay aligned as you evolve.","cluster":"Cross-cutting (next agent)"},
-    {"n":20,"name":"Longitudinal review agent","english":"Runs the Sunday review automatically. Asks the questions you'd ask yourself if you had the discipline. Captures answers. Updates 1y/3y/10y goal documents. Notices when the week's actions and long-arc intentions drift apart.","cluster":"Bridget (next agent)"},
-    {"n":27,"name":"Beatrix's confidante register","english":"Some moments aren't 'do this for me.' They're 'I need to think out loud.' Beatrix's confidante register: knows everything about you, asks the hard questions, reflects honestly, sometimes pushes back. Distinct from her task-execution register.","cluster":"Cross-cutting (next agent)"},
-    {"n":28,"name":"Beatrix's evolving voice corpus","english":"Every email, message, meeting transcript feeds her sample bank. Her drafts stay aligned with the current you.","cluster":"Cross-cutting (next agent)"},
-    {"n":30,"name":"Beatrix's I-noticed surfacing","english":"Patterns Beatrix sees that you haven't named. 'You've been canceling gym 3 Tuesdays in a row.' 'You mentioned the Berlin opportunity to 4 different people this week — want me to make a brain page on it?'","cluster":"Cross-cutting (next agent)"},
-    {"n":34,"name":"Beatrix↔Clem handshake","english":"When you're doing CRREM-as-founder work (board meeting, partner conversation, strategic decision), Beatrix coordinates with Clem behind the scenes. Clem feeds CRREM context, Beatrix holds personal/strategic frame.","cluster":"Cross-cutting (next agent)"},
-    {"n":35,"name":"Plan-tier model","english":"Individual / org-individual / org-department / org-full. Mirrors real org structures. The architecture for BRIDGE's business model.","cluster":"Architecture"},
-    {"n":36,"name":"Principal-agent model","english":"Every agent has a principal (the person or org they serve). Information firewalls between principals — Beatrix sees everything about you; Clem sees what's CRREM-relevant; neither sees what isn't theirs.","cluster":"Architecture"},
-    {"n":37,"name":"Cross-agent consultation","english":"Beatrix can ask Clem 'what's Hans's view on V2.04?' Clem answers from CRREM context. Clem can ask Beatrix 'is Omar up to a hard meeting today?' Formal handshake.","cluster":"Cross-cutting (next agent)"},
-    {"n":38,"name":"Inter-principal coordination","english":"When you need to schedule with someone else's Beatrix (a friend who has BRIDGE), they negotiate calendars on their principals' behalf. Like human EAs scheduling.","cluster":"Architecture (later)"},
-    {"n":44,"name":"Three-journey detector — full","english":"Per-project state tracker; Beatrix register adjusts. Foundational pieces already shipped in #43; this expands to detect the journey state per project automatically.","cluster":"Already in #43"},
-    {"n":49,"name":"Coordinate-shift detector","english":"When a new theme rises, a value sharpens, a domain fades — Bridget notes it. Your coordinate map literally moves. You can watch your own evolution.","cluster":"Coordinate engine (next pass)"},
-
-    {"n":51,"name":"Pixel-art world","english":"Render BRIDGE as a literal spatial environment matching the vision doc: house, garden, office, street, town. Beatrix tends shelves. Clem keeps the CRREM office.","cluster":"SKIPPED per Omar"},
-    {"n":52,"name":"Garden of aspirations","english":"Themes you keep returning to but haven't acted on grow as seedlings. Want to make it a direction? Say yes, it becomes a project with a map fragment.","cluster":"Visual world (later)"},
-    {"n":53,"name":"House that thickens","english":"Bookshelves fill, walls gain artifacts, study gets a wall of completed work. Walking through your own house is felt-sense evidence of what you've built.","cluster":"Visual world (later)"},
-    {"n":54,"name":"Beatrix's parallel journal","english":"Beatrix keeps a third-person journal of you — the growth story written by someone paying closer attention than you are. Lives in your study.","cluster":"Visual world (later)"},
-    {"n":55,"name":"Seasonal cycles","english":"Spring (new starts), summer (execution), autumn (harvest/reflection), winter (consolidation). System rhythm matches yours and the world's, not always-on uniform.","cluster":"Bridget (later)"},
-    {"n":56,"name":"Shrine of shipped work","english":"Every completed project gets a permanent monument. Walking past them is felt evidence you've built things.","cluster":"Visual world (later)"},
-    {"n":57,"name":"Notice board","english":"A public posting place in your town's square for open questions, requests, things you're looking for. Other agents in your network see and respond.","cluster":"Visual world (later)"},
-    {"n":58,"name":"Town with neighbors","english":"As friends/colleagues sign up to BRIDGE, their houses appear on your street. Closer = aligned. Distance = legibly less aligned.","cluster":"Visual world (later)"},
-    {"n":59,"name":"Ghost towns","english":"Past projects, ended initiatives, communities that disbanded — preserved as architectural fossils. Honest record of what was tried.","cluster":"Visual world (later)"},
-    {"n":60,"name":"Map of everything","english":"Top-down rendering. Roads between projects show actual collaboration paths. Forests where deep work clusters. Mountains where values diverge with collaborators.","cluster":"Visual world (later)"},
-
-    {"n":61,"name":"Audio drama channel","english":"The newsletter converted to podcast — different agent voices, spatial audio, story-like delivery. Listen during walks.","cluster":"Surfaces (later)"},
-    {"n":62,"name":"E-ink dashboard","english":"Always-on low-power display showing today's brief, inbox count, agent status. Glanceable without screen-pull.","cluster":"SKIPPED per Omar"},
-    {"n":63,"name":"Browser widget","english":"Pixel-widget in the corner of any browser tab. Drag URLs, images, text snippets to Bridget's inbox without context-switching.","cluster":"Surfaces (in scope)"},
-    {"n":64,"name":"AirPods voice companion","english":"Bridget narrates the morning brief, summarizes incoming, walks you through your day during commutes. Voice-first when your hands are busy.","cluster":"Surfaces (in scope)"},
-    {"n":65,"name":"CarPlay surface","english":"Stripped-down Bridget when driving. Voice notes, day brief, route-aware reminders.","cluster":"SKIPPED per Omar"},
-
-    {"n":73,"name":"Cross-agent consultation","english":"Formal handshake. Beatrix can ask Clem 'what's the CRREM team's view on V2.04 right now?' Clem asks Beatrix 'is Omar's energy up for hard work today?'","cluster":"Cross-cutting (next agent)"},
-    {"n":74,"name":"Inter-principal calendar negotiation","english":"When a friend signs up to BRIDGE, his Beatrix and your Beatrix negotiate calendars on their principals' behalf. Like real EAs do.","cluster":"Architecture (later)"},
-    {"n":75,"name":"Vault-to-vault navigation","english":"Beatrix navigates between your vault, CRREM's vault, friends' shared spaces — with doors that visibly open or stay locked based on permissions. Privacy as architecture.","cluster":"Cross-cutting (next agent)"},
-
-    {"n":96,"name":"Apple Health pipeline","english":"Wire Apple Health into the brain — sleep, HRV, steps, workouts, weight. Fitness specialist + state agent can act on real data.","cluster":"Integrations (in scope)"},
-    {"n":97,"name":"Bank ingestion (PSD2)","english":"Connect KBC / ING / Revolut to finance specialist via licensed open-banking provider. Spending patterns. Subscription audits. Travel-aware budget plans.","cluster":"Integrations (in scope)"},
-    {"n":98,"name":"Drive + SharePoint sync","english":"Every file across both stores becomes searchable from one place inside Beatrix and Clem (separately, per permission). No more 'where did I put that.'","cluster":"Integrations (in scope, SharePoint LIVE)"},
-    {"n":99,"name":"Browser history capture","english":"Articles you read flow into the reading-synthesis tool inside Beatrix. Highlights auto-extracted.","cluster":"Integrations (in scope)"},
-    {"n":100,"name":"Walk-and-talk wearable","english":"Bridget on AirPods + Apple Watch. Voice-driven brain dictation, ambient awareness, hands-free capture.","cluster":"Surfaces (in scope)"}
+    {
+      "n": 18,
+      "name": "Voice on every surface",
+      "english": "Bridget hearable from AirPods, Apple Watch, hotel speaker, car CarPlay. Speak to her wherever you are.",
+      "cluster": "Surfaces (partial — phone live)"
+    },
+    {
+      "n": 20,
+      "name": "Longitudinal review agent",
+      "english": "Runs the Sunday review automatically. Asks the questions you'd ask yourself if you had the discipline. Captures answers. Updates 1y/3y/10y goal documents. Notices when the week's actions and long-arc intentions drift apart.",
+      "cluster": "Bridget (next agent)"
+    },
+    {
+      "n": 35,
+      "name": "Plan-tier model",
+      "english": "Individual / org-individual / org-department / org-full. Mirrors real org structures. The architecture for BRIDGE's business model.",
+      "cluster": "Architecture"
+    },
+    {
+      "n": 36,
+      "name": "Principal-agent model",
+      "english": "Every agent has a principal (the person or org they serve). Information firewalls between principals — Beatrix sees everything about you; Clem sees what's CRREM-relevant; neither sees what isn't theirs.",
+      "cluster": "Architecture"
+    },
+    {
+      "n": 38,
+      "name": "Inter-principal coordination",
+      "english": "When you need to schedule with someone else's Beatrix (a friend who has BRIDGE), they negotiate calendars on their principals' behalf. Like human EAs scheduling.",
+      "cluster": "SKIPPED per Omar (multi-user, future phase)"
+    },
+    {
+      "n": 44,
+      "name": "Three-journey detector — full",
+      "english": "Per-project state tracker; Beatrix register adjusts. Foundational pieces already shipped in #43; this expands to detect the journey state per project automatically.",
+      "cluster": "Already in #43"
+    },
+    {
+      "n": 49,
+      "name": "Coordinate-shift detector",
+      "english": "When a new theme rises, a value sharpens, a domain fades — Bridget notes it. Your coordinate map literally moves. You can watch your own evolution.",
+      "cluster": "Coordinate engine (next pass)"
+    },
+    {
+      "n": 51,
+      "name": "Pixel-art world",
+      "english": "Render BRIDGE as a literal spatial environment matching the vision doc: house, garden, office, street, town. Beatrix tends shelves. Clem keeps the CRREM office.",
+      "cluster": "SKIPPED per Omar"
+    },
+    {
+      "n": 52,
+      "name": "Garden of aspirations",
+      "english": "Themes you keep returning to but haven't acted on grow as seedlings. Want to make it a direction? Say yes, it becomes a project with a map fragment.",
+      "cluster": "SKIPPED per Omar (visual world deprioritized)"
+    },
+    {
+      "n": 53,
+      "name": "House that thickens",
+      "english": "Bookshelves fill, walls gain artifacts, study gets a wall of completed work. Walking through your own house is felt-sense evidence of what you've built.",
+      "cluster": "SKIPPED per Omar (visual world deprioritized)"
+    },
+    {
+      "n": 54,
+      "name": "Beatrix's parallel journal",
+      "english": "Beatrix keeps a third-person journal of you — the growth story written by someone paying closer attention than you are. Updated weekly from your activity.",
+      "cluster": "Beatrix-meta (in scope)"
+    },
+    {
+      "n": 55,
+      "name": "Seasonal cycles",
+      "english": "Spring (new starts), summer (execution), autumn (harvest/reflection), winter (consolidation). System rhythm matches yours and the world's, not always-on uniform.",
+      "cluster": "SKIPPED per Omar (visual world deprioritized)"
+    },
+    {
+      "n": 56,
+      "name": "Shrine of shipped work",
+      "english": "Every completed project gets a permanent monument. Walking past them is felt evidence you've built things.",
+      "cluster": "SKIPPED per Omar (visual world deprioritized)"
+    },
+    {
+      "n": 57,
+      "name": "Notice board",
+      "english": "A public posting place in your town's square for open questions, requests, things you're looking for. Other agents in your network see and respond.",
+      "cluster": "SKIPPED per Omar (visual world deprioritized)"
+    },
+    {
+      "n": 58,
+      "name": "Town with neighbors",
+      "english": "As friends/colleagues sign up to BRIDGE, their houses appear on your street. Closer = aligned. Distance = legibly less aligned.",
+      "cluster": "SKIPPED per Omar (visual world deprioritized)"
+    },
+    {
+      "n": 59,
+      "name": "Ghost towns",
+      "english": "Past projects, ended initiatives, communities that disbanded — preserved as architectural fossils. Honest record of what was tried.",
+      "cluster": "SKIPPED per Omar (visual world deprioritized)"
+    },
+    {
+      "n": 60,
+      "name": "Map of everything",
+      "english": "Top-down rendering. Roads between projects show actual collaboration paths. Forests where deep work clusters. Mountains where values diverge with collaborators.",
+      "cluster": "SKIPPED per Omar (visual world deprioritized)"
+    },
+    {
+      "n": 61,
+      "name": "Audio drama channel",
+      "english": "The newsletter converted to podcast — different agent voices, spatial audio, story-like delivery. Listen during walks.",
+      "cluster": "SKIPPED per Omar"
+    },
+    {
+      "n": 62,
+      "name": "E-ink dashboard",
+      "english": "Always-on low-power display showing today's brief, inbox count, agent status. Glanceable without screen-pull.",
+      "cluster": "SKIPPED per Omar"
+    },
+    {
+      "n": 65,
+      "name": "CarPlay surface",
+      "english": "Stripped-down Bridget when driving. Voice notes, day brief, route-aware reminders.",
+      "cluster": "SKIPPED per Omar"
+    },
+    {
+      "n": 74,
+      "name": "Inter-principal calendar negotiation",
+      "english": "When a friend signs up to BRIDGE, his Beatrix and your Beatrix negotiate calendars on their principals' behalf. Like real EAs do.",
+      "cluster": "SKIPPED per Omar (multi-user, future phase)"
+    }
   ]
 }
