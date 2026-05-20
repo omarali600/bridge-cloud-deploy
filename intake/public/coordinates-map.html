@@ -146,56 +146,63 @@
       width:100%;
       aspect-ratio:1;
       background:var(--chart-bg);
-      border:1px solid var(--ink);
-      box-shadow:inset 0 0 80px rgba(168,84,59,.05), 0 2px 24px rgba(28,29,32,.06);
+      border:1px solid var(--hairline);
+      box-shadow:inset 0 0 60px rgba(168,84,59,.04);
     }
-    .chart-corner{position:absolute;width:18px;height:18px;border-color:var(--ink);border-style:solid;border-width:0}
-    .chart-corner.tl{top:-1px;left:-1px;border-top-width:2px;border-left-width:2px}
-    .chart-corner.tr{top:-1px;right:-1px;border-top-width:2px;border-right-width:2px}
-    .chart-corner.bl{bottom:-1px;left:-1px;border-bottom-width:2px;border-left-width:2px}
-    .chart-corner.br{bottom:-1px;right:-1px;border-bottom-width:2px;border-right-width:2px}
+    .chart-corner{position:absolute;width:14px;height:14px;border-color:var(--ink-soft);border-style:solid;border-width:0;opacity:.5}
+    .chart-corner.tl{top:-1px;left:-1px;border-top-width:1px;border-left-width:1px}
+    .chart-corner.tr{top:-1px;right:-1px;border-top-width:1px;border-right-width:1px}
+    .chart-corner.bl{bottom:-1px;left:-1px;border-bottom-width:1px;border-left-width:1px}
+    .chart-corner.br{bottom:-1px;right:-1px;border-bottom-width:1px;border-right-width:1px}
     .chart-svg{width:100%;height:100%;display:block}
 
-    /* SVG element styling */
-    .grid-line{stroke:var(--hairline-soft);stroke-width:.5;fill:none}
-    .axis-line{stroke:var(--ink);stroke-width:.6;fill:none}
-    .axis-tick{stroke:var(--ink-soft);stroke-width:.5;fill:none}
-    .compass-rose{fill:none;stroke:var(--ink-ghost);stroke-width:.4}
-    .center-mark{fill:none;stroke:var(--ink-fade);stroke-width:.5}
+    /* SVG element styling — light touch */
+    .grid-line{stroke:rgba(28,29,32,.06);stroke-width:.25;fill:none}
+    .axis-line{stroke:var(--ink-fade);stroke-width:.25;fill:none}
+    .compass-rose{fill:none;stroke:rgba(28,29,32,.10);stroke-width:.3}
+    .compass-rose-inner{fill:none;stroke:rgba(28,29,32,.14);stroke-width:.35}
+    .center-mark{fill:var(--ink-fade);opacity:.4}
     .dot{fill:var(--rust)}
-    .dot-ring{fill:none;stroke:var(--rust);stroke-width:.8;opacity:.45}
-    .dot-ring-2{fill:none;stroke:var(--rust);stroke-width:.4;opacity:.25}
-    @keyframes radar-pulse{0%{r:3;opacity:.6}100%{r:14;opacity:0}}
-    .dot-pulse{fill:none;stroke:var(--rust);stroke-width:.8;animation:radar-pulse 2.5s ease-out infinite}
-    .leader-line{stroke:var(--rust);stroke-width:.4;opacity:.7;fill:none}
+    .dot-ring{fill:none;stroke:var(--rust);stroke-width:.6;opacity:.4}
+    .dot-ring-2{fill:none;stroke:var(--rust);stroke-width:.3;opacity:.18}
+    @keyframes radar-pulse{0%{r:2;opacity:.55}100%{r:11;opacity:0}}
+    .dot-pulse{fill:none;stroke:var(--rust);stroke-width:.5;animation:radar-pulse 2.6s ease-out infinite}
+    .leader-line{stroke:var(--rust);stroke-width:.3;opacity:.55;fill:none}
 
-    .axis-label{
+    /* Cardinal axis names (URBAN/REMOTE/DYNAMIC/STATIC) — fully outside the chart, very light */
+    .axis-cardinal{
       font-family:'JetBrains Mono',monospace;
-      font-size:3.2px;
-      letter-spacing:.18em;
+      font-size:2.6px;
+      letter-spacing:.32em;
       text-transform:uppercase;
-      fill:var(--ink);
+      fill:var(--ink-fade);
       font-weight:500;
     }
-    .axis-sublabel{
-      font-family:'Newsreader',serif;
+
+    /* Quadrant landmarks (jetsetter/entrepreneur/etc) — italic Fraunces, set on the diagonal at quadrant centers */
+    .quadrant-landmark{
+      font-family:'Fraunces',serif;
+      font-variation-settings:"opsz" 60,"wght" 340,"SOFT" 80;
       font-style:italic;
-      font-size:2.8px;
-      fill:var(--ink-fade);
-      letter-spacing:.02em;
+      font-size:3.4px;
+      fill:var(--ink-ghost);
+      text-anchor:middle;
+      letter-spacing:.01em;
     }
+    .quadrant-landmark.near{fill:var(--rust-dark);opacity:.9}
+
     .landmark-label{
       font-family:'Fraunces',serif;
+      font-variation-settings:"opsz" 60,"wght" 500,"SOFT" 80;
       font-style:italic;
       font-size:4px;
       fill:var(--rust);
-      font-weight:500;
     }
     .position-readout{
       font-family:'JetBrains Mono',monospace;
-      font-size:2.4px;
+      font-size:2.2px;
       fill:var(--ink-fade);
-      letter-spacing:.1em;
+      letter-spacing:.08em;
     }
 
     .legend-box{
@@ -487,77 +494,113 @@
     }
 
     function drawChart(p){
-      // viewBox 0..100; chart area is 16..84 (inset for axis labels)
-      // dot space is -1..1 → mapped to chart area
-      const C = 50; // center
-      const R = 34; // radius of plotting area
+      // viewBox 0..100. Generous margins so cardinals + quadrant labels breathe.
+      const C = 50;
+      const R = 30; // plotting radius (was 34 — more breathing room now)
       const px = C + p.x * R;
-      const py = C - p.y * R; // y inverted for screen
+      const py = C - p.y * R;
 
-      // confidence ring: tighter ring = higher confidence
-      const confR = 2 + (1 - p.confidence) * 8;
+      // Confidence ring (tighter = higher confidence)
+      const confR = 1.6 + (1 - p.confidence) * 6;
 
-      // Decide which side to put the landmark label on (away from chart edge)
+      // Quadrant label positions (diagonals at ~45°, midway out)
+      // For x: q0=-, q1=+. For y: q0=top, q1=bottom.
+      const QD = R * 0.72;
+      const quadPos = [
+        // [xAxis, yAxis, dx, dy] — order matters: TL, TR, BL, BR
+        { xKey: p.axes.x[0], yKey: p.axes.y[0], dx: -QD, dy: -QD, sign: { x: -1, y:  1 } }, // TL
+        { xKey: p.axes.x[1], yKey: p.axes.y[0], dx:  QD, dy: -QD, sign: { x:  1, y:  1 } }, // TR
+        { xKey: p.axes.x[0], yKey: p.axes.y[1], dx: -QD, dy:  QD, sign: { x: -1, y: -1 } }, // BL
+        { xKey: p.axes.x[1], yKey: p.axes.y[1], dx:  QD, dy:  QD, sign: { x:  1, y: -1 } }, // BR
+      ];
+
+      // Which quadrant is the dot in? (so we can subtly highlight that label)
+      const inQuad = (q) => {
+        const xMatch = (p.x < 0 && q.sign.x < 0) || (p.x >= 0 && q.sign.x > 0);
+        const yMatch = (p.y > 0 && q.sign.y > 0) || (p.y <= 0 && q.sign.y < 0);
+        return xMatch && yMatch;
+      };
+
+      // Decide which side to put the dot's landmark label on
       const labelOnRight = px < 60;
-      const labelDx = labelOnRight ? 5 : -5;
+      const labelDx = labelOnRight ? 4 : -4;
       const labelAnchor = labelOnRight ? 'start' : 'end';
       const labelX = px + labelDx;
-      const labelY = py + (py > C ? -4 : 6);
+      // Push label vertically away from the closest quadrant label
+      const labelY = py + (py > C ? -3.5 : 5.5);
+
+      // Cardinal label positions — orthogonal, off-axis, in the outer margin
+      const CARD_OFFSET = R + 8;
 
       const svg = document.getElementById('chart-svg');
       svg.innerHTML = `
-        <!-- inner background grid (light) -->
-        ${[20,30,40,50,60,70,80].map(t => `
-          <line class="grid-line" x1="16" y1="${t}" x2="84" y2="${t}"/>
-          <line class="grid-line" x1="${t}" y1="16" x2="${t}" y2="84"/>
+        <!-- Whisper-light grid (very faint) -->
+        ${[26,38,50,62,74].map(t => `
+          <line class="grid-line" x1="20" y1="${t}" x2="80" y2="${t}"/>
+          <line class="grid-line" x1="${t}" y1="20" x2="${t}" y2="80"/>
         `).join('')}
 
-        <!-- compass rose (concentric circles) -->
+        <!-- Concentric circles (compass rose) — outer = chart edge, inner two are halves -->
         <circle class="compass-rose" cx="${C}" cy="${C}" r="${R}"/>
-        <circle class="compass-rose" cx="${C}" cy="${C}" r="${R*0.66}"/>
-        <circle class="compass-rose" cx="${C}" cy="${C}" r="${R*0.33}"/>
+        <circle class="compass-rose-inner" cx="${C}" cy="${C}" r="${R * 0.5}"/>
 
-        <!-- main axes -->
-        <line class="axis-line" x1="${C-R-4}" y1="${C}" x2="${C+R+4}" y2="${C}"/>
-        <line class="axis-line" x1="${C}" y1="${C-R-4}" x2="${C}" y2="${C+R+4}"/>
+        <!-- Main axes — hair-thin -->
+        <line class="axis-line" x1="${C - R}" y1="${C}" x2="${C + R}" y2="${C}"/>
+        <line class="axis-line" x1="${C}" y1="${C - R}" x2="${C}" y2="${C + R}"/>
 
-        <!-- tick marks on axes (4 per axis) -->
-        ${[-R*0.66,-R*0.33,R*0.33,R*0.66].map(d => `
-          <line class="axis-tick" x1="${C+d}" y1="${C-1}" x2="${C+d}" y2="${C+1}"/>
-          <line class="axis-tick" x1="${C-1}" y1="${C+d}" x2="${C+1}" y2="${C+d}"/>
-        `).join('')}
+        <!-- Center mark — tiny dot, not crosshair -->
+        <circle class="center-mark" cx="${C}" cy="${C}" r=".5"/>
 
-        <!-- center crosshair -->
-        <circle class="center-mark" cx="${C}" cy="${C}" r="1"/>
+        <!-- Cardinal axis labels: just outside the circle, no arrows, very faint -->
+        <text class="axis-cardinal" x="${C}" y="${C - CARD_OFFSET + 2}" text-anchor="middle">${p.axes.y[0]}</text>
+        <text class="axis-cardinal" x="${C}" y="${C + CARD_OFFSET}" text-anchor="middle" dominant-baseline="hanging">${p.axes.y[1]}</text>
+        <text class="axis-cardinal" x="${C - CARD_OFFSET}" y="${C}" text-anchor="end" dominant-baseline="middle">${p.axes.x[0]}</text>
+        <text class="axis-cardinal" x="${C + CARD_OFFSET}" y="${C}" text-anchor="start" dominant-baseline="middle">${p.axes.x[1]}</text>
 
-        <!-- AXIS LABELS — sized for SVG viewBox, positioned in the margin -->
-        <text class="axis-label" x="${C}" y="11" text-anchor="middle">${p.axes.y[0].toUpperCase()}</text>
-        <text class="axis-sublabel" x="${C}" y="14" text-anchor="middle">↑</text>
+        <!-- Quadrant landmarks (jetsetter / entrepreneur / trailblazer / homesteader) — italic, in their own corner of the chart -->
+        ${quadPos.map(q => {
+          const adj = quadAdjective(q.xKey, q.yKey, p.name);
+          if (!adj) return '';
+          const cls = inQuad(q) ? 'quadrant-landmark near' : 'quadrant-landmark';
+          return `<text class="${cls}" x="${C + q.dx}" y="${C + q.dy + 1.2}">${adj}</text>`;
+        }).join('')}
 
-        <text class="axis-sublabel" x="${C}" y="89" text-anchor="middle">↓</text>
-        <text class="axis-label" x="${C}" y="92" text-anchor="middle">${p.axes.y[1].toUpperCase()}</text>
-
-        <text class="axis-label" x="9" y="${C}" text-anchor="middle" dominant-baseline="middle" transform="rotate(-90 9 ${C})">${p.axes.x[0].toUpperCase()}</text>
-        <text class="axis-sublabel" x="12" y="${C}" text-anchor="middle" dominant-baseline="middle">←</text>
-
-        <text class="axis-sublabel" x="88" y="${C}" text-anchor="middle" dominant-baseline="middle">→</text>
-        <text class="axis-label" x="91" y="${C}" text-anchor="middle" dominant-baseline="middle" transform="rotate(90 91 ${C})">${p.axes.x[1].toUpperCase()}</text>
-
-        <!-- The dot -->
-        <circle class="dot-ring-2" cx="${px}" cy="${py}" r="${confR + 2}"/>
+        <!-- The dot — soft ring + radar pulse + filled dot -->
+        <circle class="dot-ring-2" cx="${px}" cy="${py}" r="${confR + 1.4}"/>
         <circle class="dot-ring" cx="${px}" cy="${py}" r="${confR}"/>
-        <circle class="dot-pulse" cx="${px}" cy="${py}" r="3"/>
-        <circle class="dot" cx="${px}" cy="${py}" r="1.6"/>
+        <circle class="dot-pulse" cx="${px}" cy="${py}" r="2"/>
+        <circle class="dot" cx="${px}" cy="${py}" r="1.4"/>
 
-        <!-- leader line to landmark label -->
-        <line class="leader-line" x1="${px}" y1="${py}" x2="${labelX}" y2="${labelY}"/>
-
-        <!-- Landmark name beside the dot -->
-        <text class="landmark-label" x="${labelX + (labelOnRight ? 1 : -1)}" y="${labelY}" text-anchor="${labelAnchor}">${p.landmark}</text>
-
-        <!-- Position readout below landmark -->
-        <text class="position-readout" x="${labelX + (labelOnRight ? 1 : -1)}" y="${labelY + 3}" text-anchor="${labelAnchor}">${formatCoord(p.x)}, ${formatCoord(p.y)}</text>
+        <!-- Leader line + landmark label for the dot itself -->
+        <line class="leader-line" x1="${px}" y1="${py}" x2="${labelX}" y2="${labelY - 1}"/>
+        <text class="landmark-label" x="${labelX + (labelOnRight ? .8 : -.8)}" y="${labelY}" text-anchor="${labelAnchor}">${p.landmark}</text>
+        <text class="position-readout" x="${labelX + (labelOnRight ? .8 : -.8)}" y="${labelY + 2.8}" text-anchor="${labelAnchor}">${formatCoord(p.x)}, ${formatCoord(p.y)}</text>
       `;
+    }
+
+    // Quadrant adjective map — pairs each (x-axis-pole, y-axis-pole) with the canonical landmark name
+    function quadAdjective(xPole, yPole, planeName){
+      const map = {
+        // lifestyle: dynamic/static × urban/remote
+        'dynamic+urban':'jetsetter', 'static+urban':'entrepreneur',
+        'dynamic+remote':'trailblazer', 'static+remote':'homesteader',
+        // behaviour: dominant/agreeable × conscientious/influencing
+        'dominant+conscientious':'analysing', 'agreeable+conscientious':'editing',
+        'dominant+influencing':'driving', 'agreeable+influencing':'harmonising',
+        // intelligence: generalist/specialist × solo/social
+        'generalist+solo':'investigative', 'specialist+solo':'holistic',
+        'generalist+social':'logical', 'specialist+social':'artistic',
+        // values: progressive/conservative × self-enhancing/self-transcending
+        'progressive+self-enhancing':'achievement', 'conservative+self-enhancing':'authority',
+        'progressive+self-transcending':'compassion', 'conservative+self-transcending':'reliability',
+        // identity: optimistic/pragmatic × facilitator/participator
+        'optimistic+facilitator':'composer', 'pragmatic+facilitator':'commander',
+        'optimistic+participator':'virtuoso', 'pragmatic+participator':'mastermind',
+        // mission: flexibility/control × external/internal
+        'flexibility+external':'self-direction', 'control+external':'reputation',
+        'flexibility+internal':'improvement', 'control+internal':'investment',
+      };
+      return map[`${xPole}+${yPole}`] || '';
     }
 
     render('lifestyle');
