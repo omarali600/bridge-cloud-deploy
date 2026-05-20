@@ -103,6 +103,19 @@ export function startHttpServer({ port, adminToken: at }) {
           return sendJson(res, 500, { error: e.message });
         }
       }
+      if (path === '/admin/oauth/google/import' && req.method === 'POST') {
+        // Import a pre-obtained refresh token (e.g. from a local desktop-app OAuth flow).
+        // Lets us activate Gmail/Calendar/Drive without the cloud-redirect dance.
+        if (!checkAdmin(req, url)) return unauthorized(res);
+        const body = await readJsonBody(req);
+        if (!body.refresh_token) return sendJson(res, 400, { error: 'refresh_token required' });
+        try {
+          const out = await emailSurface.importRefreshToken(body);
+          return sendJson(res, 200, out);
+        } catch (e) {
+          return sendJson(res, 500, { error: e.message });
+        }
+      }
 
       // ─── admin: thresholds ───
       if (path === '/admin/threshold' && req.method === 'GET') {

@@ -102,6 +102,38 @@ export async function handleOAuthCallback(code) {
 }
 
 /**
+ * Import a refresh token obtained out-of-band (e.g. via a desktop-app OAuth
+ * flow on Omar's Mac). Persists the token and starts polling. Same code path
+ * as handleOAuthCallback once tokens are loaded.
+ */
+export async function importRefreshToken({ refresh_token, scope, token_type }) {
+  if (!oauth2Client) throw new Error('email adapter not initialized');
+  if (!refresh_token) throw new Error('refresh_token required');
+  const tokens = {
+    refresh_token,
+    scope: scope || [
+      'https://www.googleapis.com/auth/gmail.readonly',
+      'https://www.googleapis.com/auth/gmail.modify',
+      'https://www.googleapis.com/auth/calendar.readonly',
+      'https://www.googleapis.com/auth/drive.readonly',
+    ].join(' '),
+    token_type: token_type || 'Bearer',
+    // expiry_date=1 forces google-auth-library to refresh on the first call,
+    // which mints a fresh access_token + persists it via the 'tokens' listener.
+    expiry_date: 1,
+  };
+  oauth2Client.setCredentials(tokens);
+  writeFileSync(tokenPath, JSON.stringify(tokens, null, 2));
+  log('email: refresh token imported, persisted, starting poll');
+  oauth2Client.on('tokens', (newTokens) => {
+    const merged = { ...tokens, ...newTokens };
+    writeFileSync(tokenPath, JSON.stringify(merged, null, 2));
+  });
+  startPolling();
+  return { ok: true, message: 'Refresh token imported. Gmail / Calendar / Drive polling started.' };
+}
+
+/**
  * Start the 60s polling loop. Uses Gmail's history.list to detect new
  * messages since the last seen historyId. The first run takes a baseline
  * from the latest message's historyId so we don't replay the entire inbox.
