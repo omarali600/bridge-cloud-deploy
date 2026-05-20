@@ -39,341 +39,289 @@
   body{
     min-height:100vh;
     background-image:
-      radial-gradient(ellipse 900px 700px at 15% 0%, rgba(168,84,59,.04), transparent 60%),
+      radial-gradient(ellipse 1000px 800px at 15% 0%, rgba(168,84,59,.04), transparent 60%),
       url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .035 0'/></filter><rect width='240' height='240' filter='url(%23n)'/></svg>");
     background-size:auto,240px 240px;
     background-attachment:fixed;
   }
   ::selection{background:var(--rust);color:var(--bg)}
 
-  /* ─── header ─── */
   header{
-    max-width:1500px;
+    max-width:1340px;
     margin:0 auto;
-    padding:32px 48px 18px;
+    padding:32px 56px 18px;
     border-bottom:1px solid var(--ink);
     display:grid;
     grid-template-columns:1fr auto 1fr;
     align-items:end;
     gap:32px;
   }
-  .h-left,.h-right{
-    font-family:'JetBrains Mono',monospace;
-    font-size:10.5px;
-    letter-spacing:.2em;
-    text-transform:uppercase;
-    color:var(--ink-soft);
-  }
+  .h-left,.h-right{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft)}
   .h-right{text-align:right}
-  .h-title{
-    font-family:'Fraunces',serif;
-    font-variation-settings:"opsz" 144,"wght" 400,"SOFT" 40;
-    font-size:30px;
-    letter-spacing:.01em;
-    text-align:center;
-  }
-  .h-title em{
-    font-style:italic;
-    font-variation-settings:"opsz" 144,"wght" 280,"SOFT" 100;
-    color:var(--rust);
-  }
+  .h-title{font-family:'Fraunces',serif;font-variation-settings:"opsz" 144,"wght" 400,"SOFT" 40;font-size:30px;letter-spacing:.01em;text-align:center}
+  .h-title em{font-style:italic;font-variation-settings:"opsz" 144,"wght" 280,"SOFT" 100;color:var(--rust)}
+  @media(max-width:700px){header{padding:24px 24px 14px;grid-template-columns:1fr;text-align:left;gap:6px}.h-title,.h-right{text-align:left}}
 
-  /* ─── layout ─── */
-  .shell{
-    max-width:1500px;
-    margin:0 auto;
-    padding:40px 48px 80px;
-    display:grid;
-    grid-template-columns:1fr 380px;
-    gap:48px;
-  }
-  @media(max-width:1100px){
-    .shell{grid-template-columns:1fr;gap:32px;padding:32px 24px 60px}
-    header{padding:24px 24px 14px;grid-template-columns:1fr;text-align:left;gap:6px}
-    .h-title,.h-right{text-align:left}
-  }
-
-  /* ─── wheel grid ─── */
-  .wheels{
-    display:grid;
-    grid-template-columns:repeat(2, 1fr);
-    gap:36px;
-  }
-  @media(max-width:700px){
-    .wheels{grid-template-columns:1fr}
-  }
-
-  .wheel-card{
-    background:transparent;
-    cursor:pointer;
-    transition:transform .25s ease;
-  }
-  .wheel-card:hover{transform:translateY(-3px)}
-  .wheel-card .wheel-title{
+  .intro{max-width:1340px;margin:0 auto;padding:64px 56px 56px;text-align:center}
+  @media(max-width:700px){.intro{padding:40px 24px 32px}}
+  .intro-eyebrow{
     font-family:'JetBrains Mono',monospace;
-    font-size:11px;
-    letter-spacing:.24em;
-    text-transform:uppercase;
-    color:var(--rust);
-    margin-bottom:4px;
-    display:flex;
-    align-items:center;
-    gap:10px;
+    font-size:11px;letter-spacing:.24em;text-transform:uppercase;
+    color:var(--rust);margin-bottom:20px;
+    display:inline-flex;align-items:center;gap:14px;
   }
-  .wheel-card .wheel-title .num{color:var(--ink-fade);font-size:10px}
-  .wheel-card .landmark-name{
+  .intro-eyebrow::before,.intro-eyebrow::after{content:'';width:32px;height:1px;background:var(--rust)}
+  .intro-headline{
     font-family:'Fraunces',serif;
-    font-variation-settings:"opsz" 144,"wght" 360,"SOFT" 80;
-    font-style:italic;
-    font-size:36px;
-    line-height:1;
-    color:var(--ink);
-    margin-bottom:4px;
-    letter-spacing:-0.02em;
+    font-variation-settings:"opsz" 144,"wght" 360,"SOFT" 30;
+    font-size:clamp(40px,5vw,72px);
+    line-height:.96;letter-spacing:-0.035em;
+    margin:0 auto 22px;max-width:24ch;
   }
-  .wheel-card .wheel-sub{
-    font-family:'Newsreader',serif;
-    font-style:italic;
-    font-size:14px;
-    color:var(--ink-soft);
-    margin-bottom:14px;
-  }
-  .wheel-card .wheel-sub .conf{
-    color:var(--rust);
-    font-style:normal;
-    font-family:'JetBrains Mono',monospace;
-    font-size:11px;
-    letter-spacing:.04em;
-    margin-left:6px;
+  .intro-headline em{font-style:italic;font-variation-settings:"opsz" 144,"wght" 240,"SOFT" 100;color:var(--rust)}
+  .intro-dek{
+    font-family:'Newsreader',serif;font-size:19px;font-style:italic;
+    color:var(--ink-soft);font-weight:300;line-height:1.5;
+    margin:0 auto;max-width:62ch;
   }
 
+  /* ─── plane rows ─── */
+  .planes{
+    max-width:1340px;margin:0 auto;padding:0 56px 80px;
+    counter-reset:plane;
+  }
+  @media(max-width:700px){.planes{padding:0 24px 56px}}
+
+  .plane-row{
+    display:grid;
+    grid-template-columns:420px 1fr;
+    gap:72px;
+    align-items:start;
+    padding:56px 0;
+    border-top:1px solid var(--hairline);
+    counter-increment:plane;
+    position:relative;
+  }
+  .plane-row:first-child{border-top:1px solid var(--ink)}
+  .plane-row::before{
+    content:counter(plane,upper-roman);
+    position:absolute;
+    top:64px;left:-44px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;letter-spacing:.2em;
+    color:var(--ink-fade);
+    writing-mode:vertical-rl;
+    text-orientation:sideways;
+  }
+  @media(max-width:1100px){.plane-row::before{display:none}}
+  @media(max-width:1000px){
+    .plane-row{grid-template-columns:1fr;gap:32px;padding:40px 0}
+    .wheel-cell{order:1;max-width:380px;margin:0 auto}
+    .text-card{order:2}
+  }
+
+  /* ─── wheel cell ─── */
+  .wheel-cell{
+    position:relative;
+    width:100%;
+    max-width:420px;
+  }
   svg.map{
     width:100%;
     height:auto;
     display:block;
+    overflow:visible;
+    cursor:crosshair;
   }
+  .wheel-ring-outer{fill:none;stroke:var(--ink);stroke-width:.35}
+  .wheel-ring-inner{fill:none;stroke:var(--hairline);stroke-width:.25}
+  .wheel-ring-fill{fill:var(--wheel);opacity:.5}
+  .axis{stroke:var(--hairline-soft);stroke-width:.25;stroke-dasharray:1 2}
 
-  /* svg classes */
-  .wheel-bg{
-    fill:var(--wheel);
-    stroke:var(--hairline);
-    stroke-width:.6;
-  }
-  .wheel-bg-inner{
-    fill:none;
-    stroke:var(--hairline-soft);
+  .tick{
+    stroke:var(--ink-fade);
     stroke-width:.4;
+    fill:none;
+    transition:stroke .2s ease;
   }
-  .axis{
-    stroke:var(--hairline);
-    stroke-width:.5;
-    stroke-dasharray:2 3;
-  }
+  .tick.active{stroke:var(--rust);stroke-width:.6}
+
   .pole{
     fill:var(--ink-soft);
-    font-family:'JetBrains Mono', monospace;
-    font-size:9.5px;
-    letter-spacing:.18em;
+    font-family:'JetBrains Mono',monospace;
+    font-size:7px;
+    letter-spacing:.24em;
     text-transform:uppercase;
     font-weight:500;
   }
-  .landmark{
+
+  /* Per-landmark labels are hidden by default; only the "active" one (nearest to dot) + hovered shows */
+  .landmark-label{
     fill:var(--ink-ghost);
-    font-family:'Fraunces', serif;
+    font-family:'Fraunces',serif;
     font-style:italic;
-    font-variation-settings:"opsz" 60,"wght" 360,"SOFT" 90;
-    font-size:9.5px;
+    font-variation-settings:"opsz" 60,"wght" 380,"SOFT" 90;
+    font-size:7.5px;
+    opacity:0;
+    transition:opacity .3s ease, fill .25s ease;
+    pointer-events:none;
   }
-  .landmark.active{
+  .landmark-label.nearest{
+    opacity:1;
     fill:var(--rust-dark);
     font-variation-settings:"opsz" 60,"wght" 500,"SOFT" 80;
+    font-size:8.5px;
   }
+  .landmark-label.hovered{
+    opacity:1;
+    fill:var(--rust-dark);
+  }
+
   .dot{
     fill:var(--rust);
     cursor:pointer;
-    transition:transform .15s ease, fill .15s ease;
+    transition:transform .15s ease;
     transform-origin:center;
     transform-box:fill-box;
-    filter:drop-shadow(0 1px 2px rgba(168,84,59,.4));
+    filter:drop-shadow(0 1px 3px rgba(168,84,59,.5));
   }
-  .dot:hover{
-    transform:scale(1.15);
-  }
+  .dot:hover{transform:scale(1.2)}
   .dot-halo{
-    fill:none;
-    stroke:var(--rust);
-    stroke-width:.7;
-    opacity:.45;
+    fill:none;stroke:var(--rust);stroke-width:.5;opacity:.4;
+    pointer-events:none;
   }
-  @keyframes radar-pulse{0%{r:5;opacity:.5}100%{r:18;opacity:0}}
+  @keyframes radar-pulse{0%{r:3;opacity:.5}100%{r:14;opacity:0}}
   .dot-pulse{
-    fill:none;
-    stroke:var(--rust);
-    stroke-width:.7;
+    fill:none;stroke:var(--rust);stroke-width:.5;
     animation:radar-pulse 3s ease-out infinite;
     pointer-events:none;
   }
 
-  /* ─── side panel ─── */
-  .panel-col{
-    position:sticky;
-    top:24px;
-    align-self:start;
-    max-height:calc(100vh - 48px);
-    overflow-y:auto;
+  /* Center landmark indicator: a thin radial line from center to active landmark */
+  .nearest-radial{
+    stroke:var(--rust);
+    stroke-width:.4;
+    opacity:.55;
+    stroke-dasharray:.5 1.2;
   }
-  @media(max-width:1100px){.panel-col{position:relative;top:0;max-height:none}}
 
-  .panel{
-    background:#fcfaf2;
-    border:1px solid var(--ink);
-    padding:28px 30px;
-  }
-  .panel-empty{
-    color:var(--ink-fade);
-    font-style:italic;
-    font-size:15px;
-    font-family:'Newsreader',serif;
-    line-height:1.5;
-  }
-  .panel-empty strong{color:var(--ink);font-style:normal;font-weight:500}
-
-  .panel-eyebrow{
+  /* ─── text card ─── */
+  .text-card{padding-top:8px}
+  .card-eyebrow{
     font-family:'JetBrains Mono',monospace;
-    font-size:10px;
-    letter-spacing:.22em;
-    text-transform:uppercase;
-    color:var(--rust);
-    margin-bottom:10px;
-    display:flex;
-    align-items:center;
-    gap:10px;
+    font-size:11px;letter-spacing:.24em;text-transform:uppercase;
+    color:var(--rust);margin-bottom:10px;
+    display:flex;align-items:center;gap:12px;
   }
-  .panel-eyebrow::before{
-    content:'';
-    width:24px;height:1px;
-    background:var(--rust);
-  }
-  .panel h2{
+  .card-eyebrow::before{content:'';width:28px;height:1px;background:var(--rust)}
+  .landmark-name{
     font-family:'Fraunces',serif;
-    font-variation-settings:"opsz" 144,"wght" 380,"SOFT" 30;
-    font-size:32px;
+    font-variation-settings:"opsz" 144,"wght" 360,"SOFT" 80;
     font-style:italic;
-    line-height:1;
-    margin:0 0 8px;
-    color:var(--ink);
-    letter-spacing:-0.02em;
+    font-size:clamp(44px,5.4vw,80px);
+    line-height:.95;color:var(--ink);
+    margin:0 0 14px;letter-spacing:-0.03em;
   }
-  .panel h2 em{color:var(--rust);font-style:italic}
-  .panel-meta{
-    font-family:'JetBrains Mono',monospace;
-    font-size:10.5px;
-    letter-spacing:.06em;
-    color:var(--ink-fade);
-    margin-bottom:18px;
-    padding-bottom:14px;
+  .card-sub{
+    font-family:'Newsreader',serif;font-style:italic;font-size:18px;
+    color:var(--ink-soft);font-weight:300;
+    margin:0 0 20px;line-height:1.5;
+  }
+  .card-meta{
+    display:flex;gap:22px;flex-wrap:wrap;
+    margin-bottom:24px;padding-bottom:22px;
     border-bottom:1px solid var(--hairline);
   }
-  .panel-meta .conf{color:var(--rust);font-weight:500}
-
-  .panel-section{margin-top:22px}
-  .panel-section h3{
-    font-family:'JetBrains Mono',monospace;
-    font-size:10px;
-    letter-spacing:.22em;
-    text-transform:uppercase;
-    color:var(--ink-soft);
-    margin:0 0 12px;
-    padding-bottom:6px;
-    border-bottom:1px solid var(--hairline-soft);
-  }
-  .panel .summary{
+  .card-meta-item{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.04em;color:var(--ink-soft)}
+  .card-meta-item .lbl{color:var(--ink-fade);text-transform:uppercase;letter-spacing:.18em;margin-right:6px}
+  .card-meta-item .v.accent{color:var(--rust);font-weight:500}
+  .summary{
     font-family:'Newsreader',serif;
-    font-size:14.5px;
-    line-height:1.55;
-    color:var(--ink-2);
-    margin:0;
+    font-size:17px;line-height:1.6;color:var(--ink-2);
+    margin:0 0 24px;max-width:54ch;
   }
-  .panel ul{
-    padding:0;
-    margin:0;
-    list-style:none;
-  }
-  .panel .quote{
+  .summary::first-letter{
     font-family:'Fraunces',serif;
-    font-style:italic;
-    font-variation-settings:"opsz" 60,"wght" 360,"SOFT" 90;
-    font-size:14px;
-    line-height:1.45;
-    color:var(--ink);
-    background:#f5eddc;
-    padding:10px 14px;
-    border-left:2px solid var(--rust);
-    margin:0 0 6px;
+    font-variation-settings:"opsz" 144,"wght" 400,"SOFT" 80;
+    font-size:54px;line-height:.82;float:left;
+    margin:6px 12px 0 0;color:var(--rust);
   }
-  .panel .file{
+  details.evidence-details{border-top:1px solid var(--hairline-soft)}
+  details.evidence-details summary{
+    cursor:pointer;padding:14px 0;list-style:none;
     font-family:'JetBrains Mono',monospace;
-    font-size:10px;
-    letter-spacing:.04em;
-    color:var(--ink-fade);
-    margin:0 0 4px;
-    line-height:1.4;
-    word-break:break-word;
-  }
-  .panel .interp{
-    font-family:'Newsreader',serif;
-    font-size:13px;
-    font-style:italic;
-    line-height:1.5;
+    font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;
     color:var(--ink-soft);
-    margin:0;
+    display:flex;justify-content:space-between;align-items:center;
+    transition:color .15s ease;
   }
-  .panel li{margin-bottom:18px}
-  .panel li:last-child{margin-bottom:0}
-  .panel .gap{
-    font-family:'Newsreader',serif;
-    font-size:13.5px;
-    line-height:1.5;
-    color:var(--ink-soft);
-    padding:8px 0 8px 22px;
-    position:relative;
-    border-bottom:1px solid var(--hairline-soft);
+  details.evidence-details summary:hover{color:var(--rust)}
+  details.evidence-details summary::-webkit-details-marker{display:none}
+  details.evidence-details summary::after{
+    content:'+';font-family:'Fraunces',serif;font-size:18px;line-height:0;color:var(--rust);
   }
-  .panel .gap:last-child{border-bottom:none}
-  .panel .gap::before{
-    content:'';
-    position:absolute;
-    left:2px;top:16px;
-    width:8px;height:8px;
-    border:1px solid var(--ochre);
-    transform:rotate(45deg);
+  details[open].evidence-details summary::after{content:'−'}
+  .evidence-body{padding-bottom:18px}
+  .evidence-list{list-style:none;padding:0;margin:0;counter-reset:ev}
+  .evidence-item{
+    padding:20px 0;border-bottom:1px solid var(--hairline-soft);
+    counter-increment:ev;display:grid;grid-template-columns:32px 1fr;gap:14px;
+  }
+  .evidence-item:last-child{border-bottom:none}
+  .evidence-item::before{
+    content:counter(ev,decimal-leading-zero);
+    font-family:'JetBrains Mono',monospace;font-size:11px;
+    color:var(--rust);font-weight:500;padding-top:3px;
+  }
+  .evidence-quote{
+    font-family:'Fraunces',serif;font-style:italic;
+    font-variation-settings:"opsz" 60,"wght" 360,"SOFT" 80;
+    font-size:16px;line-height:1.5;color:var(--ink);
+    margin:0 0 10px;padding-left:14px;
+    border-left:2px solid var(--rust);max-width:52ch;
+  }
+  .evidence-file{
+    font-family:'JetBrains Mono',monospace;font-size:10px;
+    letter-spacing:.04em;color:var(--ink-fade);
+    margin:0 0 4px;word-break:break-word;
+  }
+  .evidence-interp{
+    font-family:'Newsreader',serif;font-style:italic;
+    font-size:13.5px;line-height:1.55;color:var(--ink-soft);
+    margin:0;max-width:52ch;
+  }
+  .gaps-list{list-style:none;padding:0;margin:18px 0 0}
+  .gap{
+    padding:14px 0 14px 26px;border-bottom:1px solid var(--hairline-soft);
+    font-family:'Newsreader',serif;font-size:14.5px;line-height:1.55;
+    color:var(--ink-soft);position:relative;max-width:52ch;
+  }
+  .gap:last-child{border-bottom:none}
+  .gap::before{
+    content:'';position:absolute;left:2px;top:18px;
+    width:9px;height:9px;
+    border:1px solid var(--ochre);transform:rotate(45deg);
   }
 
   /* footer */
   .colophon{
-    max-width:1500px;
-    margin:0 auto;
-    padding:24px 48px 28px;
+    max-width:1340px;margin:0 auto;
+    padding:24px 56px 28px;
     border-top:1px solid var(--ink);
     font-family:'JetBrains Mono',monospace;
-    font-size:10px;
-    letter-spacing:.18em;
-    text-transform:uppercase;
-    color:var(--ink-fade);
-    display:flex;
-    justify-content:space-between;
-    gap:24px;
+    font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-fade);
+    display:flex;justify-content:space-between;gap:24px;
   }
   @media(max-width:700px){.colophon{padding:20px 24px;flex-direction:column;gap:8px}}
 
-  @keyframes fade-up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-  .wheel-card{animation:fade-up .6s ease both}
-  .wheel-card:nth-child(1){animation-delay:.05s}
-  .wheel-card:nth-child(2){animation-delay:.12s}
-  .wheel-card:nth-child(3){animation-delay:.19s}
-  .wheel-card:nth-child(4){animation-delay:.26s}
-  .wheel-card:nth-child(5){animation-delay:.33s}
-  .wheel-card:nth-child(6){animation-delay:.40s}
+  @keyframes fade-up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+  .plane-row{animation:fade-up .7s ease both}
+  .plane-row:nth-of-type(1){animation-delay:.05s}
+  .plane-row:nth-of-type(2){animation-delay:.14s}
+  .plane-row:nth-of-type(3){animation-delay:.23s}
+  .plane-row:nth-of-type(4){animation-delay:.32s}
+  .plane-row:nth-of-type(5){animation-delay:.41s}
+  .plane-row:nth-of-type(6){animation-delay:.50s}
 </style>
 </head>
 <body>
@@ -384,65 +332,634 @@
   <div class="h-right">AVG CONFIDENCE 83% · 39 SOURCES</div>
 </header>
 
-<div class="shell">
-  <div class="wheels" id="wheels"></div>
+<section class="intro">
+  <div class="intro-eyebrow">An astronomical reading</div>
+  <h1 class="intro-headline">The <em>shape</em> of one person, drawn from his own writing.</h1>
+  <p class="intro-dek">Thirty-nine pages from Omar's vault. Six wheels, six planes. Each dot sits in a constellation of named landmarks — the nearest one stays lit. Move your cursor across any wheel to reveal the rest, one at a time.</p>
+</section>
 
-  <aside class="panel-col">
-    <div class="panel" id="panel">
-      <div class="panel-empty">
-        Click any dot in a wheel to read the full plane — <strong>position</strong>, <strong>evidence</strong> (verbatim from your vault), and <strong>what's thin</strong>.
-        <br><br>
-        Each dot sits in a quadrant defined by two axes. Closest landmark is highlighted around the wheel.
-      </div>
-    </div>
-  </aside>
-</div>
+<div class="planes" id="planes"></div>
 
 <footer class="colophon">
   <span>RUN 0MPD9X1JZQKK2XH28 · CLAUDE SONNET 4.6 · ENGINE 0.1.0</span>
   <span>This is a mirror, not a label.</span>
 </footer>
 
-<script id="payload-data" type="application/json">[{"plane": "lifestyle", "title": "Lifestyle", "summary": "Omar lives in Amsterdam — a dense, networked European city — and has built his life there over eight years, yet the pattern across his vault is restless movement: solo interrailing trips, India twice, Egypt visits, a background spanning Japan, Egypt, St Louis, Scotland, and the Netherlands. His days follow a distinct rhythm: sharp mornings for deep work, dead afternoons for gym and walking, evenings conditional on excitement. The city has 'tried to push him out multiple times' yet he stays, anchored partly by a pending house purchase. His perfect week oscillates between Amsterdam-based fulfilment and travel-rich novelty, suggesting a dynamic urban person who is slowly building a static anchor without fully committing to either pole.", "nearest": "bohemian", "confidence": 0.82, "evidence": [{"file": "soul.md", "section": "The Amsterdam Question", "excerpt": "Amsterdam is beautiful, isolating, full of FOMO. The city has tried to push me out multiple times. I stay because leaving without an anchor feels like failure.", "weight": 0.85, "interpretation": "Confirms urban placement with tension toward static anchoring; the Amsterdam house deal is a pull toward +x (static) while his instincts remain dynamic."}, {"file": "memory/threads/2026-03-27-campfire-intake-transcript.md", "section": "Section 1: Lifestyle", "excerpt": "A perfect week for me. Would involve travel, meeting new people, reconnecting with old ones, working on something that I'm very passionate about, having a sense of achievement, feeling like it's building towards something bigger.", "weight": 0.8, "interpretation": "Travel and meeting new people as primary ingredients of a perfect week confirms dynamic orientation despite Amsterdam anchor."}, {"file": "soul.md", "section": "The Builder Pattern", "excerpt": "Solo interrailing trip across Europe in senior year of high school. Solo trip across the US East Coast. Both trips: choosing where to go based on where I came from. Perpetual motion.", "weight": 0.75, "interpretation": "Perpetual motion is explicitly named; movement as identity, not just preference."}, {"file": "memory/threads/2026-03-27-campfire-intake-transcript.md", "section": "Section 1: Lifestyle", "excerpt": "I think a perfect week could also be one spent in Amsterdam at home. As long as I'm working on something that I find fulfilling and hanging out with friends and spending some time in nature and being active, and balancing myself, then can really find true fulfillment and enjoyment in that.", "weight": 0.6, "interpretation": "The self-correction here shows the tension between dynamic aspiration and a present reality that can satisfy from a single place — neither fully nomadic nor homesteader."}, {"file": "soul.md", "section": "Part I: Runtime Identity", "excerpt": "Japanese-born, UK-educated, Egyptian American based in Amsterdam.", "weight": 0.65, "interpretation": "The biographical headline encodes the lifestyle geography: born mobile, currently urban-anchored, identity spanning multiple cities and cultures."}], "gaps": ["No data on actual travel frequency in the current chapter — the vault describes aspirations and history but not how much Omar actually moves right now versus how much he wishes he did.", "Income and financial constraints (debt repayment at ~€950/month) likely suppress lifestyle dynamism below stated preference — the gap between desired and actual lifestyle is not fully visible in the corpus."]}, {"plane": "behaviour", "title": "Behaviour", "summary": "Omar's behavioural pattern is fast, directive, and results-led — he rebuilds websites in days, expands contracts by showing rather than asking, and operates as a 'pirate in a navy' in every institutional role he has held. His task selection is reactive and deadline-driven rather than planned, his capture systems are scattered, and his procrastination drivers are well-documented and self-named. He is dominant-leaning with influencing energy: he uses narrative and persuasion as primary tools, steamrolls in conversation when excited, and struggles to slow down and listen despite genuinely wanting to. The focus document reveals a highly self-aware attempt to impose conscientious structure on an inherently influencing-dominant operating style.", "nearest": "initiating", "confidence": 0.78, "evidence": [{"file": "soul.md", "section": "Career Pattern", "excerpt": "Every role follows the same arc: arrive at a pivotal moment, see the vision before others, operate as a pirate inside a navy, leave carrying the lesson and not the reward.", "weight": 0.9, "interpretation": "Dominant-initiating pattern confirmed across multiple roles; the pirate metaphor captures directive independence inside institutional constraints."}, {"file": "memory/threads/2026-03-27-campfire-intake-transcript.md", "section": "Section 2: Behaviour", "excerpt": "I don't know. Whatever's the loudest. Whatever has a deadline coming up. Sometimes I have a feeling of inspiration on something. Sometimes I see someone working on something that makes me wanna work on it too.", "weight": 0.85, "interpretation": "Reactive task selection, social mimicry, inspiration-driven — influencing side of the behaviour plane, with low conscientious planning structure."}, {"file": "soul.md", "section": "How Values Get Me Into Trouble", "excerpt": "I also tend to steamroll people when I have an idea about something or when I wanna get a point across. I have so much to say and then they feel like maybe they're not being heard even though I am listening and I am processing everything they're saying.", "weight": 0.85, "interpretation": "Self-named dominant-influencing behaviour pattern: fast processing speed reads as not listening, directness reads as abrasion. (evidence flagged: excerpt not verbatim match)"}, {"file": "soul.md", "section": "CRREM", "excerpt": "Going from 1 day/week to 3 days/week by showing, not asking.", "weight": 0.8, "interpretation": "Classic dominant-initiating move: demonstrate value to earn scope rather than negotiating for it through consensus."}, {"file": "focus.md", "section": "7) Default Operating Rules", "excerpt": "Ship weekly or the project is lying to me.", "weight": 0.7, "interpretation": "Results-led commitment: output as the unit of truth. Conscientious-style rules being applied to manage a dominant-influencing default."}], "gaps": ["Conflict behaviour in peer relationships (as opposed to institutional/hierarchical ones) is underrepresented in the corpus — most examples involve upward or lateral institutional dynamics.", "The focus document's elaborate conscientious scaffolding (rules, gates, kill lists) may represent aspirational behaviour rather than current default behaviour — the pattern log explicitly names architecture excitement as an escape hatch from real work, suggesting the system describes what Omar wants to do more than what he currently does."]}, {"plane": "intelligence", "title": "Intelligence", "summary": "Omar is a wide-ranging generalist synthesiser whose thinking runs through narrative and spatial metaphor — he finds the story thread and then visualises spatially, and ideas only fully click when he can explain them to someone else. His perennial obsessions (AI, ecological design, eusocial insects) orbit a single question about complex systems self-organising toward emergent properties. He consumes approximately thirty hours per week across all mediums and is a pattern-matching learner who integrates new information by connecting it to an existing constellation. The acknowledged knowledge gap — mathematics and economics — and the explicit compensating move toward qualitative narrative framing confirm a generalist intelligence with deep humanities and systems-thinking channels.", "nearest": "holistic", "confidence": 0.88, "evidence": [{"file": "soul.md", "section": "Intellectual Architecture", "excerpt": "Thinking style: Narrative-spatial. Find the story thread, then visualize spatially. Only clicks when I can explain it to someone else. Conversations (with AI and humans) are part of the thinking process — thinking surfaces, not communication tools.", "weight": 0.95, "interpretation": "Explicit self-description of a social-generalist intelligence: synthesis happens in dialogue, visualisation is spatial, the mode is holistic rather than specialist."}, {"file": "soul.md", "section": "Intellectual Architecture", "excerpt": "Perennial obsessions: AI and its implications. Ecological design principles (seeded by my father). Eusocial insects, honeybees specifically. All three orbit the same question: how complex systems self-organize to produce something greater than the sum of their parts.", "weight": 0.9, "interpretation": "Three domains converge on one meta-question — cross-domain synthesis is the actual cognitive mode, not specialist depth in any single field."}, {"file": "memory/threads/2026-03-27-campfire-intake-transcript.md", "section": "Section 3: Intelligence", "excerpt": "I am finding the story thread and then visualising spatially to solve complex problems. It only clicks when I can explain it to someone else.", "weight": 0.9, "interpretation": "Confirms the social dimension: intelligence is social and externalised, not solo and inward-processing."}, {"file": "soul.md", "section": "Intellectual Architecture", "excerpt": "Signal/noise filter: Intuitive pattern-matching against a dense internal model. If it lights up the constellation, it gets in. Risk: the filter selects for interesting over actionable.", "weight": 0.8, "interpretation": "The self-named risk reveals the generalist's characteristic trap: breadth over depth, interesting over useful."}, {"file": "memory/threads/2026-03-27-campfire-intake-transcript.md", "section": "Section 3: Intelligence", "excerpt": "I wish I understood math / economics better. I shy away from numbers.", "weight": 0.75, "interpretation": "The knowledge gap confirms generalist placement: the specialist's domain (quantitative analysis) is explicitly avoided and compensated by qualitative narrative."}], "gaps": ["The vault is rich with meta-description of thinking style but thin on extended examples of Omar actually thinking through a hard problem in writing — most evidence is self-report rather than demonstrated cognition.", "The 42,000-word BRIDGE vision document exists in the corpus but its internal argument quality cannot be assessed from the excerpts available — this would be the strongest direct evidence of actual intelligence level and synthesis style."]}, {"plane": "values", "title": "Values", "summary": "Omar explicitly self-maps to the progressive self-enhancing quadrant — autonomy and originality as current operating values — with stated aspiration toward progressive self-transcending: advocacy, compassion, service. His revealed behaviour confirms the self-enhancing placement: he operates as a pirate inside navies, refuses to leave Amsterdam until he has achieved something, builds things from scratch rather than joining at steady state, and names 'going my own way' as non-negotiable even when it leads to regret. The aspiration toward self-transcending is genuine and recurrent (the BRIDGE civilisational play, the 'bee percentage' he wants to increase), but the vault's behavioural evidence sits solidly in the progressive self-enhancing zone with movement toward the boundary.", "nearest": "autonomy", "confidence": 0.85, "evidence": [{"file": "memory/threads/2026-03-27-campfire-intake-transcript.md", "section": "Section 4: Values", "excerpt": "I never compromise on going my own way, even if it goes against conventional wisdom and even if I come to regret it later.", "weight": 0.95, "interpretation": "The single non-negotiable named is autonomy — progressive self-enhancing placement confirmed at the core."}, {"file": "soul.md", "section": "Values Orientation", "excerpt": "Currently in the progressive self-enhancing quadrant: autonomy, originality, creative independence. Aspiring toward progressive self-transcending: advocacy, compassion, service.", "weight": 0.9, "interpretation": "Explicit self-mapping. The stated gap between current and aspired values is the key signal — the aspiration is genuine but not yet the dominant operating mode."}, {"file": "soul.md", "section": "Values (ranked)", "excerpt": "1. Finishing over starting — the word is finish\n2. People over isolation — peak moments involve sparring partners; isolation is where I rot\n3. Story as infrastructure — narrative is load-bearing", "weight": 0.85, "interpretation": "Ranked values reveal a mix: finishing (self-enhancing achievement), people (self-transcending connection), story (originality). The ranking itself is a values act — finishing tops connection."}, {"file": "soul.md", "section": "Intellectual Architecture", "excerpt": "Formative influence: The Righteous Mind by Jonathan Haidt. Moral intuitions first, reasoning follows. It became a lens, not a reference. 'Humans are 90% chimp, 10% bee' — and I want the bee percentage to be higher.", "weight": 0.8, "interpretation": "The bee aspiration is a values statement: wanting to shift from individual competitive instinct toward collective contribution. Confirms the progressive self-transcending direction of travel."}, {"file": "memory/threads/2026-03-27-campfire-intake-transcript.md", "section": "Section 4: Values", "excerpt": "My value of autonomy gets me in trouble in group work because I will follow my own schedule and kind of coast on the assumption that everyone thinks I'm a genius and will give me the space to cook on my own terms.", "weight": 0.85, "interpretation": "Revealed behaviour under pressure: autonomy overrides team coordination. Self-enhancing placement is demonstrated, not just stated. (evidence flagged: excerpt not verbatim match)"}], "gaps": ["The gap between stated compassion aspiration and revealed velocity/steamrolling behaviour is the sharpest Dunning-Kruger signal in the corpus — the vault names this explicitly ('the compassion I want to lead with gets buried under velocity') but does not show evidence of this gap closing.", "Financial values are partially visible (debt, spending patterns, the Amsterdam house deal) but not fully mapped — the relationship between stated values and money behaviour is a known gap that BASIN is designed to address."]}, {"plane": "identity", "title": "Identity", "summary": "Omar's self-narrative is shaped by two persistent forces: the builder pattern (first graduating class, first BRIDGE pilot, pirate in every navy) and the river metaphor (movement, civilisations along water, the eternal cycle, the gate he hasn't crossed yet). He identifies most strongly as someone who arrives at pivotal moments and sees the vision before others — a protagonist-campaigner identity. He facilitates and enables (BRIDGE, CRREM, the Year of Interfaith Dialogue) while also doing the work directly (rebuilt the website himself, built the school newspaper, wrote 42,000 words). The self-described misread — 'I am capable of changing despite how stubborn I appear. I am soft inside despite sometimes being hard' — names the gap between his presented identity and his felt interior, which is the characteristic identity tension of someone in active identity work.", "nearest": "campaigner", "confidence": 0.8, "evidence": [{"file": "soul.md", "section": "The Builder Pattern", "excerpt": "I am a founder by instinct. I don't join things at steady state — I join at the beginning or I try to create it.", "weight": 0.9, "interpretation": "The builder identity is explicit and consistent across every biographical chapter cited. This is the stable core of self-narrative."}, {"file": "soul.md", "section": "Origin: A Life in Rivers", "excerpt": "Rivers are my central metaphor for existence. Every major chapter of my identity maps to a river.", "weight": 0.85, "interpretation": "The river metaphor is not incidental — it is the organising schema for self-understanding across time. The BRIDGE name itself is a structural expression of this identity."}, {"file": "memory/threads/2026-03-27-campfire-intake-transcript.md", "section": "Section 5: Identity", "excerpt": "I am someone who was raised by the world I was born in Japan. I grew up in Egypt. Across Europe and The US. I studied at Scotland, and then I moved to The Netherlands after graduating.", "weight": 0.8, "interpretation": "The geographic identity ('raised by the world') is foundational — multicultural cosmopolitanism as the self-concept, not any single national identity."}, {"file": "memory/threads/writing/born-in-the-eccentric-east-raised-in-the-wild-west.md", "section": "full", "excerpt": "A tagline. An identity line. Japan → UK → Egypt → America → Netherlands. The hyphenation isn't confusion — it's range.", "weight": 0.8, "interpretation": "The reframe of hyphenation from confusion to range is a self-authoring move: taking what others might read as rootlessness and claiming it as capability."}, {"file": "soul.md", "section": "The Misread I'm Tired Of", "excerpt": "I am capable of changing despite how stubborn I appear. I am soft inside despite sometimes being hard or difficult. I am capable of deep listening.", "weight": 0.85, "interpretation": "The named misread reveals the gap between presented and interior identity — the self Omar wants to be known as versus the self others observe. This tension is active and unresolved."}], "gaps": ["The vault is rich on biographical identity narrative but thinner on current identity — who Omar is right now in Amsterdam, post-layoff, pre-house-purchase, building BRIDGE — compared to the retrospective chapters.", "The fears section ('ending up alone, without friends or love' as the first fear) suggests an attachment dimension of identity that is named but not elaborated in the corpus — the relational self is present but underexplored relative to the builder self."]}, {"plane": "mission", "title": "Mission", "summary": "The mission is explicitly and repeatedly named: BRIDGE — aligning humans to themselves and to each other before AI disrupts everything. The 42,000-word vision document, the seven years of obsession, the 'civilisational play' framing, and the 'I want to see this take off before AGI arrives' urgency all confirm a world-facing mission with high stakes and long arc. The current execution path (CRREM pilot, proof before spectacle, service before product) shows a controlled, deliberate trajectory rather than open-ended optionality — Omar is not exploring what his mission might be, he knows it and is executing a sequenced plan toward it. The x-axis placement leans toward control because the mission is directed and owned, not exploratory; the y-axis is strongly external because the mission is explicitly civilisational and world-facing rather than self-cultivating.", "nearest": "inspiration", "confidence": 0.87, "evidence": [{"file": "soul.md", "section": "Legacy", "excerpt": "BRIDGE. The one word. The vision no one else sees yet. The civilizational play. 'I want to see this take off before AGI arrives.'", "weight": 0.95, "interpretation": "The mission is collapsed to a single word with civilisational stakes and temporal urgency. External, directed, owned — all three."}, {"file": "work/active/bridge/bridge-vision-v8.md", "section": "A Letter", "excerpt": "The central bet — that human self-knowledge and economic ownership are the two bridges that determine whether AI makes things better or worse — that one I'd stake everything on. I have, actually. This is it.", "weight": 0.95, "interpretation": "The staking-everything framing confirms that BRIDGE is not a project but a mission — the organising principle of a life, not a career move."}, {"file": "memory/threads/2026-03-27-campfire-intake-transcript.md", "section": "Section 6: Mission", "excerpt": "It's an operating system to align humans to each other and to themselves before AI disrupts and accelerates every aspect of our society. The opportunity is to revolutionise the way we work and relate to the economy and to our sense of purpose and each other.", "weight": 0.9, "interpretation": "The mission is world-facing (external axis) and explicitly about changing systems, not self-cultivation."}, {"file": "soul.md", "section": "Career Pattern", "excerpt": "The pattern: movement + curiosity = collision = next chapter. Chance encounters are the mechanism, not networking.", "weight": 0.75, "interpretation": "The career pattern reveals mission-level operating logic: open to serendipitous collisions but always carrying the same underlying direction. Flexibility in mechanism, control in direction."}, {"file": "memory/notes/beliefs-and-shifts.md", "section": "2026-03-31", "excerpt": "The right near-term path is not a giant product reveal. It is a real pilot inside CRREM that produces evidence, trust, and usable workflows.", "weight": 0.8, "interpretation": "The service-first sequencing decision confirms controlled trajectory: mission is directed and deliberate, not exploratory. The x-axis leans toward control even though the vision is broad."}], "gaps": ["The gap between the civilisational ambition of BRIDGE and the current financial reality (debt repayment, €4,800/month, 12-week north star focused on security) is the sharpest tension in the mission plane — whether the long-arc mission and the near-term survival constraints are genuinely integrated or running in parallel is not fully visible.", "The 'why does it have to be you' answer ('It doesn't have to be me. I just feel like I'm onto something') suggests the mission is more held as a felt calling than as a argued claim — the vault does not show extended engagement with the strongest counter-arguments to why Omar specifically should be the one to build this."]}]</script>
+<script id="payload-data" type="application/json">[
+  {
+    "plane": "lifestyle",
+    "title": "Lifestyle",
+    "summary": "Omar lives in Amsterdam \u2014 a dense, networked European city \u2014 and has built his life there over eight years, yet the pattern across his vault is restless movement: solo interrailing trips, India twice, Egypt visits, a background spanning Japan, Egypt, St Louis, Scotland, and the Netherlands. His days follow a distinct rhythm: sharp mornings for deep work, dead afternoons for gym and walking, evenings conditional on excitement. The city has 'tried to push him out multiple times' yet he stays, anchored partly by a pending house purchase. His perfect week oscillates between Amsterdam-based fulfilment and travel-rich novelty, suggesting a dynamic urban person who is slowly building a static anchor without fully committing to either pole.",
+    "nearest": "bohemian",
+    "confidence": 0.82,
+    "evidence": [
+      {
+        "file": "soul.md",
+        "section": "The Amsterdam Question",
+        "excerpt": "Amsterdam is beautiful, isolating, full of FOMO. The city has tried to push me out multiple times. I stay because leaving without an anchor feels like failure.",
+        "weight": 0.85,
+        "interpretation": "Confirms urban placement with tension toward static anchoring; the Amsterdam house deal is a pull toward +x (static) while his instincts remain dynamic."
+      },
+      {
+        "file": "memory/threads/2026-03-27-campfire-intake-transcript.md",
+        "section": "Section 1: Lifestyle",
+        "excerpt": "A perfect week for me. Would involve travel, meeting new people, reconnecting with old ones, working on something that I'm very passionate about, having a sense of achievement, feeling like it's building towards something bigger.",
+        "weight": 0.8,
+        "interpretation": "Travel and meeting new people as primary ingredients of a perfect week confirms dynamic orientation despite Amsterdam anchor."
+      },
+      {
+        "file": "soul.md",
+        "section": "The Builder Pattern",
+        "excerpt": "Solo interrailing trip across Europe in senior year of high school. Solo trip across the US East Coast. Both trips: choosing where to go based on where I came from. Perpetual motion.",
+        "weight": 0.75,
+        "interpretation": "Perpetual motion is explicitly named; movement as identity, not just preference."
+      },
+      {
+        "file": "memory/threads/2026-03-27-campfire-intake-transcript.md",
+        "section": "Section 1: Lifestyle",
+        "excerpt": "I think a perfect week could also be one spent in Amsterdam at home. As long as I'm working on something that I find fulfilling and hanging out with friends and spending some time in nature and being active, and balancing myself, then can really find true fulfillment and enjoyment in that.",
+        "weight": 0.6,
+        "interpretation": "The self-correction here shows the tension between dynamic aspiration and a present reality that can satisfy from a single place \u2014 neither fully nomadic nor homesteader."
+      },
+      {
+        "file": "soul.md",
+        "section": "Part I: Runtime Identity",
+        "excerpt": "Japanese-born, UK-educated, Egyptian American based in Amsterdam.",
+        "weight": 0.65,
+        "interpretation": "The biographical headline encodes the lifestyle geography: born mobile, currently urban-anchored, identity spanning multiple cities and cultures."
+      }
+    ],
+    "gaps": [
+      "No data on actual travel frequency in the current chapter \u2014 the vault describes aspirations and history but not how much Omar actually moves right now versus how much he wishes he did.",
+      "Income and financial constraints (debt repayment at ~\u20ac950/month) likely suppress lifestyle dynamism below stated preference \u2014 the gap between desired and actual lifestyle is not fully visible in the corpus."
+    ]
+  },
+  {
+    "plane": "behaviour",
+    "title": "Behaviour",
+    "summary": "Omar's behavioural pattern is fast, directive, and results-led \u2014 he rebuilds websites in days, expands contracts by showing rather than asking, and operates as a 'pirate in a navy' in every institutional role he has held. His task selection is reactive and deadline-driven rather than planned, his capture systems are scattered, and his procrastination drivers are well-documented and self-named. He is dominant-leaning with influencing energy: he uses narrative and persuasion as primary tools, steamrolls in conversation when excited, and struggles to slow down and listen despite genuinely wanting to. The focus document reveals a highly self-aware attempt to impose conscientious structure on an inherently influencing-dominant operating style.",
+    "nearest": "initiating",
+    "confidence": 0.78,
+    "evidence": [
+      {
+        "file": "soul.md",
+        "section": "Career Pattern",
+        "excerpt": "Every role follows the same arc: arrive at a pivotal moment, see the vision before others, operate as a pirate inside a navy, leave carrying the lesson and not the reward.",
+        "weight": 0.9,
+        "interpretation": "Dominant-initiating pattern confirmed across multiple roles; the pirate metaphor captures directive independence inside institutional constraints."
+      },
+      {
+        "file": "memory/threads/2026-03-27-campfire-intake-transcript.md",
+        "section": "Section 2: Behaviour",
+        "excerpt": "I don't know. Whatever's the loudest. Whatever has a deadline coming up. Sometimes I have a feeling of inspiration on something. Sometimes I see someone working on something that makes me wanna work on it too.",
+        "weight": 0.85,
+        "interpretation": "Reactive task selection, social mimicry, inspiration-driven \u2014 influencing side of the behaviour plane, with low conscientious planning structure."
+      },
+      {
+        "file": "soul.md",
+        "section": "How Values Get Me Into Trouble",
+        "excerpt": "I also tend to steamroll people when I have an idea about something or when I wanna get a point across. I have so much to say and then they feel like maybe they're not being heard even though I am listening and I am processing everything they're saying.",
+        "weight": 0.85,
+        "interpretation": "Self-named dominant-influencing behaviour pattern: fast processing speed reads as not listening, directness reads as abrasion. (evidence flagged: excerpt not verbatim match)"
+      },
+      {
+        "file": "soul.md",
+        "section": "CRREM",
+        "excerpt": "Going from 1 day/week to 3 days/week by showing, not asking.",
+        "weight": 0.8,
+        "interpretation": "Classic dominant-initiating move: demonstrate value to earn scope rather than negotiating for it through consensus."
+      },
+      {
+        "file": "focus.md",
+        "section": "7) Default Operating Rules",
+        "excerpt": "Ship weekly or the project is lying to me.",
+        "weight": 0.7,
+        "interpretation": "Results-led commitment: output as the unit of truth. Conscientious-style rules being applied to manage a dominant-influencing default."
+      }
+    ],
+    "gaps": [
+      "Conflict behaviour in peer relationships (as opposed to institutional/hierarchical ones) is underrepresented in the corpus \u2014 most examples involve upward or lateral institutional dynamics.",
+      "The focus document's elaborate conscientious scaffolding (rules, gates, kill lists) may represent aspirational behaviour rather than current default behaviour \u2014 the pattern log explicitly names architecture excitement as an escape hatch from real work, suggesting the system describes what Omar wants to do more than what he currently does."
+    ]
+  },
+  {
+    "plane": "intelligence",
+    "title": "Intelligence",
+    "summary": "Omar is a wide-ranging generalist synthesiser whose thinking runs through narrative and spatial metaphor \u2014 he finds the story thread and then visualises spatially, and ideas only fully click when he can explain them to someone else. His perennial obsessions (AI, ecological design, eusocial insects) orbit a single question about complex systems self-organising toward emergent properties. He consumes approximately thirty hours per week across all mediums and is a pattern-matching learner who integrates new information by connecting it to an existing constellation. The acknowledged knowledge gap \u2014 mathematics and economics \u2014 and the explicit compensating move toward qualitative narrative framing confirm a generalist intelligence with deep humanities and systems-thinking channels.",
+    "nearest": "holistic",
+    "confidence": 0.88,
+    "evidence": [
+      {
+        "file": "soul.md",
+        "section": "Intellectual Architecture",
+        "excerpt": "Thinking style: Narrative-spatial. Find the story thread, then visualize spatially. Only clicks when I can explain it to someone else. Conversations (with AI and humans) are part of the thinking process \u2014 thinking surfaces, not communication tools.",
+        "weight": 0.95,
+        "interpretation": "Explicit self-description of a social-generalist intelligence: synthesis happens in dialogue, visualisation is spatial, the mode is holistic rather than specialist."
+      },
+      {
+        "file": "soul.md",
+        "section": "Intellectual Architecture",
+        "excerpt": "Perennial obsessions: AI and its implications. Ecological design principles (seeded by my father). Eusocial insects, honeybees specifically. All three orbit the same question: how complex systems self-organize to produce something greater than the sum of their parts.",
+        "weight": 0.9,
+        "interpretation": "Three domains converge on one meta-question \u2014 cross-domain synthesis is the actual cognitive mode, not specialist depth in any single field."
+      },
+      {
+        "file": "memory/threads/2026-03-27-campfire-intake-transcript.md",
+        "section": "Section 3: Intelligence",
+        "excerpt": "I am finding the story thread and then visualising spatially to solve complex problems. It only clicks when I can explain it to someone else.",
+        "weight": 0.9,
+        "interpretation": "Confirms the social dimension: intelligence is social and externalised, not solo and inward-processing."
+      },
+      {
+        "file": "soul.md",
+        "section": "Intellectual Architecture",
+        "excerpt": "Signal/noise filter: Intuitive pattern-matching against a dense internal model. If it lights up the constellation, it gets in. Risk: the filter selects for interesting over actionable.",
+        "weight": 0.8,
+        "interpretation": "The self-named risk reveals the generalist's characteristic trap: breadth over depth, interesting over useful."
+      },
+      {
+        "file": "memory/threads/2026-03-27-campfire-intake-transcript.md",
+        "section": "Section 3: Intelligence",
+        "excerpt": "I wish I understood math / economics better. I shy away from numbers.",
+        "weight": 0.75,
+        "interpretation": "The knowledge gap confirms generalist placement: the specialist's domain (quantitative analysis) is explicitly avoided and compensated by qualitative narrative."
+      }
+    ],
+    "gaps": [
+      "The vault is rich with meta-description of thinking style but thin on extended examples of Omar actually thinking through a hard problem in writing \u2014 most evidence is self-report rather than demonstrated cognition.",
+      "The 42,000-word BRIDGE vision document exists in the corpus but its internal argument quality cannot be assessed from the excerpts available \u2014 this would be the strongest direct evidence of actual intelligence level and synthesis style."
+    ]
+  },
+  {
+    "plane": "values",
+    "title": "Values",
+    "summary": "Omar explicitly self-maps to the progressive self-enhancing quadrant \u2014 autonomy and originality as current operating values \u2014 with stated aspiration toward progressive self-transcending: advocacy, compassion, service. His revealed behaviour confirms the self-enhancing placement: he operates as a pirate inside navies, refuses to leave Amsterdam until he has achieved something, builds things from scratch rather than joining at steady state, and names 'going my own way' as non-negotiable even when it leads to regret. The aspiration toward self-transcending is genuine and recurrent (the BRIDGE civilisational play, the 'bee percentage' he wants to increase), but the vault's behavioural evidence sits solidly in the progressive self-enhancing zone with movement toward the boundary.",
+    "nearest": "autonomy",
+    "confidence": 0.85,
+    "evidence": [
+      {
+        "file": "memory/threads/2026-03-27-campfire-intake-transcript.md",
+        "section": "Section 4: Values",
+        "excerpt": "I never compromise on going my own way, even if it goes against conventional wisdom and even if I come to regret it later.",
+        "weight": 0.95,
+        "interpretation": "The single non-negotiable named is autonomy \u2014 progressive self-enhancing placement confirmed at the core."
+      },
+      {
+        "file": "soul.md",
+        "section": "Values Orientation",
+        "excerpt": "Currently in the progressive self-enhancing quadrant: autonomy, originality, creative independence. Aspiring toward progressive self-transcending: advocacy, compassion, service.",
+        "weight": 0.9,
+        "interpretation": "Explicit self-mapping. The stated gap between current and aspired values is the key signal \u2014 the aspiration is genuine but not yet the dominant operating mode."
+      },
+      {
+        "file": "soul.md",
+        "section": "Values (ranked)",
+        "excerpt": "1. Finishing over starting \u2014 the word is finish\n2. People over isolation \u2014 peak moments involve sparring partners; isolation is where I rot\n3. Story as infrastructure \u2014 narrative is load-bearing",
+        "weight": 0.85,
+        "interpretation": "Ranked values reveal a mix: finishing (self-enhancing achievement), people (self-transcending connection), story (originality). The ranking itself is a values act \u2014 finishing tops connection."
+      },
+      {
+        "file": "soul.md",
+        "section": "Intellectual Architecture",
+        "excerpt": "Formative influence: The Righteous Mind by Jonathan Haidt. Moral intuitions first, reasoning follows. It became a lens, not a reference. 'Humans are 90% chimp, 10% bee' \u2014 and I want the bee percentage to be higher.",
+        "weight": 0.8,
+        "interpretation": "The bee aspiration is a values statement: wanting to shift from individual competitive instinct toward collective contribution. Confirms the progressive self-transcending direction of travel."
+      },
+      {
+        "file": "memory/threads/2026-03-27-campfire-intake-transcript.md",
+        "section": "Section 4: Values",
+        "excerpt": "My value of autonomy gets me in trouble in group work because I will follow my own schedule and kind of coast on the assumption that everyone thinks I'm a genius and will give me the space to cook on my own terms.",
+        "weight": 0.85,
+        "interpretation": "Revealed behaviour under pressure: autonomy overrides team coordination. Self-enhancing placement is demonstrated, not just stated. (evidence flagged: excerpt not verbatim match)"
+      }
+    ],
+    "gaps": [
+      "The gap between stated compassion aspiration and revealed velocity/steamrolling behaviour is the sharpest Dunning-Kruger signal in the corpus \u2014 the vault names this explicitly ('the compassion I want to lead with gets buried under velocity') but does not show evidence of this gap closing.",
+      "Financial values are partially visible (debt, spending patterns, the Amsterdam house deal) but not fully mapped \u2014 the relationship between stated values and money behaviour is a known gap that BASIN is designed to address."
+    ]
+  },
+  {
+    "plane": "identity",
+    "title": "Identity",
+    "summary": "Omar's self-narrative is shaped by two persistent forces: the builder pattern (first graduating class, first BRIDGE pilot, pirate in every navy) and the river metaphor (movement, civilisations along water, the eternal cycle, the gate he hasn't crossed yet). He identifies most strongly as someone who arrives at pivotal moments and sees the vision before others \u2014 a protagonist-campaigner identity. He facilitates and enables (BRIDGE, CRREM, the Year of Interfaith Dialogue) while also doing the work directly (rebuilt the website himself, built the school newspaper, wrote 42,000 words). The self-described misread \u2014 'I am capable of changing despite how stubborn I appear. I am soft inside despite sometimes being hard' \u2014 names the gap between his presented identity and his felt interior, which is the characteristic identity tension of someone in active identity work.",
+    "nearest": "campaigner",
+    "confidence": 0.8,
+    "evidence": [
+      {
+        "file": "soul.md",
+        "section": "The Builder Pattern",
+        "excerpt": "I am a founder by instinct. I don't join things at steady state \u2014 I join at the beginning or I try to create it.",
+        "weight": 0.9,
+        "interpretation": "The builder identity is explicit and consistent across every biographical chapter cited. This is the stable core of self-narrative."
+      },
+      {
+        "file": "soul.md",
+        "section": "Origin: A Life in Rivers",
+        "excerpt": "Rivers are my central metaphor for existence. Every major chapter of my identity maps to a river.",
+        "weight": 0.85,
+        "interpretation": "The river metaphor is not incidental \u2014 it is the organising schema for self-understanding across time. The BRIDGE name itself is a structural expression of this identity."
+      },
+      {
+        "file": "memory/threads/2026-03-27-campfire-intake-transcript.md",
+        "section": "Section 5: Identity",
+        "excerpt": "I am someone who was raised by the world I was born in Japan. I grew up in Egypt. Across Europe and The US. I studied at Scotland, and then I moved to The Netherlands after graduating.",
+        "weight": 0.8,
+        "interpretation": "The geographic identity ('raised by the world') is foundational \u2014 multicultural cosmopolitanism as the self-concept, not any single national identity."
+      },
+      {
+        "file": "memory/threads/writing/born-in-the-eccentric-east-raised-in-the-wild-west.md",
+        "section": "full",
+        "excerpt": "A tagline. An identity line. Japan \u2192 UK \u2192 Egypt \u2192 America \u2192 Netherlands. The hyphenation isn't confusion \u2014 it's range.",
+        "weight": 0.8,
+        "interpretation": "The reframe of hyphenation from confusion to range is a self-authoring move: taking what others might read as rootlessness and claiming it as capability."
+      },
+      {
+        "file": "soul.md",
+        "section": "The Misread I'm Tired Of",
+        "excerpt": "I am capable of changing despite how stubborn I appear. I am soft inside despite sometimes being hard or difficult. I am capable of deep listening.",
+        "weight": 0.85,
+        "interpretation": "The named misread reveals the gap between presented and interior identity \u2014 the self Omar wants to be known as versus the self others observe. This tension is active and unresolved."
+      }
+    ],
+    "gaps": [
+      "The vault is rich on biographical identity narrative but thinner on current identity \u2014 who Omar is right now in Amsterdam, post-layoff, pre-house-purchase, building BRIDGE \u2014 compared to the retrospective chapters.",
+      "The fears section ('ending up alone, without friends or love' as the first fear) suggests an attachment dimension of identity that is named but not elaborated in the corpus \u2014 the relational self is present but underexplored relative to the builder self."
+    ]
+  },
+  {
+    "plane": "mission",
+    "title": "Mission",
+    "summary": "The mission is explicitly and repeatedly named: BRIDGE \u2014 aligning humans to themselves and to each other before AI disrupts everything. The 42,000-word vision document, the seven years of obsession, the 'civilisational play' framing, and the 'I want to see this take off before AGI arrives' urgency all confirm a world-facing mission with high stakes and long arc. The current execution path (CRREM pilot, proof before spectacle, service before product) shows a controlled, deliberate trajectory rather than open-ended optionality \u2014 Omar is not exploring what his mission might be, he knows it and is executing a sequenced plan toward it. The x-axis placement leans toward control because the mission is directed and owned, not exploratory; the y-axis is strongly external because the mission is explicitly civilisational and world-facing rather than self-cultivating.",
+    "nearest": "inspiration",
+    "confidence": 0.87,
+    "evidence": [
+      {
+        "file": "soul.md",
+        "section": "Legacy",
+        "excerpt": "BRIDGE. The one word. The vision no one else sees yet. The civilizational play. 'I want to see this take off before AGI arrives.'",
+        "weight": 0.95,
+        "interpretation": "The mission is collapsed to a single word with civilisational stakes and temporal urgency. External, directed, owned \u2014 all three."
+      },
+      {
+        "file": "work/active/bridge/bridge-vision-v8.md",
+        "section": "A Letter",
+        "excerpt": "The central bet \u2014 that human self-knowledge and economic ownership are the two bridges that determine whether AI makes things better or worse \u2014 that one I'd stake everything on. I have, actually. This is it.",
+        "weight": 0.95,
+        "interpretation": "The staking-everything framing confirms that BRIDGE is not a project but a mission \u2014 the organising principle of a life, not a career move."
+      },
+      {
+        "file": "memory/threads/2026-03-27-campfire-intake-transcript.md",
+        "section": "Section 6: Mission",
+        "excerpt": "It's an operating system to align humans to each other and to themselves before AI disrupts and accelerates every aspect of our society. The opportunity is to revolutionise the way we work and relate to the economy and to our sense of purpose and each other.",
+        "weight": 0.9,
+        "interpretation": "The mission is world-facing (external axis) and explicitly about changing systems, not self-cultivation."
+      },
+      {
+        "file": "soul.md",
+        "section": "Career Pattern",
+        "excerpt": "The pattern: movement + curiosity = collision = next chapter. Chance encounters are the mechanism, not networking.",
+        "weight": 0.75,
+        "interpretation": "The career pattern reveals mission-level operating logic: open to serendipitous collisions but always carrying the same underlying direction. Flexibility in mechanism, control in direction."
+      },
+      {
+        "file": "memory/notes/beliefs-and-shifts.md",
+        "section": "2026-03-31",
+        "excerpt": "The right near-term path is not a giant product reveal. It is a real pilot inside CRREM that produces evidence, trust, and usable workflows.",
+        "weight": 0.8,
+        "interpretation": "The service-first sequencing decision confirms controlled trajectory: mission is directed and deliberate, not exploratory. The x-axis leans toward control even though the vision is broad."
+      }
+    ],
+    "gaps": [
+      "The gap between the civilisational ambition of BRIDGE and the current financial reality (debt repayment, \u20ac4,800/month, 12-week north star focused on security) is the sharpest tension in the mission plane \u2014 whether the long-arc mission and the near-term survival constraints are genuinely integrated or running in parallel is not fully visible.",
+      "The 'why does it have to be you' answer ('It doesn't have to be me. I just feel like I'm onto something') suggests the mission is more held as a felt calling than as a argued claim \u2014 the vault does not show extended engagement with the strongest counter-arguments to why Omar specifically should be the one to build this."
+    ]
+  }
+]</script>
+<script id="landmark-data" type="application/json">{
+  "lifestyle": {
+    "poles_in_order_W_E_N_S": [
+      "dynamic",
+      "static",
+      "urban",
+      "remote"
+    ],
+    "landmarks": [
+      {
+        "name": "jetsetter",
+        "angle": 0.0
+      },
+      {
+        "name": "entrepreneur",
+        "angle": 45.0
+      },
+      {
+        "name": "bohemian",
+        "angle": 90.0
+      },
+      {
+        "name": "practitioner",
+        "angle": 135.0
+      },
+      {
+        "name": "nomad",
+        "angle": 180.0
+      },
+      {
+        "name": "homesteader",
+        "angle": 225.0
+      },
+      {
+        "name": "trailblazer",
+        "angle": 270.0
+      },
+      {
+        "name": "maverick",
+        "angle": 315.0
+      }
+    ]
+  },
+  "behaviour": {
+    "poles_in_order_W_E_N_S": [
+      "dominant",
+      "steady",
+      "conscientious",
+      "influencing"
+    ],
+    "landmarks": [
+      {
+        "name": "analysing",
+        "angle": 0.0
+      },
+      {
+        "name": "editing",
+        "angle": 22.5
+      },
+      {
+        "name": "challenging",
+        "angle": 45.0
+      },
+      {
+        "name": "stabilising",
+        "angle": 67.5
+      },
+      {
+        "name": "questioning",
+        "angle": 90.0
+      },
+      {
+        "name": "planning",
+        "angle": 112.5
+      },
+      {
+        "name": "innovating",
+        "angle": 135.0
+      },
+      {
+        "name": "accommodating",
+        "angle": 157.5
+      },
+      {
+        "name": "conducting",
+        "angle": 180.0
+      },
+      {
+        "name": "counseling",
+        "angle": 202.5
+      },
+      {
+        "name": "driving",
+        "angle": 225.0
+      },
+      {
+        "name": "harmonising",
+        "angle": 247.5
+      },
+      {
+        "name": "initiating",
+        "angle": 270.0
+      },
+      {
+        "name": "encouraging",
+        "angle": 292.5
+      },
+      {
+        "name": "mobilising",
+        "angle": 315.0
+      },
+      {
+        "name": "mentoring",
+        "angle": 337.5
+      }
+    ]
+  },
+  "intelligence": {
+    "poles_in_order_W_E_N_S": [
+      "generalist",
+      "specialist",
+      "solo",
+      "social"
+    ],
+    "landmarks": [
+      {
+        "name": "emotional",
+        "angle": 0.0
+      },
+      {
+        "name": "investigative",
+        "angle": 45.0
+      },
+      {
+        "name": "holistic",
+        "angle": 90.0
+      },
+      {
+        "name": "logical",
+        "angle": 135.0
+      },
+      {
+        "name": "linguistic",
+        "angle": 180.0
+      },
+      {
+        "name": "artistic",
+        "angle": 225.0
+      },
+      {
+        "name": "diplomatic",
+        "angle": 270.0
+      },
+      {
+        "name": "existential",
+        "angle": 315.0
+      }
+    ]
+  },
+  "values": {
+    "poles_in_order_W_E_N_S": [
+      "progressive",
+      "conservative",
+      "self-enhancing",
+      "self-transcending"
+    ],
+    "landmarks": [
+      {
+        "name": "autonomy",
+        "angle": 0.0
+      },
+      {
+        "name": "achievement",
+        "angle": 45.0
+      },
+      {
+        "name": "originality",
+        "angle": 90.0
+      },
+      {
+        "name": "authority",
+        "angle": 135.0
+      },
+      {
+        "name": "advocacy",
+        "angle": 180.0
+      },
+      {
+        "name": "reliability",
+        "angle": 225.0
+      },
+      {
+        "name": "compassion",
+        "angle": 270.0
+      },
+      {
+        "name": "loyalty",
+        "angle": 315.0
+      }
+    ]
+  },
+  "identity": {
+    "poles_in_order_W_E_N_S": [
+      "optimistic",
+      "pragmatic",
+      "facilitator",
+      "participator"
+    ],
+    "landmarks": [
+      {
+        "name": "protagonist",
+        "angle": 0.0
+      },
+      {
+        "name": "commander",
+        "angle": 22.5
+      },
+      {
+        "name": "campaigner",
+        "angle": 45.0
+      },
+      {
+        "name": "executive",
+        "angle": 67.5
+      },
+      {
+        "name": "designer",
+        "angle": 90.0
+      },
+      {
+        "name": "inspector",
+        "angle": 112.5
+      },
+      {
+        "name": "visionary",
+        "angle": 135.0
+      },
+      {
+        "name": "mastermind",
+        "angle": 157.5
+      },
+      {
+        "name": "adventurer",
+        "angle": 180.0
+      },
+      {
+        "name": "virtuoso",
+        "angle": 202.5
+      },
+      {
+        "name": "mediator",
+        "angle": 225.0
+      },
+      {
+        "name": "defender",
+        "angle": 247.5
+      },
+      {
+        "name": "entertainer",
+        "angle": 270.0
+      },
+      {
+        "name": "consul",
+        "angle": 292.5
+      },
+      {
+        "name": "composer",
+        "angle": 315.0
+      },
+      {
+        "name": "supporter",
+        "angle": 337.5
+      }
+    ]
+  },
+  "mission": {
+    "poles_in_order_W_E_N_S": [
+      "flexibility",
+      "control",
+      "external",
+      "internal"
+    ],
+    "landmarks": [
+      {
+        "name": "connection",
+        "angle": 0.0
+      },
+      {
+        "name": "reputation",
+        "angle": 45.0
+      },
+      {
+        "name": "inspiration",
+        "angle": 90.0
+      },
+      {
+        "name": "investment",
+        "angle": 135.0
+      },
+      {
+        "name": "imagination",
+        "angle": 180.0
+      },
+      {
+        "name": "improvement",
+        "angle": 225.0
+      },
+      {
+        "name": "incubation",
+        "angle": 270.0
+      },
+      {
+        "name": "self-direction",
+        "angle": 315.0
+      }
+    ]
+  }
+}
+</script>
 <script>
   const PLANES = JSON.parse(document.getElementById('payload-data').textContent);
-  const ROMAN = ['I','II','III','IV','V','VI'];
+  const LANDMARKS = JSON.parse(document.getElementById('landmark-data').textContent);
 
-  // The 8 landmark positions around each plane wheel — labels vary per plane.
-  // Landmarks at NE, E, SE, S, SW, W, NW, N (clockwise from top).
-  // But the wheel geometry uses 4 cardinal poles + interpolated landmark names.
-  // We render: top/right/bottom/left = poles (axis labels), 4 diagonals = quadrant landmarks.
-  const LANDMARKS = {
-    lifestyle: {
-      poles: { N:'urban', E:'static', S:'remote', W:'dynamic' },
-      quadrants: { NE:'entrepreneur', SE:'homesteader', SW:'trailblazer', NW:'jetsetter' }
-    },
-    behaviour: {
-      poles: { N:'conscientious', E:'agreeable', S:'influencing', W:'dominant' },
-      quadrants: { NE:'editing', SE:'harmonising', SW:'driving', NW:'analysing' }
-    },
-    intelligence: {
-      poles: { N:'solo', E:'specialist', S:'social', W:'generalist' },
-      quadrants: { NE:'holistic', SE:'artistic', SW:'logical', NW:'investigative' }
-    },
-    values: {
-      poles: { N:'self-enhancing', E:'conservative', S:'self-transcending', W:'progressive' },
-      quadrants: { NE:'authority', SE:'reliability', SW:'compassion', NW:'achievement' }
-    },
-    identity: {
-      poles: { N:'facilitator', E:'pragmatic', S:'participator', W:'optimistic' },
-      quadrants: { NE:'commander', SE:'mastermind', SW:'virtuoso', NW:'composer' }
-    },
-    mission: {
-      poles: { N:'external', E:'control', S:'internal', W:'flexibility' },
-      quadrants: { NE:'reputation', SE:'investment', SW:'improvement', NW:'self-direction' }
-    }
-  };
-
-  // X/Y for plane positions are in the engine's -1..1 frame.
-  // We need them. The engine output (in the original) had them implicit via dot positioning.
-  // For the cleaned version, derive from the original SVG positions by looking up by nearest landmark.
-  // Simpler: just hard-code from what the engine produced (also in /tmp/coord-data-full.json).
+  // Engine-output coordinates (kept here because the per-plane payloads in PLANES
+  // only carry the rendered SVG positions, not the normalised -1..1 coords).
   const POSITIONS = {
     lifestyle:    { x: -0.55, y: -0.65 },
     behaviour:    { x: -0.60, y:  0.30 },
@@ -461,126 +978,228 @@
     mission:      'What he is here to do'
   };
 
-  function buildWheel(plane, i){
-    const lm = LANDMARKS[plane.plane];
-    const pos = POSITIONS[plane.plane];
+  function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+  function fmtCoord(v){return (v>=0?'+':'')+v.toFixed(2)}
 
-    // SVG 100x100 viewBox; chart center 50, radius 36
-    const C = 50, R = 36;
-    // Map x/y from [-1,1] → SVG (y inverted)
-    const dotX = C + pos.x * R;
-    const dotY = C - pos.y * R;
+  /**
+   * Convert a landmark angle (deg, 0 = top/N, clockwise) to SVG x,y on a circle.
+   */
+  function angleToXY(cx, cy, r, deg){
+    const rad = (deg - 90) * Math.PI / 180;  // -90 because 0° = up
+    return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) };
+  }
 
-    // Landmark anchor positions (4 poles outside the circle, 4 quadrants on the diagonals)
-    const PAD = 4;
-    const poleN = { x:C, y: C-R-PAD, text:lm.poles.N, anchor:'middle', baseline:'text-after-edge' };
-    const poleS = { x:C, y: C+R+PAD+2, text:lm.poles.S, anchor:'middle', baseline:'hanging' };
-    const poleW = { x:C-R-PAD, y:C+0.6, text:lm.poles.W, anchor:'end', baseline:'middle' };
-    const poleE = { x:C+R+PAD, y:C+0.6, text:lm.poles.E, anchor:'start', baseline:'middle' };
+  /**
+   * Given a dot position (x,y in -1..1), find the angle (deg) from center.
+   * Used to determine which landmark is "nearest" along the rim.
+   */
+  function dotAngle(x, y){
+    // y inversion: positive y means upward (north) in BRIDGE space, but in our render upward is -y.
+    // So angle uses (x, -y) in standard math, then convert to clockwise-from-north.
+    const rad = Math.atan2(x, y);  // atan2(dx, dy) where dy is "up"
+    const deg = (rad * 180 / Math.PI + 360) % 360;
+    return deg;
+  }
 
-    // Quadrant landmark positions — slightly inside the circle on the diagonals
-    const D = R * 0.62;
-    const quadNE = { x:C+D, y:C-D+1, text:lm.quadrants.NE };
-    const quadSE = { x:C+D, y:C+D+1, text:lm.quadrants.SE };
-    const quadSW = { x:C-D, y:C+D+1, text:lm.quadrants.SW };
-    const quadNW = { x:C-D, y:C-D+1, text:lm.quadrants.NW };
+  /**
+   * Find the closest landmark to a given angle.
+   */
+  function nearestLandmark(landmarks, angle){
+    let best = null, bestDist = Infinity;
+    for (const lm of landmarks){
+      let d = Math.abs(angle - lm.angle);
+      if (d > 180) d = 360 - d;
+      if (d < bestDist){ bestDist = d; best = lm; }
+    }
+    return best;
+  }
 
-    // Which quadrant is the dot in?
-    const activeQuad =
-      (pos.x >= 0 && pos.y >= 0) ? 'NE' :
-      (pos.x >= 0 && pos.y < 0)  ? 'SE' :
-      (pos.x < 0 && pos.y < 0)   ? 'SW' :
-                                    'NW';
+  function buildWheelSvg(plane){
+    const planeName = plane.plane;
+    const pos = POSITIONS[planeName];
+    const planeLandmarks = LANDMARKS[planeName];
+    const landmarks = planeLandmarks.landmarks;
+    const poles = planeLandmarks.poles_in_order_W_E_N_S;
 
-    // Confidence ring
+    const C = 50;
+    const R_DOT = 30;   // dot space radius
+    const R_RING = 40;  // outer ring
+    const R_LABEL = 45; // label distance
+    const PAD = 3;
+
+    const dotX = C + pos.x * R_DOT;
+    const dotY = C - pos.y * R_DOT;
+
+    // Find the nearest landmark
+    const da = dotAngle(pos.x, pos.y);
+    const nearest = nearestLandmark(landmarks, da);
+
+    // Confidence ring radius
     const confR = 2.5 + (1 - plane.confidence) * 5;
 
+    // Compute landmark tick positions + label positions
+    const tickInner = R_RING - 1.6;
+    const tickOuter = R_RING;
+    const ticksHtml = landmarks.map(lm => {
+      const inner = angleToXY(C, C, tickInner, lm.angle);
+      const outer = angleToXY(C, C, tickOuter, lm.angle);
+      const isNearest = lm.name === nearest.name;
+      return `<line class="tick ${isNearest?'active':''}" x1="${inner.x.toFixed(2)}" y1="${inner.y.toFixed(2)}" x2="${outer.x.toFixed(2)}" y2="${outer.y.toFixed(2)}" data-lm="${lm.name}" data-angle="${lm.angle}"/>`;
+    }).join('');
+
+    // Labels — only nearest shown by default; others on hover
+    const labelsHtml = landmarks.map(lm => {
+      const lp = angleToXY(C, C, R_LABEL, lm.angle);
+      const isNearest = lm.name === nearest.name;
+      // Text anchor depends on which side of the wheel
+      let anchor = 'middle';
+      if (lm.angle > 20 && lm.angle < 160) anchor = 'start';
+      if (lm.angle > 200 && lm.angle < 340) anchor = 'end';
+      // Vertical offset for top/bottom labels
+      let baseline = 'middle';
+      if (lm.angle < 20 || lm.angle > 340) baseline = 'text-after-edge';
+      if (lm.angle > 160 && lm.angle < 200) baseline = 'hanging';
+      return `<text class="landmark-label ${isNearest?'nearest':''}" data-lm="${lm.name}" x="${lp.x.toFixed(2)}" y="${lp.y.toFixed(2)}" text-anchor="${anchor}" dominant-baseline="${baseline}">${lm.name}</text>`;
+    }).join('');
+
+    // Cardinal pole labels (the 4 axis poles like 'urban'/'remote'/'dynamic'/'static')
+    // Map from source: W, E, N, S
+    const poleW = poles[0], poleE = poles[1], poleN = poles[2], poleS = poles[3];
+    const polePad = 8;
+    const polesHtml = `
+      <text class="pole" x="${C}" y="${C - R_RING - polePad}" text-anchor="middle" dominant-baseline="text-after-edge">${poleN}</text>
+      <text class="pole" x="${C}" y="${C + R_RING + polePad + 1}" text-anchor="middle" dominant-baseline="hanging">${poleS}</text>
+      <text class="pole" x="${C - R_RING - polePad}" y="${C + 0.5}" text-anchor="end" dominant-baseline="middle">${poleW}</text>
+      <text class="pole" x="${C + R_RING + polePad}" y="${C + 0.5}" text-anchor="start" dominant-baseline="middle">${poleE}</text>
+    `;
+
+    // Nearest landmark radial line (from center toward nearest landmark)
+    const nearestPos = angleToXY(C, C, R_RING - 2, nearest.angle);
+
     return `
-      <div class="wheel-card" data-plane="${plane.plane}">
-        <div class="wheel-title"><span class="num">${ROMAN[i]} ·</span> ${plane.plane}</div>
-        <div class="landmark-name">${plane.nearest}</div>
-        <div class="wheel-sub">${SUBTITLE[plane.plane]}<span class="conf">${Math.round(plane.confidence*100)}% confidence</span></div>
-        <svg class="map" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
-          <!-- wheel ring + faint inner ring -->
-          <circle class="wheel-bg" cx="${C}" cy="${C}" r="${R}"/>
-          <circle class="wheel-bg-inner" cx="${C}" cy="${C}" r="${R*0.5}"/>
+      <svg class="map" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+        <!-- Filled inner field (very faint) -->
+        <circle class="wheel-ring-fill" cx="${C}" cy="${C}" r="${R_RING - 0.4}"/>
 
-          <!-- axes (dashed cross) -->
-          <line class="axis" x1="${C-R}" y1="${C}" x2="${C+R}" y2="${C}"/>
-          <line class="axis" x1="${C}" y1="${C-R}" x2="${C}" y2="${C+R}"/>
+        <!-- Concentric rings: outer (solid, fine) + inner (faint) at half radius -->
+        <circle class="wheel-ring-outer" cx="${C}" cy="${C}" r="${R_RING}"/>
+        <circle class="wheel-ring-inner" cx="${C}" cy="${C}" r="${R_RING * 0.66}"/>
+        <circle class="wheel-ring-inner" cx="${C}" cy="${C}" r="${R_RING * 0.33}"/>
 
-          <!-- 4 poles (cardinal axis labels) -->
-          <text class="pole" x="${poleN.x}" y="${poleN.y}" text-anchor="${poleN.anchor}" dominant-baseline="${poleN.baseline}">${poleN.text}</text>
-          <text class="pole" x="${poleS.x}" y="${poleS.y}" text-anchor="${poleS.anchor}" dominant-baseline="${poleS.baseline}">${poleS.text}</text>
-          <text class="pole" x="${poleW.x}" y="${poleW.y}" text-anchor="${poleW.anchor}" dominant-baseline="${poleW.baseline}">${poleW.text}</text>
-          <text class="pole" x="${poleE.x}" y="${poleE.y}" text-anchor="${poleE.anchor}" dominant-baseline="${poleE.baseline}">${poleE.text}</text>
+        <!-- Hair-thin dashed cross axes -->
+        <line class="axis" x1="${C - R_RING}" y1="${C}" x2="${C + R_RING}" y2="${C}"/>
+        <line class="axis" x1="${C}" y1="${C - R_RING}" x2="${C}" y2="${C + R_RING}"/>
 
-          <!-- 4 quadrant landmarks (active one highlighted) -->
-          <text class="landmark ${activeQuad==='NE'?'active':''}" x="${quadNE.x}" y="${quadNE.y}" text-anchor="middle">${quadNE.text}</text>
-          <text class="landmark ${activeQuad==='SE'?'active':''}" x="${quadSE.x}" y="${quadSE.y}" text-anchor="middle">${quadSE.text}</text>
-          <text class="landmark ${activeQuad==='SW'?'active':''}" x="${quadSW.x}" y="${quadSW.y}" text-anchor="middle">${quadSW.text}</text>
-          <text class="landmark ${activeQuad==='NW'?'active':''}" x="${quadNW.x}" y="${quadNW.y}" text-anchor="middle">${quadNW.text}</text>
+        <!-- Landmark ticks around the rim -->
+        <g class="ticks">${ticksHtml}</g>
 
-          <!-- the dot, with pulse + halo -->
-          <circle class="dot-pulse" cx="${dotX}" cy="${dotY}" r="2"/>
-          <circle class="dot-halo" cx="${dotX}" cy="${dotY}" r="${confR}"/>
-          <circle class="dot" cx="${dotX}" cy="${dotY}" r="2.4" data-plane="${plane.plane}"/>
-        </svg>
+        <!-- Nearest-landmark radial line -->
+        <line class="nearest-radial" x1="${C}" y1="${C}" x2="${nearestPos.x.toFixed(2)}" y2="${nearestPos.y.toFixed(2)}"/>
+
+        <!-- The dot -->
+        <circle class="dot-pulse" cx="${dotX.toFixed(2)}" cy="${dotY.toFixed(2)}" r="3"/>
+        <circle class="dot-halo" cx="${dotX.toFixed(2)}" cy="${dotY.toFixed(2)}" r="${confR.toFixed(2)}"/>
+        <circle class="dot" cx="${dotX.toFixed(2)}" cy="${dotY.toFixed(2)}" r="2.2"/>
+
+        <!-- 4 cardinal pole labels (axis poles) -->
+        <g class="poles">${polesHtml}</g>
+
+        <!-- Landmark labels — visibility is JS-driven -->
+        <g class="landmark-labels">${labelsHtml}</g>
+      </svg>
+    `;
+  }
+
+  function buildEvidence(plane){
+    return `
+      <ol class="evidence-list">
+        ${plane.evidence.map(e => `
+          <li class="evidence-item">
+            <div>
+              <p class="evidence-quote">${escapeHtml(e.excerpt)}</p>
+              <p class="evidence-file">${escapeHtml(e.file)}${e.section ? ' · ' + escapeHtml(e.section) : ''}</p>
+              ${e.interpretation ? `<p class="evidence-interp">${escapeHtml(e.interpretation)}</p>` : ''}
+            </div>
+          </li>
+        `).join('')}
+      </ol>
+    `;
+  }
+
+  function buildPlaneRow(plane, i){
+    const pos = POSITIONS[plane.plane];
+    return `
+      <div class="plane-row" id="plane-${plane.plane}">
+        <div class="wheel-cell" data-plane="${plane.plane}">
+          ${buildWheelSvg(plane)}
+        </div>
+        <div class="text-card">
+          <div class="card-eyebrow"><span>${plane.plane}</span></div>
+          <h2 class="landmark-name">${plane.nearest}</h2>
+          <p class="card-sub">${SUBTITLE[plane.plane]}.</p>
+          <div class="card-meta">
+            <div class="card-meta-item"><span class="lbl">Position</span><span class="v accent">${fmtCoord(pos.x)}, ${fmtCoord(pos.y)}</span></div>
+            <div class="card-meta-item"><span class="lbl">Confidence</span><span class="v">${Math.round(plane.confidence*100)}%</span></div>
+            <div class="card-meta-item"><span class="lbl">Landmarks</span><span class="v">${LANDMARKS[plane.plane].landmarks.length}</span></div>
+          </div>
+          <p class="summary">${escapeHtml(plane.summary)}</p>
+          <details class="evidence-details">
+            <summary><span>Evidence + what's thin</span></summary>
+            <div class="evidence-body">
+              ${buildEvidence(plane)}
+              <ul class="gaps-list">
+                ${plane.gaps.map(g => `<li class="gap">${escapeHtml(g)}</li>`).join('')}
+              </ul>
+            </div>
+          </details>
+        </div>
       </div>
     `;
   }
 
-  const wheelsEl = document.getElementById('wheels');
-  wheelsEl.innerHTML = PLANES.map(buildWheel).join('');
+  document.getElementById('planes').innerHTML = PLANES.map(buildPlaneRow).join('');
 
-  // Click handlers
-  function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+  // Wire cursor-driven progressive disclosure
+  document.querySelectorAll('.wheel-cell').forEach(cell => {
+    const svg = cell.querySelector('svg.map');
+    const labels = cell.querySelectorAll('.landmark-label');
+    const ticks = cell.querySelectorAll('.tick');
+    if (!svg) return;
 
-  function renderPanel(plane){
-    const p = PLANES.find(x => x.plane === plane);
-    if(!p) return;
-    const pos = POSITIONS[plane];
-    const fmtCoord = v => (v>=0?'+':'')+v.toFixed(2);
+    const planeName = cell.dataset.plane;
+    const planeLandmarks = LANDMARKS[planeName].landmarks;
 
-    document.getElementById('panel').innerHTML = `
-      <div class="panel-eyebrow">${ROMAN[PLANES.indexOf(p)]} · ${p.plane}</div>
-      <h2><em>${p.nearest}</em></h2>
-      <div class="panel-meta">${SUBTITLE[plane]}  ·  <span class="conf">${Math.round(p.confidence*100)}% confidence</span>  ·  ${fmtCoord(pos.x)}, ${fmtCoord(pos.y)}</div>
+    function findNearestLandmarkToCursor(svgX, svgY){
+      // SVG center 50,50. Convert cursor → angle.
+      const dx = svgX - 50;
+      const dy = svgY - 50;
+      // Don't react outside the circle
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if (dist > 50) return null;
+      // Angle: 0° at top, clockwise
+      const angle = (Math.atan2(dx, -dy) * 180 / Math.PI + 360) % 360;
+      return nearestLandmark(planeLandmarks, angle);
+    }
 
-      <div class="panel-section">
-        <h3>The read</h3>
-        <p class="summary">${escapeHtml(p.summary)}</p>
-      </div>
+    function clearHover(){
+      labels.forEach(l => l.classList.remove('hovered'));
+      ticks.forEach(t => { if (!t.classList.contains('active')) t.classList.remove('cursor-near'); });
+    }
 
-      <div class="panel-section">
-        <h3>Evidence · verbatim</h3>
-        <ul>
-          ${p.evidence.map(e => `
-            <li>
-              <p class="quote">${escapeHtml(e.excerpt)}</p>
-              <p class="file">${escapeHtml(e.file)}${e.section ? ' · ' + escapeHtml(e.section) : ''}</p>
-              ${e.interpretation ? `<p class="interp">${escapeHtml(e.interpretation)}</p>` : ''}
-            </li>
-          `).join('')}
-        </ul>
-      </div>
-
-      <div class="panel-section">
-        <h3>What's thin</h3>
-        <ul>
-          ${p.gaps.map(g => `<li class="gap">${escapeHtml(g)}</li>`).join('')}
-        </ul>
-      </div>
-    `;
-    document.getElementById('panel').scrollTop = 0;
-  }
-
-  wheelsEl.querySelectorAll('.wheel-card').forEach(card => {
-    card.addEventListener('click', () => renderPanel(card.dataset.plane));
+    svg.addEventListener('mousemove', e => {
+      const rect = svg.getBoundingClientRect();
+      const svgX = ((e.clientX - rect.left) / rect.width) * 100;
+      const svgY = ((e.clientY - rect.top) / rect.height) * 100;
+      const lm = findNearestLandmarkToCursor(svgX, svgY);
+      clearHover();
+      if (lm){
+        labels.forEach(l => {
+          if (l.dataset.lm === lm.name) l.classList.add('hovered');
+        });
+      }
+    });
+    svg.addEventListener('mouseleave', clearHover);
   });
-
-  // Open with lifestyle by default
-  renderPanel('lifestyle');
 </script>
 
 </body>
