@@ -103,6 +103,10 @@ export function startHttpServer({ port, adminToken: at }) {
           return sendJson(res, 500, { error: e.message });
         }
       }
+      if (path === '/admin/oauth/google/accounts' && req.method === 'GET') {
+        if (!checkAdmin(req, url)) return unauthorized(res);
+        return sendJson(res, 200, { accounts: emailSurface.listAccounts() });
+      }
       if (path === '/admin/oauth/google/import' && req.method === 'POST') {
         // Import a pre-obtained refresh token (e.g. from a local desktop-app OAuth flow).
         // Lets us activate Gmail/Calendar/Drive without the cloud-redirect dance.
