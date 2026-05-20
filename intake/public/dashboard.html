@@ -240,10 +240,10 @@
         <h1 class="hero-title">What's <em>working</em>,<br>what to <em>do</em>.</h1>
         <p class="hero-deck">Your three-agent system, in plain sight. The console below polls live. The action checklist remembers what you've done. The test recipes are buttons, not commands.</p>
         <div class="hero-stats">
-          <div class="hero-stat"><div class="num green">04</div><div class="lbl">Shipped &amp; tested</div></div>
-          <div class="hero-stat"><div class="num rust" id="stat-your-move">02</div><div class="lbl">Your move</div></div>
-          <div class="hero-stat"><div class="num amber">~18</div><div class="lbl">In flight</div></div>
-          <div class="hero-stat"><div class="num fade">100</div><div class="lbl">Total canvas</div></div>
+          <div class="hero-stat"><div class="num green" id="stat-built">62</div><div class="lbl">Shipped &amp; tested</div></div>
+          <div class="hero-stat"><div class="num amber" id="stat-pending">35</div><div class="lbl">Pending</div></div>
+          <div class="hero-stat"><div class="num fade" id="stat-skipped">3</div><div class="lbl">Skipped</div></div>
+          <div class="hero-stat"><div class="num rust">~300</div><div class="lbl">Tests passing</div></div>
         </div>
       </section>
 
@@ -482,21 +482,82 @@
       <section id="partial">
         <div class="section-head">
           <div class="section-num">§ IX</div>
-          <h2 class="section-title">In <em>flight</em>.</h2>
-          <span class="section-status partial">building</span>
+          <h2 class="section-title">The <em>roster</em>.</h2>
+          <span class="section-status live"><span id="cap-built-count">…</span> / 100</span>
         </div>
-        <p class="section-deck" style="grid-column:1/-1">Five background agents working through the partial code from earlier waves. Each was sent back to inspect, complete, run tests, and report.</p>
+        <p class="section-deck" style="grid-column:1/-1">All 100 capabilities from the canvas, in plain English. Filter by status. Click any item to expand.</p>
 
-        <table class="ed-table">
-          <thead><tr><th style="width:30%">Cluster</th><th style="width:12%;text-align:right;padding-right:24px">Files</th><th>Covers</th></tr></thead>
-          <tbody>
-            <tr><td><code>beatrix-specialists</code></td><td style="text-align:right;padding-right:24px">98</td><td>13 specialists — finance, fitness, photos, people-graph, travel, events, decisions, state, opportunity, reputation, reading, presentation, home-ops.</td></tr>
-            <tr><td><code>bridget-discovery + activation</code></td><td style="text-align:right;padding-right:24px">87</td><td>Newsletter, far-field, weak-tie, resonance, structural-hole. What-if, frontier-grant, next-step, summon, deep-work.</td></tr>
-            <tr><td><code>bridget-behaviors + cross-cutting</code></td><td style="text-align:right;padding-right:24px">99</td><td>Life-map, reflection, barometer, check-ins. Commitments. Cross-agent protocols. Confidante. Linter. External integrations.</td></tr>
-            <tr><td><code>bridge-memory + chronicle</code></td><td style="text-align:right;padding-right:24px">58</td><td>Cognitive directory, past-self, forgetting, Polanyi, cross-generational. Chronicle, reputation lattice, spawns, four-currency, IP spectrum, provenance.</td></tr>
-            <tr><td><code>coordinate-derived</code></td><td style="text-align:right;padding-right:24px">new</td><td>Living soul doc, performance/curiosity, proximity map, productive-tension, mirror discipline, Dunning-Kruger mirror, shadow doc.</td></tr>
-          </tbody>
-        </table>
+        <style>
+          .cap-filters{display:flex;gap:10px;margin:24px 0 32px;flex-wrap:wrap}
+          .cap-filter-btn{
+            padding:8px 16px;
+            font-family:'JetBrains Mono',monospace;
+            font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+            background:transparent;border:1px solid var(--hairline);color:var(--ink-soft);
+            cursor:pointer;transition:all .15s ease;
+          }
+          .cap-filter-btn:hover{color:var(--ink);border-color:var(--ink)}
+          .cap-filter-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+          .cap-filter-btn.active-built{background:var(--moss);color:var(--paper);border-color:var(--moss)}
+          .cap-filter-btn.active-pending{background:var(--ochre);color:var(--paper);border-color:var(--ochre)}
+          .cap-cluster{margin-bottom:40px}
+          .cap-cluster h4{
+            font-family:'JetBrains Mono',monospace;
+            font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;
+            color:var(--rust);margin:0 0 14px;padding-bottom:8px;
+            border-bottom:1px solid var(--hairline);
+            display:flex;justify-content:space-between;align-items:baseline;
+          }
+          .cap-cluster h4 .ct{color:var(--ink-fade);font-weight:400;letter-spacing:.14em}
+          .cap-item{
+            display:grid;grid-template-columns:42px 1fr auto;gap:14px;
+            padding:14px 0;border-bottom:1px solid var(--hairline-soft);
+            cursor:pointer;align-items:start;
+          }
+          .cap-item:last-child{border-bottom:none}
+          .cap-item:hover{background:rgba(168,84,59,.03)}
+          .cap-num{
+            font-family:'JetBrains Mono',monospace;font-size:11px;
+            color:var(--ink-fade);padding-top:3px;text-align:right;
+          }
+          .cap-num.built{color:var(--moss);font-weight:500}
+          .cap-num.pending{color:var(--ochre);font-weight:500}
+          .cap-num.skipped{color:var(--ink-ghost);text-decoration:line-through}
+          .cap-body{min-width:0}
+          .cap-name{
+            font-family:'Fraunces',serif;font-size:18px;font-style:italic;
+            font-variation-settings:"opsz" 60,"wght" 400,"SOFT" 70;
+            margin-bottom:6px;line-height:1.2;color:var(--ink);
+          }
+          .cap-eng{
+            font-family:'Newsreader',serif;font-size:15px;line-height:1.5;
+            color:var(--ink-soft);margin:0;max-width:60ch;
+          }
+          .cap-eng.collapsed{
+            display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
+            overflow:hidden;
+          }
+          .cap-tag{
+            font-family:'JetBrains Mono',monospace;font-size:9px;
+            letter-spacing:.14em;text-transform:uppercase;
+            padding:3px 8px;border:1px solid currentColor;
+            white-space:nowrap;align-self:center;
+          }
+          .cap-tag.built{color:var(--moss)}
+          .cap-tag.pending{color:var(--ochre)}
+          .cap-tag.skipped{color:var(--ink-ghost)}
+        </style>
+
+        <div class="cap-filters" id="cap-filters">
+          <button class="cap-filter-btn active" data-filter="all">All <span id="ct-all"></span></button>
+          <button class="cap-filter-btn" data-filter="built">Built <span id="ct-built"></span></button>
+          <button class="cap-filter-btn" data-filter="pending">Pending <span id="ct-pending"></span></button>
+          <button class="cap-filter-btn" data-filter="skipped">Skipped <span id="ct-skipped"></span></button>
+        </div>
+
+        <div id="cap-roster">
+          <p style="color:var(--ink-fade);font-style:italic;font-size:14px">Loading capability roster…</p>
+        </div>
       </section>
 
       <section id="test">
@@ -632,6 +693,90 @@
     }
     refresh();
     setInterval(refresh, 30000);
+
+    // Capability roster — load + render
+    async function loadCapabilityRoster(){
+      try {
+        const r = await fetch('/dashboard/capabilities.json', { credentials: 'same-origin' });
+        const data = await r.json();
+
+        // Mark each entry with a status
+        const all = [];
+        data.built.forEach(c => all.push({...c, status:'built'}));
+        data.pending.forEach(c => {
+          let status = 'pending';
+          if (c.cluster && c.cluster.includes('SKIPPED')) status = 'skipped';
+          all.push({...c, status});
+        });
+
+        const builtCount = all.filter(c => c.status === 'built').length;
+        const pendingCount = all.filter(c => c.status === 'pending').length;
+        const skippedCount = all.filter(c => c.status === 'skipped').length;
+
+        document.getElementById('cap-built-count').textContent = builtCount;
+        document.getElementById('ct-all').textContent = `(${all.length})`;
+        document.getElementById('ct-built').textContent = `(${builtCount})`;
+        document.getElementById('ct-pending').textContent = `(${pendingCount})`;
+        document.getElementById('ct-skipped').textContent = `(${skippedCount})`;
+
+        // Group by cluster, preserve order from JSON
+        const clusters = {};
+        const clusterOrder = [];
+        all.forEach(c => {
+          const k = c.cluster || 'Other';
+          if (!clusters[k]) { clusters[k] = []; clusterOrder.push(k); }
+          clusters[k].push(c);
+        });
+
+        const root = document.getElementById('cap-roster');
+        function render(filter){
+          root.innerHTML = '';
+          let visibleCount = 0;
+          clusterOrder.forEach(cluster => {
+            const items = clusters[cluster].filter(c => filter === 'all' || c.status === filter);
+            if (items.length === 0) return;
+            visibleCount += items.length;
+            const section = document.createElement('div');
+            section.className = 'cap-cluster';
+            section.innerHTML = `
+              <h4>${cluster.toUpperCase()} <span class="ct">${items.length}</span></h4>
+              ${items.map(c => `
+                <div class="cap-item" onclick="this.querySelector('.cap-eng').classList.toggle('collapsed')">
+                  <div class="cap-num ${c.status}">${String(c.n).padStart(3,'0')}</div>
+                  <div class="cap-body">
+                    <div class="cap-name">${escapeHtml(c.name)}</div>
+                    <p class="cap-eng collapsed">${escapeHtml(c.english)}</p>
+                  </div>
+                  <span class="cap-tag ${c.status}">${c.status === 'built' ? (c.tests || 'shipped') : (c.status === 'skipped' ? 'skipped' : 'pending')}</span>
+                </div>
+              `).join('')}
+            `;
+            root.appendChild(section);
+          });
+          if (visibleCount === 0){
+            root.innerHTML = '<p style="color:var(--ink-fade);font-style:italic;font-size:14px">Nothing in this filter.</p>';
+          }
+        }
+        render('all');
+
+        // Wire filter buttons
+        document.querySelectorAll('.cap-filter-btn').forEach(btn => {
+          btn.onclick = () => {
+            document.querySelectorAll('.cap-filter-btn').forEach(b => {
+              b.classList.remove('active', 'active-built', 'active-pending');
+            });
+            btn.classList.add('active');
+            if (btn.dataset.filter === 'built') btn.classList.add('active-built');
+            if (btn.dataset.filter === 'pending') btn.classList.add('active-pending');
+            render(btn.dataset.filter);
+          };
+        });
+      } catch (e) {
+        document.getElementById('cap-roster').innerHTML = '<p style="color:var(--crimson);font-size:14px">Could not load roster. Endpoint may be deploying.</p>';
+      }
+    }
+    function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+    loadCapabilityRoster();
 
     // Audit display (recipe 1)
     async function showAudit() {

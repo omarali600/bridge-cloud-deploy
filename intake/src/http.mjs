@@ -67,6 +67,9 @@ export function startHttpServer({ port, adminToken: at }) {
       if (path === '/dashboard/coordinates-map.html' && req.method === 'GET') {
         return serveStaticFile(res, 'coordinates-map.html', 'text/html; charset=utf-8');
       }
+      if (path === '/dashboard/capabilities.json' && req.method === 'GET') {
+        return serveStaticFile(res, 'capabilities.json', 'application/json; charset=utf-8');
+      }
 
       // ─── ingest endpoints ───
       if (path === '/ingest/telegram' && req.method === 'POST') {
