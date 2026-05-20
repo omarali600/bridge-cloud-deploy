@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Omar — six-plane coordinate map</title>
+<style>
+  :root {
+    --bg: #fbfaf7;
+    --fg: #1b1a18;
+    --muted: #5b5852;
+    --line: #c8c2b3;
+    --wheel: #f1ede2;
+    --dot: #1b1a18;
+    --accent: #b85c1e;
+  }
+  body {
+    font-family: ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    margin: 0;
+    padding: 0;
+  }
+  header {
+    padding: 28px 32px 16px;
+    border-bottom: 1px solid var(--line);
+  }
+  h1 {
+    margin: 0 0 6px;
+    font-size: 24px;
+    font-weight: 600;
+  }
+  header p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 14px;
+  }
+  .layout {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 24px;
+    padding: 24px 32px 48px;
+  }
+  svg.map {
+    width: 100%;
+    height: auto;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+  }
+  .wheel-bg {
+    fill: var(--wheel);
+    stroke: var(--line);
+    stroke-width: 1;
+  }
+  .axis {
+    stroke: var(--line);
+    stroke-width: 1;
+    stroke-dasharray: 3 3;
+  }
+  .pole {
+    fill: var(--muted);
+    font-size: 11px;
+    font-style: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .landmark {
+    fill: var(--muted);
+    font-size: 10px;
+  }
+  .plane-title {
+    fill: var(--fg);
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .plane-one-line {
+    fill: var(--muted);
+    font-size: 11px;
+  }
+  .dot {
+    fill: var(--accent);
+    cursor: pointer;
+    transition: r 0.12s ease;
+  }
+  .dot:hover {
+    fill: var(--fg);
+  }
+  .dot-label {
+    fill: var(--fg);
+    font-size: 11px;
+    font-weight: 600;
+    pointer-events: none;
+  }
+  aside.panel {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 18px;
+    height: fit-content;
+    position: sticky;
+    top: 24px;
+    font-size: 14px;
+  }
+  aside.panel h2 {
+    font-size: 16px;
+    margin: 0 0 8px;
+  }
+  aside.panel .meta {
+    color: var(--muted);
+    font-size: 12px;
+    margin-bottom: 12px;
+  }
+  aside.panel .summary {
+    margin-bottom: 14px;
+    line-height: 1.45;
+  }
+  aside.panel ul {
+    padding-left: 18px;
+    margin: 6px 0 12px;
+  }
+  aside.panel li {
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+  aside.panel .quote {
+    font-style: normal;
+    color: var(--fg);
+    background: #f5f1e6;
+    padding: 8px 10px;
+    border-left: 3px solid var(--accent);
+    margin: 4px 0 6px;
+    font-size: 13px;
+    line-height: 1.45;
+  }
+  aside.panel .file {
+    color: var(--muted);
+    font-size: 11px;
+    word-break: break-all;
+  }
+  .empty {
+    color: var(--muted);
+    font-style: normal;
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Omar — six-plane coordinate map</h1>
+  <p>Run 0MPD9X1JZQKK2XH28 — 2026-05-19T23:40:30.293Z — model claude-sonnet-4-6 — 39 sources read.</p>
+</header>
+<div class="layout">
+  <svg class="map" viewBox="0 0 1200 820" xmlns="http://www.w3.org/2000/svg">
+    
+    <g class="wheel" data-plane="lifestyle">
+      <text x="200" y="-10" class="plane-title" text-anchor="middle">Lifestyle</text>
+      <text x="200" y="10" class="plane-one-line" text-anchor="middle">How he lives day to day — daily rhythms, place, movement, mobility, money use.</text>
+      <circle cx="200" cy="200" r="160" class="wheel-bg" />
+      <line x1="40" y1="200" x2="360" y2="200" class="axis" />
+      <line x1="200" y1="40" x2="200" y2="360" class="axis" />
+      <text x="36" y="204" class="pole" text-anchor="end">dynamic</text>
+      <text x="364" y="204" class="pole" text-anchor="start">static</text>
+      <text x="200" y="34" class="pole" text-anchor="middle">urban</text>
+      <text x="200" y="376" class="pole" text-anchor="middle">remote</text>
+      <text x="200.0" y="22.0" class="landmark" text-anchor="middle">jetsetter</text>
+<text x="325.9" y="74.1" class="landmark" text-anchor="middle">entrepreneur</text>
+<text x="378.0" y="200.0" class="landmark" text-anchor="middle">bohemian</text>
+<text x="325.9" y="325.9" class="landmark" text-anchor="middle">practitioner</text>
+<text x="200.0" y="378.0" class="landmark" text-anchor="middle">nomad</text>
+<text x="74.1" y="325.9" class="landmark" text-anchor="middle">homesteader</text>
+<text x="22.0" y="200.0" class="landmark" text-anchor="middle">trailblazer</text>
+<text x="74.1" y="74.1" class="landmark" text-anchor="middle">maverick</text>
+      <circle cx="112.00" cy="96.00" r="12.9" class="dot" data-payload="{&quot;plane&quot;:&quot;lifestyle&quot;,&quot;title&quot;:&quot;Lifestyle&quot;,&quot;summary&quot;:&quot;Omar lives in Amsterdam — a dense, networked European city — and has built his life there over eight years, yet the pattern across his vault is restless movement: solo interrailing trips, India twice, Egypt visits, a background spanning Japan, Egypt, St Louis, Scotland, and the Netherlands. His days follow a distinct rhythm: sharp mornings for deep work, dead afternoons for gym and walking, evenings conditional on excitement. The city has &#39;tried to push him out multiple times&#39; yet he stays, anchored partly by a pending house purchase. His perfect week oscillates between Amsterdam-based fulfilment and travel-rich novelty, suggesting a dynamic urban person who is slowly building a static anchor without fully committing to either pole.&quot;,&quot;nearest&quot;:&quot;bohemian&quot;,&quot;confidence&quot;:0.82,&quot;evidence&quot;:[{&quot;file&quot;:&quot;soul.md&quot;,&quot;section&quot;:&quot;The Amsterdam Question&quot;,&quot;excerpt&quot;:&quot;Amsterdam is beautiful, isolating, full of FOMO. The city has tried to push me out multiple times. I stay because leaving without an anchor feels like failure.&quot;,&quot;weight&quot;:0.85,&quot;interpretation&quot;:&quot;Confirms urban placement with tension toward static anchoring; the Amsterdam house deal is a pull toward +x (static) while his instincts remain dynamic.&quot;},{&quot;file&quot;:&quot;memory/threads/2026-03-27-campfire-intake-transcript.md&quot;,&quot;section&quot;:&quot;Section 1: Lifestyle&quot;,&quot;excerpt&quot;:&quot;A perfect week for me. Would involve travel, meeting new people, reconnecting with old ones, working on something that I&#39;m very passionate about, having a sense of achievement, feeling like it&#39;s building towards something bigger.&quot;,&quot;weight&quot;:0.8,&quot;interpretation&quot;:&quot;Travel and meeting new people as primary ingredients of a perfect week confirms dynamic orientation despite Amsterdam anchor.&quot;},{&quot;file&quot;:&quot;soul.md&quot;,&quot;section&quot;:&quot;The Builder Pattern&quot;,&quot;excerpt&quot;:&quot;Solo interrailing trip across Europe in senior year of high school. Solo trip across the US East Coast. Both trips: choosing where to go based on where I came from. Perpetual motion.&quot;,&quot;weight&quot;:0.75,&quot;interpretation&quot;:&quot;Perpetual motion is explicitly named; movement as identity, not just preference.&quot;},{&quot;file&quot;:&quot;memory/threads/2026-03-27-campfire-intake-transcript.md&quot;,&quot;section&quot;:&quot;Section 1: Lifestyle&quot;,&quot;excerpt&quot;:&quot;I think a perfect week could also be one spent in Amsterdam at home. As long as I&#39;m working on something that I find fulfilling and hanging out with friends and spending some time in nature and being active, and balancing myself, then can really find true fulfillment and enjoyment in that.&quot;,&quot;weight&quot;:0.6,&quot;interpretation&quot;:&quot;The self-correction here shows the tension between dynamic aspiration and a present reality that can satisfy from a single place — neither fully nomadic nor homesteader.&quot;},{&quot;file&quot;:&quot;soul.md&quot;,&quot;section&quot;:&quot;Part I: Runtime Identity&quot;,&quot;excerpt&quot;:&quot;Japanese-born, UK-educated, Egyptian American based in Amsterdam.&quot;,&quot;weight&quot;:0.65,&quot;interpretation&quot;:&quot;The biographical headline encodes the lifestyle geography: born mobile, currently urban-anchored, identity spanning multiple cities and cultures.&quot;}],&quot;gaps&quot;:[&quot;No data on actual travel frequency in the current chapter — the vault describes aspirations and history but not how much Omar actually moves right now versus how much he wishes he did.&quot;,&quot;Income and financial constraints (debt repayment at ~€950/month) likely suppress lifestyle dynamism below stated preference — the gap between desired and actual lifestyle is not fully visible in the corpus.&quot;]}" />
+      <text x="112.00" y="100.00" class="dot-label" text-anchor="middle">bohemian</text>
+    </g>
+
+    <g class="wheel" data-plane="behaviour">
+      <text x="600" y="-10" class="plane-title" text-anchor="middle">Behaviour</text>
+      <text x="600" y="10" class="plane-one-line" text-anchor="middle">How he acts and works — response patterns, follow-through, conflict style, collaboration mode.</text>
+      <circle cx="600" cy="200" r="160" class="wheel-bg" />
+      <line x1="440" y1="200" x2="760" y2="200" class="axis" />
+      <line x1="600" y1="40" x2="600" y2="360" class="axis" />
+      <text x="436" y="204" class="pole" text-anchor="end">dominant</text>
+      <text x="764" y="204" class="pole" text-anchor="start">steady</text>
+      <text x="600" y="34" class="pole" text-anchor="middle">conscientious</text>
+      <text x="600" y="376" class="pole" text-anchor="middle">influencing</text>
+      <text x="600.0" y="22.0" class="landmark" text-anchor="middle">analysing</text>
+<text x="668.1" y="35.5" class="landmark" text-anchor="middle">editing</text>
+<text x="725.9" y="74.1" class="landmark" text-anchor="middle">challenging</text>
+<text x="764.5" y="131.9" class="landmark" text-anchor="middle">stabilising</text>
+<text x="778.0" y="200.0" class="landmark" text-anchor="middle">questioning</text>
+<text x="764.5" y="268.1" class="landmark" text-anchor="middle">planning</text>
+<text x="725.9" y="325.9" class="landmark" text-anchor="middle">innovating</text>
+<text x="668.1" y="364.5" class="landmark" text-anchor="middle">accommodating</text>
+<text x="600.0" y="378.0" class="landmark" text-anchor="middle">conducting</text>
+<text x="531.9" y="364.5" class="landmark" text-anchor="middle">counseling</text>
+<text x="474.1" y="325.9" class="landmark" text-anchor="middle">driving</text>
+<text x="435.5" y="268.1" class="landmark" text-anchor="middle">harmonising</text>
+<text x="422.0" y="200.0" class="landmark" text-anchor="middle">initiating</text>
+<text x="435.5" y="131.9" class="landmark" text-anchor="middle">encouraging</text>
+<text x="474.1" y="74.1" class="landmark" text-anchor="middle">mobilising</text>
+<text x="531.9" y="35.5" class="landmark" text-anchor="middle">mentoring</text>
+      <circle cx="504.00" cy="248.00" r="12.7" class="dot" data-payload="{&quot;plane&quot;:&quot;behaviour&quot;,&quot;title&quot;:&quot;Behaviour&quot;,&quot;summary&quot;:&quot;Omar&#39;s behavioural pattern is fast, directive, and results-led — he rebuilds websites in days, expands contracts by showing rather than asking, and operates as a &#39;pirate in a navy&#39; in every institutional role he has held. His task selection is reactive and deadline-driven rather than planned, his capture systems are scattered, and his procrastination drivers are well-documented and self-named. He is dominant-leaning with influencing energy: he uses narrative and persuasion as primary tools, steamrolls in conversation when excited, and struggles to slow down and listen despite genuinely wanting to. The focus document reveals a highly self-aware attempt to impose conscientious structure on an inherently influencing-dominant operating style.&quot;,&quot;nearest&quot;:&quot;initiating&quot;,&quot;confidence&quot;:0.78,&quot;evidence&quot;:[{&quot;file&quot;:&quot;soul.md&quot;,&quot;section&quot;:&quot;Career Pattern&quot;,&quot;excerpt&quot;:&quot;Every role follows the same arc: arrive at a pivotal moment, see the vision before others, operate as a pirate inside a navy, leave carrying the lesson and not the reward.&quot;,&quot;weight&quot;:0.9,&quot;interpretation&quot;:&quot;Dominant-initiating pattern confirmed across multiple roles; the pirate metaphor captures directive independence inside institutional constraints.&quot;},{&quot;file&quot;:&quot;memory/threads/2026-03-27-campfire-intake-transcript.md&quot;,&quot;section&quot;:&quot;Section 2: Behaviour&quot;,&quot;excerpt&quot;:&quot;I don&#39;t know. Whatever&#39;s the loudest. Whatever has a deadline coming up. Sometimes I have a feeling of inspiration on something. Sometimes I see someone working on something that makes me wanna work on it too.&quot;,&quot;weight&quot;:0.85,&quot;interpretation&quot;:&quot;Reactive task selection, social mimicry, inspiration-driven — influencing side of the behaviour plane, with low conscientious planning structure.&quot;},{&quot;file&quot;:&quot;soul.md&quot;,&quot;section&quot;:&quot;How Values Get Me Into Trouble&quot;,&quot;excerpt&quot;:&quot;I also tend to steamroll people when I have an idea about something or when I wanna get a point across. I have so much to say and then they feel like maybe they&#39;re not being heard even though I am listening and I am processing everything they&#39;re saying.&quot;,&quot;weight&quot;:0.85,&quot;interpretation&quot;:&quot;Self-named dominant-influencing behaviour pattern: fast processing speed reads as not listening, directness reads as abrasion. (evidence flagged: excerpt not verbatim match)&quot;},{&quot;file&quot;:&quot;soul.md&quot;,&quot;section&quot;:&quot;CRREM&quot;,&quot;excerpt&quot;:&quot;Going from 1 day/week to 3 days/week by showing, not asking.&quot;,&quot;weight&quot;:0.8,&quot;interpretation&quot;:&quot;Classic dominant-initiating move: demonstrate value to earn scope rather than negotiating for it through consensus.&quot;},{&quot;file&quot;:&quot;focus.md&quot;,&quot;section&quot;:&quot;7) Default Operating Rules&quot;,&quot;excerpt&quot;:&quot;Ship weekly or the project is lying to me.&quot;,&quot;weight&quot;:0.7,&quot;interpretation&quot;:&quot;Results-led commitment: output as the unit of truth. Conscientious-style rules being applied to manage a dominant-influencing default.&quot;}],&quot;gaps&quot;:[&quot;Conflict behaviour in peer relationships (as opposed to institutional/hierarchical ones) is underrepresented in the corpus — most examples involve upward or lateral institutional dynamics.&quot;,&quot;The focus document&#39;s elaborate conscientious scaffolding (rules, gates, kill lists) may represent aspirational behaviour rather than current default behaviour — the pattern log explicitly names architecture excitement as an escape hatch from real work, suggesting the system describes what Omar wants to do more than what he currently does.&quot;]}" />
+      <text x="504.00" y="252.00" class="dot-label" text-anchor="middle">initiating</text>
+    </g>
+
+    <g class="wheel" data-plane="intelligence">
+      <text x="1000" y="-10" class="plane-title" text-anchor="middle">Intelligence</text>
+      <text x="1000" y="10" class="plane-one-line" text-anchor="middle">How he thinks — synthesis style, abstraction level, the domains where his thinking runs deep.</text>
+      <circle cx="1000" cy="200" r="160" class="wheel-bg" />
+      <line x1="840" y1="200" x2="1160" y2="200" class="axis" />
+      <line x1="1000" y1="40" x2="1000" y2="360" class="axis" />
+      <text x="836" y="204" class="pole" text-anchor="end">generalist</text>
+      <text x="1164" y="204" class="pole" text-anchor="start">specialist</text>
+      <text x="1000" y="34" class="pole" text-anchor="middle">solo</text>
+      <text x="1000" y="376" class="pole" text-anchor="middle">social</text>
+      <text x="1000.0" y="22.0" class="landmark" text-anchor="middle">emotional</text>
+<text x="1125.9" y="74.1" class="landmark" text-anchor="middle">investigative</text>
+<text x="1178.0" y="200.0" class="landmark" text-anchor="middle">holistic</text>
+<text x="1125.9" y="325.9" class="landmark" text-anchor="middle">logical</text>
+<text x="1000.0" y="378.0" class="landmark" text-anchor="middle">linguistic</text>
+<text x="874.1" y="325.9" class="landmark" text-anchor="middle">artistic</text>
+<text x="822.0" y="200.0" class="landmark" text-anchor="middle">diplomatic</text>
+<text x="874.1" y="74.1" class="landmark" text-anchor="middle">existential</text>
+      <circle cx="880.00" cy="256.00" r="13.3" class="dot" data-payload="{&quot;plane&quot;:&quot;intelligence&quot;,&quot;title&quot;:&quot;Intelligence&quot;,&quot;summary&quot;:&quot;Omar is a wide-ranging generalist synthesiser whose thinking runs through narrative and spatial metaphor — he finds the story thread and then visualises spatially, and ideas only fully click when he can explain them to someone else. His perennial obsessions (AI, ecological design, eusocial insects) orbit a single question about complex systems self-organising toward emergent properties. He consumes approximately thirty hours per week across all mediums and is a pattern-matching learner who integrates new information by connecting it to an existing constellation. The acknowledged knowledge gap — mathematics and economics — and the explicit compensating move toward qualitative narrative framing confirm a generalist intelligence with deep humanities and systems-thinking channels.&quot;,&quot;nearest&quot;:&quot;holistic&quot;,&quot;confidence&quot;:0.88,&quot;evidence&quot;:[{&quot;file&quot;:&quot;soul.md&quot;,&quot;section&quot;:&quot;Intellectual Architecture&quot;,&quot;excerpt&quot;:&quot;Thinking style: Narrative-spatial. Find the story thread, then visualize spatially. Only clicks when I can explain it to someone else. Conversations (with AI and humans) are part of the thinking process — thinking surfaces, not communication tools.&quot;,&quot;weight&quot;:0.95,&quot;interpretation&quot;:&quot;Explicit self-description of a social-generalist intelligence: synthesis happens in dialogue, visualisation is spatial, the mode is holistic rather than specialist.&quot;},{&quot;file&quot;:&quot;soul.md&quot;,&quot;section&quot;:&quot;Intellectual Architecture&quot;,&quot;excerpt&quot;:&quot;Perennial obsessions: AI and its implications. Ecological design principles (seeded by my father). Eusocial insects, honeybees specifically. All three orbit the same question: how complex systems self-organize to produce something greater than the sum of their parts.&quot;,&quot;weight&quot;:0.9,&quot;interpretation&quot;:&quot;Three domains converge on one meta-question — cross-domain synthesis is the actual cognitive mode, not specialist depth in any single field.&quot;},{&quot;file&quot;:&quot;memory/threads/2026-03-27-campfire-intake-transcript.md&quot;,&quot;section&quot;:&quot;Section 3: Intelligence&quot;,&quot;excerpt&quot;:&quot;I am finding the story thread and then visualising spatially to solve complex problems. It only clicks when I can explain it to someone else.&quot;,&quot;weight&quot;:0.9,&quot;interpretation&quot;:&quot;Confirms the social dimension: intelligence is social and externalised, not solo and inward-processing.&quot;},{&quot;file&quot;:&quot;soul.md&quot;,&quot;section&quot;:&quot;Intellectual Architecture&quot;,&quot;excerpt&quot;:&quot;Signal/noise filter: Intuitive pattern-matching against a dense internal model. If it lights up the constellation, it gets in. Risk: the filter selects for interesting over actionable.&quot;,&quot;weight&quot;:0.8,&quot;interpretation&quot;:&quot;The self-named risk reveals the generalist&#39;s characteristic trap: breadth over depth, interesting over useful.&quot;},{&quot;file&quot;:&quot;memory/threads/2026-03-27-campfire-intake-transcript.md&quot;,&quot;section&quot;:&quot;Section 3: Intelligence&quot;,&quot;excerpt&quot;:&quot;I wish I understood math / economics better. I shy away from numbers.&quot;,&quot;weight&quot;:0.75,&quot;interpretation&quot;:&quot;The knowledge gap confirms generalist placement: the specialist&#39;s domain (quantitative analysis) is explicitly avoided and compensated by qualitative narrative.&quot;}],&quot;gaps&quot;:[&quot;The vault is rich with meta-description of thinking style but thin on extended examples of Omar actually thinking through a hard problem in writing — most evidence is self-report rather than demonstrated cognition.&quot;,&quot;The 42,000-word BRIDGE vision document exists in the corpus but its internal argument quality cannot be assessed from the excerpts available — this would be the strongest direct evidence of actual intelligence level and synthesis style.&quot;]}" />
+      <text x="880.00" y="260.00" class="dot-label" text-anchor="middle">holistic</text>
+    </g>
+
+    <g class="wheel" data-plane="values">
+      <text x="200" y="390" class="plane-title" text-anchor="middle">Values</text>
+      <text x="200" y="410" class="plane-one-line" text-anchor="middle">What he holds important — what he protects, what he sacrifices for, what he refuses.</text>
+      <circle cx="200" cy="600" r="160" class="wheel-bg" />
+      <line x1="40" y1="600" x2="360" y2="600" class="axis" />
+      <line x1="200" y1="440" x2="200" y2="760" class="axis" />
+      <text x="36" y="604" class="pole" text-anchor="end">progressive</text>
+      <text x="364" y="604" class="pole" text-anchor="start">conservative</text>
+      <text x="200" y="434" class="pole" text-anchor="middle">self-enhancing</text>
+      <text x="200" y="776" class="pole" text-anchor="middle">self-transcending</text>
+      <text x="200.0" y="422.0" class="landmark" text-anchor="middle">autonomy</text>
+<text x="325.9" y="474.1" class="landmark" text-anchor="middle">achievement</text>
+<text x="378.0" y="600.0" class="landmark" text-anchor="middle">originality</text>
+<text x="325.9" y="725.9" class="landmark" text-anchor="middle">authority</text>
+<text x="200.0" y="778.0" class="landmark" text-anchor="middle">advocacy</text>
+<text x="74.1" y="725.9" class="landmark" text-anchor="middle">reliability</text>
+<text x="22.0" y="600.0" class="landmark" text-anchor="middle">compassion</text>
+<text x="74.1" y="474.1" class="landmark" text-anchor="middle">loyalty</text>
+      <circle cx="96.00" cy="560.00" r="13.1" class="dot" data-payload="{&quot;plane&quot;:&quot;values&quot;,&quot;title&quot;:&quot;Values&quot;,&quot;summary&quot;:&quot;Omar explicitly self-maps to the progressive self-enhancing quadrant — autonomy and originality as current operating values — with stated aspiration toward progressive self-transcending: advocacy, compassion, service. His revealed behaviour confirms the self-enhancing placement: he operates as a pirate inside navies, refuses to leave Amsterdam until he has achieved something, builds things from scratch rather than joining at steady state, and names &#39;going my own way&#39; as non-negotiable even when it leads to regret. The aspiration toward self-transcending is genuine and recurrent (the BRIDGE civilisational play, the &#39;bee percentage&#39; he wants to increase), but the vault&#39;s behavioural evidence sits solidly in the progressive self-enhancing zone with movement toward the boundary.&quot;,&quot;nearest&quot;:&quot;autonomy&quot;,&quot;confidence&quot;:0.85,&quot;evidence&quot;:[{&quot;file&quot;:&quot;memory/threads/2026-03-27-campfire-intake-transcript.md&quot;,&quot;section&quot;:&quot;Section 4: Values&quot;,&quot;excerpt&quot;:&quot;I never compromise on going my own way, even if it goes against conventional wisdom and even if I come to regret it later.&quot;,&quot;weight&quot;:0.95,&quot;interpretation&quot;:&quot;The single non-negotiable named is autonomy — progressive self-enhancing placement confirmed at the core.&quot;},{&quot;file&quot;:&quot;soul.md&quot;,&quot;section&quot;:&quot;Values Orientation&quot;,&quot;excerpt&quot;:&quot;Currently in the progressive self-enhancing quadrant: autonomy, originality, creative independence. Aspiring toward progressive self-transcending: advocacy, compassion, service.&quot;,&quot;weight&quot;:0.9,&quot;interpretation&quot;:&quot;Explicit self-mapping. The stated gap between current and aspired values is the key signal — the aspiration is genuine but not yet the dominant operating mode.&quot;},{&quot;file&quot;:&quot;soul.md&quot;,&quot;section&quot;:&quot;Values (ranked)&quot;,&quot;excerpt&quot;:&quot;1. Finishing over starting — the word is finish\n2. People over isolation — peak moments involve sparring partners; isolation is where I rot\n3. Story as infrastructure — narrative is load-bearing&quot;,&quot;weight&quot;:0.85,&quot;interpretation&quot;:&quot;Ranked values reveal a mix: finishing (self-enhancing achievement), people (self-transcending connection), story (originality). The ranking itself is a values act — finishing tops connection.&quot;},{&quot;file&quot;:&quot;soul.md&quot;,&quot;section&quot;:&quot;Intellectual Architecture&quot;,&quot;excerpt&quot;:&quot;Formative influence: The Righteous Mind by Jonathan Haidt. Moral intuitions first, reasoning follows. It became a lens, not a reference. &#39;Humans are 90% chimp, 10% bee&#39; — and I want the bee percentage to be higher.&quot;,&quot;weight&quot;:0.8,&quot;interpretation&quot;:&quot;The bee aspiration is a values statement: wanting to shift from individual competitive instinct toward collective contribution. Confirms the progressive self-transcending direction of travel.&quot;},{&quot;file&quot;:&quot;memory/threads/2026-03-27-campfire-intake-transcript.md&quot;,&quot;section&quot;:&quot;Section 4: Values&quot;,&quot;excerpt&quot;:&quot;My value of autonomy gets me in trouble in group work because I will follow my own schedule and kind of coast on the assumption that everyone thinks I&#39;m a genius and will give me the space to cook on my own terms.&quot;,&quot;weight&quot;:0.85,&quot;interpretation&quot;:&quot;Revealed behaviour under pressure: autonomy overrides team coordination. Self-enhancing placement is demonstrated, not just stated. (evidence flagged: excerpt not verbatim match)&quot;}],&quot;gaps&quot;:[&quot;The gap between stated compassion aspiration and revealed velocity/steamrolling behaviour is the sharpest Dunning-Kruger signal in the corpus — the vault names this explicitly (&#39;the compassion I want to lead with gets buried under velocity&#39;) but does not show evidence of this gap closing.&quot;,&quot;Financial values are partially visible (debt, spending patterns, the Amsterdam house deal) but not fully mapped — the relationship between stated values and money behaviour is a known gap that BASIN is designed to address.&quot;]}" />
+      <text x="96.00" y="564.00" class="dot-label" text-anchor="middle">autonomy</text>
+    </g>
+
+    <g class="wheel" data-plane="identity">
+      <text x="600" y="390" class="plane-title" text-anchor="middle">Identity</text>
+      <text x="600" y="410" class="plane-one-line" text-anchor="middle">Who he is to himself — the coherent story he tells about himself, roles he inhabits, the evolving sense of self.</text>
+      <circle cx="600" cy="600" r="160" class="wheel-bg" />
+      <line x1="440" y1="600" x2="760" y2="600" class="axis" />
+      <line x1="600" y1="440" x2="600" y2="760" class="axis" />
+      <text x="436" y="604" class="pole" text-anchor="end">optimistic</text>
+      <text x="764" y="604" class="pole" text-anchor="start">pragmatic</text>
+      <text x="600" y="434" class="pole" text-anchor="middle">facilitator</text>
+      <text x="600" y="776" class="pole" text-anchor="middle">participator</text>
+      <text x="600.0" y="422.0" class="landmark" text-anchor="middle">protagonist</text>
+<text x="668.1" y="435.5" class="landmark" text-anchor="middle">commander</text>
+<text x="725.9" y="474.1" class="landmark" text-anchor="middle">campaigner</text>
+<text x="764.5" y="531.9" class="landmark" text-anchor="middle">executive</text>
+<text x="778.0" y="600.0" class="landmark" text-anchor="middle">designer</text>
+<text x="764.5" y="668.1" class="landmark" text-anchor="middle">inspector</text>
+<text x="725.9" y="725.9" class="landmark" text-anchor="middle">visionary</text>
+<text x="668.1" y="764.5" class="landmark" text-anchor="middle">mastermind</text>
+<text x="600.0" y="778.0" class="landmark" text-anchor="middle">adventurer</text>
+<text x="531.9" y="764.5" class="landmark" text-anchor="middle">virtuoso</text>
+<text x="474.1" y="725.9" class="landmark" text-anchor="middle">mediator</text>
+<text x="435.5" y="668.1" class="landmark" text-anchor="middle">defender</text>
+<text x="422.0" y="600.0" class="landmark" text-anchor="middle">entertainer</text>
+<text x="435.5" y="531.9" class="landmark" text-anchor="middle">consul</text>
+<text x="474.1" y="474.1" class="landmark" text-anchor="middle">composer</text>
+<text x="531.9" y="435.5" class="landmark" text-anchor="middle">supporter</text>
+      <circle cx="504.00" cy="528.00" r="12.8" class="dot" data-payload="{&quot;plane&quot;:&quot;identity&quot;,&quot;title&quot;:&quot;Identity&quot;,&quot;summary&quot;:&quot;Omar&#39;s self-narrative is shaped by two persistent forces: the builder pattern (first graduating class, first BRIDGE pilot, pirate in every navy) and the river metaphor (movement, civilisations along water, the eternal cycle, the gate he hasn&#39;t crossed yet). He identifies most strongly as someone who arrives at pivotal moments and sees the vision before others — a protagonist-campaigner identity. He facilitates and enables (BRIDGE, CRREM, the Year of Interfaith Dialogue) while also doing the work directly (rebuilt the website himself, built the school newspaper, wrote 42,000 words). The self-described misread — &#39;I am capable of changing despite how stubborn I appear. I am soft inside despite sometimes being hard&#39; — names the gap between his presented identity and his felt interior, which is the characteristic identity tension of someone in active identity work.&quot;,&quot;nearest&quot;:&quot;campaigner&quot;,&quot;confidence&quot;:0.8,&quot;evidence&quot;:[{&quot;file&quot;:&quot;soul.md&quot;,&quot;section&quot;:&quot;The Builder Pattern&quot;,&quot;excerpt&quot;:&quot;I am a founder by instinct. I don&#39;t join things at steady state — I join at the beginning or I try to create it.&quot;,&quot;weight&quot;:0.9,&quot;interpretation&quot;:&quot;The builder identity is explicit and consistent across every biographical chapter cited. This is the stable core of self-narrative.&quot;},{&quot;file&quot;:&quot;soul.md&quot;,&quot;section&quot;:&quot;Origin: A Life in Rivers&quot;,&quot;excerpt&quot;:&quot;Rivers are my central metaphor for existence. Every major chapter of my identity maps to a river.&quot;,&quot;weight&quot;:0.85,&quot;interpretation&quot;:&quot;The river metaphor is not incidental — it is the organising schema for self-understanding across time. The BRIDGE name itself is a structural expression of this identity.&quot;},{&quot;file&quot;:&quot;memory/threads/2026-03-27-campfire-intake-transcript.md&quot;,&quot;section&quot;:&quot;Section 5: Identity&quot;,&quot;excerpt&quot;:&quot;I am someone who was raised by the world I was born in Japan. I grew up in Egypt. Across Europe and The US. I studied at Scotland, and then I moved to The Netherlands after graduating.&quot;,&quot;weight&quot;:0.8,&quot;interpretation&quot;:&quot;The geographic identity (&#39;raised by the world&#39;) is foundational — multicultural cosmopolitanism as the self-concept, not any single national identity.&quot;},{&quot;file&quot;:&quot;memory/threads/writing/born-in-the-eccentric-east-raised-in-the-wild-west.md&quot;,&quot;section&quot;:&quot;full&quot;,&quot;excerpt&quot;:&quot;A tagline. An identity line. Japan → UK → Egypt → America → Netherlands. The hyphenation isn&#39;t confusion — it&#39;s range.&quot;,&quot;weight&quot;:0.8,&quot;interpretation&quot;:&quot;The reframe of hyphenation from confusion to range is a self-authoring move: taking what others might read as rootlessness and claiming it as capability.&quot;},{&quot;file&quot;:&quot;soul.md&quot;,&quot;section&quot;:&quot;The Misread I&#39;m Tired Of&quot;,&quot;excerpt&quot;:&quot;I am capable of changing despite how stubborn I appear. I am soft inside despite sometimes being hard or difficult. I am capable of deep listening.&quot;,&quot;weight&quot;:0.85,&quot;interpretation&quot;:&quot;The named misread reveals the gap between presented and interior identity — the self Omar wants to be known as versus the self others observe. This tension is active and unresolved.&quot;}],&quot;gaps&quot;:[&quot;The vault is rich on biographical identity narrative but thinner on current identity — who Omar is right now in Amsterdam, post-layoff, pre-house-purchase, building BRIDGE — compared to the retrospective chapters.&quot;,&quot;The fears section (&#39;ending up alone, without friends or love&#39; as the first fear) suggests an attachment dimension of identity that is named but not elaborated in the corpus — the relational self is present but underexplored relative to the builder self.&quot;]}" />
+      <text x="504.00" y="532.00" class="dot-label" text-anchor="middle">campaigner</text>
+    </g>
+
+    <g class="wheel" data-plane="mission">
+      <text x="1000" y="390" class="plane-title" text-anchor="middle">Mission</text>
+      <text x="1000" y="410" class="plane-one-line" text-anchor="middle">What he is here to do — long-arc commitments, the work itself, the bridge metaphor he keeps returning to.</text>
+      <circle cx="1000" cy="600" r="160" class="wheel-bg" />
+      <line x1="840" y1="600" x2="1160" y2="600" class="axis" />
+      <line x1="1000" y1="440" x2="1000" y2="760" class="axis" />
+      <text x="836" y="604" class="pole" text-anchor="end">flexibility</text>
+      <text x="1164" y="604" class="pole" text-anchor="start">control</text>
+      <text x="1000" y="434" class="pole" text-anchor="middle">external</text>
+      <text x="1000" y="776" class="pole" text-anchor="middle">internal</text>
+      <text x="1000.0" y="422.0" class="landmark" text-anchor="middle">connection</text>
+<text x="1125.9" y="474.1" class="landmark" text-anchor="middle">reputation</text>
+<text x="1178.0" y="600.0" class="landmark" text-anchor="middle">inspiration</text>
+<text x="1125.9" y="725.9" class="landmark" text-anchor="middle">investment</text>
+<text x="1000.0" y="778.0" class="landmark" text-anchor="middle">imagination</text>
+<text x="874.1" y="725.9" class="landmark" text-anchor="middle">improvement</text>
+<text x="822.0" y="600.0" class="landmark" text-anchor="middle">incubation</text>
+<text x="874.1" y="474.1" class="landmark" text-anchor="middle">self-direction</text>
+      <circle cx="1048.00" cy="488.00" r="13.2" class="dot" data-payload="{&quot;plane&quot;:&quot;mission&quot;,&quot;title&quot;:&quot;Mission&quot;,&quot;summary&quot;:&quot;The mission is explicitly and repeatedly named: BRIDGE — aligning humans to themselves and to each other before AI disrupts everything. The 42,000-word vision document, the seven years of obsession, the &#39;civilisational play&#39; framing, and the &#39;I want to see this take off before AGI arrives&#39; urgency all confirm a world-facing mission with high stakes and long arc. The current execution path (CRREM pilot, proof before spectacle, service before product) shows a controlled, deliberate trajectory rather than open-ended optionality — Omar is not exploring what his mission might be, he knows it and is executing a sequenced plan toward it. The x-axis placement leans toward control because the mission is directed and owned, not exploratory; the y-axis is strongly external because the mission is explicitly civilisational and world-facing rather than self-cultivating.&quot;,&quot;nearest&quot;:&quot;inspiration&quot;,&quot;confidence&quot;:0.87,&quot;evidence&quot;:[{&quot;file&quot;:&quot;soul.md&quot;,&quot;section&quot;:&quot;Legacy&quot;,&quot;excerpt&quot;:&quot;BRIDGE. The one word. The vision no one else sees yet. The civilizational play. &#39;I want to see this take off before AGI arrives.&#39;&quot;,&quot;weight&quot;:0.95,&quot;interpretation&quot;:&quot;The mission is collapsed to a single word with civilisational stakes and temporal urgency. External, directed, owned — all three.&quot;},{&quot;file&quot;:&quot;work/active/bridge/bridge-vision-v8.md&quot;,&quot;section&quot;:&quot;A Letter&quot;,&quot;excerpt&quot;:&quot;The central bet — that human self-knowledge and economic ownership are the two bridges that determine whether AI makes things better or worse — that one I&#39;d stake everything on. I have, actually. This is it.&quot;,&quot;weight&quot;:0.95,&quot;interpretation&quot;:&quot;The staking-everything framing confirms that BRIDGE is not a project but a mission — the organising principle of a life, not a career move.&quot;},{&quot;file&quot;:&quot;memory/threads/2026-03-27-campfire-intake-transcript.md&quot;,&quot;section&quot;:&quot;Section 6: Mission&quot;,&quot;excerpt&quot;:&quot;It&#39;s an operating system to align humans to each other and to themselves before AI disrupts and accelerates every aspect of our society. The opportunity is to revolutionise the way we work and relate to the economy and to our sense of purpose and each other.&quot;,&quot;weight&quot;:0.9,&quot;interpretation&quot;:&quot;The mission is world-facing (external axis) and explicitly about changing systems, not self-cultivation.&quot;},{&quot;file&quot;:&quot;soul.md&quot;,&quot;section&quot;:&quot;Career Pattern&quot;,&quot;excerpt&quot;:&quot;The pattern: movement + curiosity = collision = next chapter. Chance encounters are the mechanism, not networking.&quot;,&quot;weight&quot;:0.75,&quot;interpretation&quot;:&quot;The career pattern reveals mission-level operating logic: open to serendipitous collisions but always carrying the same underlying direction. Flexibility in mechanism, control in direction.&quot;},{&quot;file&quot;:&quot;memory/notes/beliefs-and-shifts.md&quot;,&quot;section&quot;:&quot;2026-03-31&quot;,&quot;excerpt&quot;:&quot;The right near-term path is not a giant product reveal. It is a real pilot inside CRREM that produces evidence, trust, and usable workflows.&quot;,&quot;weight&quot;:0.8,&quot;interpretation&quot;:&quot;The service-first sequencing decision confirms controlled trajectory: mission is directed and deliberate, not exploratory. The x-axis leans toward control even though the vision is broad.&quot;}],&quot;gaps&quot;:[&quot;The gap between the civilisational ambition of BRIDGE and the current financial reality (debt repayment, €4,800/month, 12-week north star focused on security) is the sharpest tension in the mission plane — whether the long-arc mission and the near-term survival constraints are genuinely integrated or running in parallel is not fully visible.&quot;,&quot;The &#39;why does it have to be you&#39; answer (&#39;It doesn&#39;t have to be me. I just feel like I&#39;m onto something&#39;) suggests the mission is more held as a felt calling than as a argued claim — the vault does not show extended engagement with the strongest counter-arguments to why Omar specifically should be the one to build this.&quot;]}" />
+      <text x="1048.00" y="492.00" class="dot-label" text-anchor="middle">inspiration</text>
+    </g>
+  </svg>
+  <aside class="panel" id="panel">
+    <h2>Click a dot to see evidence</h2>
+    <div class="meta">Each plane shows Omar's current position, the nearest landmark, the model's summary, and the verbatim vault quotes that anchor it.</div>
+    <div class="empty">Nothing selected.</div>
+  </aside>
+</div>
+<script>
+  const panel = document.getElementById("panel");
+  function renderPanel(payload) {
+    const pct = Math.round(payload.confidence * 100);
+    const evidenceHtml = (payload.evidence || []).map(function (e) {
+      return '<li><div class="quote">' + escape(e.excerpt) + '</div><div class="file">' + escape(e.file) + (e.section ? ' &middot; ' + escape(e.section) : '') + '</div>' + (e.interpretation ? '<div style="margin-top:4px;font-size:12px;color:#5b5852;">' + escape(e.interpretation) + '</div>' : '') + '</li>';
+    }).join("");
+    const gapsHtml = (payload.gaps || []).map(function (g) {
+      return '<li>' + escape(g) + '</li>';
+    }).join("");
+    panel.innerHTML =
+      '<h2>' + escape(payload.title) + '</h2>' +
+      '<div class="meta">Nearest landmark: <strong>' + escape(payload.nearest) + '</strong> &middot; Confidence ' + pct + '%</div>' +
+      '<div class="summary">' + escape(payload.summary) + '</div>' +
+      (evidenceHtml ? '<div><strong>Evidence</strong><ul>' + evidenceHtml + '</ul></div>' : '<div class="empty">No evidence quotes captured for this plane.</div>') +
+      (gapsHtml ? '<div><strong>Gaps</strong><ul>' + gapsHtml + '</ul></div>' : '');
+  }
+  function escape(s) {
+    return String(s || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+  document.querySelectorAll(".dot").forEach(function (el) {
+    el.addEventListener("click", function () {
+      try {
+        const payload = JSON.parse(el.getAttribute("data-payload") || "{}");
+        renderPanel(payload);
+      } catch (e) {
+        console.error(e);
+      }
+    });
+  });
+</script>
+</body>
+</html>
