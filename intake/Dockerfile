@@ -13,6 +13,7 @@ COPY package.json package-lock.json* ./
 RUN npm install --omit=dev || npm install --production
 
 COPY src ./src
+COPY public ./public
 COPY test ./test
 
 ENV STATE_DIR=/opt/data
