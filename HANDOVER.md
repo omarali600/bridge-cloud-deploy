@@ -178,7 +178,7 @@ Do NOT:
 - Touch openclaw/workspace-*/IDENTITY.md or PRINCIPAL.md — different workstream, leave them dirty.
 - Revert to Fraunces/cream/newsprint — the v5 Mario-quartet + Space Grotesk system is locked and approved.
 - Use italics on sans-serif anywhere.
-- Call Bridget (or any agent) "the heron" in a way Omar dislikes — roles are: Bridget=Postmaster, Beatrix=Explorer's companion, Basil=Integrator's companion, Benson=Executor's companion, Clem=CRREM's house agent.
+- Use the "heron at the edge of the pond" metaphor (or any creature totem) for Bridget. Omar removed it as tacky/pseudo-intellectual (2026-05-21). Describe her per vision-v8 §6.8: orchestrator + postmaster. Roles: Bridget=Postmaster, Beatrix=Explorer's companion, Basil=Integrator's companion, Benson=Executor's companion, Clem=CRREM's house agent.
 - Commit to main directly. Stay on the feature branch until merge.
 - Re-fetch the gstack article — its sequence is captured in HANDOVER §2.
 

@@ -1027,7 +1027,7 @@
     {
       "id": "bridget",
       "name": "Bridget",
-      "english": "Orchestrator. Grey heron at the edge of the pond. Routes every inbound thing, sets register, runs the Sunday review, runs reflection cadences, holds the life-map state.",
+      "english": "Orchestrator and postmaster. Everything inbound flows through her: she names it, routes it to the right agent, and sets the register. She runs the daily and weekly newsletter, the campfire intake, and the Sunday review. A postal service, a switchboard, and a casting director. She does not do the work; she knows who should.",
       "principal": "Omar Ali (person)",
       "workspace": "openclaw/workspace-bridget/",
       "current_register": "standard",
