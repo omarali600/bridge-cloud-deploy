@@ -1001,9 +1001,9 @@
     {
       "id": "sharepoint",
       "name": "SharePoint \u00b7 CRREM tenant",
-      "english": "Clem reads CRREM's SharePoint library. App is registered; Sites.Read.All consent granted; needs the new client secret to fully activate.",
-      "status": "your move",
-      "setup": "Open Azure Portal (dashboard Section VII has the one-click link). Mint a new client secret. Hand it back to me in chat. I wire it into Render env vars.",
+      "english": "Clem reads CRREM's SharePoint library. App registered, Sites.Read.All consent granted, client secret wired into Render. Live.",
+      "status": "live",
+      "setup": "Done. Client secret is set on the bridge-intake Render service (MICROSOFT_CLIENT_SECRET). To rotate: mint a new secret in Azure Portal and update that env var.",
       "test": "Once wired: curl -sS https://bridge-intake.onrender.com/admin/sharepoint/test should list CRREM sites."
     },
     {
@@ -1065,7 +1065,7 @@
       "principal": "Omar Ali (person)",
       "workspace": "openclaw/workspace-basil/",
       "current_register": "at rest",
-      "status": "live, lightweight",
+      "status": "dormant (not in use yet)",
       "setup": "Already running.",
       "test": "ls openclaw/workspace-basil/ \u2014 IDENTITY.md exists."
     },
@@ -1076,7 +1076,7 @@
       "principal": "Omar Ali (person)",
       "workspace": "openclaw/workspace-benson/",
       "current_register": "at rest",
-      "status": "live, lightweight",
+      "status": "dormant (not in use yet)",
       "setup": "Already running.",
       "test": "ls openclaw/workspace-benson/ \u2014 IDENTITY.md exists."
     }
@@ -1087,8 +1087,8 @@
       "plist": "com.omar.bridge.audit-digest.plist",
       "english": "Sunday 19:00 \u2014 Bridget sends the weekly audit digest to your Telegram. Specimen in Section VIII.",
       "schedule": "Sunday 19:00",
-      "status": "ready, not loaded",
-      "setup": "launchctl load ~/Library/LaunchAgents/com.omar.bridge.audit-digest.plist",
+      "status": "loaded",
+      "setup": "Already loaded and live. To reload after changes: launchctl load ~/Library/LaunchAgents/com.omar.bridge.audit-digest.plist",
       "test": "launchctl start com.omar.bridge.audit-digest \u2192 Telegram message arrives."
     },
     {
@@ -1096,8 +1096,8 @@
       "plist": "com.omar.bridge.undo-prune.plist",
       "english": "Hourly \u2014 prunes expired undo handles from the audit log. Garbage collection for the 24h-undo system.",
       "schedule": "every hour",
-      "status": "ready, not loaded",
-      "setup": "launchctl load ~/Library/LaunchAgents/com.omar.bridge.undo-prune.plist",
+      "status": "loaded",
+      "setup": "Already loaded and live. To reload after changes: launchctl load ~/Library/LaunchAgents/com.omar.bridge.undo-prune.plist",
       "test": "Inspect ~/.bridge/audit/undo-handles.jsonl \u2014 entries older than 24h should be gone after first run."
     },
     {
@@ -1105,8 +1105,8 @@
       "plist": "com.omar.bridge.coordinates.plist",
       "english": "Monthly \u2014 refreshes the coordinate engine over your vault. Produces a new soul document + shift report.",
       "schedule": "1st of month, 06:00",
-      "status": "ready, not loaded",
-      "setup": "launchctl load ~/Library/LaunchAgents/com.omar.bridge.coordinates.plist",
+      "status": "loaded",
+      "setup": "Already loaded and live. To reload after changes: launchctl load ~/Library/LaunchAgents/com.omar.bridge.coordinates.plist",
       "test": "launchctl start com.omar.bridge.coordinates \u2192 new run appears in ~/.bridge/coordinates/runs/"
     },
     {
@@ -1114,8 +1114,8 @@
       "plist": "com.omar.bridge.discovery.newsletter-daily.plist",
       "english": "Daily 08:00 \u2014 Bridget's morning newsletter to Telegram.",
       "schedule": "every day, 08:00",
-      "status": "ready, not loaded",
-      "setup": "launchctl load ~/Library/LaunchAgents/com.omar.bridge.discovery.newsletter-daily.plist",
+      "status": "loaded",
+      "setup": "Already loaded and live. To reload after changes: launchctl load ~/Library/LaunchAgents/com.omar.bridge.discovery.newsletter-daily.plist",
       "test": "Wait for tomorrow 08:00, or launchctl start to trigger."
     },
     {
@@ -1123,8 +1123,8 @@
       "plist": "com.omar.bridge.discovery.newsletter-weekly.plist",
       "english": "Sunday 18:00 \u2014 weekly newsletter to Telegram.",
       "schedule": "Sunday 18:00",
-      "status": "ready, not loaded",
-      "setup": "launchctl load ~/Library/LaunchAgents/com.omar.bridge.discovery.newsletter-weekly.plist",
+      "status": "loaded",
+      "setup": "Already loaded and live. To reload after changes: launchctl load ~/Library/LaunchAgents/com.omar.bridge.discovery.newsletter-weekly.plist",
       "test": "launchctl start com.omar.bridge.discovery.newsletter-weekly"
     },
     {
@@ -1132,8 +1132,8 @@
       "plist": "com.omar.bridge.discovery.far-field.plist",
       "english": "Saturday 10:00 \u2014 surfaces activity from distant parts of your coordinate map. Anti-bubble.",
       "schedule": "Saturday 10:00",
-      "status": "ready, not loaded",
-      "setup": "launchctl load ~/Library/LaunchAgents/com.omar.bridge.discovery.far-field.plist",
+      "status": "loaded",
+      "setup": "Already loaded and live. To reload after changes: launchctl load ~/Library/LaunchAgents/com.omar.bridge.discovery.far-field.plist",
       "test": "launchctl start com.omar.bridge.discovery.far-field"
     },
     {
@@ -1141,8 +1141,8 @@
       "plist": "com.omar.bridge.discovery.weak-tie.plist",
       "english": "Daily 11:00 \u2014 scans network for weak-tie reactivation candidates.",
       "schedule": "every day, 11:00",
-      "status": "ready, not loaded",
-      "setup": "launchctl load ~/Library/LaunchAgents/com.omar.bridge.discovery.weak-tie.plist",
+      "status": "loaded",
+      "setup": "Already loaded and live. To reload after changes: launchctl load ~/Library/LaunchAgents/com.omar.bridge.discovery.weak-tie.plist",
       "test": "launchctl start com.omar.bridge.discovery.weak-tie"
     },
     {
@@ -1150,8 +1150,8 @@
       "plist": "com.omar.bridge.discovery.resonance.plist",
       "english": "Friday 16:00 \u2014 surfaces resonance (two people in your world arriving at same theme).",
       "schedule": "Friday 16:00",
-      "status": "ready, not loaded",
-      "setup": "launchctl load ~/Library/LaunchAgents/com.omar.bridge.discovery.resonance.plist",
+      "status": "loaded",
+      "setup": "Already loaded and live. To reload after changes: launchctl load ~/Library/LaunchAgents/com.omar.bridge.discovery.resonance.plist",
       "test": "launchctl start com.omar.bridge.discovery.resonance"
     },
     {
@@ -1159,8 +1159,8 @@
       "plist": "com.omar.bridge.discovery.structural-holes.plist",
       "english": "Sunday 11:00 \u2014 scans for bridgeable gaps in your network.",
       "schedule": "Sunday 11:00",
-      "status": "ready, not loaded",
-      "setup": "launchctl load ~/Library/LaunchAgents/com.omar.bridge.discovery.structural-holes.plist",
+      "status": "loaded",
+      "setup": "Already loaded and live. To reload after changes: launchctl load ~/Library/LaunchAgents/com.omar.bridge.discovery.structural-holes.plist",
       "test": "launchctl start com.omar.bridge.discovery.structural-holes"
     },
     {
@@ -1168,8 +1168,8 @@
       "plist": "com.omar.bridge.activation.scan.plist",
       "english": "Every 5 minutes \u2014 Bridget's activation engine scans for proactive check-in opportunities.",
       "schedule": "every 5 min",
-      "status": "ready, not loaded",
-      "setup": "launchctl load ~/Library/LaunchAgents/com.omar.bridge.activation.scan.plist",
+      "status": "loaded",
+      "setup": "Already loaded and live. To reload after changes: launchctl load ~/Library/LaunchAgents/com.omar.bridge.activation.scan.plist",
       "test": "Check ~/.bridge/check-ins/queue.jsonl for new entries."
     },
     {
@@ -1177,8 +1177,8 @@
       "plist": "com.omar.bridge.activation.nightly-sweep.plist",
       "english": "Nightly 03:30 \u2014 expires stale check-ins from the queue.",
       "schedule": "every day, 03:30",
-      "status": "ready, not loaded",
-      "setup": "launchctl load ~/Library/LaunchAgents/com.omar.bridge.activation.nightly-sweep.plist",
+      "status": "loaded",
+      "setup": "Already loaded and live. To reload after changes: launchctl load ~/Library/LaunchAgents/com.omar.bridge.activation.nightly-sweep.plist",
       "test": "Inspect ~/.bridge/check-ins/queue.jsonl after first run \u2014 TTL-expired entries gone."
     },
     {
@@ -1186,8 +1186,8 @@
       "plist": "com.omar.bridge.chronicle.watch.plist",
       "english": "Continuous watcher \u2014 every shipped artifact gets a permanent chronicle ledger entry.",
       "schedule": "always on",
-      "status": "ready, not loaded",
-      "setup": "launchctl load ~/Library/LaunchAgents/com.omar.bridge.chronicle.watch.plist",
+      "status": "loaded",
+      "setup": "Already loaded and live. To reload after changes: launchctl load ~/Library/LaunchAgents/com.omar.bridge.chronicle.watch.plist",
       "test": "Ship something (close a commit, deliver an artifact) \u2014 chronicle entry appears."
     },
     {
@@ -1195,8 +1195,8 @@
       "plist": "com.omar.bridge.chronicle.provenance.plist",
       "english": "Daily \u2014 detects when someone builds on something you wrote. Your ideas propagating.",
       "schedule": "every day, 12:00",
-      "status": "ready, not loaded",
-      "setup": "launchctl load ~/Library/LaunchAgents/com.omar.bridge.chronicle.provenance.plist",
+      "status": "loaded",
+      "setup": "Already loaded and live. To reload after changes: launchctl load ~/Library/LaunchAgents/com.omar.bridge.chronicle.provenance.plist",
       "test": "launchctl start com.omar.bridge.chronicle.provenance"
     },
     {
@@ -1204,8 +1204,8 @@
       "plist": "com.omar.bridge.chronicle.reputation-render.plist",
       "english": "Weekly \u2014 renders your reputation lattice from completed work.",
       "schedule": "Sunday 14:00",
-      "status": "ready, not loaded",
-      "setup": "launchctl load ~/Library/LaunchAgents/com.omar.bridge.chronicle.reputation-render.plist",
+      "status": "loaded",
+      "setup": "Already loaded and live. To reload after changes: launchctl load ~/Library/LaunchAgents/com.omar.bridge.chronicle.reputation-render.plist",
       "test": "launchctl start com.omar.bridge.chronicle.reputation-render \u2192 ~/.bridge/chronicle/reputation.html updated."
     },
     {
@@ -1213,8 +1213,8 @@
       "plist": "com.omar.bridge.chronicle.currencies-weekly.plist",
       "english": "Weekly \u2014 tallies four-currency tracking (money, time, data, IP).",
       "schedule": "Sunday 15:00",
-      "status": "ready, not loaded",
-      "setup": "launchctl load ~/Library/LaunchAgents/com.omar.bridge.chronicle.currencies-weekly.plist",
+      "status": "loaded",
+      "setup": "Already loaded and live. To reload after changes: launchctl load ~/Library/LaunchAgents/com.omar.bridge.chronicle.currencies-weekly.plist",
       "test": "launchctl start com.omar.bridge.chronicle.currencies-weekly"
     },
     {
@@ -1222,8 +1222,8 @@
       "plist": "com.omar.bridge.memory.crossgen.plist",
       "english": "Weekly \u2014 looks for cross-generational notes (today's writing connecting to years-ago writing).",
       "schedule": "Sunday 16:00",
-      "status": "ready, not loaded",
-      "setup": "launchctl load ~/Library/LaunchAgents/com.omar.bridge.memory.crossgen.plist",
+      "status": "loaded",
+      "setup": "Already loaded and live. To reload after changes: launchctl load ~/Library/LaunchAgents/com.omar.bridge.memory.crossgen.plist",
       "test": "launchctl start com.omar.bridge.memory.crossgen"
     }
   ],
@@ -1537,6 +1537,47 @@
       ],
       "setup": "Part of bridge-ai monorepo.",
       "test": "cd ~/Documents/_projects/bridge-ai/packages/coordinate-engine && bun run tests/runner.mts"
+    }
+  ],
+  "activations": [
+    {
+      "id": "sharepoint-sync",
+      "n": 98,
+      "label": "SharePoint sync",
+      "english": "Secret set on Render. Clem now reads CRREM's SharePoint library.",
+      "status": "done",
+      "cleared": "just now"
+    },
+    {
+      "id": "sunday-digest",
+      "n": 92,
+      "label": "Sunday audit digest",
+      "english": "Daemon loaded. Every Sunday 19:00, Bridget's weekly letter lands on your Telegram.",
+      "status": "done",
+      "cleared": "just now"
+    },
+    {
+      "id": "voice-first-call",
+      "label": "First call to the voice line",
+      "english": "+31 97 010 208320 is live on Twilio but never tested end to end. The first real call confirms it picks up and routes to Bridget.",
+      "status": "pending",
+      "eta": "~1 min, your call",
+      "cta_label": "Call the line",
+      "cta_href": "tel:+3197010208320"
+    },
+    {
+      "id": "voicememo-watcher",
+      "label": "Voice-memo capture",
+      "english": "Optional. Load the local watcher and iOS voice memos flow into Beatrix's Polanyi capture (#89).",
+      "status": "optional",
+      "cmd": "launchctl load ~/Library/LaunchAgents/com.omar.bridge.voice-memos.plist"
+    },
+    {
+      "id": "photo-watcher",
+      "label": "Photo capture",
+      "english": "Optional. Load the local watcher and iOS photos auto-route: receipts to finance, cards to people-graph (#5).",
+      "status": "optional",
+      "cmd": "launchctl load ~/Library/LaunchAgents/com.omar.bridge.photos.plist"
     }
   ]
 }

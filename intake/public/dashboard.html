@@ -255,6 +255,72 @@
     footer ul li a:hover{color:#fff}
     footer .bar{margin-top:40px;padding-top:18px;border-top:1px solid rgba(255,255,255,.1);display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,.45);letter-spacing:.04em;flex-wrap:wrap;gap:12px}
 
+    /* v5.1 — pills, activations, agents, instructive layer */
+    .pill.do{background:var(--ember-bg);color:var(--ember)}
+    .pill.do .led{background:currentColor}
+    .pill.skipped{background:var(--grey-100);color:var(--ink-fade)}
+    .pill.skipped .led{background:currentColor}
+
+    .agent .agent-drawer{display:none}
+    .agent.open{grid-column:1/-1;text-align:left;display:flex;gap:24px;align-items:flex-start;cursor:default}
+    .agent.open:hover{transform:none;box-shadow:var(--shadow-card);border-color:var(--hairline)}
+    .agent.open .agent-portrait{width:128px;flex:0 0 128px;aspect-ratio:1;margin-bottom:0}
+    .agent.open .agent-main{flex:0 0 148px}
+    .agent.open .agent-drawer{display:block;flex:1;min-width:0;border-left:1px solid var(--hairline);padding-left:24px}
+    .agent.open .agent-drawer .drawer{border:0;padding:0;margin:0}
+    .agent .drawer-lead{font-size:13.5px;line-height:1.55;color:var(--ink-soft);margin:0 0 6px;max-width:none}
+
+    .move-card-c.done{border-color:var(--green-300);border-left-color:var(--green-500);cursor:default}
+    .move-card-c.done:hover{transform:none;box-shadow:none;background:#fff}
+    .move-card-c.done .id,.move-card-c.done .cta{color:var(--green-700)}
+    .move-card-c.done .id .led{display:none}
+    .move-card-c.done h4{color:var(--ink-mid)}
+    .move-card-c.done .cta{cursor:default}
+    .move-card-c.done .cta::after{content:''}
+    .move-card-c .check{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:var(--green-500);color:#fff;margin-right:7px;vertical-align:-4px}
+    .move-card-c .check .material-symbols-rounded{font-size:13px}
+    .move-card-c.optional{border-color:var(--hairline);border-left-color:var(--ink-ghost);background:var(--off)}
+    .move-card-c.optional:hover{box-shadow:var(--shadow-card);background:#fff;transform:translateY(-2px)}
+    .move-card-c.optional .id{color:var(--ink-mid)}
+    .move-card-c.optional .id .led{background:var(--ink-ghost);animation:none}
+
+    .move-item.done{cursor:default}
+    .move-item.done:hover{transform:none;border-color:var(--hairline);box-shadow:none}
+    .move-item.done .n{color:var(--moss);display:inline-flex;align-items:center;font-size:18px}
+    .move-item.done .t{color:var(--ink-mid)}
+    .move-item.done .pill{margin-left:auto}
+    .move-item.optional .n{color:var(--ink-fade)}
+
+    .howto{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:24px;padding:12px 18px;background:var(--blue-band);border:1px solid var(--blue-100);border-radius:10px;font-size:13px;color:var(--ink-soft)}
+    .howto .sep{color:var(--ink-ghost)}
+    .howto .k{font-family:'JetBrains Mono',monospace;font-size:11px;background:#fff;border:1px solid var(--hairline);border-bottom-width:2px;border-radius:5px;padding:1px 6px;color:var(--ink);margin:0 1px}
+    .howto .more{margin-left:auto;font-weight:600;color:var(--cobalt);cursor:pointer;background:none;border:0;font-family:'Rubik',sans-serif;font-size:13px;display:inline-flex;align-items:center;gap:6px}
+    .howto .more:hover{text-decoration:underline}
+
+    .sec-tools{display:inline-flex;gap:6px;margin-top:14px}
+    .sec-btn{font-family:'Rubik',sans-serif;font-size:11px;font-weight:600;letter-spacing:.03em;color:var(--ink-mid);background:#fff;border:1px solid var(--hairline);border-radius:6px;padding:4px 10px;cursor:pointer;transition:background .12s,color .12s,border-color .12s}
+    .sec-btn:hover{background:var(--blue-100);border-color:var(--blue-300);color:var(--blue-700)}
+
+    .overlay{position:fixed;inset:0;z-index:300;background:rgba(19,22,37,.55);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;padding:24px}
+    .overlay.show{display:flex}
+    .overlay-card{background:#fff;border-radius:16px;max-width:430px;width:100%;padding:30px 32px;box-shadow:0 24px 64px rgba(0,0,0,.3)}
+    .overlay-card h3{font-family:'Space Grotesk',sans-serif;font-size:21px;margin-bottom:2px}
+    .overlay-card .osub{font-size:13px;color:var(--ink-mid);margin-bottom:18px}
+    .overlay-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--hairline-soft);font-size:14px;color:var(--ink-soft)}
+    .overlay-row:last-of-type{border-bottom:0}
+    .overlay kbd{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:var(--grey-100);border:1px solid var(--hairline);border-bottom-width:2px;border-radius:5px;padding:2px 8px;color:var(--ink)}
+    .overlay-close{margin-top:18px;width:100%;padding:11px;border:0;border-radius:8px;background:var(--cobalt);color:#fff;font-family:'Rubik',sans-serif;font-weight:500;font-size:14px;cursor:pointer}
+    .overlay-close:hover{background:var(--cobalt-2)}
+
+    .card:focus-visible,.agent:focus-visible,.row:focus-visible{outline:2px solid var(--cobalt);outline-offset:2px}
+    .search-empty{display:none;padding:30px 24px;margin:0 0 8px;text-align:center;color:var(--ink-mid);font-size:14px;background:var(--off);border:1px dashed var(--hairline);border-radius:10px}
+    .search-empty.show{display:block}
+    .search-empty b{color:var(--ink)}
+
+    @media(prefers-reduced-motion:reduce){
+      *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+    }
+
     .search-hide{display:none!important}
 
     .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(140%);background:var(--ink);color:#fff;padding:14px 22px;border-radius:10px;font-size:14px;font-weight:500;box-shadow:0 12px 32px rgba(0,0,0,.32);z-index:200;transition:transform .3s cubic-bezier(.2,.7,.3,1.2);display:flex;align-items:center;gap:12px;max-width:560px}
@@ -283,12 +349,14 @@
 
   <main>
 
+  <div class="search-empty" id="search-empty"></div>
+
   <section id="hero" class="hero">
     <div class="container">
       <div class="hero-grid">
         <div>
           <span class="eyebrow"><span class="dot"></span><span id="hero-date">Field operations</span></span>
-          <h1>Hi Omar.<br>Eighty-six things <em>are running</em>.<br><span id="hero-pending-line">Three are <em>waiting on you</em>.</span></h1>
+          <h1>Hi Omar.<br>Eighty-six things <em>are running</em>.<br><span id="hero-pending-line">One thing is <em>waiting on you</em>.</span></h1>
           <p class="hero-deck">A platform, a philosophy, and a protocol for human alignment. The agents that listen, the cloud that holds, the actions waiting on you. <strong>Click any card to see what it does and how to test it.</strong></p>
           <div class="hero-cta">
             <a class="btn btn-primary" href="#your-move">Resolve activations <span class="material-symbols-rounded">arrow_forward</span></a>
@@ -297,20 +365,27 @@
         </div>
         <div class="snapshot">
           <h4>Status · live</h4>
-          <div class="snapshot-row"><span>Built &amp; tested</span><span class="val moss" id="snap-built">86</span></div>
-          <div class="snapshot-row"><span>Pending</span><span class="val" id="snap-pending">0</span></div>
+          <div class="snapshot-row"><span>Built &amp; tested</span><span class="val moss cu" id="snap-built">86</span></div>
+          <div class="snapshot-row"><span>Your move</span><span class="val ember" id="snap-pending">1</span></div>
           <div class="snapshot-row"><span>Skipped</span><span class="val" id="snap-skipped">14</span></div>
           <div class="snapshot-row"><span>Cloud services</span><span class="val moss" id="snap-cloud">5 / 5</span></div>
-          <div class="snapshot-row"><span>Inboxes polling</span><span class="val" id="snap-polling">3</span></div>
-          <div class="snapshot-row"><span>Launch agents loaded</span><span class="val ember" id="snap-launchd">0 / 16</span></div>
+          <div class="snapshot-row"><span>Inboxes polling</span><span class="val" id="snap-polling">—</span></div>
+          <div class="snapshot-row"><span>Launch agents</span><span class="val moss" id="snap-launchd">16 / 16</span></div>
           <div class="snapshot-row"><span class="mono">last check</span><span class="val mono" id="snap-last">—</span></div>
         </div>
       </div>
       <div class="metrics">
-        <div class="metric"><div class="num cobalt" id="m-built">86</div><div class="lbl">capabilities built</div></div>
-        <div class="metric"><div class="num ember" id="m-pending">3</div><div class="lbl">your move</div></div>
-        <div class="metric"><div class="num moss">~500</div><div class="lbl">tests passing</div></div>
-        <div class="metric"><div class="num" id="m-skipped">14</div><div class="lbl">skipped</div></div>
+        <div class="metric"><div class="num cobalt cu" id="m-built">86</div><div class="lbl">capabilities built</div></div>
+        <div class="metric"><div class="num ember cu" id="m-pending">1</div><div class="lbl">your move</div></div>
+        <div class="metric"><div class="num moss cu" id="m-tests">~500</div><div class="lbl">tests passing</div></div>
+        <div class="metric"><div class="num cu" id="m-skipped">14</div><div class="lbl">skipped</div></div>
+      </div>
+      <div class="howto">
+        <span><strong>New here?</strong> Click any card to see what it does and how to test it.</span>
+        <span class="sep">·</span><span>Press <span class="k">/</span> to search</span>
+        <span class="sep">·</span><span><span class="k">e</span>/<span class="k">c</span> expand or collapse all</span>
+        <span class="sep">·</span><span>everything <span style="color:var(--moss);font-weight:600">green</span> is live</span>
+        <button class="more" type="button" onclick="toggleHelp(true)">Keyboard shortcuts <span class="k">?</span></button>
       </div>
     </div>
   </section>
@@ -322,13 +397,7 @@
         <h2>Five agents, <em>five principals</em>.</h2>
         <p class="meta">Each agent serves exactly one principal. Click any portrait to expand its drawer.</p>
       </div>
-      <div class="agents-grid">
-        <a class="agent" href="#"><div class="agent-portrait"><img data-agent="bridget" alt="Bridget"></div><div class="name">Bridget</div><div class="role">Postmaster</div><span class="active-tag"><span class="led"></span>Active</span><div class="principal">Omar Ali</div></a>
-        <a class="agent" href="#"><div class="agent-portrait"><img data-agent="beatrix" alt="Beatrix"></div><div class="name">Beatrix</div><div class="role">Explorer's companion</div><span class="active-tag"><span class="led"></span>Active</span><div class="principal">Omar Ali</div></a>
-        <a class="agent dormant" href="#"><div class="agent-portrait"><img data-agent="basil" alt="Basil"></div><div class="name">Basil</div><div class="role">Integrator's companion</div><div class="dormant-tag">Dormant</div><div class="principal">Omar Ali</div></a>
-        <a class="agent dormant" href="#"><div class="agent-portrait"><img data-agent="benson" alt="Benson"></div><div class="name">Benson</div><div class="role">Executor's companion</div><div class="dormant-tag">Dormant</div><div class="principal">Omar Ali</div></a>
-        <a class="agent" href="#"><div class="agent-portrait"><img data-agent="clem" alt="Clem"></div><div class="name">Clem</div><div class="role">CRREM's house agent</div><span class="active-tag"><span class="led"></span>Active</span><div class="principal">CRREM</div></a>
-      </div>
+      <div class="agents-grid" id="agents-grid"></div>
     </div>
   </section>
 
@@ -337,14 +406,10 @@
       <div class="your-move">
         <div>
           <span class="eyebrow">Your move</span>
-          <h2>Three activations between you and a fully autonomous BRIDGE.</h2>
-          <p>The code is shipped. The cloud is running. These three taps connect the last pipes — SharePoint reads, the Sunday digest, and the voice line.</p>
+          <h2 id="ym-heading">One activation between you and a fully autonomous BRIDGE.</h2>
+          <p id="ym-sub">The code is shipped, the cloud is running, two pipes just got connected. One tap is left, plus a couple of optional extras whenever you want them.</p>
         </div>
-        <div class="move-list">
-          <a class="move-item" href="#move-1"><span class="n">01</span><span class="t">Mint the SharePoint client secret</span><span class="material-symbols-rounded">arrow_forward</span></a>
-          <a class="move-item" href="#move-2"><span class="n">02</span><span class="t">Load the audit-digest launch agent</span><span class="material-symbols-rounded">arrow_forward</span></a>
-          <a class="move-item" href="#move-3"><span class="n">03</span><span class="t">Make the first call to +31 97 010 208320</span><span class="material-symbols-rounded">arrow_forward</span></a>
-        </div>
+        <div class="move-list" id="ym-list"></div>
       </div>
     </div>
   </section>
@@ -401,26 +466,9 @@
           <div class="col-head">
             <span class="eyebrow" style="color:var(--red-700)">Your move</span>
             <h3>What <em style="color:var(--red-700)">needs you</em>.</h3>
-            <div class="ct" id="moves-ct">activations · ~3 minutes</div>
+            <div class="ct" id="moves-ct">1 activation left</div>
           </div>
-          <div id="move-1" class="move-card-c">
-            <div class="id"><span class="led"></span>№ 098 · intake · ~90 sec</div>
-            <h4>SharePoint sync</h4>
-            <p>App registered. Permission granted. Mint the client secret in Azure Portal, drop it in chat. Clem reads CRREM SharePoint within minutes.</p>
-            <a class="cta" href="https://portal.azure.com/#@7284080e-ff4a-4378-aa2b-d13313f6da68/blade/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/Credentials/appId/e4569c31-6eac-411e-9d4f-6f745943ce29" target="_blank">Open Azure Portal</a>
-          </div>
-          <div id="move-2" class="move-card-c do-2">
-            <div class="id"><span class="led"></span>№ 092 · trust · ~5 sec</div>
-            <h4>Sunday audit digest</h4>
-            <p>One <code style="font-family:'JetBrains Mono',monospace;background:var(--yellow-100);padding:1px 6px;border-radius:3px;color:var(--yellow-700);font-size:12.5px">launchctl load</code> command. Sunday 19:00 letters from Bridget start landing on your Telegram.</p>
-            <a class="cta" href="#" onclick="copyText('launchctl load ~/Library/LaunchAgents/com.omar.bridge.audit-digest.plist',null);event.preventDefault()">Copy &amp; open Terminal</a>
-          </div>
-          <div id="move-3" class="move-card-c do-3" style="opacity:.75">
-            <div class="id"><span class="led"></span>scheduled · later</div>
-            <h4>First call to the voice line</h4>
-            <p>+31 97 010 208320 is live on Twilio but never tested end-to-end. The first real call confirms it picks up and routes to Bridget.</p>
-            <a class="cta" href="tel:+31970102083 20">When you're ready</a>
-          </div>
+          <div id="moves-list"></div>
         </div>
 
         <div class="col col-skipped">
@@ -439,8 +487,8 @@
     <div class="container">
       <div class="sec-head">
         <span class="eyebrow"><span class="dot"></span>The grove</span>
-        <h2>Sixteen <em>daemons</em>, dormant.</h2>
-        <p class="meta">Local launchd agents on your Mac. Each card has a one-tap copy of the <code style="font-family:'JetBrains Mono',monospace;background:var(--yellow-100);padding:1px 6px;border-radius:3px;color:var(--yellow-700);font-size:12.5px">launchctl load</code> command — paste into Terminal and the daemon's live.</p>
+        <h2>Sixteen <em>daemons</em>, live.</h2>
+        <p class="meta">Local launchd agents on your Mac, all 16 loaded and running. Click any card for its schedule and the <code style="font-family:'JetBrains Mono',monospace;background:var(--yellow-100);padding:1px 6px;border-radius:3px;color:var(--yellow-700);font-size:12.5px">launchctl</code> command to reload it after changes.</p>
       </div>
       <div class="grid" id="launchd-grid"></div>
     </div>
@@ -492,6 +540,19 @@
     <div><div id="toast-msg">Command copied</div><div class="next" id="toast-next">paste it in Terminal · ⌘+Space → "Terminal" → ⌘V → Return</div></div>
   </div>
 
+  <div class="overlay" id="help-overlay" onclick="if(event.target===this)toggleHelp(false)">
+    <div class="overlay-card">
+      <h3>Keyboard shortcuts</h3>
+      <div class="osub">Field operations, faster.</div>
+      <div class="overlay-row"><span>Search all capabilities</span><kbd>/</kbd></div>
+      <div class="overlay-row"><span>Expand everything</span><kbd>e</kbd></div>
+      <div class="overlay-row"><span>Collapse everything</span><kbd>c</kbd></div>
+      <div class="overlay-row"><span>This help</span><kbd>?</kbd></div>
+      <div class="overlay-row"><span>Close search / help / drawers</span><kbd>Esc</kbd></div>
+      <button class="overlay-close" type="button" onclick="toggleHelp(false)">Got it</button>
+    </div>
+  </div>
+
 <script>
   const $=q=>document.querySelector(q);
   const $$=q=>Array.from(document.querySelectorAll(q));
@@ -500,8 +561,9 @@
     if(!s) return 'pending';
     const t=String(s).toLowerCase();
     if(t.includes('skipped')) return 'skipped';
+    if(t.includes('dormant')) return 'idle';
     if(t.includes('not loaded')||t.includes('your move')||t.includes('code ready')||t.includes('ready, not')) return 'do';
-    if(t.includes('live')||t.includes('running')||t==='ok'||t.includes('active')) return 'live';
+    if(t.includes('loaded')||t.includes('live')||t.includes('running')||t==='ok'||t.includes('active')||t.includes('done')) return 'live';
     if(t.includes('partial')||t.includes('untested')) return 'pending';
     return 'pending';
   }
@@ -535,6 +597,7 @@
   function loadSprites(){$$('img[data-agent]').forEach(img=>{img.src=`/dashboard/agents/${img.dataset.agent}.png`})}
 
   async function refreshLive(){
+    const pill=$('.live-pill .led'); const ls=$('#live-status');
     try{
       const r=await fetch('/dashboard/data',{credentials:'same-origin'});
       if(!r.ok) throw new Error('data fetch');
@@ -544,12 +607,15 @@
       const ts=new Date(d.timestamp).toISOString().slice(11,19);
       $('#snap-last').textContent=ts;
       $('#footer-last').textContent=ts+' utc';
-      $('#snap-cloud').textContent=`${up} / 4`;
-      $('#snap-cloud').classList.toggle('moss',up===4);
       const polling=(d.accounts||[]).length;
       $('#snap-polling').textContent=polling;
-      $('#live-status').textContent=`${polling} polling · ${up}/4 cloud`;
-    }catch(e){console.warn('live',e)}
+      if(ls) ls.textContent=`${polling} polling · ${up}/${sNames.length} live`;
+      if(pill){pill.style.background='';pill.style.boxShadow='';pill.style.animation=''}
+    }catch(e){
+      if(ls) ls.textContent='offline · local';
+      if(pill){pill.style.background='var(--ink-ghost)';pill.style.boxShadow='none';pill.style.animation='none'}
+      $('#snap-last').textContent='—';
+    }
   }
   refreshLive(); setInterval(refreshLive,30000);
   $('#footer-date').textContent=new Date().toISOString().slice(0,10);
@@ -588,6 +654,7 @@
     return `<div class="drawer">${out.join('')}</div>`;
   }
 
+  function prettyName(e){ if(e.name) return e.name; const id=e.id||''; return id.replace(/[-_]/g,' ').replace(/\b\w/g,c=>c.toUpperCase()); }
   function renderCard(e){
     const klass=statusToClass(e.status);
     const idTag=e.n!=null?`№ ${String(e.n).padStart(3,'0')}`:esc(e.id||'');
@@ -596,9 +663,9 @@
     if(e.schedule) meta.push(`<span>${esc(e.schedule)}</span>`);
     if(e.capabilities?.length) meta.push(`<span>${e.capabilities.length} cap</span>`);
     const searchTxt=esc((e.name||'')+' '+(e.english||'')+' '+(e.setup||'')+' '+(e.test||'')+' '+(e.id||''));
-    return `<div class="card" data-search="${searchTxt}" data-id="${esc(e.id||e.n||e.name)}" onclick="if(!event.target.closest('a')&&!event.target.closest('.cmd-copy'))this.classList.toggle('open')">
+    return `<div class="card" role="button" tabindex="0" aria-expanded="false" data-search="${searchTxt}" data-id="${esc(e.id||e.n||e.name)}" onclick="if(!event.target.closest('a')&&!event.target.closest('.cmd-copy'))toggleCard(this)" onkeydown="cardKey(event,this)">
       <div class="card-head">
-        <div><div class="card-id">${idTag}</div><div class="card-name">${esc(e.name)}</div></div>
+        <div><div class="card-id">${idTag}</div><div class="card-name">${esc(prettyName(e))}</div></div>
         <span class="pill ${klass}"><span class="led"></span>${esc(e.status||'')}</span>
       </div>
       <p class="card-eng">${esc(e.english)}</p>
@@ -638,7 +705,7 @@
       html += `<div class="cluster-block">
         <div class="cluster-label ${cls}"><span>${esc(cluster)}</span><span class="n">${items.length}</span></div>
         ${items.map(c=>`
-          <div class="row ${cls}" data-search="${esc((c.name||'')+' '+(c.english||'')+' '+(c.setup||'')+' '+(c.test||''))}" onclick="this.classList.toggle('open')">
+          <div class="row ${cls}" role="button" tabindex="0" aria-expanded="false" data-search="${esc((c.name||'')+' '+(c.english||'')+' '+(c.setup||'')+' '+(c.test||''))}" onclick="toggleCard(this)" onkeydown="cardKey(event,this)">
             <span class="num">${String(c.n).padStart(3,'0')}</span>
             <span class="name">${esc(c.name)}<span>${esc(c.english||'')}</span></span>
             <span class="badge">${esc(c.tests||'·')}</span>
@@ -669,6 +736,121 @@
     });
   }
 
+  // ---- v5.1: agents, activations, counts, count-up, controls ----
+  const AGENT_ROLES={bridget:'Postmaster',beatrix:"Explorer's companion",basil:"Integrator's companion",benson:"Executor's companion",clem:"CRREM's house agent"};
+
+  function toggleCard(el){const o=!el.classList.contains('open');el.classList.toggle('open',o);el.setAttribute('aria-expanded',o)}
+  function cardKey(e,el){if(e.key==='Enter'||e.key===' '){e.preventDefault();toggleCard(el)}}
+  window.toggleCard=toggleCard; window.cardKey=cardKey;
+
+  function renderAgents(data){
+    const grid=$('#agents-grid'); if(!grid) return;
+    grid.innerHTML=(data.agents||[]).map(a=>{
+      const dormant=/dormant/i.test(a.status||'');
+      const role=AGENT_ROLES[a.id]||'';
+      const badge=dormant?`<div class="dormant-tag">Dormant</div>`:`<span class="active-tag"><span class="led"></span>Active</span>`;
+      const principal=esc((a.principal||'').replace(' (person)','').replace(' (organisation)',''));
+      const d=[];
+      if(a.english) d.push(`<p class="drawer-lead">${esc(a.english)}</p>`);
+      if(a.principal) d.push(`<h6>Principal</h6><p>${esc(a.principal)}</p>`);
+      if(a.current_register) d.push(`<h6>Register</h6><p>${esc(a.current_register)}</p>`);
+      if(a.status) d.push(`<h6>Status</h6><p>${esc(a.status)}</p>`);
+      if(a.workspace) d.push(`<h6>Workspace</h6><p><code style="font-family:'JetBrains Mono',monospace;font-size:12px">${esc(a.workspace)}</code></p>`);
+      if(a.telegram) d.push(`<h6>Telegram</h6><p><a href="https://t.me/${esc(String(a.telegram).replace('@',''))}" target="_blank">${esc(a.telegram)} ↗</a></p>`);
+      if(a.test){d.push(`<h6>How to reach / test</h6>`);a.test.split('\n').forEach(l=>{if(detectCommand(l))d.push(cmdBlock(l.trim()));else d.push(`<p>${esc(l)}</p>`)})}
+      const searchTxt=esc((a.name||'')+' '+role+' '+(a.english||'')+' '+(a.principal||''));
+      return `<div class="agent${dormant?' dormant':''}" role="button" tabindex="0" aria-expanded="false" data-search="${searchTxt}" onclick="if(!event.target.closest('a')&&!event.target.closest('.cmd-copy'))toggleCard(this)" onkeydown="cardKey(event,this)">
+        <div class="agent-portrait"><img src="/dashboard/agents/${esc(a.id)}.png" alt="${esc(a.name)}"></div>
+        <div class="agent-main">
+          <div class="name">${esc(a.name)}</div>
+          <div class="role">${esc(role)}</div>
+          ${badge}
+          <div class="principal">${principal}</div>
+        </div>
+        <div class="agent-drawer"><div class="drawer">${d.join('')}</div></div>
+      </div>`;
+    }).join('');
+  }
+
+  function renderMoveCard(a){
+    if(a.status==='done') return `<div class="move-card-c done">
+      <div class="id"><span class="check"><span class="material-symbols-rounded">check</span></span>${a.n?`№ ${String(a.n).padStart(3,'0')} · `:''}cleared ${esc(a.cleared||'')}</div>
+      <h4>${esc(a.label)}</h4><p>${esc(a.english)}</p><span class="cta">Done</span></div>`;
+    if(a.status==='optional') return `<div class="move-card-c optional">
+      <div class="id"><span class="led"></span>optional</div>
+      <h4>${esc(a.label)}</h4><p>${esc(a.english)}</p>${a.cmd?cmdBlock(a.cmd):''}</div>`;
+    return `<div class="move-card-c">
+      <div class="id"><span class="led"></span>${esc(a.eta||'your move')}</div>
+      <h4>${esc(a.label)}</h4><p>${esc(a.english)}</p>
+      ${a.cta_href?`<a class="cta" href="${esc(a.cta_href)}"${/^tel:|^#/.test(a.cta_href)?'':' target="_blank"'}>${esc(a.cta_label||'Open')}</a>`:''}</div>`;
+  }
+
+  function renderActivations(data){
+    const acts=data.activations||[];
+    const ml=$('#moves-list'); if(ml) ml.innerHTML=acts.map(renderMoveCard).join('');
+    const yl=$('#ym-list');
+    if(yl) yl.innerHTML=acts.map(a=>{
+      if(a.status==='done') return `<div class="move-item done"><span class="n"><span class="material-symbols-rounded">check_circle</span></span><span class="t">${esc(a.label)}</span><span class="pill live"><span class="led"></span>Cleared</span></div>`;
+      if(a.status==='optional') return `<a class="move-item optional" href="#catalog"><span class="n">◦</span><span class="t">${esc(a.label)} · optional</span><span class="material-symbols-rounded">arrow_forward</span></a>`;
+      return `<a class="move-item" href="#catalog"><span class="n">→</span><span class="t">${esc(a.label)}</span><span class="material-symbols-rounded">arrow_forward</span></a>`;
+    }).join('');
+  }
+
+  function applyCounts(data){
+    const built=(data.built||[]).length;
+    const skipped=(data.pending||[]).filter(c=>/SKIPPED/i.test(c.cluster||'')).length;
+    const yourMove=(data.activations||[]).filter(a=>a.status==='pending').length;
+    const ldLoaded=(data.launchd||[]).filter(l=>/loaded|live|running/i.test(l.status||'')).length;
+    const ldTotal=(data.launchd||[]).length;
+    const clLive=(data.cloud_services||[]).filter(c=>/live|running|ok/i.test(c.status||'')).length;
+    const clTotal=(data.cloud_services||[]).length;
+    const set=(id,v)=>{const el=$('#'+id);if(el)el.textContent=v};
+    set('m-built',built);set('m-skipped',skipped);set('m-pending',yourMove);
+    set('snap-built',built);set('snap-skipped',skipped);set('snap-pending',yourMove);
+    set('snap-launchd',`${ldLoaded} / ${ldTotal}`);
+    set('snap-cloud',`${clLive} / ${clTotal}`);
+    set('legend-built',built);set('legend-skipped',skipped);set('legend-pending',yourMove);
+    const hp=$('#hero-pending-line'); if(hp) hp.innerHTML=`${yourMove===1?'One thing is':yourMove+' things are'} <em>waiting on you</em>.`;
+    const cp=$('#cat-pending-line'); if(cp) cp.textContent=`${yourMove} waiting on you`;
+    const mc=$('#moves-ct'); if(mc) mc.textContent=`${yourMove} activation${yourMove===1?'':'s'} left`;
+    const yh=$('#ym-heading'); if(yh) yh.textContent=`${yourMove===1?'One activation':yourMove+' activations'} between you and a fully autonomous BRIDGE.`;
+  }
+
+  function initCountUp(){
+    if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+    $$('.cu').forEach(el=>{
+      const m=el.textContent.trim().match(/^(\D*)(\d[\d,]*)(.*)$/); if(!m) return;
+      const pre=m[1], target=parseInt(m[2].replace(/,/g,''),10), suf=m[3]; if(!isFinite(target)) return;
+      const obs=new IntersectionObserver((ents,o)=>{ents.forEach(ent=>{
+        if(!ent.isIntersecting) return; o.unobserve(el);
+        const dur=850, t0=performance.now();
+        el.textContent=pre+'0'+suf;
+        requestAnimationFrame(function step(now){
+          const p=Math.min(1,(now-t0)/dur), e=1-Math.pow(1-p,3);
+          el.textContent=pre+Math.round(target*e).toLocaleString()+suf;
+          if(p<1) requestAnimationFrame(step); else el.textContent=pre+target.toLocaleString()+suf;
+        });
+      })},{threshold:.4});
+      obs.observe(el);
+    });
+  }
+
+  function setOpenWithin(root,open){root.querySelectorAll('.card,.agent[role=button]').forEach(el=>{el.classList.toggle('open',open);el.setAttribute('aria-expanded',open)})}
+  function expandAll(open){document.querySelectorAll('.card,.row,.agent[role=button]').forEach(el=>{el.classList.toggle('open',open);el.setAttribute('aria-expanded',open)})}
+  function addSectionTools(){
+    $$('#cloud .sec-head, #surfaces .sec-head, #launchd .sec-head, #packages .sec-head, #agents .sec-head').forEach(h=>{
+      if(h.querySelector('.sec-tools')) return;
+      const sec=h.closest('section');
+      const tools=document.createElement('div'); tools.className='sec-tools';
+      tools.innerHTML=`<button class="sec-btn" type="button">Expand all</button><button class="sec-btn" type="button">Collapse all</button>`;
+      const b=tools.querySelectorAll('button');
+      b[0].onclick=()=>setOpenWithin(sec,true); b[1].onclick=()=>setOpenWithin(sec,false);
+      h.appendChild(tools);
+    });
+  }
+  function toggleHelp(force){const o=$('#help-overlay');if(!o)return;const show=typeof force==='boolean'?force:!o.classList.contains('show');o.classList.toggle('show',show)}
+  window.toggleHelp=toggleHelp;
+
   async function loadAll(){
     try{
       const r=await fetch('/dashboard/capabilities.json',{credentials:'same-origin'});
@@ -677,7 +859,12 @@
       renderSection('intake_surfaces','surfaces-grid',data);
       renderSection('launchd','launchd-grid',data);
       renderSection('packages','packages-grid',data);
+      renderAgents(data);
+      renderActivations(data);
       renderCatalog(data);
+      applyCounts(data);
+      addSectionTools();
+      initCountUp();
     }catch(e){console.error(e)}
   }
   loadLogo(); loadSprites(); loadAll();
@@ -686,15 +873,22 @@
   function applySearch(q){
     q=(q||'').toLowerCase().trim();
     const selectors=['.card','.row','.skipped-item','.agent'];
+    let visible=0;
     selectors.forEach(sel=>$$(sel).forEach(el=>{
       const hay=(el.dataset.search||el.textContent||'').toLowerCase();
       const match=!q||hay.includes(q);
       el.classList.toggle('search-hide',!match);
+      if(match&&q) visible++;
     }));
     $$('.cluster-block').forEach(cl=>{
       const items=cl.querySelectorAll('.row:not(.search-hide)');
       cl.classList.toggle('search-hide',items.length===0);
     });
+    const se=$('#search-empty');
+    if(se){
+      if(q&&visible===0){se.innerHTML=`No capability matches <b>"${esc(q)}"</b>. Try <b>finance</b>, <b>audit</b>, or <b>voice</b>.`;se.classList.add('show');}
+      else se.classList.remove('show');
+    }
   }
   search.addEventListener('input',e=>applySearch(e.target.value));
   document.addEventListener('keydown',e=>{
@@ -702,7 +896,14 @@
       if(e.key==='Escape'){search.value='';applySearch('');search.blur()}
       return;
     }
-    if(e.key==='/'){e.preventDefault();search.focus()}
+    if(e.key==='/'){e.preventDefault();search.focus();return}
+    if(e.key==='?'){e.preventDefault();toggleHelp();return}
+    if(e.key==='e'||e.key==='E'){expandAll(true);return}
+    if(e.key==='c'||e.key==='C'){expandAll(false);return}
+    if(e.key==='Escape'){
+      if($('#help-overlay')?.classList.contains('show')) toggleHelp(false);
+      else expandAll(false);
+    }
   });
 
   $$('a[href^="#"]').forEach(a=>{
