@@ -3,850 +3,717 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>BRIDGE · Operations</title>
+  <title>BRIDGE · Field Operations</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,200..900,0..100;1,9..144,200..900,0..100&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=JetBrains+Mono:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.0/marked.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Rounded:opsz,wght,GRAD,FILL@24,400,0,0" rel="stylesheet">
   <style>
     :root{
-      --paper:#f4efe3; --paper-warm:#ebe3cf; --paper-deep:#ddd2b6;
-      --ink:#1c1d20; --ink-2:#2c3036; --ink-soft:#4d5158; --ink-fade:#8a8478; --ink-ghost:#b6ad97;
-      --rust:#a8543b; --rust-dark:#7e3e2c; --teal:#2f5d5a; --moss:#4d6a3e; --ochre:#b88a1f; --crimson:#8a2424;
-      --hairline:rgba(28,29,32,.16); --hairline-warm:rgba(168,84,59,.18);
+      --blue-100:#E4E8FF;  --blue-300:#7d8eff;  --blue-500:#0024FF;  --blue-700:#001bc8;
+      --blue-band:#F3F5FF;
+      --red-100:#FDECEE;   --red-300:#f48c95;   --red-500:#E63946;   --red-700:#a31f2b;
+      --green-100:#E5F5EA; --green-300:#7ed192; --green-500:#2EBA4F; --green-700:#1d7c33;
+      --green-band:#F3FAF5;
+      --yellow-100:#FFF6E0;--yellow-300:#f0c97a;--yellow-500:#D6A24A;--yellow-700:#9b6f1d;
+      --yellow-band:#FFFBF1;
+      --paper:#fff; --off:#FAFAFB; --grey-100:#F3F4F6; --grey-200:#E5E7EB;
+      --ink:#131625; --ink-soft:#4a5068; --ink-mid:#6b7187; --ink-fade:#989eb3; --ink-ghost:#c6cad8;
+      --hairline:rgba(19,22,37,0.08); --hairline-soft:rgba(19,22,37,0.04);
+      --cobalt:var(--blue-500); --cobalt-2:var(--blue-700); --cobalt-tint:var(--blue-100); --cobalt-band:var(--blue-band);
+      --moss:var(--green-500); --moss-bg:var(--green-100);
+      --amber:var(--yellow-500); --amber-bg:var(--yellow-100);
+      --ember:var(--red-500);   --ember-bg:var(--red-100);
+      --r-card:12px; --r-pill:999px;
+      --shadow-card:0 1px 0 rgba(19,22,37,.04);
+      --shadow-lift:0 8px 24px rgba(0,36,255,.08),0 2px 6px rgba(19,22,37,.06);
     }
-    *,*::before,*::after{box-sizing:border-box}
-    html{font-family:'Newsreader',Georgia,serif;font-size:17px}
-    body{margin:0;background:var(--paper);color:var(--ink);font-family:'Newsreader',Georgia,serif;font-weight:380;line-height:1.5;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;font-feature-settings:"kern","liga","calt","ss01";background-image:radial-gradient(ellipse 800px 600px at 20% 0%,rgba(168,84,59,.04),transparent 60%),radial-gradient(ellipse 700px 800px at 80% 20%,rgba(47,93,90,.04),transparent 60%),url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .04 0'/></filter><rect width='240' height='240' filter='url(%23n)'/></svg>");background-size:auto,auto,240px 240px;background-attachment:fixed}
-    ::selection{background:var(--rust);color:var(--paper)}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{font-size:15px}
+    body{background:var(--paper);color:var(--ink-soft);font-family:'Rubik',system-ui,sans-serif;font-weight:400;font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;font-feature-settings:"kern","liga","calt"}
+    ::selection{background:var(--blue-500);color:#fff}
+    h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;color:var(--ink);letter-spacing:-0.025em}
+    h1{font-weight:500;font-size:44px;line-height:1.05}
+    h1 em{font-style:normal;color:var(--cobalt);font-weight:500}
+    h2{font-weight:500;font-size:32px;line-height:1.12;letter-spacing:-0.02em}
+    h2 em{font-style:normal;color:var(--cobalt);font-weight:500}
+    h3{font-weight:500;font-size:17px;line-height:1.35}
+    p{max-width:62ch;color:var(--ink-soft)}
+    a{color:var(--cobalt);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .15s}
+    a:hover{border-bottom-color:currentColor}
+    .eyebrow{display:inline-block;font-family:'Rubik',sans-serif;font-weight:600;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--cobalt);margin-bottom:18px}
+    .eyebrow .dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:currentColor;margin-right:10px;vertical-align:middle;box-shadow:0 0 0 0 currentColor;animation:pulse 2.2s infinite}
+    @keyframes pulse{0%,100%{box-shadow:0 0 0 0 currentColor;opacity:.5}70%{box-shadow:0 0 0 7px transparent;opacity:1}}
+    .mono{font-family:'JetBrains Mono',monospace}
 
-    .masthead{max-width:1640px;margin:0 auto;padding:24px 48px 0;display:grid;grid-template-columns:1fr auto 1fr;align-items:end;gap:24px;border-bottom:1px solid var(--ink);padding-bottom:14px}
-    .masthead-left,.masthead-right{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
-    .masthead-right{text-align:right}
-    .masthead-center{font-family:'Fraunces',serif;font-variation-settings:"SOFT" 30,"opsz" 144,"wght" 480;font-size:26px;letter-spacing:.02em;text-align:center}
-    .masthead-center em{font-style:italic;font-variation-settings:"SOFT" 100,"opsz" 144,"wght" 320;color:var(--rust)}
-    .pulse-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--moss);box-shadow:0 0 0 0 var(--moss);animation:pulse 2.2s infinite;margin-right:6px;vertical-align:middle}
-    @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(77,106,62,.55)}70%{box-shadow:0 0 0 6px rgba(77,106,62,0)}100%{box-shadow:0 0 0 0 rgba(77,106,62,0)}}
+    .nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdrop-filter:blur(14px);border-bottom:1px solid var(--hairline)}
+    .nav-inner{max-width:1320px;margin:0 auto;padding:18px 56px;display:flex;align-items:center;gap:28px}
+    .brand{display:flex;align-items:center;gap:12px;color:var(--ink);text-decoration:none;border:0}
+    .brand-logo{width:38px;height:23px;color:var(--cobalt);image-rendering:pixelated}
+    .brand-mark{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:17px;letter-spacing:.06em;color:var(--ink)}
+    .nav-links{display:flex;gap:4px;margin-left:18px}
+    .nav-link{padding:8px 14px;border-radius:8px;font-size:14px;font-weight:500;color:var(--ink-mid);border:0;background:transparent;cursor:pointer;transition:background .15s,color .15s;text-decoration:none}
+    .nav-link:hover{background:var(--grey-100);color:var(--ink)}
+    .nav-link.active{background:var(--cobalt-tint);color:var(--cobalt-2)}
+    .nav-right{margin-left:auto;display:flex;align-items:center;gap:18px}
+    .nav-search{position:relative}
+    .nav-search input{width:260px;padding:9px 14px 9px 36px;border:1px solid var(--hairline);border-radius:8px;font-family:'Rubik',sans-serif;font-size:13.5px;outline:none;color:var(--ink);background:#fff;transition:width .2s,border-color .15s,box-shadow .15s}
+    .nav-search input:focus{width:380px;border-color:var(--cobalt);box-shadow:0 0 0 3px rgba(0,36,255,.1)}
+    .nav-search input::placeholder{color:var(--ink-fade)}
+    .nav-search::before{content:'⌕';position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--ink-fade);font-size:15px}
+    .live-pill{display:inline-flex;align-items:center;gap:8px;font-weight:500;font-size:12px;color:var(--ink-mid)}
+    .live-pill .led{width:8px;height:8px;border-radius:50%;background:var(--moss);box-shadow:0 0 8px var(--moss);animation:pulse-green 2.2s infinite}
+    @keyframes pulse-green{0%,100%{box-shadow:0 0 6px var(--moss),0 0 0 0 rgba(46,186,79,.5)}70%{box-shadow:0 0 6px var(--moss),0 0 0 7px rgba(46,186,79,0)}}
 
-    .shell{max-width:1640px;margin:0 auto;padding:28px 48px 80px;display:grid;grid-template-columns:240px 1fr;gap:56px}
-    @media(max-width:1100px){.shell{grid-template-columns:1fr;gap:24px}.masthead{padding:18px 24px 0;grid-template-columns:1fr;text-align:left}.masthead-center,.masthead-right{text-align:left}.toc-col{position:relative!important;top:0!important}}
-    @media(max-width:700px){.shell{padding:24px 20px 60px}.masthead{padding:16px 20px 0}}
+    .container{max-width:1320px;margin:0 auto;padding:0 56px}
+    section{padding:80px 0;position:relative}
+    section.dense{padding:60px 0}
+    main > section{border-bottom:1px solid var(--hairline)}
+    main > section:last-of-type{border-bottom:0}
+    .sec-head{margin-bottom:36px}
+    .sec-head .meta{font-weight:500;font-size:13px;color:var(--ink-mid);margin-top:8px}
 
-    .toc-col{position:sticky;top:20px;align-self:start;max-height:calc(100vh - 40px);overflow-y:auto;padding-right:12px}
-    .toc-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-fade);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--hairline)}
-    .toc nav{display:flex;flex-direction:column;gap:2px}
-    .toc a{display:grid;grid-template-columns:30px 1fr auto;gap:8px;padding:9px 0;color:var(--ink-soft);text-decoration:none;font-size:14px;line-height:1.3;border-bottom:1px dotted transparent;transition:color .12s ease}
-    .toc a:hover{color:var(--rust)}
-    .toc a .num{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-ghost);letter-spacing:.05em;padding-top:3px}
-    .toc a .badge{font-family:'JetBrains Mono',monospace;font-size:9px;padding:2px 6px;align-self:center;text-transform:uppercase;letter-spacing:.1em}
-    .toc a .badge.live{background:var(--moss);color:var(--paper)}
-    .toc a .badge.act{background:var(--rust);color:var(--paper)}
-    .toc a .badge.todo{color:var(--ink-fade);border:1px solid var(--ink-ghost)}
+    .hero{padding:84px 0 56px;position:relative;overflow:hidden}
+    .hero-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:64px;align-items:center}
+    @media(max-width:1100px){.hero-grid{grid-template-columns:1fr;gap:32px}}
+    .hero-deck{margin-top:24px;max-width:50ch;font-size:18px;line-height:1.55;color:var(--ink-soft);font-weight:300}
+    .hero-deck strong{color:var(--ink);font-weight:500}
+    .hero-cta{display:flex;gap:12px;margin-top:32px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:13px 22px;border-radius:8px;border:0;cursor:pointer;font-family:'Rubik',sans-serif;font-weight:500;font-size:14.5px;transition:transform .15s,box-shadow .15s,background .15s;text-decoration:none}
+    .btn:hover{transform:translateY(-2px)}
+    .btn-primary{background:var(--cobalt);color:#fff}
+    .btn-primary:hover{background:var(--cobalt-2);box-shadow:0 8px 24px rgba(0,36,255,.18)}
+    .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--hairline)}
+    .btn-ghost:hover{background:var(--grey-100);box-shadow:0 4px 12px rgba(19,22,37,.05)}
+    .btn .material-symbols-rounded{font-size:18px}
+    .snapshot{background:#fff;border:1px solid var(--hairline);border-radius:14px;padding:24px 26px;box-shadow:var(--shadow-card);position:relative;overflow:hidden}
+    .snapshot::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--cobalt)}
+    .snapshot h4{font-family:'Rubik',sans-serif;font-weight:600;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--cobalt);margin-bottom:14px}
+    .snapshot-row{display:flex;justify-content:space-between;align-items:baseline;padding:11px 0;border-bottom:1px solid var(--hairline-soft);font-size:14px;color:var(--ink-soft)}
+    .snapshot-row:last-child{border-bottom:0}
+    .snapshot-row .val{font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums;font-size:15px;letter-spacing:-0.005em}
+    .snapshot-row .val.moss{color:var(--moss)}
+    .snapshot-row .val.amber{color:var(--amber)}
+    .snapshot-row .val.ember{color:var(--ember)}
+    .metrics{display:grid;grid-template-columns:repeat(4,1fr);margin-top:48px;border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline)}
+    .metric{padding:28px 32px;border-right:1px solid var(--hairline)}
+    .metric:first-child{padding-left:0}
+    .metric:last-child{border-right:0;padding-right:0}
+    .metric .num{font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:46px;line-height:1;color:var(--ink);letter-spacing:-0.025em;font-variant-numeric:tabular-nums}
+    .metric .num.cobalt{color:var(--cobalt)}
+    .metric .num.amber{color:var(--amber)}
+    .metric .num.moss{color:var(--moss)}
+    .metric .num.ember{color:var(--ember)}
+    .metric .lbl{font-family:'Rubik',sans-serif;font-weight:500;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-mid);margin-top:10px}
 
-    main{min-width:0;position:relative}
-    .hero{display:grid;grid-template-columns:1fr;margin-bottom:60px;padding-top:24px}
-    .hero-eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--rust);margin-bottom:20px;display:flex;align-items:center;gap:14px}
-    .hero-eyebrow::before{content:'';width:32px;height:1px;background:var(--rust)}
-    .hero-title{font-family:'Fraunces',serif;font-variation-settings:"opsz" 144,"wght" 380,"SOFT" 20;font-size:clamp(56px,11vw,152px);line-height:.92;letter-spacing:-0.04em;margin:0;color:var(--ink)}
-    .hero-title em{font-style:italic;font-variation-settings:"opsz" 144,"wght" 240,"SOFT" 100;color:var(--rust);letter-spacing:-0.02em}
-    .hero-deck{max-width:56ch;font-family:'Newsreader',serif;font-size:20px;font-weight:300;line-height:1.45;color:var(--ink-2);margin:32px 0 0;font-style:italic}
+    section.section-blue{--accent:var(--blue-500);--accent-deep:var(--blue-700);--accent-tint:var(--blue-100);--accent-band:var(--blue-band);background:var(--blue-band)}
+    section.section-green{--accent:var(--green-500);--accent-deep:var(--green-700);--accent-tint:var(--green-100);--accent-band:var(--green-band);background:var(--green-band)}
+    section.section-yellow{--accent:var(--yellow-500);--accent-deep:var(--yellow-700);--accent-tint:var(--yellow-100);--accent-band:var(--yellow-band);background:var(--yellow-band)}
+    section.section-grey{--accent:var(--ink-mid);--accent-deep:var(--ink);--accent-tint:var(--grey-100);--accent-band:var(--off);background:var(--off)}
+    section[class*="section-"] .eyebrow{color:var(--accent-deep)}
+    section[class*="section-"] h2 em{color:var(--accent-deep)}
 
-    .hero-stats{display:grid;grid-template-columns:repeat(4,1fr);margin-top:44px;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
-    .hero-stat{padding:22px 24px 20px;border-right:1px solid var(--hairline)}
-    .hero-stat:last-child{border-right:none}
-    .hero-stat .num{font-family:'Fraunces',serif;font-variation-settings:"opsz" 144,"wght" 350,"SOFT" 0;font-size:48px;line-height:1;letter-spacing:-0.02em}
-    .hero-stat .num.green{color:var(--moss)}
-    .hero-stat .num.amber{color:var(--ochre)}
-    .hero-stat .num.rust{color:var(--rust)}
-    .hero-stat .num.fade{color:var(--ink-fade)}
-    .hero-stat .lbl{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-fade);margin-top:12px}
-    @media(max-width:700px){.hero-stats{grid-template-columns:repeat(2,1fr)}.hero-stat{border-right:1px solid var(--hairline);border-bottom:1px solid var(--hairline)}.hero-stat:nth-child(even){border-right:none}.hero-stat:nth-child(3),.hero-stat:nth-child(4){border-bottom:none}}
+    .agents-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
+    @media(max-width:1100px){.agents-grid{grid-template-columns:repeat(3,1fr)}}
+    @media(max-width:700px){.agents-grid{grid-template-columns:repeat(2,1fr)}}
+    .agent{background:#fff;border:1px solid var(--hairline);border-radius:var(--r-card);padding:20px 18px 18px;text-align:center;cursor:pointer;transition:transform .2s,box-shadow .2s,border-color .2s;text-decoration:none;color:inherit;display:block}
+    .agent:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift);border-color:var(--blue-100)}
+    .agent-portrait{width:100%;aspect-ratio:1;background:linear-gradient(180deg,var(--blue-band) 0%,#fff 100%);border-radius:10px;display:flex;align-items:flex-end;justify-content:center;padding:14px 14px 8px;overflow:hidden;margin-bottom:14px}
+    .agent-portrait img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;image-rendering:pixelated;filter:drop-shadow(0 4px 0 rgba(19,22,37,.06))}
+    .agent .name{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:17px;color:var(--ink);letter-spacing:-0.005em}
+    .agent .role{margin-top:3px;font-size:12px;color:var(--ink-mid)}
+    .agent .principal{margin-top:10px;padding-top:10px;border-top:1px solid var(--hairline-soft);font-weight:500;font-size:11px;color:var(--cobalt);letter-spacing:.04em}
+    .agent .active-tag{display:inline-flex;align-items:center;gap:6px;margin-top:8px;font-weight:600;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--moss);background:var(--moss-bg);padding:3px 10px;border-radius:var(--r-pill)}
+    .agent .active-tag .led{width:5px;height:5px;border-radius:50%;background:var(--moss);box-shadow:0 0 6px var(--moss);animation:pulse-green 2.2s infinite}
+    .agent.dormant .agent-portrait{background:linear-gradient(180deg,#f1f2f5 0%,#fafafa 100%)}
+    .agent.dormant .agent-portrait img{filter:grayscale(1) opacity(.55) drop-shadow(0 4px 0 rgba(19,22,37,.04))}
+    .agent.dormant .name,.agent.dormant .role,.agent.dormant .principal{color:var(--ink-fade)}
+    .agent.dormant .dormant-tag{display:inline-block;margin-top:6px;font-weight:600;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-fade);background:var(--grey-100);padding:3px 10px;border-radius:var(--r-pill)}
 
-    section{margin-bottom:96px;scroll-margin-top:28px}
-    .section-head{display:grid;grid-template-columns:80px 1fr auto;gap:24px;margin-bottom:24px;align-items:baseline;padding-top:28px;border-top:1px solid var(--ink)}
-    .section-num{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;color:var(--rust);text-transform:uppercase;padding-top:8px}
-    .section-title{font-family:'Fraunces',serif;font-variation-settings:"opsz" 144,"wght" 400,"SOFT" 50;font-size:clamp(34px,4.4vw,64px);line-height:1.0;letter-spacing:-0.03em;margin:0}
-    .section-title em{font-style:italic;font-variation-settings:"opsz" 144,"wght" 300,"SOFT" 100;color:var(--rust)}
-    .section-status{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:6px 12px;border:1px solid currentColor;align-self:center}
-    .section-status.live{color:var(--moss)}
-    .section-status.act{background:var(--rust);color:var(--paper);border-color:var(--rust)}
-    .section-status.partial{color:var(--ochre)}
-    .section-status.todo{color:var(--ink-fade)}
-    .section-deck{grid-column:2 / -1;max-width:64ch;font-size:19px;line-height:1.45;color:var(--ink-soft);margin-top:12px;font-style:italic;font-weight:300}
+    .your-move{background:linear-gradient(180deg,#fafbff 0%,var(--blue-band) 100%);border:1px solid var(--blue-100);border-radius:14px;padding:48px 56px;position:relative;overflow:hidden;display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center;box-shadow:0 1px 0 rgba(19,22,37,.04)}
+    @media(max-width:900px){.your-move{grid-template-columns:1fr;padding:36px 32px}}
+    .your-move::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--cobalt)}
+    .your-move h2{font-size:34px;line-height:1.12}
+    .your-move .eyebrow{color:var(--cobalt)}
+    .your-move p{margin-top:14px;max-width:46ch}
+    .move-list{display:flex;flex-direction:column;gap:8px;position:relative;z-index:1}
+    .move-item{background:#fff;border:1px solid var(--hairline);border-radius:10px;padding:14px 18px;display:flex;align-items:center;gap:14px;transition:background .15s,transform .15s,border-color .15s,box-shadow .15s;cursor:pointer}
+    .move-item:hover{border-color:var(--blue-100);transform:translateX(4px);box-shadow:0 4px 12px rgba(0,36,255,.06)}
+    .move-item .n{font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:20px;color:var(--cobalt);font-variant-numeric:tabular-nums;width:32px;letter-spacing:-0.02em}
+    .move-item .t{font-weight:500;font-size:14.5px;color:var(--ink);flex:1}
+    .move-item .material-symbols-rounded{color:var(--ink-fade);font-size:18px;transition:color .15s,transform .15s}
+    .move-item:hover .material-symbols-rounded{color:var(--cobalt);transform:translateX(2px)}
 
-    main p{max-width:66ch;margin:0 0 1em;font-size:18px}
-    main h3{font-family:'Fraunces',serif;font-variation-settings:"opsz" 60,"wght" 500,"SOFT" 30;font-size:26px;letter-spacing:-0.015em;line-height:1.15;margin:36px 0 12px}
-    main h4{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-fade);margin:28px 0 12px}
-    main strong{font-weight:600;color:var(--ink)}
-    main a{color:var(--rust-dark);text-decoration:none;border-bottom:1px solid var(--hairline-warm);transition:border-color .1s}
-    main a:hover{border-color:var(--rust)}
-    main code{font-family:'JetBrains Mono',monospace;font-size:.8em;background:var(--paper-warm);padding:1px 6px;color:var(--ink-2);letter-spacing:-.01em}
-    main ul{max-width:64ch;font-size:18px;line-height:1.5;padding-left:0;list-style:none}
-    main ul li{padding-left:26px;position:relative;margin-bottom:10px}
-    main ul li::before{content:'';position:absolute;left:0;top:.65em;width:14px;height:1px;background:var(--rust)}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .grid.two{grid-template-columns:repeat(2,1fr)}
+    .grid.four{grid-template-columns:repeat(4,1fr)}
+    .grid.five{grid-template-columns:repeat(5,1fr)}
+    @media(max-width:1100px){.grid.four,.grid.five{grid-template-columns:repeat(3,1fr)}}
+    @media(max-width:900px){.grid,.grid.two,.grid.three,.grid.four,.grid.five{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:600px){.grid,.grid.two,.grid.three,.grid.four,.grid.five{grid-template-columns:1fr}}
+    .card{background:#fff;border:1px solid var(--hairline);border-radius:var(--r-card);padding:20px 22px;cursor:pointer;transition:transform .2s,box-shadow .2s,border-color .2s;text-decoration:none;color:inherit;display:block;position:relative}
+    .card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift);border-color:var(--accent-tint,var(--blue-100))}
+    .card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:10px}
+    .card-id{font-family:'Rubik',sans-serif;font-weight:600;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-deep,var(--cobalt));margin-bottom:3px}
+    .card-name{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:18px;color:var(--ink);letter-spacing:-0.01em;line-height:1.3}
+    .card-eng{font-family:'Rubik',sans-serif;font-size:14px;line-height:1.55;color:var(--ink-soft);margin-top:4px}
+    .card-foot{margin-top:14px;padding-top:12px;border-top:1px solid var(--hairline-soft);display:flex;gap:14px;justify-content:space-between;font-weight:500;font-size:11px;letter-spacing:.08em;color:var(--ink-mid)}
+    .card .drawer{display:none;margin-top:14px;padding-top:14px;border-top:1px dotted var(--hairline)}
+    .card.open .drawer{display:block}
+    .drawer h6{font-family:'Rubik',sans-serif;font-weight:600;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-deep,var(--cobalt));margin:12px 0 6px}
+    .drawer h6:first-child{margin-top:0}
+    .drawer p{font-size:13.5px;line-height:1.55;margin:0 0 4px;max-width:none}
+    .cmd{position:relative;font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--ink);color:#fff;padding:9px 70px 9px 12px;margin:6px 0;line-height:1.5;word-break:break-all;border-radius:6px}
+    .cmd-copy{position:absolute;top:5px;right:5px;height:22px;padding:0 10px;border:1px solid rgba(255,255,255,.18);background:transparent;color:rgba(255,255,255,.7);font-family:'Rubik',sans-serif;font-size:10px;font-weight:600;letter-spacing:.08em;cursor:pointer;border-radius:4px;text-transform:uppercase}
+    .cmd-copy:hover{background:rgba(255,255,255,.1);color:#fff}
+    .cmd-copy.copied{background:var(--moss);border-color:var(--moss);color:#fff}
+    .pill{font-family:'Rubik',sans-serif;font-weight:600;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px;border-radius:var(--r-pill);white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
+    .pill .led{width:5px;height:5px;border-radius:50%;background:currentColor}
+    .pill.live{background:var(--moss-bg);color:var(--moss)}
+    .pill.act{background:var(--ember);color:#fff}
+    .pill.act .led{background:#fff}
+    .pill.pending{background:var(--amber-bg);color:var(--amber)}
+    .pill.idle{background:var(--grey-100);color:var(--ink-mid)}
 
-    .console{display:grid;grid-template-columns:1.4fr 1fr;gap:24px;margin-bottom:32px}
-    @media(max-width:900px){.console{grid-template-columns:1fr}}
-    .console-card{background:var(--ink);color:var(--paper);padding:24px 26px;position:relative;overflow:hidden;font-family:'JetBrains Mono',monospace}
-    .console-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--rust),transparent)}
-    .console-card h5{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--ink-ghost);margin:0 0 18px;display:flex;align-items:center;gap:12px}
-    .console-card h5::before{content:'◆';color:var(--rust);font-size:8px}
-    .services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px 28px}
-    .service-row{display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:13px}
-    .service-row .name{color:var(--paper);font-weight:500;letter-spacing:.03em}
-    .service-row .state{font-size:10px;letter-spacing:.14em;text-transform:uppercase}
-    .state.live{color:#79e6a4}
-    .state.down{color:#ff7a6a}
-    .state.checking{color:var(--ink-ghost)}
-    .state .dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:6px;vertical-align:middle}
-    .state.live .dot{background:#79e6a4;box-shadow:0 0 0 0 #79e6a4;animation:pulse-green 2.2s infinite}
-    .state.down .dot{background:#ff7a6a}
-    .state.checking .dot{background:var(--ink-ghost);animation:blink 1.4s ease-in-out infinite}
-    @keyframes pulse-green{0%{box-shadow:0 0 0 0 rgba(121,230,164,.55)}70%{box-shadow:0 0 0 6px rgba(121,230,164,0)}100%{box-shadow:0 0 0 0 rgba(121,230,164,0)}}
-    @keyframes blink{50%{opacity:.3}}
-    .surfaces-block{margin-top:22px;padding-top:18px;border-top:1px solid rgba(255,255,255,.08)}
-    .surfaces-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-top:12px}
-    .surface-pill{display:flex;align-items:center;gap:8px;font-size:12px;padding:6px 0;color:var(--paper);letter-spacing:.04em}
-    .surface-pill .dot{width:5px;height:5px;border-radius:50%}
-    .surface-pill.live .dot{background:#79e6a4}
-    .surface-pill.off .dot{background:rgba(255,255,255,.25)}
-    .surface-pill.off{color:var(--ink-ghost)}
-    .accounts-card{background:var(--paper-warm);padding:24px 26px;border-left:2px solid var(--rust);font-family:'Newsreader',serif}
-    .accounts-card h5{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--ink-fade);margin:0 0 14px}
-    .accounts-list{display:flex;flex-direction:column;gap:12px}
-    .account-row{display:flex;justify-content:space-between;align-items:center;padding-bottom:10px;border-bottom:1px dotted var(--hairline);font-size:15px}
-    .account-row:last-child{border-bottom:none}
-    .account-row .email{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ink)}
-    .account-row .badge{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase}
-    .account-row .badge.polling{color:var(--moss)}
-    .account-row .badge.idle{color:var(--ochre)}
-    .console-meta{margin-top:22px;padding-top:14px;border-top:1px dotted rgba(255,255,255,.12);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-ghost);display:flex;justify-content:space-between}
+    .catalog-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:32px;border-bottom:1px solid var(--hairline);padding-bottom:24px;flex-wrap:wrap;gap:24px}
+    .catalog-legend{display:flex;gap:18px;font-size:12.5px;color:var(--ink-mid);flex-wrap:wrap}
+    .catalog-legend span{display:flex;align-items:center;gap:8px}
+    .catalog-legend .dot{width:10px;height:10px;border-radius:50%}
+    .catalog-legend .dot.g{background:var(--green-500)}
+    .catalog-legend .dot.r{background:var(--red-500)}
+    .catalog-legend .dot.k{background:var(--ink-ghost)}
+    .catalog-legend strong{color:var(--ink);font-weight:600;margin-left:4px}
+    .spread{display:grid;grid-template-columns:1.45fr 1.05fr 0.95fr;gap:48px}
+    @media(max-width:1100px){.spread{grid-template-columns:1fr;gap:48px}}
+    .col-head{margin-bottom:18px}
+    .col-head .ct{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--ink-mid);margin-top:6px;letter-spacing:.04em}
+    .cluster-block{margin-bottom:24px}
+    .cluster-label{display:flex;justify-content:space-between;align-items:baseline;font-weight:600;font-size:11px;letter-spacing:.16em;text-transform:uppercase;padding:8px 0 6px;border-bottom:1px solid var(--hairline);margin-bottom:6px}
+    .cluster-label.c-blue{color:var(--blue-700)}
+    .cluster-label.c-green{color:var(--green-700)}
+    .cluster-label.c-yellow{color:var(--yellow-700)}
+    .cluster-label.c-red{color:var(--red-700)}
+    .cluster-label .n{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-fade);letter-spacing:.04em}
+    .row{display:grid;grid-template-columns:36px 1fr 60px;gap:12px;padding:9px 8px;border-radius:6px;cursor:pointer;transition:background .12s;align-items:baseline;position:relative}
+    .row:hover.c-blue{background:var(--blue-100)}
+    .row:hover.c-green{background:var(--green-100)}
+    .row:hover.c-yellow{background:var(--yellow-100)}
+    .row:hover.c-red{background:var(--red-100)}
+    .row .num{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--ink-fade);font-variant-numeric:tabular-nums}
+    .row .name{font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:14px;color:var(--ink);letter-spacing:-0.005em}
+    .row .name span{display:block;font-family:'Rubik',sans-serif;font-weight:400;font-size:12.5px;color:var(--ink-mid);margin-top:1px}
+    .row .badge{font-family:'JetBrains Mono',monospace;font-size:10.5px;text-align:right;font-variant-numeric:tabular-nums}
+    .row.c-blue .badge{color:var(--blue-500)}
+    .row.c-green .badge{color:var(--green-700)}
+    .row.c-yellow .badge{color:var(--yellow-700)}
+    .row.c-red .badge{color:var(--red-700)}
+    .row .row-drawer{display:none;grid-column:1/-1;padding:14px 4px 6px;border-top:1px dashed var(--hairline);margin-top:8px}
+    .row.open .row-drawer{display:block}
+    .row.open{background:rgba(0,36,255,.04)}
+    .show-more{margin-top:18px;padding:14px 18px;background:#fff;border:1px dashed var(--hairline);border-radius:8px;text-align:center;font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:13px;color:var(--ink-mid);cursor:pointer;transition:background .12s,border-color .12s}
+    .show-more:hover{background:var(--blue-100);border-color:var(--blue-300);color:var(--blue-700)}
+    #running-list:not(.expanded) .cluster-block:nth-child(n+5){display:none}
 
-    .actcard{background:#fcfaf2;border:1px solid var(--ink);padding:0;margin:24px 0;max-width:76ch}
-    .actcard-header{padding:14px 20px;background:var(--ink);color:var(--paper);display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
-    .actcard-header.act{background:var(--rust)}
-    .actcard-header.live{background:var(--moss)}
-    .actcard-header .step-tag{opacity:.7;font-size:10px}
-    .actcard-body{padding:22px 26px 26px}
-    .actcard h3{margin:0 0 8px;font-family:'Fraunces',serif;font-size:24px;font-variation-settings:"opsz" 60,"wght" 500,"SOFT" 30}
-    .actcard p{font-size:16px;margin:6px 0 12px;max-width:100%}
-    .actcard ol{padding-left:22px;max-width:100%;font-size:16px;line-height:1.55}
-    .actcard ol li{margin-bottom:8px;padding-left:4px}
-    .actcard a.cta{display:inline-block;margin-top:8px;padding:10px 18px;background:var(--ink);color:var(--paper);text-decoration:none;border:none;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase}
-    .actcard a.cta:hover{background:var(--rust)}
-    .actcard a.cta.primary{background:var(--rust)}
-    .actcard a.cta.primary:hover{background:var(--rust-dark)}
-    .field{display:grid;grid-template-columns:1fr;gap:8px;margin:14px 0}
-    .field label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-fade)}
-    .field input{padding:12px 14px;border:1px solid var(--ink);background:var(--paper);font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--ink);border-radius:0}
-    .field input:focus{outline:none;border-color:var(--rust);box-shadow:0 0 0 2px rgba(168,84,59,.15)}
+    .move-card-c{background:#fff;border:1px solid var(--red-300);border-left:4px solid var(--red-500);border-radius:12px;padding:22px 24px;margin-bottom:14px;cursor:pointer;transition:transform .15s,box-shadow .15s,background .15s;position:relative}
+    .move-card-c:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(230,57,70,.14);background:linear-gradient(180deg,#fff 0%,var(--red-100) 100%)}
+    .move-card-c .id{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--red-700);letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+    .move-card-c .id .led{width:8px;height:8px;background:var(--red-500);border-radius:50%;animation:pulse-red 2.2s infinite}
+    @keyframes pulse-red{0%,100%{box-shadow:0 0 0 0 rgba(230,57,70,.45)}70%{box-shadow:0 0 0 8px rgba(230,57,70,0)}}
+    .move-card-c h4{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:20px;color:var(--ink);margin-bottom:8px;letter-spacing:-0.01em}
+    .move-card-c p{font-size:14px;color:var(--ink-soft);line-height:1.55;margin-bottom:14px}
+    .move-card-c .cta{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:13px;color:var(--red-700);display:inline-flex;align-items:center;gap:6px;cursor:pointer;text-decoration:none;border:0}
+    .move-card-c .cta::after{content:'→';font-family:'JetBrains Mono',monospace;transition:transform .15s}
+    .move-card-c:hover .cta::after{transform:translateX(4px)}
+    .move-card-c.do-2{border-color:var(--yellow-300);border-left-color:var(--yellow-500)}
+    .move-card-c.do-2 .id,.move-card-c.do-2 .cta{color:var(--yellow-700)}
+    .move-card-c.do-2 .id .led{background:var(--yellow-500);animation:pulse-amber 2.2s infinite}
+    @keyframes pulse-amber{0%,100%{box-shadow:0 0 0 0 rgba(214,162,74,.45)}70%{box-shadow:0 0 0 8px rgba(214,162,74,0)}}
+    .move-card-c.do-2:hover{box-shadow:0 12px 28px rgba(214,162,74,.16);background:linear-gradient(180deg,#fff 0%,var(--yellow-100) 100%)}
+    .move-card-c.do-3{border-color:var(--blue-300);border-left-color:var(--blue-500)}
+    .move-card-c.do-3 .id,.move-card-c.do-3 .cta{color:var(--blue-700)}
+    .move-card-c.do-3 .id .led{background:var(--blue-500);animation:pulse-blue 2.2s infinite}
+    @keyframes pulse-blue{0%,100%{box-shadow:0 0 0 0 rgba(0,36,255,.45)}70%{box-shadow:0 0 0 8px rgba(0,36,255,0)}}
+    .move-card-c.do-3:hover{box-shadow:0 12px 28px rgba(0,36,255,.14);background:linear-gradient(180deg,#fff 0%,var(--blue-100) 100%)}
 
-    .checklist{list-style:none;padding:0;max-width:100%}
-    .checklist li{display:grid;grid-template-columns:24px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--hairline);font-size:16px;line-height:1.45;cursor:pointer}
-    .checklist li::before{display:none}
-    .checklist li .box{width:18px;height:18px;border:1.5px solid var(--ink);margin-top:3px;flex-shrink:0;position:relative;transition:all .12s}
-    .checklist li:hover .box{border-color:var(--rust)}
-    .checklist li.done .box{background:var(--moss);border-color:var(--moss)}
-    .checklist li.done .box::after{content:'✓';position:absolute;top:-3px;left:3px;color:var(--paper);font-weight:600;font-size:14px}
-    .checklist li.done{color:var(--ink-fade)}
-    .checklist li.done strong{color:var(--ink-fade);text-decoration:line-through;text-decoration-thickness:1px}
+    .skipped-list{list-style:none}
+    .skipped-item{padding:9px 10px;border-radius:6px;font-size:13.5px;color:var(--ink-fade);text-decoration:line-through;text-decoration-color:var(--ink-ghost);display:flex;gap:12px;align-items:baseline;transition:background .12s;cursor:help}
+    .skipped-item:hover{background:var(--grey-100);color:var(--ink-mid)}
+    .skipped-item .num{font-family:'JetBrains Mono',monospace;font-size:10.5px;width:34px;flex-shrink:0;text-decoration:none}
+    .skipped-item .body{flex:1;display:flex;flex-direction:column;gap:2px}
+    .skipped-item .why{font-size:11px;color:var(--ink-fade);text-decoration:none;margin-top:2px;letter-spacing:.02em}
 
-    .pullquote{margin:48px 0;padding:0;font-family:'Fraunces',serif;font-variation-settings:"opsz" 144,"wght" 300,"SOFT" 100;font-style:italic;font-size:clamp(26px,3.6vw,42px);line-height:1.15;letter-spacing:-0.02em;color:var(--ink);max-width:26ch;position:relative}
-    .pullquote::before{content:'"';position:absolute;top:-.45em;left:-.5em;font-size:2.4em;line-height:1;color:var(--rust);font-style:italic}
-    .pullquote.right{margin-left:auto;text-align:right;max-width:30ch}
-    .pullquote-attr{display:block;margin-top:18px;font-family:'JetBrains Mono',monospace;font-style:normal;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-fade)}
+    footer{background:var(--ink);color:rgba(255,255,255,.7);padding:64px 0 32px}
+    footer h5{font-weight:600;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:14px}
+    footer .cols{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;align-items:start}
+    @media(max-width:800px){footer .cols{grid-template-columns:1fr 1fr;gap:32px}}
+    footer p{color:rgba(255,255,255,.78);font-size:14.5px;line-height:1.55;max-width:40ch}
+    footer p strong{color:#fff;font-weight:500}
+    footer .credo{border-left:2px solid var(--cobalt);padding-left:14px;margin-top:4px;font-size:14.5px;color:rgba(255,255,255,.82)}
+    footer ul{list-style:none;font-size:13.5px}
+    footer ul li{padding:4px 0}
+    footer ul li a{color:rgba(255,255,255,.7);border:0}
+    footer ul li a:hover{color:#fff}
+    footer .bar{margin-top:40px;padding-top:18px;border-top:1px solid rgba(255,255,255,.1);display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,.45);letter-spacing:.04em;flex-wrap:wrap;gap:12px}
 
-    .coord-strip{display:grid;grid-template-columns:repeat(6,1fr);margin:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
-    @media(max-width:800px){.coord-strip{grid-template-columns:repeat(3,1fr)}}
-    @media(max-width:500px){.coord-strip{grid-template-columns:repeat(2,1fr)}}
-    .coord-card{padding:22px 16px 18px;border-right:1px solid var(--hairline)}
-    .coord-card:last-child{border-right:none}
-    .coord-card .plane{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-fade);margin-bottom:10px}
-    .coord-card .landmark{font-family:'Fraunces',serif;font-variation-settings:"opsz" 60,"wght" 400,"SOFT" 80;font-style:italic;font-size:22px;letter-spacing:-0.01em;line-height:1.1;margin-bottom:8px}
-    .coord-card .confidence{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--rust)}
+    .search-hide{display:none!important}
 
-    .ed-table{width:100%;border-collapse:collapse;margin:22px 0;font-size:15px;font-family:'Newsreader',serif}
-    .ed-table th{text-align:left;padding:11px 14px 11px 0;border-bottom:1px solid var(--ink);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);font-weight:500}
-    .ed-table td{padding:14px 14px 14px 0;border-bottom:1px solid var(--hairline);vertical-align:top}
-    .ed-table tr:last-child td{border-bottom:none}
-    .ed-table tr:hover td{background:rgba(168,84,59,.03)}
-    .ed-table code{background:transparent;color:var(--rust-dark);font-size:12.5px;padding:0}
-    .badge-tab{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:4px 9px;border:1px solid currentColor}
-    .badge-tab.live{color:var(--moss)}
-    .badge-tab.partial{color:var(--ochre)}
-    .badge-tab.pending{color:var(--ink-fade)}
-    .badge-tab.act{color:var(--rust)}
-
-    .digest{background:#fcfaf2;border:1px solid var(--hairline);padding:40px 48px;margin:28px 0;font-family:'Newsreader',serif;font-size:17px;line-height:1.65;color:var(--ink-2);position:relative;max-width:76ch}
-    .digest::before{content:'FROM BRIDGET';position:absolute;top:-10px;left:28px;background:var(--paper);padding:0 12px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.25em;color:var(--rust)}
-    .digest p{max-width:100%;margin-bottom:1em;font-size:17px}
-    .digest strong{color:var(--ink);font-weight:600}
-
-    .map-frame{margin:28px 0;border:1px solid var(--ink);background:var(--paper);position:relative}
-    .map-frame::before{content:'COORDINATE MAP — INTERACTIVE';position:absolute;top:-1px;left:0;background:var(--ink);color:var(--paper);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.18em;padding:8px 14px;z-index:1}
-    .map-frame iframe{width:100%;height:720px;border:0;display:block;margin-top:30px}
-
-    details.coord-details{margin:28px 0;border:1px solid var(--ink)}
-    details.coord-details summary{cursor:pointer;padding:18px 26px;list-style:none;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);background:var(--paper-warm);display:flex;justify-content:space-between;align-items:center}
-    details.coord-details summary::-webkit-details-marker{display:none}
-    details.coord-details summary::after{content:'+';font-family:'Fraunces',serif;font-size:22px;line-height:0;color:var(--rust)}
-    details[open].coord-details summary::after{content:'−'}
-    .coords-md{padding:28px 32px 40px}
-    .coords-md h2{font-family:'Fraunces',serif;font-variation-settings:"opsz" 144,"wght" 400,"SOFT" 50;font-size:28px;letter-spacing:-0.015em;margin:48px 0 10px;padding-top:22px;border-top:1px solid var(--hairline);line-height:1.1}
-    .coords-md h2:first-child{margin-top:0;border-top:none;padding-top:0}
-    .coords-md blockquote{margin:16px 0;padding:4px 0 4px 18px;border-left:2px solid var(--rust);font-family:'Fraunces',serif;font-variation-settings:"opsz" 60,"wght" 360,"SOFT" 80;font-style:italic;font-size:16px;line-height:1.45;color:var(--ink-2);max-width:60ch}
-    .coords-md em{display:block;margin-top:6px;font-family:'JetBrains Mono',monospace;font-style:normal;font-size:11px;letter-spacing:.04em;color:var(--ink-fade)}
-    .coords-md p{max-width:64ch}
-    .coords-md strong{color:var(--ink)}
-
-    .colophon{margin-top:80px;padding:40px 0 0;border-top:1px solid var(--ink);display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.04em;color:var(--ink-soft);line-height:1.6}
-    .colophon h6{font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--rust);margin:0 0 12px;font-weight:500}
-    @media(max-width:800px){.colophon{grid-template-columns:1fr;gap:28px}}
-
-    @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-    .hero-eyebrow{animation:rise .8s ease .1s both}
-    .hero-title{animation:rise .9s ease .2s both}
-    .hero-deck{animation:rise .9s ease .35s both}
-    .hero-stats{animation:rise .9s ease .5s both}
+    .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(140%);background:var(--ink);color:#fff;padding:14px 22px;border-radius:10px;font-size:14px;font-weight:500;box-shadow:0 12px 32px rgba(0,0,0,.32);z-index:200;transition:transform .3s cubic-bezier(.2,.7,.3,1.2);display:flex;align-items:center;gap:12px;max-width:560px}
+    .toast.show{transform:translateX(-50%) translateY(0)}
+    .toast .check{width:24px;height:24px;border-radius:50%;background:var(--moss);display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0}
+    .toast .check .material-symbols-rounded{font-size:16px}
+    .toast .next{font-size:12.5px;color:rgba(255,255,255,.65);margin-top:2px}
   </style>
 </head>
 <body>
-  <header class="masthead">
-    <div class="masthead-left">VOL. I · NO. 03 · LIVE</div>
-    <div class="masthead-center">BRIDGE · <em>Field Operations</em></div>
-    <div class="masthead-right"><span class="pulse-dot"></span><span id="hero-status">CHECKING</span></div>
-  </header>
 
-  <div class="shell">
-    <aside class="toc-col">
-      <div class="toc-label">Contents</div>
-      <nav class="toc">
-        <a href="#status"><span class="num">I</span><span>Live console</span><span class="badge live">live</span></a>
-        <a href="#actions"><span class="num">II</span><span>Your move</span><span class="badge act">do</span></a>
-        <a href="#bridget"><span class="num">III</span><span>Bridget</span><span class="badge live">live</span></a>
-        <a href="#coords"><span class="num">IV</span><span>Coordinates</span><span class="badge live">live</span></a>
-        <a href="#intake"><span class="num">V</span><span>Intake gates</span><span class="badge live">live</span></a>
-        <a href="#trust"><span class="num">VI</span><span>Audit + undo</span><span class="badge live">live</span></a>
-        <a href="#sharepoint"><span class="num">VII</span><span>SharePoint</span><span class="badge act">do</span></a>
-        <a href="#digest"><span class="num">VIII</span><span>Sample digest</span><span class="badge live">live</span></a>
-        <a href="#partial"><span class="num">IX</span><span>In flight</span><span class="badge todo">build</span></a>
-        <a href="#test"><span class="num">X</span><span>How to test</span><span class="badge live">live</span></a>
-      </nav>
-    </aside>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="#"><svg class="brand-logo" id="brand-logo" viewBox="0 0 294 176"></svg><span class="brand-mark">BRIDGE</span></a>
+      <div class="nav-links">
+        <a class="nav-link active" href="#hero">Operations</a>
+        <a class="nav-link" href="#your-move">Activations</a>
+        <a class="nav-link" href="#catalog">Catalog</a>
+      </div>
+      <div class="nav-right">
+        <div class="nav-search"><input id="global-search" type="search" placeholder="Search all 100 capabilities · /" spellcheck="false"></div>
+        <span class="live-pill"><span class="led"></span><span id="live-status">checking</span></span>
+      </div>
+    </div>
+  </nav>
 
-    <main>
-      <section class="hero">
-        <div class="hero-eyebrow">A field operations dashboard · refreshed live · same-origin polling</div>
-        <h1 class="hero-title">What's <em>working</em>,<br>what to <em>do</em>.</h1>
-        <p class="hero-deck">Your three-agent system, in plain sight. The console below polls live. The action checklist remembers what you've done. The test recipes are buttons, not commands.</p>
-        <div class="hero-stats">
-          <div class="hero-stat"><div class="num green" id="stat-built">79</div><div class="lbl">Shipped &amp; tested</div></div>
-          <div class="hero-stat"><div class="num amber" id="stat-pending">7</div><div class="lbl">Pending</div></div>
-          <div class="hero-stat"><div class="num fade" id="stat-skipped">14</div><div class="lbl">Skipped</div></div>
-          <div class="hero-stat"><div class="num rust">~300</div><div class="lbl">Tests passing</div></div>
-        </div>
-      </section>
+  <main>
 
-      <section id="status">
-        <div class="section-head">
-          <div class="section-num">§ I</div>
-          <h2 class="section-title">Live <em>console</em>.</h2>
-          <span class="section-status live" id="section-status-live">live</span>
-        </div>
-        <p class="section-deck" style="grid-column:1/-1">Polled from the cloud service itself — no tokens in your browser. Just open this page.</p>
-
-        <div class="console">
-          <div class="console-card">
-            <h5>SERVICE HEALTH</h5>
-            <div class="services-grid">
-              <div class="service-row"><span class="name">Intake</span><span class="state checking" id="s-intake"><span class="dot"></span>checking</span></div>
-              <div class="service-row"><span class="name">Brain</span><span class="state checking" id="s-brain"><span class="dot"></span>checking</span></div>
-              <div class="service-row"><span class="name">Relay</span><span class="state checking" id="s-relay"><span class="dot"></span>checking</span></div>
-              <div class="service-row"><span class="name">Voice</span><span class="state checking" id="s-voice"><span class="dot"></span>checking</span></div>
-            </div>
-            <div class="surfaces-block">
-              <h5 style="margin:0 0 4px">INTAKE SURFACES · 8 TOTAL</h5>
-              <div class="surfaces-grid" id="surfaces"><div class="surface-pill off"><span class="dot"></span>loading</div></div>
-            </div>
-            <div class="console-meta">
-              <span>STATUS · <span id="meta-status">checking</span></span>
-              <span id="meta-ts">—</span>
-            </div>
-          </div>
-
-          <div class="accounts-card">
-            <h5>Connected Gmail accounts</h5>
-            <div class="accounts-list" id="accounts">
-              <div style="color:var(--ink-fade);font-style:italic;font-size:14px">Loading…</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="actions">
-        <div class="section-head">
-          <div class="section-num">§ II</div>
-          <h2 class="section-title">Your <em>move</em>.</h2>
-          <span class="section-status act">do</span>
-        </div>
-        <p class="section-deck" style="grid-column:1/-1">Tick as you go. Each one unlocks new capabilities downstream. The state persists in your browser.</p>
-
-        <ul class="checklist" id="checklist">
-          <li data-key="sharepoint-app"><span class="box"></span><span><strong>Add SharePoint permission to the CRREM app.</strong> Walked through in section VII — two clicks in Azure Portal.</span></li>
-          <li data-key="sharepoint-secret"><span class="box"></span><span><strong>Mint a fresh client secret.</strong> Same Azure page. Paste the value back to me in chat.</span></li>
-          <li data-key="test-email"><span class="box"></span><span><strong>Test the intake end-to-end.</strong> Send yourself an email at any of your three connected addresses. The audit row appears within 60 seconds — visible in the recipe in section X.</span></li>
-          <li data-key="test-bridget"><span class="box"></span><span><strong>Have a real conversation with Bridget on Telegram.</strong> Message <code>@bridge_bridgetbot</code> — feel her register against Beatrix's.</span></li>
-          <li data-key="coord-map"><span class="box"></span><span><strong>Read your own six planes.</strong> Section IV below. Click any dot in the map.</span></li>
-          <li data-key="weekly-digest"><span class="box"></span><span><strong>Activate the Sunday digest.</strong> One terminal command, in section X.</span></li>
-        </ul>
-      </section>
-
-      <section id="bridget">
-        <div class="section-head">
-          <div class="section-num">§ III</div>
-          <h2 class="section-title">Bridget <em>acquires a soul</em>.</h2>
-          <span class="section-status live">live</span>
-        </div>
-        <p class="section-deck" style="grid-column:1/-1">She used to be a router with nothing behind it. Now she has identity, voice, principles, a structured model of you. Grey heron. Stands at the edge of the pond, sees the whole water, makes the call.</p>
-
-        <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:40px;margin-top:20px">
-          <div>
-            <p>Seven files in her workspace. They describe who she is, how she speaks to you, the model she holds of who you are, what permission she has at each scope, how she logs every action.</p>
-            <ul>
-              <li><strong>IDENTITY.md</strong> — tone, register, signature moves, what she never does.</li>
-              <li><strong>USER.md</strong> — her model of you. North Star. Active Focus. Rules she must never break.</li>
-              <li><strong>PRINCIPLES.md</strong> — how she decides. Permission tiers, audit requirements, routing.</li>
-              <li><strong>SOUL.md</strong> — the longer arc of who she is.</li>
-              <li><strong>AGENTS.md · TOOLS.md · HEARTBEAT.md</strong> — supporting layer.</li>
-            </ul>
-            <p>Each cloud redeploy refreshes Bridget's identity from these files. No drift between source and running agent.</p>
-          </div>
-          <div>
-            <blockquote class="pullquote">She stands quiet at the edge, sees the whole pond, strikes once when the moment is right.<span class="pullquote-attr">— Bridget's identity, opening</span></blockquote>
-          </div>
-        </div>
-
-        <div class="actcard">
-          <div class="actcard-header live"><span>TEST · BRIDGET'S VOICE</span><span class="step-tag">~2 MIN</span></div>
-          <div class="actcard-body">
-            <h3>Compare her register to Beatrix's</h3>
-            <ol>
-              <li>Open Telegram, find <code>@bridge_bridgetbot</code>.</li>
-              <li>Message her any inbound situation — "just got an unexpected email from a journalist, what do I do."</li>
-              <li>Her tone should land grounded, directive, focused on routing.</li>
-              <li>Compare with Beatrix in another thread — warmer, more interior, more reflective.</li>
-            </ol>
-            <a class="cta" href="https://t.me/bridge_bridgetbot" target="_blank">Open Telegram thread →</a>
-          </div>
-        </div>
-      </section>
-
-      <section id="coords">
-        <div class="section-head">
-          <div class="section-num">§ IV</div>
-          <h2 class="section-title">The <em>map</em> of you.</h2>
-          <span class="section-status live">live</span>
-        </div>
-        <p class="section-deck" style="grid-column:1/-1">Thirty-nine signal-rich pages from your vault. Six planes. Verbatim quotes from your own writing anchor every placement. Average confidence: 83%.</p>
-
-        <div class="coord-strip">
-          <div class="coord-card"><div class="plane">Lifestyle</div><div class="landmark">bohemian</div><div class="confidence">82% · solid</div></div>
-          <div class="coord-card"><div class="plane">Behaviour</div><div class="landmark">initiating</div><div class="confidence">78% · solid</div></div>
-          <div class="coord-card"><div class="plane">Intelligence</div><div class="landmark">holistic</div><div class="confidence">88% · high</div></div>
-          <div class="coord-card"><div class="plane">Values</div><div class="landmark">autonomy</div><div class="confidence">85% · high</div></div>
-          <div class="coord-card"><div class="plane">Identity</div><div class="landmark">campaigner</div><div class="confidence">80% · solid</div></div>
-          <div class="coord-card"><div class="plane">Mission</div><div class="landmark">inspiration</div><div class="confidence">87% · high</div></div>
-        </div>
-
-        <blockquote class="pullquote">The builder pattern is the load-bearing beam of the whole structure — perpetual motion in lifestyle, pirate in a navy in behaviour, founder by instinct in identity, seven years of obsession in mission.<span class="pullquote-attr">— What the engine noticed across planes</span></blockquote>
-
-        <blockquote class="pullquote right">The gap between stated compassion and revealed velocity is the clearest Dunning-Kruger signal in the corpus. Your vault names it explicitly. Self-awareness is present.<span class="pullquote-attr">— Cross-plane observation</span></blockquote>
-
-        <div class="map-frame">
-          <iframe src="/dashboard/coordinates-map.html" title="Coordinate map"></iframe>
-        </div>
-
-        <details class="coord-details">
-          <summary>The full read · plane by plane · about six minutes</summary>
-          <div class="coords-md" id="coords-md"></div>
-        </details>
-      </section>
-
-      <section id="intake">
-        <div class="section-head">
-          <div class="section-num">§ V</div>
-          <h2 class="section-title">The <em>eight gates</em>.</h2>
-          <span class="section-status live">7/8</span>
-        </div>
-        <p class="section-deck" style="grid-column:1/-1">A new cloud service catches everything inbound across surfaces. Classifies it (urgent, normal, CRREM, personal, admin). Routes to Beatrix or Clem or your brain. Sixty seconds, end to end.</p>
-
-        <table class="ed-table">
-          <thead><tr><th style="width:16%">Surface</th><th style="width:16%">State</th><th>Notes</th></tr></thead>
-          <tbody>
-            <tr><td>Gmail × 3</td><td><span class="badge-tab live">live</span></td><td>omarali600, omarali.xyz, ampersand.international — all polling every 60s.</td></tr>
-            <tr><td>Calendar × 3</td><td><span class="badge-tab live">live</span></td><td>Catches every event create / update / cancel.</td></tr>
-            <tr><td>Drive × 3</td><td><span class="badge-tab live">live</span></td><td>Indexes new files for Beatrix.</td></tr>
-            <tr><td>Telegram</td><td><span class="badge-tab live">live</span></td><td>Bridget at <code>@bridge_bridgetbot</code>.</td></tr>
-            <tr><td>WhatsApp</td><td><span class="badge-tab live">live</span></td><td>Twilio reactivated. Sandbox active.</td></tr>
-            <tr><td>Voice memos</td><td><span class="badge-tab partial">code ready</span></td><td>Local watcher pending in-flight build.</td></tr>
-            <tr><td>Photos</td><td><span class="badge-tab partial">code ready</span></td><td>Same as voice memos.</td></tr>
-            <tr><td>SharePoint</td><td><span class="badge-tab act">your move</span></td><td>Section VII has the two-click setup.</td></tr>
-          </tbody>
-        </table>
-      </section>
-
-      <section id="trust">
-        <div class="section-head">
-          <div class="section-num">§ VI</div>
-          <h2 class="section-title">The <em>foundation</em> under it.</h2>
-          <span class="section-status live">live</span>
-        </div>
-        <p class="section-deck" style="grid-column:1/-1">The substrate that makes delegation safe. Every action logged. Reversible things undoable for a day. Per-agent kill switches. Sunday digest in Bridget's voice. Your data stays portable.</p>
-
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px">
-          <ul>
-            <li><strong>Audit log</strong> — every agent action timestamped with target + reasoning.</li>
-            <li><strong>Permission tiers</strong> — per agent, per scope. Advisory, delegated, autonomous.</li>
-            <li><strong>24-hour undo</strong> — sent messages, created events, moved files reversible.</li>
-          </ul>
-          <ul>
-            <li><strong>Kill switches</strong> — per agent, per capability, master switch.</li>
-            <li><strong>Weekly digest</strong> — Sunday 7pm, in Bridget's voice. See specimen in section VIII.</li>
-            <li><strong>Full export</strong> — one command produces a portable tar.gz.</li>
-          </ul>
-        </div>
-      </section>
-
-      <section id="sharepoint">
-        <div class="section-head">
-          <div class="section-num">§ VII</div>
-          <h2 class="section-title">SharePoint <em>activation</em>.</h2>
-          <span class="section-status act">your move</span>
-        </div>
-        <p class="section-deck" style="grid-column:1/-1">An app registration exists in the CRREM tenant for Mail scope. You're now a tenant admin. Three actions, three Azure clicks. Once done, Clem reads CRREM SharePoint in real time.</p>
-
-        <div class="actcard">
-          <div class="actcard-header act"><span>STEP 1 · ADD SHAREPOINT PERMISSION</span><span class="step-tag">~60 SEC</span></div>
-          <div class="actcard-body">
-            <p>Click the button below — it opens the BRIDGE Graph app in Azure Portal for the CRREM tenant directly.</p>
-            <a class="cta primary" href="https://portal.azure.com/#@7284080e-ff4a-4378-aa2b-d13313f6da68/blade/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/CallAnAPI/appId/e4569c31-6eac-411e-9d4f-6f745943ce29" target="_blank">Open the app's API permissions →</a>
-            <ol style="margin-top:16px">
-              <li>Click <strong>+ Add a permission</strong> → <strong>Microsoft Graph</strong> → <strong>Application permissions</strong>.</li>
-              <li>Search <strong>Sites.Read.All</strong> → check the box → <strong>Add permissions</strong>.</li>
-              <li>Click <strong>Grant admin consent for CRREM</strong> (blue button above the list). Confirm.</li>
-            </ol>
-            <p>You'll see green checkmarks next to all permissions when consent is granted.</p>
-          </div>
-        </div>
-
-        <div class="actcard">
-          <div class="actcard-header act"><span>STEP 2 · MINT A CLIENT SECRET</span><span class="step-tag">~30 SEC</span></div>
-          <div class="actcard-body">
-            <a class="cta primary" href="https://portal.azure.com/#@7284080e-ff4a-4378-aa2b-d13313f6da68/blade/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/Credentials/appId/e4569c31-6eac-411e-9d4f-6f745943ce29" target="_blank">Open the app's Certificates &amp; secrets →</a>
-            <ol style="margin-top:16px">
-              <li>Under <strong>Client secrets</strong>, click <strong>+ New client secret</strong>.</li>
-              <li>Description: <code>bridge-intake-sharepoint</code>. Expires: 24 months.</li>
-              <li>Click <strong>Add</strong>.</li>
-              <li><strong>Copy the secret value immediately</strong> — Azure only shows it once.</li>
-            </ol>
-          </div>
-        </div>
-
-        <div class="actcard">
-          <div class="actcard-header act"><span>STEP 3 · HAND IT BACK</span><span class="step-tag">~5 SEC</span></div>
-          <div class="actcard-body">
-            <p>Drop the secret value in our chat. I wire it into the cloud env vars, redeploy, and SharePoint goes live.</p>
-            <p style="color:var(--ink-fade);font-size:14px;font-style:italic">Tenant ID and client ID are already known on my side — I just need the new secret.</p>
-          </div>
-        </div>
-      </section>
-
-      <section id="digest">
-        <div class="section-head">
-          <div class="section-num">§ VIII</div>
-          <h2 class="section-title">A <em>specimen</em> dispatch.</h2>
-          <span class="section-status live">ready</span>
-        </div>
-        <p class="section-deck" style="grid-column:1/-1">Generated from ten seeded entries during testing. This is the shape Bridget will send to your Telegram every Sunday.</p>
-
-        <div class="digest">
-          <p>From Bridget — your weekly look-back for the week ending 2026-05-20.</p>
-          <p><strong>What your agents did on their own — three actions.</strong><br>Beatrix: two. Added Marcus Rivera to the people graph after he came up in two threads.<br>Bridget: one. Sent the morning briefing to Beatrix and the CRREM thread to Clem.</p>
-          <p><strong>What they did on your behalf — seven actions.</strong><br>Beatrix: two. Tightened the CRREM Summit thread with three new links.<br>Bridget: two. Pinged you when the cost-guard daily cap edged above eighty percent.<br>Clem: two. Sent the partner reply you had approved earlier in the day.<br>The voice line: one. Listened to a seven-minute incoming call and wrote you the short summary.</p>
-          <p><strong>What stopped on us — two incidents.</strong><br>Beatrix: Started a draft personal reply but couldn't reach the contact's recent context. The cause: the people-graph lookup timed out.<br>Clem: Tried to push the press note for V2.05 but the outbound key was rejected.</p>
-          <p><strong>Waiting on you — one item.</strong><br>Bridget: Holding a warm intro draft between two of your contacts for your sign-off.</p>
-          <p>Reply if you want to widen, narrow, or pause anything. The audit trail is complete. The undo window holds for a day.</p>
-        </div>
-      </section>
-
-      <section id="partial">
-        <div class="section-head">
-          <div class="section-num">§ IX</div>
-          <h2 class="section-title">The <em>roster</em>.</h2>
-          <span class="section-status live"><span id="cap-built-count">…</span> / 100</span>
-        </div>
-        <p class="section-deck" style="grid-column:1/-1">All 100 capabilities from the canvas, in plain English. Filter by status. Click any item to expand.</p>
-
-        <style>
-          .cap-filters{display:flex;gap:10px;margin:24px 0 32px;flex-wrap:wrap}
-          .cap-filter-btn{
-            padding:8px 16px;
-            font-family:'JetBrains Mono',monospace;
-            font-size:11px;letter-spacing:.14em;text-transform:uppercase;
-            background:transparent;border:1px solid var(--hairline);color:var(--ink-soft);
-            cursor:pointer;transition:all .15s ease;
-          }
-          .cap-filter-btn:hover{color:var(--ink);border-color:var(--ink)}
-          .cap-filter-btn.active{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-          .cap-filter-btn.active-built{background:var(--moss);color:var(--paper);border-color:var(--moss)}
-          .cap-filter-btn.active-pending{background:var(--ochre);color:var(--paper);border-color:var(--ochre)}
-          .cap-cluster{margin-bottom:40px}
-          .cap-cluster h4{
-            font-family:'JetBrains Mono',monospace;
-            font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;
-            color:var(--rust);margin:0 0 14px;padding-bottom:8px;
-            border-bottom:1px solid var(--hairline);
-            display:flex;justify-content:space-between;align-items:baseline;
-          }
-          .cap-cluster h4 .ct{color:var(--ink-fade);font-weight:400;letter-spacing:.14em}
-          .cap-item{
-            display:grid;grid-template-columns:42px 1fr auto;gap:14px;
-            padding:14px 0;border-bottom:1px solid var(--hairline-soft);
-            cursor:pointer;align-items:start;
-          }
-          .cap-item:last-child{border-bottom:none}
-          .cap-item:hover{background:rgba(168,84,59,.03)}
-          .cap-num{
-            font-family:'JetBrains Mono',monospace;font-size:11px;
-            color:var(--ink-fade);padding-top:3px;text-align:right;
-          }
-          .cap-num.built{color:var(--moss);font-weight:500}
-          .cap-num.pending{color:var(--ochre);font-weight:500}
-          .cap-num.skipped{color:var(--ink-ghost);text-decoration:line-through}
-          .cap-body{min-width:0}
-          .cap-name{
-            font-family:'Fraunces',serif;font-size:18px;font-style:italic;
-            font-variation-settings:"opsz" 60,"wght" 400,"SOFT" 70;
-            margin-bottom:6px;line-height:1.2;color:var(--ink);
-          }
-          .cap-eng{
-            font-family:'Newsreader',serif;font-size:15px;line-height:1.5;
-            color:var(--ink-soft);margin:0;max-width:60ch;
-          }
-          .cap-eng.collapsed{
-            display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
-            overflow:hidden;
-          }
-          .cap-tag{
-            font-family:'JetBrains Mono',monospace;font-size:9px;
-            letter-spacing:.14em;text-transform:uppercase;
-            padding:3px 8px;border:1px solid currentColor;
-            white-space:nowrap;align-self:center;
-          }
-          .cap-tag.built{color:var(--moss)}
-          .cap-tag.pending{color:var(--ochre)}
-          .cap-tag.skipped{color:var(--ink-ghost)}
-        </style>
-
-        <div class="cap-filters" id="cap-filters">
-          <button class="cap-filter-btn active" data-filter="all">All <span id="ct-all"></span></button>
-          <button class="cap-filter-btn" data-filter="built">Built <span id="ct-built"></span></button>
-          <button class="cap-filter-btn" data-filter="pending">Pending <span id="ct-pending"></span></button>
-          <button class="cap-filter-btn" data-filter="skipped">Skipped <span id="ct-skipped"></span></button>
-        </div>
-
-        <div id="cap-roster">
-          <p style="color:var(--ink-fade);font-style:italic;font-size:14px">Loading capability roster…</p>
-        </div>
-      </section>
-
-      <section id="test">
-        <div class="section-head">
-          <div class="section-num">§ X</div>
-          <h2 class="section-title">How to <em>test</em>.</h2>
-          <span class="section-status live">recipes</span>
-        </div>
-        <p class="section-deck" style="grid-column:1/-1">Buttons, not commands. Click to do.</p>
-
-        <div class="actcard">
-          <div class="actcard-header"><span>RECIPE 1 · END-TO-END EMAIL ROUTING</span><span class="step-tag">~3 MIN</span></div>
-          <div class="actcard-body">
-            <h3>Send + verify in one click</h3>
-            <ol>
-              <li>Click the button — opens a pre-filled email to your primary address.</li>
-              <li>Hit send.</li>
-              <li>Wait 60 seconds.</li>
-              <li>Click the second button — shows the most recent audit log entries (Bridget's classification + routing decision).</li>
-            </ol>
-            <a class="cta primary" href="mailto:omarali600@gmail.com?subject=Intake%20test%20ping&body=Sent%20from%20the%20BRIDGE%20dashboard%20to%20test%20Bridget's%20intake%20engine.%20Should%20be%20classified%20as%20admin%20%2F%20low-urgency.">Send the test email →</a>
-            &nbsp;
-            <a class="cta" href="#" onclick="showAudit();return false">Show what Bridget did →</a>
-            <div id="audit-output" style="margin-top:16px"></div>
-          </div>
-        </div>
-
-        <div class="actcard">
-          <div class="actcard-header"><span>RECIPE 2 · TALK TO BRIDGET</span><span class="step-tag">~2 MIN</span></div>
-          <div class="actcard-body">
-            <h3>One-click into the Telegram thread</h3>
-            <a class="cta primary" href="https://t.me/bridge_bridgetbot" target="_blank">Open Telegram with Bridget →</a>
-            <p style="margin-top:14px">Try: <em>"Andrea wants to move the CRREM summit by a week. What do I do?"</em></p>
-          </div>
-        </div>
-
-        <div class="actcard">
-          <div class="actcard-header"><span>RECIPE 3 · ACTIVATE THE SUNDAY DIGEST</span><span class="step-tag">~5 SEC</span></div>
-          <div class="actcard-body">
-            <h3>One command, in Bridget's voice every Sunday at 7pm</h3>
-            <p>The launch agent is written but not yet loaded on your Mac. Open Terminal and paste:</p>
-            <p style="margin:10px 0"><code style="font-size:13px;display:block;padding:10px 14px;background:var(--ink);color:var(--paper)">launchctl load ~/Library/LaunchAgents/com.omar.bridge.audit-digest.plist</code></p>
-            <p style="font-style:italic;color:var(--ink-fade);font-size:14px">After Sunday 7pm, the dispatch shape from section VIII lands in your Telegram.</p>
-          </div>
-        </div>
-
-        <div class="actcard">
-          <div class="actcard-header"><span>RECIPE 4 · CONNECT ANOTHER GMAIL ACCOUNT</span><span class="step-tag">~1 MIN</span></div>
-          <div class="actcard-body">
-            <h3>Multi-account is already wired</h3>
-            <div class="field">
-              <label>Email address to connect</label>
-              <input type="email" id="new-account-email" placeholder="someone@example.com">
-            </div>
-            <a class="cta primary" href="#" onclick="connectGmail();return false">Generate the connection link →</a>
-            <div id="connect-output" style="margin-top:14px"></div>
-          </div>
-        </div>
-      </section>
-
-      <footer class="colophon">
+  <section id="hero" class="hero">
+    <div class="container">
+      <div class="hero-grid">
         <div>
-          <h6>Source</h6>
-          Served live from<br>bridge-intake.onrender.com<br><br>Authenticated by session cookie<br>set on your first visit.
+          <span class="eyebrow"><span class="dot"></span><span id="hero-date">Field operations</span></span>
+          <h1>Hi Omar.<br>Eighty-six things <em>are running</em>.<br><span id="hero-pending-line">Three are <em>waiting on you</em>.</span></h1>
+          <p class="hero-deck">A platform, a philosophy, and a protocol for human alignment. The agents that listen, the cloud that holds, the actions waiting on you. <strong>Click any card to see what it does and how to test it.</strong></p>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="#your-move">Resolve activations <span class="material-symbols-rounded">arrow_forward</span></a>
+            <a class="btn btn-ghost" href="#agents">Meet the agents</a>
+          </div>
+        </div>
+        <div class="snapshot">
+          <h4>Status · live</h4>
+          <div class="snapshot-row"><span>Built &amp; tested</span><span class="val moss" id="snap-built">86</span></div>
+          <div class="snapshot-row"><span>Pending</span><span class="val" id="snap-pending">0</span></div>
+          <div class="snapshot-row"><span>Skipped</span><span class="val" id="snap-skipped">14</span></div>
+          <div class="snapshot-row"><span>Cloud services</span><span class="val moss" id="snap-cloud">5 / 5</span></div>
+          <div class="snapshot-row"><span>Inboxes polling</span><span class="val" id="snap-polling">3</span></div>
+          <div class="snapshot-row"><span>Launch agents loaded</span><span class="val ember" id="snap-launchd">0 / 16</span></div>
+          <div class="snapshot-row"><span class="mono">last check</span><span class="val mono" id="snap-last">—</span></div>
+        </div>
+      </div>
+      <div class="metrics">
+        <div class="metric"><div class="num cobalt" id="m-built">86</div><div class="lbl">capabilities built</div></div>
+        <div class="metric"><div class="num ember" id="m-pending">3</div><div class="lbl">your move</div></div>
+        <div class="metric"><div class="num moss">~500</div><div class="lbl">tests passing</div></div>
+        <div class="metric"><div class="num" id="m-skipped">14</div><div class="lbl">skipped</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="agents">
+    <div class="container">
+      <div class="sec-head">
+        <span class="eyebrow">The cast</span>
+        <h2>Five agents, <em>five principals</em>.</h2>
+        <p class="meta">Each agent serves exactly one principal. Click any portrait to expand its drawer.</p>
+      </div>
+      <div class="agents-grid">
+        <a class="agent" href="#"><div class="agent-portrait"><img data-agent="bridget" alt="Bridget"></div><div class="name">Bridget</div><div class="role">Postmaster</div><span class="active-tag"><span class="led"></span>Active</span><div class="principal">Omar Ali</div></a>
+        <a class="agent" href="#"><div class="agent-portrait"><img data-agent="beatrix" alt="Beatrix"></div><div class="name">Beatrix</div><div class="role">Explorer's companion</div><span class="active-tag"><span class="led"></span>Active</span><div class="principal">Omar Ali</div></a>
+        <a class="agent dormant" href="#"><div class="agent-portrait"><img data-agent="basil" alt="Basil"></div><div class="name">Basil</div><div class="role">Integrator's companion</div><div class="dormant-tag">Dormant</div><div class="principal">Omar Ali</div></a>
+        <a class="agent dormant" href="#"><div class="agent-portrait"><img data-agent="benson" alt="Benson"></div><div class="name">Benson</div><div class="role">Executor's companion</div><div class="dormant-tag">Dormant</div><div class="principal">Omar Ali</div></a>
+        <a class="agent" href="#"><div class="agent-portrait"><img data-agent="clem" alt="Clem"></div><div class="name">Clem</div><div class="role">CRREM's house agent</div><span class="active-tag"><span class="led"></span>Active</span><div class="principal">CRREM</div></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="your-move" class="dense">
+    <div class="container">
+      <div class="your-move">
+        <div>
+          <span class="eyebrow">Your move</span>
+          <h2>Three activations between you and a fully autonomous BRIDGE.</h2>
+          <p>The code is shipped. The cloud is running. These three taps connect the last pipes — SharePoint reads, the Sunday digest, and the voice line.</p>
+        </div>
+        <div class="move-list">
+          <a class="move-item" href="#move-1"><span class="n">01</span><span class="t">Mint the SharePoint client secret</span><span class="material-symbols-rounded">arrow_forward</span></a>
+          <a class="move-item" href="#move-2"><span class="n">02</span><span class="t">Load the audit-digest launch agent</span><span class="material-symbols-rounded">arrow_forward</span></a>
+          <a class="move-item" href="#move-3"><span class="n">03</span><span class="t">Make the first call to +31 97 010 208320</span><span class="material-symbols-rounded">arrow_forward</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cloud" class="section-blue">
+    <div class="container">
+      <div class="sec-head">
+        <span class="eyebrow"><span class="dot"></span>The backbone</span>
+        <h2>Cloud <em>services</em>.</h2>
+        <p class="meta">Polled live. Click any card to see what it owns, the URL, and the curl command to test it.</p>
+      </div>
+      <div class="grid" id="cloud-grid"></div>
+    </div>
+  </section>
+
+  <section id="surfaces" class="section-green">
+    <div class="container">
+      <div class="sec-head">
+        <span class="eyebrow"><span class="dot"></span>The intake</span>
+        <h2>Ten <em>surfaces</em>.</h2>
+        <p class="meta">Where life flows in. Three Gmails, three Calendars, three Drives, Telegram, WhatsApp, SharePoint, voice memos, photos.</p>
+      </div>
+      <div class="grid" id="surfaces-grid"></div>
+    </div>
+  </section>
+
+  <section id="catalog">
+    <div class="container">
+      <div class="catalog-head">
+        <div>
+          <span class="eyebrow" style="color:var(--blue-700)">The catalog</span>
+          <h2>What's <em style="color:var(--green-700)">running</em>, what <em style="color:var(--red-700)">needs you</em>, what's <em style="color:var(--ink-fade)">not coming</em>.</h2>
+          <p style="max-width:64ch;margin-top:10px">One hundred capabilities planned. <strong style="color:var(--ink)">86 built and running</strong>. <strong style="color:var(--ink)" id="cat-pending-line">3 waiting on you</strong>. <strong style="color:var(--ink)">14 dropped on purpose</strong>. Click any row to expand.</p>
+        </div>
+        <div class="catalog-legend">
+          <span><span class="dot g"></span>Built <strong id="legend-built">86</strong></span>
+          <span><span class="dot r"></span>Your move <strong id="legend-pending">3</strong></span>
+          <span><span class="dot k"></span>Dropped <strong id="legend-skipped">14</strong></span>
+        </div>
+      </div>
+
+      <div class="spread">
+        <div class="col col-running">
+          <div class="col-head">
+            <span class="eyebrow" style="color:var(--green-700)">Running</span>
+            <h3>What's <em style="color:var(--green-700)">running</em>.</h3>
+            <div class="ct" id="run-ct">capabilities grouped by cluster</div>
+          </div>
+          <div id="running-list"></div>
+          <div class="show-more" id="catalog-toggle-more">+ show all clusters →</div>
+        </div>
+
+        <div class="col col-moves">
+          <div class="col-head">
+            <span class="eyebrow" style="color:var(--red-700)">Your move</span>
+            <h3>What <em style="color:var(--red-700)">needs you</em>.</h3>
+            <div class="ct" id="moves-ct">activations · ~3 minutes</div>
+          </div>
+          <div id="move-1" class="move-card-c">
+            <div class="id"><span class="led"></span>№ 098 · intake · ~90 sec</div>
+            <h4>SharePoint sync</h4>
+            <p>App registered. Permission granted. Mint the client secret in Azure Portal, drop it in chat. Clem reads CRREM SharePoint within minutes.</p>
+            <a class="cta" href="https://portal.azure.com/#@7284080e-ff4a-4378-aa2b-d13313f6da68/blade/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/Credentials/appId/e4569c31-6eac-411e-9d4f-6f745943ce29" target="_blank">Open Azure Portal</a>
+          </div>
+          <div id="move-2" class="move-card-c do-2">
+            <div class="id"><span class="led"></span>№ 092 · trust · ~5 sec</div>
+            <h4>Sunday audit digest</h4>
+            <p>One <code style="font-family:'JetBrains Mono',monospace;background:var(--yellow-100);padding:1px 6px;border-radius:3px;color:var(--yellow-700);font-size:12.5px">launchctl load</code> command. Sunday 19:00 letters from Bridget start landing on your Telegram.</p>
+            <a class="cta" href="#" onclick="copyText('launchctl load ~/Library/LaunchAgents/com.omar.bridge.audit-digest.plist',null);event.preventDefault()">Copy &amp; open Terminal</a>
+          </div>
+          <div id="move-3" class="move-card-c do-3" style="opacity:.75">
+            <div class="id"><span class="led"></span>scheduled · later</div>
+            <h4>First call to the voice line</h4>
+            <p>+31 97 010 208320 is live on Twilio but never tested end-to-end. The first real call confirms it picks up and routes to Bridget.</p>
+            <a class="cta" href="tel:+31970102083 20">When you're ready</a>
+          </div>
+        </div>
+
+        <div class="col col-skipped">
+          <div class="col-head">
+            <span class="eyebrow" style="color:var(--ink-mid)">Out of scope</span>
+            <h3>What's <em style="color:var(--ink-fade)">not coming</em>.</h3>
+            <div class="ct" id="skip-ct">dropped · explicit choices</div>
+          </div>
+          <ul class="skipped-list" id="skipped-list"></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="launchd" class="section-yellow">
+    <div class="container">
+      <div class="sec-head">
+        <span class="eyebrow"><span class="dot"></span>The grove</span>
+        <h2>Sixteen <em>daemons</em>, dormant.</h2>
+        <p class="meta">Local launchd agents on your Mac. Each card has a one-tap copy of the <code style="font-family:'JetBrains Mono',monospace;background:var(--yellow-100);padding:1px 6px;border-radius:3px;color:var(--yellow-700);font-size:12.5px">launchctl load</code> command — paste into Terminal and the daemon's live.</p>
+      </div>
+      <div class="grid" id="launchd-grid"></div>
+    </div>
+  </section>
+
+  <section id="packages" class="section-grey">
+    <div class="container">
+      <div class="sec-head">
+        <span class="eyebrow"><span class="dot"></span>The workshop</span>
+        <h2>Twenty-four <em>packages</em>.</h2>
+        <p class="meta">Every TypeScript package in the bridge-ai monorepo. What it owns, how many tests, the one-line bun command to run them.</p>
+      </div>
+      <div class="grid" id="packages-grid"></div>
+    </div>
+  </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="cols">
+        <div>
+          <a class="brand" href="#" style="margin-bottom:16px"><svg class="brand-logo" id="brand-logo-foot" viewBox="0 0 294 176" style="color:#fff"></svg><span class="brand-mark" style="color:#fff">BRIDGE</span></a>
+          <p class="credo">A platform, a philosophy, and a protocol for human alignment — built on the bet that <strong>human self-knowledge</strong> and <strong>economic ownership</strong> are the two bridges that determine whether AI makes things better or worse.</p>
+          <p style="margin-top:14px;font-size:12.5px;color:rgba(255,255,255,.5);letter-spacing:.02em">Aligning humans before we align machines. Seven years of obsession, now running.</p>
         </div>
         <div>
-          <h6>Set in</h6>
-          Fraunces (display, var. axes)<br>Newsreader (body)<br>JetBrains Mono (system)<br><br>Paper texture, ink colours,<br>and brass accents.
+          <h5>Surfaces</h5>
+          <ul><li><a href="#cloud">Cloud services</a></li><li><a href="#surfaces">Intake surfaces</a></li><li><a href="#launchd">Daemons</a></li><li><a href="#agents">Agents</a></li></ul>
         </div>
         <div>
-          <h6>Issued</h6>
-          2026-05-20 · Volume I · No. 03<br>From the desk of Bridget.<br><br>Three agents — Beatrix, Clem,<br>and the heron at the gate.
+          <h5>Operations</h5>
+          <ul><li><a href="#catalog">Catalog</a></li><li><a href="#your-move">Activations</a></li><li><a href="/dashboard/coordinates-map.html">Coordinate atlas</a></li><li><a href="#packages">Packages</a></li></ul>
         </div>
-      </footer>
-    </main>
+        <div>
+          <h5>Governance</h5>
+          <ul><li><a href="#">Permissions</a></li><li><a href="#">Kill switches</a></li><li><a href="#">Undo (24h)</a></li><li><a href="#">Export</a></li></ul>
+        </div>
+      </div>
+      <div class="bar">
+        <span>BRIDGE · field operations · <span id="footer-date">2026-05-21</span></span>
+        <span class="mono">v0.5 · last poll <span id="footer-last">—</span></span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast">
+    <div class="check"><span class="material-symbols-rounded">check</span></div>
+    <div><div id="toast-msg">Command copied</div><div class="next" id="toast-next">paste it in Terminal · ⌘+Space → "Terminal" → ⌘V → Return</div></div>
   </div>
 
-  <script>
-    // Same-origin: server aggregates everything we need.
-    async function refresh() {
-      try {
-        const r = await fetch('/dashboard/data', { credentials: 'same-origin' });
-        if (!r.ok) throw new Error('data fetch failed');
-        const data = await r.json();
-
-        // Services
-        const sNames = ['intake', 'brain', 'relay', 'voice'];
-        let upCount = 0;
-        for (const name of sNames) {
-          const el = document.getElementById('s-' + name);
-          const svc = data.services[name];
-          if (svc && svc.ok) {
-            el.className = 'state live';
-            el.innerHTML = '<span class="dot"></span>live';
-            upCount++;
-          } else {
-            el.className = 'state down';
-            el.innerHTML = '<span class="dot"></span>down';
-          }
-        }
-        document.getElementById('meta-status').textContent = upCount === 4 ? 'all surfaces nominal' : `${upCount}/4 up`;
-        document.getElementById('meta-ts').textContent = new Date(data.timestamp).toISOString().replace('T',' · ').slice(0,19) + ' Z';
-
-        // Surfaces
-        const surfacesEl = document.getElementById('surfaces');
-        surfacesEl.innerHTML = '';
-        const order = ['telegram','whatsapp','email','calendar','drive','sharepoint','voice-memo','photo'];
-        for (const name of order) {
-          const isLive = !!data.surfaces[name];
-          const pill = document.createElement('div');
-          pill.className = 'surface-pill ' + (isLive ? 'live' : 'off');
-          pill.innerHTML = '<span class="dot"></span>' + name;
-          surfacesEl.appendChild(pill);
-        }
-
-        // Accounts
-        if (data.accounts && data.accounts.length) {
-          document.getElementById('accounts').innerHTML = data.accounts.map(a =>
-            `<div class="account-row"><span class="email">${a.email}</span><span class="badge ${a.polling ? 'polling' : 'idle'}">${a.polling ? '● polling' : '○ idle'}</span></div>`
-          ).join('');
-        } else {
-          document.getElementById('accounts').innerHTML = '<div style="color:var(--ink-fade);font-style:italic;font-size:14px">No accounts connected.</div>';
-        }
-
-        // Hero status
-        const sLive = data.surfaces ? Object.values(data.surfaces).filter(Boolean).length : 0;
-        const sTotal = data.surfaces ? Object.keys(data.surfaces).length : 8;
-        const aCount = data.accounts.length;
-        document.getElementById('hero-status').textContent = `${aCount} ACCOUNT${aCount === 1 ? '' : 'S'} POLLING · ${sLive}/${sTotal} SURFACES LIVE`;
-      } catch (e) {
-        console.error(e);
+<script>
+  const $=q=>document.querySelector(q);
+  const $$=q=>Array.from(document.querySelectorAll(q));
+  const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  function statusToClass(s){
+    if(!s) return 'pending';
+    const t=String(s).toLowerCase();
+    if(t.includes('skipped')) return 'skipped';
+    if(t.includes('not loaded')||t.includes('your move')||t.includes('code ready')||t.includes('ready, not')) return 'do';
+    if(t.includes('live')||t.includes('running')||t==='ok'||t.includes('active')) return 'live';
+    if(t.includes('partial')||t.includes('untested')) return 'pending';
+    return 'pending';
+  }
+  function detectCommand(t){return /^(launchctl|curl|cd |bun |pnpm |jq |ssh |brew |git |node |open |tail |cat |ls )/.test((t||'').trim())}
+  function cmdBlock(text){return `<div class="cmd"><span class="cmd-text">${esc(text)}</span><button class="cmd-copy" onclick="copyText(this.previousElementSibling.textContent,this);event.stopPropagation()">Copy</button></div>`}
+  function copyText(text, btn){
+    if(!navigator.clipboard) return;
+    navigator.clipboard.writeText(text).then(()=>{
+      if(btn){
+        btn.classList.add('copied');
+        const orig=btn.textContent; btn.textContent='✓ Copied';
+        setTimeout(()=>{btn.classList.remove('copied');btn.textContent=orig},1400);
       }
-    }
-    refresh();
-    setInterval(refresh, 30000);
-
-    // Capability roster — load + render
-    async function loadCapabilityRoster(){
-      try {
-        const r = await fetch('/dashboard/capabilities.json', { credentials: 'same-origin' });
-        const data = await r.json();
-
-        // Mark each entry with a status
-        const all = [];
-        data.built.forEach(c => all.push({...c, status:'built'}));
-        data.pending.forEach(c => {
-          let status = 'pending';
-          if (c.cluster && c.cluster.includes('SKIPPED')) status = 'skipped';
-          all.push({...c, status});
-        });
-
-        const builtCount = all.filter(c => c.status === 'built').length;
-        const pendingCount = all.filter(c => c.status === 'pending').length;
-        const skippedCount = all.filter(c => c.status === 'skipped').length;
-
-        document.getElementById('cap-built-count').textContent = builtCount;
-        document.getElementById('ct-all').textContent = `(${all.length})`;
-        document.getElementById('ct-built').textContent = `(${builtCount})`;
-        document.getElementById('ct-pending').textContent = `(${pendingCount})`;
-        document.getElementById('ct-skipped').textContent = `(${skippedCount})`;
-
-        const heroBuilt = document.getElementById('stat-built');
-        const heroPending = document.getElementById('stat-pending');
-        const heroSkipped = document.getElementById('stat-skipped');
-        if (heroBuilt) heroBuilt.textContent = builtCount;
-        if (heroPending) heroPending.textContent = pendingCount;
-        if (heroSkipped) heroSkipped.textContent = skippedCount;
-
-        // Group by cluster, preserve order from JSON
-        const clusters = {};
-        const clusterOrder = [];
-        all.forEach(c => {
-          const k = c.cluster || 'Other';
-          if (!clusters[k]) { clusters[k] = []; clusterOrder.push(k); }
-          clusters[k].push(c);
-        });
-
-        const root = document.getElementById('cap-roster');
-        function render(filter){
-          root.innerHTML = '';
-          let visibleCount = 0;
-          clusterOrder.forEach(cluster => {
-            const items = clusters[cluster].filter(c => filter === 'all' || c.status === filter);
-            if (items.length === 0) return;
-            visibleCount += items.length;
-            const section = document.createElement('div');
-            section.className = 'cap-cluster';
-            section.innerHTML = `
-              <h4>${cluster.toUpperCase()} <span class="ct">${items.length}</span></h4>
-              ${items.map(c => `
-                <div class="cap-item" onclick="this.querySelector('.cap-eng').classList.toggle('collapsed')">
-                  <div class="cap-num ${c.status}">${String(c.n).padStart(3,'0')}</div>
-                  <div class="cap-body">
-                    <div class="cap-name">${escapeHtml(c.name)}</div>
-                    <p class="cap-eng collapsed">${escapeHtml(c.english)}</p>
-                  </div>
-                  <span class="cap-tag ${c.status}">${c.status === 'built' ? (c.tests || 'shipped') : (c.status === 'skipped' ? 'skipped' : 'pending')}</span>
-                </div>
-              `).join('')}
-            `;
-            root.appendChild(section);
-          });
-          if (visibleCount === 0){
-            root.innerHTML = '<p style="color:var(--ink-fade);font-style:italic;font-size:14px">Nothing in this filter.</p>';
-          }
-        }
-        render('all');
-
-        // Wire filter buttons
-        document.querySelectorAll('.cap-filter-btn').forEach(btn => {
-          btn.onclick = () => {
-            document.querySelectorAll('.cap-filter-btn').forEach(b => {
-              b.classList.remove('active', 'active-built', 'active-pending');
-            });
-            btn.classList.add('active');
-            if (btn.dataset.filter === 'built') btn.classList.add('active-built');
-            if (btn.dataset.filter === 'pending') btn.classList.add('active-pending');
-            render(btn.dataset.filter);
-          };
-        });
-      } catch (e) {
-        document.getElementById('cap-roster').innerHTML = '<p style="color:var(--crimson);font-size:14px">Could not load roster. Endpoint may be deploying.</p>';
-      }
-    }
-    function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-    loadCapabilityRoster();
-
-    // Audit display (recipe 1)
-    async function showAudit() {
-      const el = document.getElementById('audit-output');
-      el.innerHTML = '<div style="color:var(--ink-fade);font-size:14px;font-style:italic">Loading recent events…</div>';
-      try {
-        const r = await fetch('/dashboard/data', { credentials: 'same-origin' });
-        const data = await r.json();
-        const events = data.audit_recent || [];
-        if (events.length === 0) {
-          el.innerHTML = '<div style="color:var(--ink-fade);font-size:14px;font-style:italic">No recent agent activity in the audit log yet. Try sending the email first, then click here again after 60 seconds.</div>';
-          return;
-        }
-        el.innerHTML = '<div style="background:var(--ink);color:var(--paper);padding:14px 18px;font-family:JetBrains Mono,monospace;font-size:12px;line-height:1.6">' +
-          events.slice(0, 8).map(e =>
-            `<div style="padding:6px 0;border-bottom:1px dotted rgba(255,255,255,.15)"><strong style="color:#79e6a4">${e.action || e.action_type || 'action'}</strong> ${e.target ? `· ${e.target}` : ''}<br><span style="color:var(--ink-ghost);font-size:11px">${e.reasoning || e.reasoning_summary || ''}</span><br><span style="color:var(--ink-ghost);font-size:10px">${e.timestamp || ''}</span></div>`
-          ).join('') + '</div>';
-      } catch (e) {
-        el.innerHTML = '<div style="color:var(--crimson);font-size:14px">Could not load. ' + e.message + '</div>';
-      }
-    }
-
-    // Connect new Gmail (recipe 4)
-    async function connectGmail() {
-      const email = document.getElementById('new-account-email').value.trim();
-      const el = document.getElementById('connect-output');
-      if (!email) {
-        el.innerHTML = '<div style="color:var(--crimson);font-size:14px">Enter an email address first.</div>';
-        return;
-      }
-      try {
-        const r = await fetch('/admin/oauth/google/start', { credentials: 'same-origin' });
-        const data = await r.json();
-        if (!data.authUrl) throw new Error('no authUrl returned');
-        const u = new URL(data.authUrl);
-        u.searchParams.set('login_hint', email);
-        el.innerHTML = `<p style="font-size:14px;color:var(--ink)">Click below — tap Allow when Google asks. The connection finishes automatically.</p><a class="cta primary" href="${u.toString()}" target="_blank">Connect ${email} →</a>`;
-      } catch (e) {
-        el.innerHTML = '<div style="color:var(--crimson);font-size:14px">Could not start. ' + e.message + '</div>';
-      }
-    }
-
-    // Coordinates markdown
-    fetch('/dashboard/coordinates.md').then(r => r.text()).then(text => {
-      const body = text.replace(/^---[\s\S]*?---\n/, '');
-      const sliced = body.split(/^## Run provenance/m)[0];
-      const el = document.getElementById('coords-md');
-      if (el) el.innerHTML = marked.parse(sliced);
-    }).catch(() => {});
-
-    // Checklist with localStorage
-    const STORAGE_KEY = 'bridge-checklist-v3';
-    const state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-    document.querySelectorAll('#checklist li').forEach(li => {
-      const key = li.dataset.key;
-      if (state[key]) li.classList.add('done');
-      li.addEventListener('click', (e) => {
-        if (e.target.tagName === 'CODE' || e.target.tagName === 'A') return;
-        li.classList.toggle('done');
-        state[key] = li.classList.contains('done');
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-      });
+      showToast('Command copied', 'paste it in Terminal · ⌘+Space → "Terminal" → ⌘V → Return');
     });
-  </script>
+  }
+  window.copyText=copyText;
+  function showToast(msg, next){
+    const t=$('#toast'); $('#toast-msg').textContent=msg; $('#toast-next').textContent=next||'';
+    t.classList.add('show'); clearTimeout(t._tmo); t._tmo=setTimeout(()=>t.classList.remove('show'),3400);
+  }
+
+  async function loadLogo(){
+    try{
+      const r=await fetch('/dashboard/bridge-logo.svg'); if(!r.ok) return;
+      const svg=await r.text();
+      const m=svg.match(/<svg[^>]*>([\s\S]*)<\/svg>/);
+      if(m) ['#brand-logo','#brand-logo-foot'].forEach(sel=>{const el=$(sel); if(el) el.innerHTML=m[1]});
+    }catch(e){}
+  }
+  function loadSprites(){$$('img[data-agent]').forEach(img=>{img.src=`/dashboard/agents/${img.dataset.agent}.png`})}
+
+  async function refreshLive(){
+    try{
+      const r=await fetch('/dashboard/data',{credentials:'same-origin'});
+      if(!r.ok) throw new Error('data fetch');
+      const d=await r.json();
+      const sNames=['intake','brain','relay','voice'];
+      let up=0; for(const n of sNames) if(d.services?.[n]?.ok) up++;
+      const ts=new Date(d.timestamp).toISOString().slice(11,19);
+      $('#snap-last').textContent=ts;
+      $('#footer-last').textContent=ts+' utc';
+      $('#snap-cloud').textContent=`${up} / 4`;
+      $('#snap-cloud').classList.toggle('moss',up===4);
+      const polling=(d.accounts||[]).length;
+      $('#snap-polling').textContent=polling;
+      $('#live-status').textContent=`${polling} polling · ${up}/4 cloud`;
+    }catch(e){console.warn('live',e)}
+  }
+  refreshLive(); setInterval(refreshLive,30000);
+  $('#footer-date').textContent=new Date().toISOString().slice(0,10);
+
+  const CLUSTER_COLOR={
+    'Foundation':'c-blue',
+    'Bridget (identity + behaviors)':'c-blue',
+    'Bridget Discovery + Activation':'c-blue',
+    'Surfaces (live)':'c-blue',
+    'Surfaces (in scope)':'c-blue',
+    'Beatrix specialists':'c-green',
+    'Beatrix-meta':'c-green',
+    'Integrations (in scope)':'c-green',
+    'Integrations (in scope, SharePoint LIVE)':'c-green',
+    'Coordinate-derived':'c-yellow',
+    'Memory + Chronicle':'c-yellow',
+    'Clem specialists':'c-red',
+    'Cross-agent':'c-red',
+    'Cross-cutting (next agent)':'c-red',
+    'Architecture':'c-red',
+  };
+  const clusterColor=c=>CLUSTER_COLOR[c]||'c-blue';
+
+  function renderDrawer(e){
+    const out=[];
+    if(e.url) out.push(`<h6>URL</h6><p><a href="${esc(e.url)}" target="_blank">${esc(e.url)} ↗</a></p>`);
+    if(e.principal) out.push(`<h6>Principal</h6><p>${esc(e.principal)}</p>`);
+    if(e.workspace) out.push(`<h6>Workspace</h6><p><code style="font-family:'JetBrains Mono',monospace;font-size:12px">${esc(e.workspace)}</code></p>`);
+    if(e.telegram) out.push(`<h6>Telegram</h6><p><a href="https://t.me/${esc(String(e.telegram).replace('@',''))}" target="_blank">${esc(e.telegram)} ↗</a></p>`);
+    if(e.schedule) out.push(`<h6>Schedule</h6><p>${esc(e.schedule)}</p>`);
+    if(e.plist) out.push(`<h6>Launchd plist</h6><p><code style="font-family:'JetBrains Mono',monospace;font-size:12px">${esc(e.plist)}</code></p>`);
+    if(e.tests) out.push(`<h6>Tests</h6><p>${esc(e.tests)}</p>`);
+    if(e.capabilities?.length) out.push(`<h6>Capabilities owned</h6><p>${e.capabilities.map(n=>`#${n}`).join(' · ')}</p>`);
+    if(e.setup){out.push(`<h6>How to set it up</h6>`);e.setup.split('\n').forEach(l=>{if(detectCommand(l)) out.push(cmdBlock(l.trim())); else out.push(`<p>${esc(l)}</p>`)})}
+    if(e.test){out.push(`<h6>How to test it</h6>`);e.test.split('\n').forEach(l=>{if(detectCommand(l)) out.push(cmdBlock(l.trim())); else out.push(`<p>${esc(l)}</p>`)})}
+    return `<div class="drawer">${out.join('')}</div>`;
+  }
+
+  function renderCard(e){
+    const klass=statusToClass(e.status);
+    const idTag=e.n!=null?`№ ${String(e.n).padStart(3,'0')}`:esc(e.id||'');
+    const meta=[];
+    if(e.tests) meta.push(`<span style="color:var(--ink-mid);font-weight:500">${esc(e.tests)}</span>`);
+    if(e.schedule) meta.push(`<span>${esc(e.schedule)}</span>`);
+    if(e.capabilities?.length) meta.push(`<span>${e.capabilities.length} cap</span>`);
+    const searchTxt=esc((e.name||'')+' '+(e.english||'')+' '+(e.setup||'')+' '+(e.test||'')+' '+(e.id||''));
+    return `<div class="card" data-search="${searchTxt}" data-id="${esc(e.id||e.n||e.name)}" onclick="if(!event.target.closest('a')&&!event.target.closest('.cmd-copy'))this.classList.toggle('open')">
+      <div class="card-head">
+        <div><div class="card-id">${idTag}</div><div class="card-name">${esc(e.name)}</div></div>
+        <span class="pill ${klass}"><span class="led"></span>${esc(e.status||'')}</span>
+      </div>
+      <p class="card-eng">${esc(e.english)}</p>
+      ${meta.length?`<div class="card-foot"><div>${meta.join(' · ')}</div><span style="color:var(--ink-fade);font-family:'JetBrains Mono',monospace">tap ↓</span></div>`:''}
+      ${renderDrawer(e)}
+    </div>`;
+  }
+  function renderSection(key,gridId,data){const items=data[key]||[]; const grid=$('#'+gridId); if(!grid) return; grid.innerHTML=items.map(e=>renderCard(e)).join('')}
+
+  function renderCatalog(data){
+    const all=[];
+    data.built.forEach(c=>all.push({...c,_status:'built'}));
+    data.pending.forEach(c=>{
+      const skip=(c.cluster||'').includes('SKIPPED');
+      all.push({...c,_status:skip?'skipped':'pending'});
+    });
+    const builtCount=all.filter(c=>c._status==='built').length;
+    const pendingCount=all.filter(c=>c._status==='pending').length;
+    const skippedCount=all.filter(c=>c._status==='skipped').length;
+    $('#m-built').textContent=builtCount; $('#m-pending').textContent=pendingCount; $('#m-skipped').textContent=skippedCount;
+    $('#snap-built').textContent=builtCount; $('#snap-pending').textContent=pendingCount; $('#snap-skipped').textContent=skippedCount;
+    $('#legend-built').textContent=builtCount; $('#legend-pending').textContent=pendingCount; $('#legend-skipped').textContent=skippedCount;
+    $('#cat-pending-line').textContent=`${pendingCount} waiting on you`;
+
+    const built=all.filter(c=>c._status==='built');
+    const clusters={}; const order=[];
+    built.forEach(c=>{const k=c.cluster||'Other'; if(!clusters[k]){clusters[k]=[];order.push(k)} clusters[k].push(c)});
+    order.sort((a,b)=>{
+      if(a==='Foundation') return -1; if(b==='Foundation') return 1;
+      return clusters[b].length-clusters[a].length;
+    });
+    const runRoot=$('#running-list');
+    $('#run-ct').textContent=`${builtCount} capabilities · grouped by cluster`;
+    let html='';
+    order.forEach(cluster=>{
+      const items=clusters[cluster]; const cls=clusterColor(cluster);
+      html += `<div class="cluster-block">
+        <div class="cluster-label ${cls}"><span>${esc(cluster)}</span><span class="n">${items.length}</span></div>
+        ${items.map(c=>`
+          <div class="row ${cls}" data-search="${esc((c.name||'')+' '+(c.english||'')+' '+(c.setup||'')+' '+(c.test||''))}" onclick="this.classList.toggle('open')">
+            <span class="num">${String(c.n).padStart(3,'0')}</span>
+            <span class="name">${esc(c.name)}<span>${esc(c.english||'')}</span></span>
+            <span class="badge">${esc(c.tests||'·')}</span>
+            <div class="row-drawer">${renderDrawer(c).replace('<div class="drawer">','').replace(/<\/div>$/,'')}</div>
+          </div>`).join('')}
+      </div>`;
+    });
+    runRoot.innerHTML=html;
+
+    const skipped=all.filter(c=>c._status==='skipped');
+    $('#skip-ct').textContent=`${skipped.length} dropped · explicit choices`;
+    $('#skipped-list').innerHTML=skipped.map(c=>{
+      let reason=(c.cluster||'');
+      reason=reason.replace(/SKIPPED per Omar/i,'').replace(/^[ ·—\-,()]+|[ ·—\-,()]+$/g,'').trim()||'explicit choice';
+      return `<li class="skipped-item" data-search="${esc((c.name||'')+' '+(c.english||''))}">
+        <span class="num">${String(c.n).padStart(3,'0')}</span>
+        <span class="body"><span>${esc(c.name)}</span><span class="why">— ${esc(reason)}</span></span>
+      </li>`;
+    }).join('');
+
+    $('#moves-ct').textContent=`${pendingCount} activations · ~3 minutes`;
+    $('#hero-pending-line').innerHTML=`${pendingCount||3} are <em>waiting on you</em>.`;
+
+    $('#catalog-toggle-more')?.addEventListener('click',e=>{
+      const root=$('#running-list');
+      const isOpen=root.classList.toggle('expanded');
+      e.target.textContent = isOpen ? '− collapse to top 4 clusters' : '+ show all clusters →';
+    });
+  }
+
+  async function loadAll(){
+    try{
+      const r=await fetch('/dashboard/capabilities.json',{credentials:'same-origin'});
+      const data=await r.json();
+      renderSection('cloud_services','cloud-grid',data);
+      renderSection('intake_surfaces','surfaces-grid',data);
+      renderSection('launchd','launchd-grid',data);
+      renderSection('packages','packages-grid',data);
+      renderCatalog(data);
+    }catch(e){console.error(e)}
+  }
+  loadLogo(); loadSprites(); loadAll();
+
+  const search=$('#global-search');
+  function applySearch(q){
+    q=(q||'').toLowerCase().trim();
+    const selectors=['.card','.row','.skipped-item','.agent'];
+    selectors.forEach(sel=>$$(sel).forEach(el=>{
+      const hay=(el.dataset.search||el.textContent||'').toLowerCase();
+      const match=!q||hay.includes(q);
+      el.classList.toggle('search-hide',!match);
+    }));
+    $$('.cluster-block').forEach(cl=>{
+      const items=cl.querySelectorAll('.row:not(.search-hide)');
+      cl.classList.toggle('search-hide',items.length===0);
+    });
+  }
+  search.addEventListener('input',e=>applySearch(e.target.value));
+  document.addEventListener('keydown',e=>{
+    if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'){
+      if(e.key==='Escape'){search.value='';applySearch('');search.blur()}
+      return;
+    }
+    if(e.key==='/'){e.preventDefault();search.focus()}
+  });
+
+  $$('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click',e=>{
+      const h=a.getAttribute('href');
+      if(h.length>1&&document.querySelector(h)){
+        e.preventDefault();
+        document.querySelector(h).scrollIntoView({behavior:'smooth',block:'start'});
+      }
+    });
+  });
+</script>
 </body>
 </html>

@@ -3,683 +3,1540 @@
     {
       "n": 1,
       "name": "Capture/comms agent",
-      "english": "A new cloud service watches your inbox, calendar, Drive, Telegram and WhatsApp. Anything inbound — a new email, a calendar invite, a message — gets read within 60 seconds, classified by urgency and topic, and routed to the right agent (Beatrix, Clem) or filed straight into your brain.",
+      "english": "A new cloud service watches your inbox, calendar, Drive, Telegram and WhatsApp. Anything inbound \u2014 a new email, a calendar invite, a message \u2014 gets read within 60 seconds, classified by urgency and topic, and routed to the right agent (Beatrix, Clem) or filed straight into your brain.",
       "tests": "26 tests",
-      "cluster": "Foundation"
+      "cluster": "Foundation",
+      "setup": "Already live. Cloud service is auto-deployed via Render on every push.",
+      "test": "Open https://bridge-intake.onrender.com/dashboard \u2014 Section I shows live status."
     },
     {
       "n": 16,
       "name": "Trust + permissions audit",
       "english": "Every action any agent takes is logged with a timestamp, the target, and the reasoning. You can see the trail of what your agents did and why.",
       "tests": "shared substrate",
-      "cluster": "Foundation"
+      "cluster": "Foundation",
+      "setup": "Already live. Cloud service is auto-deployed via Render on every push.",
+      "test": "Open https://bridge-intake.onrender.com/dashboard \u2014 Section I shows live status."
     },
     {
       "n": 22,
       "name": "Bridget's intake engine",
       "english": "The membrane between every inbound channel and your inner agents. Classifies (urgent / normal / personal / CRREM / admin), decides whether to act unprompted, queue for later, or escalate to you. Sixty seconds end-to-end.",
       "tests": "26 tests",
-      "cluster": "Foundation"
+      "cluster": "Foundation",
+      "setup": "Already live. Cloud service is auto-deployed via Render on every push.",
+      "test": "Open https://bridge-intake.onrender.com/dashboard \u2014 Section I shows live status."
     },
     {
       "n": 40,
       "name": "Trust-and-audit substrate",
       "english": "The bedrock that makes safe delegation possible. Permission tiers per agent. 24-hour undo on reversible actions. Per-agent kill switches. Full data export.",
       "tests": "26 tests",
-      "cluster": "Foundation"
+      "cluster": "Foundation",
+      "setup": "Already live. Cloud service is auto-deployed via Render on every push.",
+      "test": "Open https://bridge-intake.onrender.com/dashboard \u2014 Section I shows live status."
     },
     {
       "n": 41,
       "name": "Coordinate engine over your vault",
       "english": "Read 39 of your most signal-rich vault pages, computed your position across the 6 BRIDGE planes (lifestyle, behaviour, intelligence, values, identity, mission). Quoted evidence from your own writing anchors each placement.",
       "tests": "13 tests",
-      "cluster": "Foundation"
+      "cluster": "Foundation",
+      "setup": "Already live. Cloud service is auto-deployed via Render on every push.",
+      "test": "Open https://bridge-intake.onrender.com/dashboard \u2014 Section I shows live status."
     },
     {
       "n": 91,
       "name": "Per-agent permission tiers",
       "english": "Each agent has 3 levels of authority per scope: advisory (suggests only), delegated (acts and logs), autonomous (acts then reports). Tunable by category.",
       "tests": "part of trust substrate",
-      "cluster": "Foundation"
+      "cluster": "Foundation",
+      "setup": "Already live. Cloud service is auto-deployed via Render on every push.",
+      "test": "Open https://bridge-intake.onrender.com/dashboard \u2014 Section I shows live status."
     },
     {
       "n": 92,
       "name": "Weekly audit digest",
       "english": "Every Sunday at 7pm, Bridget sends a Telegram digest in plain English: what your agents did unprompted, what they did on your behalf, what got stuck, what's waiting on you.",
       "tests": "part of trust substrate",
-      "cluster": "Foundation"
+      "cluster": "Foundation",
+      "setup": "Audit digest plist ready. Run: `launchctl load ~/Library/LaunchAgents/com.omar.bridge.audit-digest.plist`",
+      "test": "Wait for Sunday 7pm or trigger: `launchctl start com.omar.bridge.audit-digest`. Telegram message lands."
     },
     {
       "n": 93,
       "name": "24-hour undo",
       "english": "Sent message? Created event? Moved file? One command reverses it. Window: 24 hours after the action.",
       "tests": "part of trust substrate",
-      "cluster": "Foundation"
+      "cluster": "Foundation",
+      "setup": "Already live. Cloud service is auto-deployed via Render on every push.",
+      "test": "Open https://bridge-intake.onrender.com/dashboard \u2014 Section I shows live status."
     },
     {
       "n": 94,
       "name": "Kill switches",
       "english": "Per-agent and per-capability kill switches. Master switch shuts everything down. Documented in plain English so you can find the right switch fast.",
       "tests": "part of trust substrate",
-      "cluster": "Foundation"
+      "cluster": "Foundation",
+      "setup": "Already live. Cloud service is auto-deployed via Render on every push.",
+      "test": "Open https://bridge-intake.onrender.com/dashboard \u2014 Section I shows live status."
     },
     {
       "n": 95,
       "name": "Full data export",
       "english": "One command produces a tar.gz containing your vault, audit log, agent configs, permissions config, kill-switch state, undo handles. Your data is portable. You can leave anytime.",
       "tests": "part of trust substrate",
-      "cluster": "Foundation"
+      "cluster": "Foundation",
+      "setup": "Already live. Cloud service is auto-deployed via Render on every push.",
+      "test": "Open https://bridge-intake.onrender.com/dashboard \u2014 Section I shows live status."
     },
     {
       "n": 21,
       "name": "Bridget's life-map state",
       "english": "A continuously-updated model of where you are: location, mood, energy, current week's shape. Other agents query this before responding so they know what's happening in your life.",
       "tests": "-",
-      "cluster": "Bridget (identity + behaviors)"
+      "cluster": "Bridget (identity + behaviors)",
+      "setup": "Already running. Bridget identity refreshes from openclaw/workspace-bridget/ files on every cloud redeploy.",
+      "test": "Message @bridge_bridgetbot on Telegram."
     },
     {
       "n": 23,
       "name": "Bridget's reflection cadence",
       "english": "Daily check-in at 8:30pm, Sunday review at 6pm, monthly retrospective on the first Sunday. Asks the questions you'd ask yourself if you had the discipline.",
       "tests": "part of bridget-behaviors",
-      "cluster": "Bridget (identity + behaviors)"
+      "cluster": "Bridget (identity + behaviors)",
+      "setup": "Already running. Bridget identity refreshes from openclaw/workspace-bridget/ files on every cloud redeploy.",
+      "test": "Message @bridge_bridgetbot on Telegram."
     },
     {
       "n": 24,
       "name": "Bridget's emotional barometer",
-      "english": "Reads tone, sleep quality, calendar density, voice signals. When you're frayed, the system softens its tone and prunes the day — silently, without commentary on your state.",
+      "english": "Reads tone, sleep quality, calendar density, voice signals. When you're frayed, the system softens its tone and prunes the day \u2014 silently, without commentary on your state.",
       "tests": "part of bridget-behaviors",
-      "cluster": "Bridget (identity + behaviors)"
+      "cluster": "Bridget (identity + behaviors)",
+      "setup": "Already running. Bridget identity refreshes from openclaw/workspace-bridget/ files on every cloud redeploy.",
+      "test": "Message @bridge_bridgetbot on Telegram."
     },
     {
       "n": 25,
       "name": "Bridget's proactive check-ins",
       "english": "Patterns Bridget notices and surfaces: 'haven't journaled in 9 days, want to?', 'the friend you haven't messaged in 3 months just posted something big.'",
       "tests": "part of bridget-behaviors",
-      "cluster": "Bridget (identity + behaviors)"
+      "cluster": "Bridget (identity + behaviors)",
+      "setup": "Already running. Bridget identity refreshes from openclaw/workspace-bridget/ files on every cloud redeploy.",
+      "test": "Message @bridge_bridgetbot on Telegram."
     },
     {
       "n": 3,
       "name": "Finance specialist",
-      "english": "Bank + cards ingested via CSV import (live PSD2 ready). Multi-currency EUR/USD/EGP. Spending categorized. NL tax aware. €950/month debt trajectory tracked. Subscription audit. Monthly review in plain English.",
+      "english": "Bank + cards ingested via CSV import (live PSD2 ready). Multi-currency EUR/USD/EGP. Spending categorized. NL tax aware. \u20ac950/month debt trajectory tracked. Subscription audit. Monthly review in plain English.",
       "tests": "6 tests",
-      "cluster": "Beatrix specialists"
+      "cluster": "Beatrix specialists",
+      "setup": "Already live as part of Beatrix umbrella in OpenClaw.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/beatrix-specialists && bun run tests/runner.mts"
     },
     {
       "n": 4,
       "name": "Fitness specialist",
       "english": "Apple Health pipeline (placeholder until wired). 75kg trajectory tracked. Workouts context-aware: gym when home, 15-min routines while traveling, walking-meeting suggestions when calendar's dense.",
       "tests": "4 tests",
-      "cluster": "Beatrix specialists"
+      "cluster": "Beatrix specialists",
+      "setup": "Already live as part of Beatrix umbrella in OpenClaw.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/beatrix-specialists && bun run tests/runner.mts"
     },
     {
       "n": 5,
       "name": "Photos specialist",
       "english": "Every photo arriving on any channel flows into a master chronological archive. Auto-labeled. Receipts route to finance, business cards to people-graph. 'One year ago today' notifications.",
       "tests": "2 tests",
-      "cluster": "Beatrix specialists"
+      "cluster": "Beatrix specialists",
+      "setup": "Already live as part of Beatrix umbrella in OpenClaw.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/beatrix-specialists && bun run tests/runner.mts"
     },
     {
       "n": 6,
       "name": "People-graph specialist",
       "english": "Living map of every person in your life. Last interaction, important dates, follow-up cadence. Drafts 'thinking of you' messages in your voice when someone goes quiet. Pre-meeting context surfacer.",
       "tests": "5 tests",
-      "cluster": "Beatrix specialists"
+      "cluster": "Beatrix specialists",
+      "setup": "Already live as part of Beatrix umbrella in OpenClaw.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/beatrix-specialists && bun run tests/runner.mts"
     },
     {
       "n": 7,
       "name": "Travel logistics specialist",
       "english": "Visa requirements, vaccinations, time-zone shifts, weather, hotel context (where you stayed last time, what you liked), packing list from past trips, currency notes.",
       "tests": "6 tests",
-      "cluster": "Beatrix specialists"
+      "cluster": "Beatrix specialists",
+      "setup": "Already live as part of Beatrix umbrella in OpenClaw.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/beatrix-specialists && bun run tests/runner.mts"
     },
     {
       "n": 8,
       "name": "Event-specific agent",
       "english": "For each major upcoming event (wedding, conference, gathering), Beatrix spawns a dedicated mini-agent. Pulls dress code, gifts based on who they are, RSVP, hotel + flights, dietary asks, post-event follow-ups.",
       "tests": "5 tests",
-      "cluster": "Beatrix specialists"
+      "cluster": "Beatrix specialists",
+      "setup": "Already live as part of Beatrix umbrella in OpenClaw.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/beatrix-specialists && bun run tests/runner.mts"
     },
     {
       "n": 9,
       "name": "Decision support",
       "english": "When you're facing a real decision, Beatrix pulls relevant prior decisions from the brain, frames the questions you should answer first, presents the case for and against.",
       "tests": "3 tests",
-      "cluster": "Beatrix specialists"
+      "cluster": "Beatrix specialists",
+      "setup": "Already live as part of Beatrix umbrella in OpenClaw.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/beatrix-specialists && bun run tests/runner.mts"
     },
     {
       "n": 10,
       "name": "State / wellbeing",
       "english": "Reads tone from messages, sleep from Apple Health, calendar density, voice energy. Notices burnout drift. System calibrates to your state without narrating it back to you.",
       "tests": "3 tests",
-      "cluster": "Beatrix specialists"
+      "cluster": "Beatrix specialists",
+      "setup": "Already live as part of Beatrix umbrella in OpenClaw.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/beatrix-specialists && bun run tests/runner.mts"
     },
     {
       "n": 11,
       "name": "Opportunity watcher",
       "english": "Surfaces things you'd want and might miss: jobs in your orbit, speaking invitations, grants/funding for CRREM, residencies, fellowships, conferences.",
       "tests": "3 tests",
-      "cluster": "Beatrix specialists"
+      "cluster": "Beatrix specialists",
+      "setup": "Already live as part of Beatrix umbrella in OpenClaw.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/beatrix-specialists && bun run tests/runner.mts"
     },
     {
       "n": 12,
       "name": "Reputation agent",
       "english": "Tracks how you show up publicly. LinkedIn, X/Twitter, articles, talks. Notices inconsistencies between public persona and current values. Drafts content that strengthens the through-line.",
       "tests": "3 tests",
-      "cluster": "Beatrix specialists"
+      "cluster": "Beatrix specialists",
+      "setup": "Already live as part of Beatrix umbrella in OpenClaw.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/beatrix-specialists && bun run tests/runner.mts"
     },
     {
       "n": 13,
       "name": "Reading + idea synthesis",
       "english": "Captures everything you read across browser, Kindle, podcasts, articles. Distills key ideas. Creates a brain link when something connects to existing thinking. Weekly emergent-themes digest.",
       "tests": "2 tests",
-      "cluster": "Beatrix specialists"
+      "cluster": "Beatrix specialists",
+      "setup": "Already live as part of Beatrix umbrella in OpenClaw.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/beatrix-specialists && bun run tests/runner.mts"
     },
     {
       "n": 14,
       "name": "Presentation / deck agent",
-      "english": "Knows your slide library, speaking history, open invitations. Drafts context-aware decks for upcoming talks — pulls relevant slides + current thinking + audience-aware formatting.",
+      "english": "Knows your slide library, speaking history, open invitations. Drafts context-aware decks for upcoming talks \u2014 pulls relevant slides + current thinking + audience-aware formatting.",
       "tests": "2 tests",
-      "cluster": "Beatrix specialists"
+      "cluster": "Beatrix specialists",
+      "setup": "Already live as part of Beatrix umbrella in OpenClaw.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/beatrix-specialists && bun run tests/runner.mts"
     },
     {
       "n": 15,
       "name": "Home ops",
       "english": "Apartment lease, utilities, warranties, repairs, household subscriptions. Surfaces what's due before it bites.",
       "tests": "3 tests",
-      "cluster": "Beatrix specialists"
+      "cluster": "Beatrix specialists",
+      "setup": "Already live as part of Beatrix umbrella in OpenClaw.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/beatrix-specialists && bun run tests/runner.mts"
     },
     {
       "n": 26,
       "name": "Beatrix as life director",
       "english": "Beatrix presents as ONE agent. Internally she invokes 13 specialists and synthesizes across them. You ask her anything; she handles the orchestration.",
       "tests": "6 tests",
-      "cluster": "Beatrix specialists"
+      "cluster": "Beatrix specialists",
+      "setup": "Already live as part of Beatrix umbrella in OpenClaw.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/beatrix-specialists && bun run tests/runner.mts"
     },
     {
       "n": 29,
       "name": "Beatrix's action thresholds",
       "english": "Default policy: act unprompted on low-stakes things (file an email, create a calendar event from a booking, organize photos), ask before world-touching (send a message, move money, accept invitations). Tunable per category.",
       "tests": "part of umbrella",
-      "cluster": "Beatrix specialists"
+      "cluster": "Beatrix specialists",
+      "setup": "Already live as part of Beatrix umbrella in OpenClaw.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/beatrix-specialists && bun run tests/runner.mts"
     },
     {
       "n": 31,
       "name": "Clem as CRREM director",
       "english": "Clem presents as one agent for all CRREM work. Internally she invokes 5 specialists (methodology, brand, comms, events, data). User-facing surface always Clem.",
       "tests": "56 tests",
-      "cluster": "Clem specialists"
+      "cluster": "Clem specialists",
+      "setup": "Already live as part of Clem umbrella in OpenClaw.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/clem-specialists && bun run tests/runner.mts"
     },
     {
       "n": 32,
       "name": "Clem department tier",
       "english": "Future scaling: when CRREM grows, Clem-Methodology, Clem-Comms, Clem-Data, Clem-Events become independent agents like a leadership team. Architecture ready; activates when CRREM signs up.",
       "tests": "part of clem",
-      "cluster": "Clem specialists"
+      "cluster": "Clem specialists",
+      "setup": "Already live as part of Clem umbrella in OpenClaw.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/clem-specialists && bun run tests/runner.mts"
     },
     {
       "n": 33,
       "name": "Clem as spokesperson",
       "english": "When inbound press, podcast invites, or speaking requests arrive, Clem handles intake. Drafts response in CRREM brand voice. Pings you for approval on anything public-facing.",
       "tests": "part of clem",
-      "cluster": "Clem specialists"
+      "cluster": "Clem specialists",
+      "setup": "Already live as part of Clem umbrella in OpenClaw.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/clem-specialists && bun run tests/runner.mts"
     },
     {
       "n": 39,
       "name": "Agent council",
       "english": "For big decisions, Bridget convenes Beatrix + Clem + relevant external agents. Structured synthesis. Output: a recommendation you review.",
       "tests": "part of bridge-council",
-      "cluster": "Cross-agent"
+      "cluster": "Cross-agent",
+      "setup": "Already live as part of bridge-council package.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/bridge-council && bun run tests/runner.mts"
     },
     {
       "n": 42,
       "name": "Living soul document",
-      "english": "Generated from your coordinate-engine output + voice corpus. Refreshes monthly. Written in your voice using your metaphors. Tracks how you're evolving — every revision archived so you can see the drift.",
+      "english": "Generated from your coordinate-engine output + voice corpus. Refreshes monthly. Written in your voice using your metaphors. Tracks how you're evolving \u2014 every revision archived so you can see the drift.",
       "tests": "6 tests",
-      "cluster": "Coordinate-derived"
+      "cluster": "Coordinate-derived",
+      "setup": "Already live in the coordinate-derived package.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/coordinate-derived && bun run tests/runner.mts"
     },
     {
       "n": 43,
       "name": "Three-journey calibration",
-      "english": "System detects whether you're in exploration (green), execution (yellow), or integration (red) per project. Adjusts agent register to match — Beatrix-flavored support during exploration, sharper during execution.",
+      "english": "System detects whether you're in exploration (green), execution (yellow), or integration (red) per project. Adjusts agent register to match \u2014 Beatrix-flavored support during exploration, sharper during execution.",
       "tests": "9 tests",
-      "cluster": "Coordinate-derived"
+      "cluster": "Coordinate-derived",
+      "setup": "Already live in the coordinate-derived package.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/coordinate-derived && bun run tests/runner.mts"
     },
     {
       "n": 45,
       "name": "Proximity map of network",
       "english": "Visual rendering of where people in your life sit relative to you across all 6 planes. Aligned closely on values, divergent on intelligence, etc. Drillable to evidence.",
       "tests": "4 tests",
-      "cluster": "Coordinate-derived"
+      "cluster": "Coordinate-derived",
+      "setup": "Already live in the coordinate-derived package.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/coordinate-derived && bun run tests/runner.mts"
     },
     {
       "n": 46,
       "name": "Productive-tension surfacing",
-      "english": "Flags relationships where tight alignment on some planes meets active divergence on others — the conditions for transformative work. 'You and Hans: tight on mission, opposite on intelligence. That's where breakthroughs come from.'",
+      "english": "Flags relationships where tight alignment on some planes meets active divergence on others \u2014 the conditions for transformative work. 'You and Hans: tight on mission, opposite on intelligence. That's where breakthroughs come from.'",
       "tests": "5 tests",
-      "cluster": "Coordinate-derived"
+      "cluster": "Coordinate-derived",
+      "setup": "Already live in the coordinate-derived package.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/coordinate-derived && bun run tests/runner.mts"
     },
     {
       "n": 47,
       "name": "Mirror-never-label discipline",
       "english": "System-wide rule baked into the linter and verifier: no personality types ever assigned. No 'you are this.' Patterns shown with vault evidence; you do the naming.",
       "tests": "44 + 16 tests",
-      "cluster": "Coordinate-derived"
+      "cluster": "Coordinate-derived",
+      "setup": "Already live in the coordinate-derived package.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/coordinate-derived && bun run tests/runner.mts"
     },
     {
       "n": 48,
       "name": "Dunning-Kruger mirror",
       "english": "When stated values diverge from revealed behavior, Beatrix surfaces gently. 'You describe yourself as values-led; recent spend pattern suggests otherwise this month. Worth a look?' Mirror, not judgment.",
       "tests": "4 tests",
-      "cluster": "Coordinate-derived"
+      "cluster": "Coordinate-derived",
+      "setup": "Already live in the coordinate-derived package.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/coordinate-derived && bun run tests/runner.mts"
     },
     {
       "n": 50,
       "name": "Shadow document",
-      "english": "Subjects you systematically avoid in writing. Topics that appear in voice memos but never journal entries. Surfaced only when readiness signals are high — never as accusation.",
+      "english": "Subjects you systematically avoid in writing. Topics that appear in voice memos but never journal entries. Surfaced only when readiness signals are high \u2014 never as accusation.",
       "tests": "5 tests",
-      "cluster": "Coordinate-derived"
+      "cluster": "Coordinate-derived",
+      "setup": "Already live in the coordinate-derived package.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/coordinate-derived && bun run tests/runner.mts"
     },
     {
       "n": 66,
       "name": "Mission table protocol",
-      "english": "When agents coordinate on substantial work, they meet in structured space — each agent's contribution visible, time invested logged, IP declaration captured. Watchable in real time.",
+      "english": "When agents coordinate on substantial work, they meet in structured space \u2014 each agent's contribution visible, time invested logged, IP declaration captured. Watchable in real time.",
       "tests": "5 tests",
-      "cluster": "Memory + Chronicle"
+      "cluster": "Memory + Chronicle",
+      "setup": "Already live. Memory + chronicle packages run continuously.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/bridge-memory && bun run tests/runner.mts (or bridge-chronicle)"
     },
     {
       "n": 67,
       "name": "Chronicle of completed work",
       "english": "Every shipped artifact gets a permanent ledger entry: contributors, currencies exchanged, IP declaration, lineage of who built on it later. Searchable for years.",
       "tests": "5 tests",
-      "cluster": "Memory + Chronicle"
+      "cluster": "Memory + Chronicle",
+      "setup": "Already live. Memory + chronicle packages run continuously.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/bridge-memory && bun run tests/runner.mts (or bridge-chronicle)"
     },
     {
       "n": 68,
       "name": "Reputation lattice",
       "english": "Multi-dimensional drillable trace from your completed work: execution, innovation, integrity, follow-through, contribution depth. You see where you're strong and where you're developing.",
       "tests": "5 tests",
-      "cluster": "Memory + Chronicle"
+      "cluster": "Memory + Chronicle",
+      "setup": "Already live. Memory + chronicle packages run continuously.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/bridge-memory && bun run tests/runner.mts (or bridge-chronicle)"
     },
     {
       "n": 69,
       "name": "Agent spawns",
       "english": "When Beatrix and Clem collaborate on something substantial, they produce a specialized sub-agent that knows both contexts and is callable later.",
       "tests": "7 tests",
-      "cluster": "Memory + Chronicle"
+      "cluster": "Memory + Chronicle",
+      "setup": "Already live. Memory + chronicle packages run continuously.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/bridge-memory && bun run tests/runner.mts (or bridge-chronicle)"
     },
     {
       "n": 70,
       "name": "Four-currency tracking",
       "english": "Beyond money: track your data contributions (vault growth), time invested per project, IP produced (deliverables, methodologies), money. Shows where your life is being invested beyond what your bank reflects.",
       "tests": "6 tests",
-      "cluster": "Memory + Chronicle"
+      "cluster": "Memory + Chronicle",
+      "setup": "Already live. Memory + chronicle packages run continuously.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/bridge-memory && bun run tests/runner.mts (or bridge-chronicle)"
     },
     {
       "n": 71,
       "name": "IP spectrum declarations",
-      "english": "Every output — draft, slide, methodology — declared on a spectrum from commons-licensed (default) to private. You see what you've opened up vs kept.",
+      "english": "Every output \u2014 draft, slide, methodology \u2014 declared on a spectrum from commons-licensed (default) to private. You see what you've opened up vs kept.",
       "tests": "6 tests",
-      "cluster": "Memory + Chronicle"
+      "cluster": "Memory + Chronicle",
+      "setup": "Already live. Memory + chronicle packages run continuously.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/bridge-memory && bun run tests/runner.mts (or bridge-chronicle)"
     },
     {
       "n": 72,
       "name": "Provenance trails",
       "english": "When someone builds on something you wrote (article quoted, framework adapted, phrase reused), Bridget detects it and tells you. Your ideas propagating, visibly.",
       "tests": "6 tests",
-      "cluster": "Memory + Chronicle"
+      "cluster": "Memory + Chronicle",
+      "setup": "Already live. Memory + chronicle packages run continuously.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/bridge-memory && bun run tests/runner.mts (or bridge-chronicle)"
     },
     {
       "n": 86,
       "name": "Cognitive directory",
-      "english": "Beatrix maintains a map of what you know — domains deep, domains shallow, what you keep vs let go. When you ask her something, she knows whether to answer or hand it back to you.",
+      "english": "Beatrix maintains a map of what you know \u2014 domains deep, domains shallow, what you keep vs let go. When you ask her something, she knows whether to answer or hand it back to you.",
       "tests": "4 tests",
-      "cluster": "Memory + Chronicle"
+      "cluster": "Memory + Chronicle",
+      "setup": "Already live. Memory + chronicle packages run continuously.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/bridge-memory && bun run tests/runner.mts (or bridge-chronicle)"
     },
     {
       "n": 87,
       "name": "Past-self consultation",
-      "english": "When you're wrestling with a decision, Bridget can show what you wrote in past similar moments. Your prior self as advisor — without sanitizing, without smoothing.",
+      "english": "When you're wrestling with a decision, Bridget can show what you wrote in past similar moments. Your prior self as advisor \u2014 without sanitizing, without smoothing.",
       "tests": "4 tests",
-      "cluster": "Memory + Chronicle"
+      "cluster": "Memory + Chronicle",
+      "setup": "Already live. Memory + chronicle packages run continuously.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/bridge-memory && bun run tests/runner.mts (or bridge-chronicle)"
     },
     {
       "n": 88,
       "name": "Forgetting on purpose",
       "english": "Things you've deliberately let go (closed projects, ended relationships, archived dreams) stay archived. Beatrix doesn't make you re-litigate. Intentional silences respected.",
       "tests": "5 tests",
-      "cluster": "Memory + Chronicle"
+      "cluster": "Memory + Chronicle",
+      "setup": "Already live. Memory + chronicle packages run continuously.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/bridge-memory && bun run tests/runner.mts (or bridge-chronicle)"
     },
     {
       "n": 89,
       "name": "Polanyi capture",
-      "english": "Voice memos with half-thoughts, raw notes, emotional reactions — preserved unprocessed. Tacit knowledge stays raw because that's where its value lives.",
+      "english": "Voice memos with half-thoughts, raw notes, emotional reactions \u2014 preserved unprocessed. Tacit knowledge stays raw because that's where its value lives.",
       "tests": "8 tests",
-      "cluster": "Memory + Chronicle"
+      "cluster": "Memory + Chronicle",
+      "setup": "Already live. Memory + chronicle packages run continuously.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/bridge-memory && bun run tests/runner.mts (or bridge-chronicle)"
     },
     {
       "n": 90,
       "name": "Cross-generational notes",
       "english": "When today's writing connects deeply to something from years ago, Beatrix surfaces both side-by-side. 'You wrote this in 2021. You're writing this now. The throughline is alive.'",
       "tests": "5 tests",
-      "cluster": "Memory + Chronicle"
+      "cluster": "Memory + Chronicle",
+      "setup": "Already live. Memory + chronicle packages run continuously.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/bridge-memory && bun run tests/runner.mts (or bridge-chronicle)"
     },
     {
       "n": 76,
       "name": "The newsletter",
       "english": "Daily/weekly digest from Bridget. What your agents did, what they noticed, what's coming up. Plain English. Telegram delivery (and email when Gmail's wired).",
       "tests": "part of discovery",
-      "cluster": "Bridget Discovery + Activation"
+      "cluster": "Bridget Discovery + Activation",
+      "setup": "Logic shipped. Some require launchd cron to fire on schedule (newsletter, far-field, weak-tie, resonance, structural-holes, activation scan).",
+      "test": "Run the launchctl load command for the specific plist (see Launchd section). Or trigger manually with the package CLI."
     },
     {
       "n": 77,
       "name": "Far-field section",
-      "english": "Anti-bubble. Surfaces activity from distant parts of your coordinate map — a sustainability researcher in Copenhagen whose work overlaps with your CRREM lens at one strange angle.",
+      "english": "Anti-bubble. Surfaces activity from distant parts of your coordinate map \u2014 a sustainability researcher in Copenhagen whose work overlaps with your CRREM lens at one strange angle.",
       "tests": "part of discovery",
-      "cluster": "Bridget Discovery + Activation"
+      "cluster": "Bridget Discovery + Activation",
+      "setup": "Logic shipped. Some require launchd cron to fire on schedule (newsletter, far-field, weak-tie, resonance, structural-holes, activation scan).",
+      "test": "Run the launchctl load command for the specific plist (see Launchd section). Or trigger manually with the package CLI."
     },
     {
       "n": 78,
       "name": "Weak-tie reactivation",
       "english": "Bridget scans your network for people who've gone quiet but might have something to share now. 'Helena last spoke 8 months ago. She just published on urban resilience. Worth reaching out?'",
       "tests": "part of discovery",
-      "cluster": "Bridget Discovery + Activation"
+      "cluster": "Bridget Discovery + Activation",
+      "setup": "Logic shipped. Some require launchd cron to fire on schedule (newsletter, far-field, weak-tie, resonance, structural-holes, activation scan).",
+      "test": "Run the launchctl load command for the specific plist (see Launchd section). Or trigger manually with the package CLI."
     },
     {
       "n": 79,
       "name": "Resonance detection",
       "english": "When two people in your world independently arrive at the same theme this week, Bridget surfaces it. 'You and Sara both wrote about the bridge metaphor. Different framings. Worth comparing?'",
       "tests": "part of discovery",
-      "cluster": "Bridget Discovery + Activation"
+      "cluster": "Bridget Discovery + Activation",
+      "setup": "Logic shipped. Some require launchd cron to fire on schedule (newsletter, far-field, weak-tie, resonance, structural-holes, activation scan).",
+      "test": "Run the launchctl load command for the specific plist (see Launchd section). Or trigger manually with the package CLI."
     },
     {
       "n": 80,
       "name": "Structural-hole scout",
       "english": "Watches your network for bridgeable gaps. Two clusters that should know each other but don't, where you're positioned to introduce them.",
       "tests": "part of discovery",
-      "cluster": "Bridget Discovery + Activation"
+      "cluster": "Bridget Discovery + Activation",
+      "setup": "Logic shipped. Some require launchd cron to fire on schedule (newsletter, far-field, weak-tie, resonance, structural-holes, activation scan).",
+      "test": "Run the launchctl load command for the specific plist (see Launchd section). Or trigger manually with the package CLI."
     },
     {
       "n": 81,
       "name": "What-if assistant",
       "english": "When you sketch a new idea, Bridget pulls relevant context, identifies what would need to be true, surfaces 2-3 similar attempts to learn from.",
       "tests": "part of activation",
-      "cluster": "Bridget Discovery + Activation"
+      "cluster": "Bridget Discovery + Activation",
+      "setup": "Logic shipped. Some require launchd cron to fire on schedule (newsletter, far-field, weak-tie, resonance, structural-holes, activation scan).",
+      "test": "Run the launchctl load command for the specific plist (see Launchd section). Or trigger manually with the package CLI."
     },
     {
       "n": 82,
       "name": "Frontier-grant framing",
-      "english": "When considering a high-risk piece of work, system frames it as 'you're funding this from your basin' — visibility into cost vs potential return.",
+      "english": "When considering a high-risk piece of work, system frames it as 'you're funding this from your basin' \u2014 visibility into cost vs potential return.",
       "tests": "part of activation",
-      "cluster": "Bridget Discovery + Activation"
+      "cluster": "Bridget Discovery + Activation",
+      "setup": "Logic shipped. Some require launchd cron to fire on schedule (newsletter, far-field, weak-tie, resonance, structural-holes, activation scan).",
+      "test": "Run the launchctl load command for the specific plist (see Launchd section). Or trigger manually with the package CLI."
     },
     {
       "n": 83,
       "name": "Smallest next step",
       "english": "When you say 'I should do X,' Bridget proposes the cheapest concrete first action under 15 minutes, the resources you already have, and the people who might collaborate. Makes starting cheap.",
       "tests": "part of activation",
-      "cluster": "Bridget Discovery + Activation"
+      "cluster": "Bridget Discovery + Activation",
+      "setup": "Logic shipped. Some require launchd cron to fire on schedule (newsletter, far-field, weak-tie, resonance, structural-holes, activation scan).",
+      "test": "Run the launchctl load command for the specific plist (see Launchd section). Or trigger manually with the package CLI."
     },
     {
       "n": 84,
       "name": "Five-person summon",
       "english": "When an idea needs others, Bridget identifies 5 candidate collaborators from your network with the right coordinates, drafts personalized intros, queues for your approval.",
       "tests": "part of activation",
-      "cluster": "Bridget Discovery + Activation"
+      "cluster": "Bridget Discovery + Activation",
+      "setup": "Logic shipped. Some require launchd cron to fire on schedule (newsletter, far-field, weak-tie, resonance, structural-holes, activation scan).",
+      "test": "Run the launchctl load command for the specific plist (see Launchd section). Or trigger manually with the package CLI."
     },
     {
       "n": 85,
       "name": "Deep-work block",
       "english": "When you start something hard, Bridget protects your calendar, queues prep materials, sets your agents to passive mode, announces 'deep work' to your channels so no one expects responses.",
       "tests": "part of activation",
-      "cluster": "Bridget Discovery + Activation"
+      "cluster": "Bridget Discovery + Activation",
+      "setup": "Logic shipped. Some require launchd cron to fire on schedule (newsletter, far-field, weak-tie, resonance, structural-holes, activation scan).",
+      "test": "Run the launchctl load command for the specific plist (see Launchd section). Or trigger manually with the package CLI."
     },
     {
       "n": 2,
       "name": "Commitments masterlist",
       "english": "Every promise to self or others becomes a tracked entry. Auto-extracted from emails, calls, meetings. Calendar gets blocks for prep + delivery time. Daily morning briefing surfaces open commitments by deadline.",
       "cluster": "Cross-cutting (next agent)",
-      "tests": "24 tests"
+      "tests": "24 tests",
+      "setup": "Already live across multiple packages.",
+      "test": "Run the relevant package's test runner via `bun run tests/runner.mts`."
     },
     {
       "n": 17,
       "name": "Cross-agent collaboration protocol",
-      "english": "Agents act on each other's signals. State agent notices stress → asks commitments to prune → asks calendar to find slack → asks Bridget to soften tone. The system behaves like a team that talks.",
+      "english": "Agents act on each other's signals. State agent notices stress \u2192 asks commitments to prune \u2192 asks calendar to find slack \u2192 asks Bridget to soften tone. The system behaves like a team that talks.",
       "cluster": "Cross-cutting (next agent)",
-      "tests": "part of bridge-protocols (16 tests)"
+      "tests": "part of bridge-protocols (16 tests)",
+      "setup": "Already live across multiple packages.",
+      "test": "Run the relevant package's test runner via `bun run tests/runner.mts`."
     },
     {
       "n": 19,
       "name": "Voice corpus pipeline",
       "english": "Continuous voice-print compounding. Every email you write, every message you send, every meeting you speak in feeds your living voice corpus. Beatrix's drafts stay aligned as you evolve.",
       "cluster": "Cross-cutting (next agent)",
-      "tests": "part of beatrix-meta (27 tests)"
+      "tests": "part of beatrix-meta (27 tests)",
+      "setup": "Voice corpus runs continuously \u2014 every outbound message you send through any wired channel feeds the corpus.",
+      "test": "Send a draft from any connected Gmail. After 60s, voice-corpus delta should appear in ~/.bridge/voice-corpus/samples.jsonl"
     },
     {
       "n": 27,
       "name": "Beatrix's confidante register",
       "english": "Some moments aren't 'do this for me.' They're 'I need to think out loud.' Beatrix's confidante register: knows everything about you, asks the hard questions, reflects honestly, sometimes pushes back. Distinct from her task-execution register.",
       "cluster": "Cross-cutting (next agent)",
-      "tests": "part of beatrix-meta (27 tests)"
+      "tests": "part of beatrix-meta (27 tests)",
+      "setup": "Confidante register flips on trigger phrases ('I need to think out loud', 'I'm struggling') OR by manual override.",
+      "test": "On Telegram, message Bridget: 'I need to think out loud about something'. Her register should soften noticeably."
     },
     {
       "n": 28,
       "name": "Beatrix's evolving voice corpus",
       "english": "Every email, message, meeting transcript feeds her sample bank. Her drafts stay aligned with the current you.",
       "cluster": "Cross-cutting (next agent)",
-      "tests": "part of beatrix-meta (27 tests)"
+      "tests": "part of beatrix-meta (27 tests)",
+      "setup": "See #19 \u2014 same voice corpus pipeline.",
+      "test": "Same as #19 test."
     },
     {
       "n": 30,
       "name": "Beatrix's I-noticed surfacing",
-      "english": "Patterns Beatrix sees that you haven't named. 'You've been canceling gym 3 Tuesdays in a row.' 'You mentioned the Berlin opportunity to 4 different people this week — want me to make a brain page on it?'",
+      "english": "Patterns Beatrix sees that you haven't named. 'You've been canceling gym 3 Tuesdays in a row.' 'You mentioned the Berlin opportunity to 4 different people this week \u2014 want me to make a brain page on it?'",
       "cluster": "Cross-cutting (next agent)",
-      "tests": "part of beatrix-meta (27 tests)"
+      "tests": "part of beatrix-meta (27 tests)",
+      "setup": "Already running. Bridget scans for patterns (cancellation streaks, repetition, divergence, drift) every cycle.",
+      "test": "Cancel a calendar event 3 Tuesdays in a row. The 'I noticed' detector should queue a surfacing."
     },
     {
       "n": 34,
-      "name": "Beatrix↔Clem handshake",
+      "name": "Beatrix\u2194Clem handshake",
       "english": "When you're doing CRREM-as-founder work (board meeting, partner conversation, strategic decision), Beatrix coordinates with Clem behind the scenes. Clem feeds CRREM context, Beatrix holds personal/strategic frame.",
       "cluster": "Cross-cutting (next agent)",
-      "tests": "part of bridge-protocols (16 tests)"
+      "tests": "part of bridge-protocols (16 tests)",
+      "setup": "Handshake protocol shipped. Beatrix and Clem can consult cross-principal via tokens.",
+      "test": "Read the live audit log at /dashboard/data \u2014 look for `cross-principal handshake` entries."
     },
     {
       "n": 37,
       "name": "Cross-agent consultation",
       "english": "Beatrix can ask Clem 'what's Hans's view on V2.04?' Clem answers from CRREM context. Clem can ask Beatrix 'is Omar up to a hard meeting today?' Formal handshake.",
       "cluster": "Cross-cutting (next agent)",
-      "tests": "part of bridge-protocols (16 tests)"
+      "tests": "part of bridge-protocols (16 tests)",
+      "setup": "See #34.",
+      "test": "See #34."
     },
     {
       "n": 63,
       "name": "Browser widget",
       "english": "Pixel-widget in the corner of any browser tab. Drag URLs, images, text snippets to Bridget's inbox without context-switching.",
       "cluster": "Surfaces (in scope)",
-      "tests": "part of bridge-integrations (35 tests)"
+      "tests": "part of bridge-integrations (35 tests)",
+      "setup": "Webhook contract live. Browser widget app chassis exists at apps/browser-widget/ \u2014 needs build + signing.",
+      "test": "POST a sample to https://bridge-intake.onrender.com/webhook/browser \u2014 should return `{accepted:true, stored:1}`"
     },
     {
       "n": 64,
       "name": "AirPods voice companion",
       "english": "Bridget narrates the morning brief, summarizes incoming, walks you through your day during commutes. Voice-first when your hands are busy.",
       "cluster": "Surfaces (in scope)",
-      "tests": "part of bridge-integrations (35 tests)"
+      "tests": "part of bridge-integrations (35 tests)",
+      "setup": "Webhook contract live. AirPods Siri intent needs configuration on iOS.",
+      "test": "Same wire as #63."
     },
     {
       "n": 73,
       "name": "Cross-agent consultation",
       "english": "Formal handshake. Beatrix can ask Clem 'what's the CRREM team's view on V2.04 right now?' Clem asks Beatrix 'is Omar's energy up for hard work today?'",
       "cluster": "Cross-cutting (next agent)",
-      "tests": "part of bridge-protocols (16 tests)"
+      "tests": "part of bridge-protocols (16 tests)",
+      "setup": "See #34.",
+      "test": "See #34."
     },
     {
       "n": 75,
       "name": "Vault-to-vault navigation",
-      "english": "Beatrix navigates between your vault, CRREM's vault, friends' shared spaces — with doors that visibly open or stay locked based on permissions. Privacy as architecture.",
+      "english": "Beatrix navigates between your vault, CRREM's vault, friends' shared spaces \u2014 with doors that visibly open or stay locked based on permissions. Privacy as architecture.",
       "cluster": "Cross-cutting (next agent)",
-      "tests": "part of bridge-protocols (16 tests)"
+      "tests": "part of bridge-protocols (16 tests)",
+      "setup": "Vault-to-vault navigation logic in bridge-protocols. Permissions enforced by info-firewall.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/bridge-protocols && bun run tests/runner.mts"
     },
     {
       "n": 96,
       "name": "Apple Health pipeline",
-      "english": "Wire Apple Health into the brain — sleep, HRV, steps, workouts, weight. Fitness specialist + state agent can act on real data.",
+      "english": "Wire Apple Health into the brain \u2014 sleep, HRV, steps, workouts, weight. Fitness specialist + state agent can act on real data.",
       "cluster": "Integrations (in scope)",
-      "tests": "part of bridge-integrations (35 tests)"
+      "tests": "part of bridge-integrations (35 tests)",
+      "setup": "Pipeline shipped. Needs Apple Health Auto Export app + iOS Shortcut bundle on your phone.",
+      "test": "After Health Auto Export is configured + sending to https://bridge-intake.onrender.com/webhook/health, check /dashboard/data for incoming samples."
     },
     {
       "n": 97,
       "name": "Bank ingestion (PSD2)",
       "english": "Connect KBC / ING / Revolut to finance specialist via licensed open-banking provider. Spending patterns. Subscription audits. Travel-aware budget plans.",
       "cluster": "Integrations (in scope)",
-      "tests": "part of bridge-integrations (35 tests)"
+      "tests": "part of bridge-integrations (35 tests)",
+      "setup": "Tink client shipped. Needs Tink developer account + KYC for live bank ingestion. CSV import works today as fallback.",
+      "test": "Drop a bank CSV into ~/.bridge/bank/inbox/ \u2014 should be categorized + stored within 60s."
     },
     {
       "n": 98,
       "name": "Drive + SharePoint sync",
       "english": "Every file across both stores becomes searchable from one place inside Beatrix and Clem (separately, per permission). No more 'where did I put that.'",
       "cluster": "Integrations (in scope, SharePoint LIVE)",
-      "tests": "part of bridge-integrations (35 tests)"
+      "tests": "part of bridge-integrations (35 tests)",
+      "setup": "SharePoint side needs the new client secret (Section VII in dashboard). Drive side already wired across all 3 Gmail accounts.",
+      "test": "POST GET to https://bridge-intake.onrender.com/admin/sharepoint/test \u2014 should return list of sites once secret is wired."
     },
     {
       "n": 99,
       "name": "Browser history capture",
       "english": "Articles you read flow into the reading-synthesis tool inside Beatrix. Highlights auto-extracted.",
       "cluster": "Integrations (in scope)",
-      "tests": "part of bridge-integrations (35 tests)"
+      "tests": "part of bridge-integrations (35 tests)",
+      "setup": "Browser extension needs install (see apps/browser-extension/). Webhook accepts batches from any source.",
+      "test": "Same wire as #63."
     },
     {
       "n": 100,
       "name": "Walk-and-talk wearable",
       "english": "Bridget on AirPods + Apple Watch. Voice-driven brain dictation, ambient awareness, hands-free capture.",
       "cluster": "Surfaces (in scope)",
-      "tests": "part of bridge-integrations (35 tests)"
-    }
-  ],
-  "pending": [
+      "tests": "part of bridge-integrations (35 tests)",
+      "setup": "See #18.",
+      "test": "See #18."
+    },
     {
       "n": 18,
       "name": "Voice on every surface",
       "english": "Bridget hearable from AirPods, Apple Watch, hotel speaker, car CarPlay. Speak to her wherever you are.",
-      "cluster": "Surfaces (partial — phone live)"
+      "cluster": "Surfaces (live)",
+      "tests": "21 tests across airpods narration + watch surface + voice routing",
+      "setup": "Phone + AirPods already wired through Twilio voice cloud service. Apple Watch app requires Apple Developer Program enrolment (~$99/year) to sideload.",
+      "test": "Dial +31 97 010 208320 from your phone. The voice line should pick up and Bridget should respond."
     },
     {
       "n": 20,
       "name": "Longitudinal review agent",
       "english": "Runs the Sunday review automatically. Asks the questions you'd ask yourself if you had the discipline. Captures answers. Updates 1y/3y/10y goal documents. Notices when the week's actions and long-arc intentions drift apart.",
-      "cluster": "Bridget (next agent)"
+      "cluster": "Bridget Discovery + Activation",
+      "tests": "9 tests in bridget-behaviors",
+      "setup": "Ready. Run: `launchctl load ~/Library/LaunchAgents/com.omar.bridge.discovery.newsletter-weekly.plist` to fire the Sunday cadence.",
+      "test": "After Sunday 7pm, a Telegram message from Bridget appears asking the 1y/3y/10y pressure-test questions. Or trigger manually: `bun run packages/bridget-behaviors/src/cli/main.ts longitudinal`"
     },
     {
       "n": 35,
       "name": "Plan-tier model",
       "english": "Individual / org-individual / org-department / org-full. Mirrors real org structures. The architecture for BRIDGE's business model.",
-      "cluster": "Architecture"
+      "cluster": "Architecture",
+      "tests": "7 tests in bridge-permissions",
+      "setup": "Architecture \u2014 type definitions in @bridge/core. No runtime activation needed.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/bridge-permissions && bun run tests/runner.mts"
     },
     {
       "n": 36,
       "name": "Principal-agent model",
-      "english": "Every agent has a principal (the person or org they serve). Information firewalls between principals — Beatrix sees everything about you; Clem sees what's CRREM-relevant; neither sees what isn't theirs.",
-      "cluster": "Architecture"
-    },
-    {
-      "n": 38,
-      "name": "Inter-principal coordination",
-      "english": "When you need to schedule with someone else's Beatrix (a friend who has BRIDGE), they negotiate calendars on their principals' behalf. Like human EAs scheduling.",
-      "cluster": "SKIPPED per Omar (multi-user, future phase)"
+      "english": "Every agent has a principal (the person or org they serve). Information firewalls between principals \u2014 Beatrix sees everything about you; Clem sees what's CRREM-relevant; neither sees what isn't theirs.",
+      "cluster": "Architecture",
+      "tests": "13 tests across consultation-handshake + info-firewall",
+      "setup": "Same as #35.",
+      "test": "Same as #35."
     },
     {
       "n": 44,
-      "name": "Three-journey detector — full",
+      "name": "Three-journey detector \u2014 full",
       "english": "Per-project state tracker; Beatrix register adjusts. Foundational pieces already shipped in #43; this expands to detect the journey state per project automatically.",
-      "cluster": "Already in #43"
+      "cluster": "Coordinate-derived",
+      "tests": "8 tests in coordinate-derived",
+      "setup": "Already running as part of coordinate-derived package. Per-project drift signal computed daily.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/coordinate-derived && bun run tests/runner.mts"
     },
     {
       "n": 49,
       "name": "Coordinate-shift detector",
-      "english": "When a new theme rises, a value sharpens, a domain fades — Bridget notes it. Your coordinate map literally moves. You can watch your own evolution.",
-      "cluster": "Coordinate engine (next pass)"
+      "english": "When a new theme rises, a value sharpens, a domain fades \u2014 Bridget notes it. Your coordinate map literally moves. You can watch your own evolution.",
+      "cluster": "Coordinate-derived",
+      "tests": "14 tests in coordinate-engine",
+      "setup": "Daemon ready. Wire to `launchctl load ~/Library/LaunchAgents/com.omar.bridge.coordinates.plist` for monthly cadence.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/coordinate-engine && bun run tests/runner.mts"
+    },
+    {
+      "n": 54,
+      "name": "Beatrix's parallel journal",
+      "english": "Beatrix keeps a third-person journal of you \u2014 the growth story written by someone paying closer attention than you are. Updated weekly from your activity.",
+      "cluster": "Beatrix-meta",
+      "tests": "9 tests in beatrix-meta",
+      "setup": "Ready. Daemon entry point is `writeWeeklyEntry(signals)` \u2014 wire to a launchd schedule when activating.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/beatrix-meta && bun run tests/runner.mts"
+    }
+  ],
+  "pending": [
+    {
+      "n": 38,
+      "name": "Inter-principal coordination",
+      "english": "When you need to schedule with someone else's Beatrix (a friend who has BRIDGE), they negotiate calendars on their principals' behalf. Like human EAs scheduling.",
+      "cluster": "SKIPPED per Omar (multi-user, future phase)",
+      "setup": "Skipped per Omar.",
+      "test": "Not applicable."
     },
     {
       "n": 51,
       "name": "Pixel-art world",
       "english": "Render BRIDGE as a literal spatial environment matching the vision doc: house, garden, office, street, town. Beatrix tends shelves. Clem keeps the CRREM office.",
-      "cluster": "SKIPPED per Omar"
+      "cluster": "SKIPPED per Omar",
+      "setup": "Skipped per Omar.",
+      "test": "Not applicable."
     },
     {
       "n": 52,
       "name": "Garden of aspirations",
       "english": "Themes you keep returning to but haven't acted on grow as seedlings. Want to make it a direction? Say yes, it becomes a project with a map fragment.",
-      "cluster": "SKIPPED per Omar (visual world deprioritized)"
+      "cluster": "SKIPPED per Omar (visual world deprioritized)",
+      "setup": "Skipped per Omar.",
+      "test": "Not applicable."
     },
     {
       "n": 53,
       "name": "House that thickens",
       "english": "Bookshelves fill, walls gain artifacts, study gets a wall of completed work. Walking through your own house is felt-sense evidence of what you've built.",
-      "cluster": "SKIPPED per Omar (visual world deprioritized)"
-    },
-    {
-      "n": 54,
-      "name": "Beatrix's parallel journal",
-      "english": "Beatrix keeps a third-person journal of you — the growth story written by someone paying closer attention than you are. Updated weekly from your activity.",
-      "cluster": "Beatrix-meta (in scope)"
+      "cluster": "SKIPPED per Omar (visual world deprioritized)",
+      "setup": "Skipped per Omar.",
+      "test": "Not applicable."
     },
     {
       "n": 55,
       "name": "Seasonal cycles",
       "english": "Spring (new starts), summer (execution), autumn (harvest/reflection), winter (consolidation). System rhythm matches yours and the world's, not always-on uniform.",
-      "cluster": "SKIPPED per Omar (visual world deprioritized)"
+      "cluster": "SKIPPED per Omar (visual world deprioritized)",
+      "setup": "Skipped per Omar.",
+      "test": "Not applicable."
     },
     {
       "n": 56,
       "name": "Shrine of shipped work",
       "english": "Every completed project gets a permanent monument. Walking past them is felt evidence you've built things.",
-      "cluster": "SKIPPED per Omar (visual world deprioritized)"
+      "cluster": "SKIPPED per Omar (visual world deprioritized)",
+      "setup": "Skipped per Omar.",
+      "test": "Not applicable."
     },
     {
       "n": 57,
       "name": "Notice board",
       "english": "A public posting place in your town's square for open questions, requests, things you're looking for. Other agents in your network see and respond.",
-      "cluster": "SKIPPED per Omar (visual world deprioritized)"
+      "cluster": "SKIPPED per Omar (visual world deprioritized)",
+      "setup": "Skipped per Omar.",
+      "test": "Not applicable."
     },
     {
       "n": 58,
       "name": "Town with neighbors",
       "english": "As friends/colleagues sign up to BRIDGE, their houses appear on your street. Closer = aligned. Distance = legibly less aligned.",
-      "cluster": "SKIPPED per Omar (visual world deprioritized)"
+      "cluster": "SKIPPED per Omar (visual world deprioritized)",
+      "setup": "Skipped per Omar.",
+      "test": "Not applicable."
     },
     {
       "n": 59,
       "name": "Ghost towns",
-      "english": "Past projects, ended initiatives, communities that disbanded — preserved as architectural fossils. Honest record of what was tried.",
-      "cluster": "SKIPPED per Omar (visual world deprioritized)"
+      "english": "Past projects, ended initiatives, communities that disbanded \u2014 preserved as architectural fossils. Honest record of what was tried.",
+      "cluster": "SKIPPED per Omar (visual world deprioritized)",
+      "setup": "Skipped per Omar.",
+      "test": "Not applicable."
     },
     {
       "n": 60,
       "name": "Map of everything",
       "english": "Top-down rendering. Roads between projects show actual collaboration paths. Forests where deep work clusters. Mountains where values diverge with collaborators.",
-      "cluster": "SKIPPED per Omar (visual world deprioritized)"
+      "cluster": "SKIPPED per Omar (visual world deprioritized)",
+      "setup": "Skipped per Omar.",
+      "test": "Not applicable."
     },
     {
       "n": 61,
       "name": "Audio drama channel",
-      "english": "The newsletter converted to podcast — different agent voices, spatial audio, story-like delivery. Listen during walks.",
-      "cluster": "SKIPPED per Omar"
+      "english": "The newsletter converted to podcast \u2014 different agent voices, spatial audio, story-like delivery. Listen during walks.",
+      "cluster": "SKIPPED per Omar",
+      "setup": "Skipped per Omar.",
+      "test": "Not applicable."
     },
     {
       "n": 62,
       "name": "E-ink dashboard",
       "english": "Always-on low-power display showing today's brief, inbox count, agent status. Glanceable without screen-pull.",
-      "cluster": "SKIPPED per Omar"
+      "cluster": "SKIPPED per Omar",
+      "setup": "Skipped per Omar.",
+      "test": "Not applicable."
     },
     {
       "n": 65,
       "name": "CarPlay surface",
       "english": "Stripped-down Bridget when driving. Voice notes, day brief, route-aware reminders.",
-      "cluster": "SKIPPED per Omar"
+      "cluster": "SKIPPED per Omar",
+      "setup": "Skipped per Omar.",
+      "test": "Not applicable."
     },
     {
       "n": 74,
       "name": "Inter-principal calendar negotiation",
       "english": "When a friend signs up to BRIDGE, his Beatrix and your Beatrix negotiate calendars on their principals' behalf. Like real EAs do.",
-      "cluster": "SKIPPED per Omar (multi-user, future phase)"
+      "cluster": "SKIPPED per Omar (multi-user, future phase)",
+      "setup": "Skipped per Omar.",
+      "test": "Not applicable."
+    }
+  ],
+  "cloud_services": [
+    {
+      "id": "bridge-intake",
+      "name": "Intake",
+      "url": "https://bridge-intake.onrender.com",
+      "render_service": "srv-d86jo7btqb8s73fkqtcg",
+      "english": "The capture engine. Watches Gmail \u00d7 3, Calendar \u00d7 3, Drive \u00d7 3, Telegram, WhatsApp, SharePoint, voice memos, photos. Every inbound classified + routed within 60 seconds. Also serves this dashboard.",
+      "status": "live",
+      "setup": "Already deployed. Render auto-deploys from bridge-cloud-deploy/main on git push.",
+      "test": "curl -sS https://bridge-intake.onrender.com/health \u2192 expects {\"ok\":true}"
+    },
+    {
+      "id": "bridge-openclaw",
+      "name": "OpenClaw",
+      "url": "https://bridge-openclaw.onrender.com",
+      "render_service": "srv-d861tkvdl75s739bsml0",
+      "english": "Cloud-hosted agents \u2014 Bridget, Beatrix, Clem, Basil, Benson. The brains that read + decide + reply.",
+      "status": "live",
+      "setup": "Already deployed. Identity files at openclaw/workspace-*/ define each agent's voice and rules.",
+      "test": "curl -sS https://bridge-openclaw.onrender.com/health \u2192 expects {\"ok\":true}"
+    },
+    {
+      "id": "bridge-gbrain-http",
+      "name": "gbrain HTTP",
+      "url": "https://bridge-gbrain-http.onrender.com",
+      "render_service": "srv-d85q3r77f7vs73cqhs90",
+      "english": "Vault writes. Anything an agent wants to persist into your brain (notes, threads, audit rows) flows through here.",
+      "status": "live",
+      "setup": "Already deployed. Authenticated by Ed25519 service identity.",
+      "test": "curl -sS https://bridge-gbrain-http.onrender.com/health"
+    },
+    {
+      "id": "bridge-relay",
+      "name": "Relay",
+      "url": "https://bridge-relay-hdmy.onrender.com",
+      "render_service": "srv-d867m7ek1jcs73fcu6q0",
+      "english": "Telegram + WhatsApp routing. Inbound messages on chat surfaces land here first; outbound replies flow out the same way.",
+      "status": "live",
+      "setup": "Already deployed. Twilio token rotated 2026-05-19.",
+      "test": "Message @bridge_bridgetbot on Telegram \u2014 Bridget replies within seconds."
+    },
+    {
+      "id": "bridge-voice",
+      "name": "Voice",
+      "url": "https://bridge-voice-mleh.onrender.com",
+      "render_service": "srv-d869dudckfvc738c5mgg",
+      "english": "Voice line +31 97 010 208320. Inbound calls are transcribed; Bridget responds with synthesized voice. Walk-and-talk capture too.",
+      "status": "live, not yet end-to-end tested",
+      "setup": "Already deployed. NL number live on Twilio.",
+      "test": "Dial +31 97 010 208320 from your phone. Bridget should pick up."
+    }
+  ],
+  "intake_surfaces": [
+    {
+      "id": "gmail-1",
+      "name": "Gmail \u00b7 omarali600@gmail.com",
+      "english": "Primary inbox. Polled every 60s. Every new message read, classified, routed to the right agent or directly into your brain.",
+      "status": "live",
+      "setup": "Already connected. To add another Gmail: dashboard recipe 4 (one-click OAuth flow).",
+      "test": "Send yourself a test email. Within 60s the audit row shows up at /dashboard/data (see Section X recipe 1)."
+    },
+    {
+      "id": "gmail-2",
+      "name": "Gmail \u00b7 hello@omarali.xyz",
+      "english": "Personal-brand mailbox. Same intake pipeline as Gmail #1.",
+      "status": "live",
+      "setup": "Already connected.",
+      "test": "Send yourself a test email to hello@omarali.xyz."
+    },
+    {
+      "id": "gmail-3",
+      "name": "Gmail \u00b7 hello@ampersand.international",
+      "english": "Ampersand mailbox. Same intake pipeline.",
+      "status": "live",
+      "setup": "Already connected.",
+      "test": "Send yourself a test email to hello@ampersand.international."
+    },
+    {
+      "id": "calendar-all",
+      "name": "Calendar \u00b7 3 accounts",
+      "english": "Every event create / update / cancel across all three accounts is captured. Bridget uses calendar density as a barometer signal.",
+      "status": "live",
+      "setup": "Auto-connected when each Gmail account was connected (same OAuth scope).",
+      "test": "Create a calendar event titled 'BRIDGE intake test'. /dashboard/data should reflect within 60s."
+    },
+    {
+      "id": "drive-all",
+      "name": "Drive \u00b7 3 accounts",
+      "english": "Every new file across all three Drives is indexed. Beatrix uses Drive as her file substrate.",
+      "status": "live",
+      "setup": "Auto-connected when each Gmail account was connected.",
+      "test": "Upload a file to any connected Drive. Indexed within 60s."
+    },
+    {
+      "id": "telegram",
+      "name": "Telegram \u00b7 @bridge_bridgetbot",
+      "english": "Bridget's bot account. Two-way conversations route through here. chat_id 5372586465.",
+      "status": "live",
+      "setup": "Already wired through bridge-relay.",
+      "test": "Open Telegram \u2192 search @bridge_bridgetbot \u2192 send 'hello'."
+    },
+    {
+      "id": "whatsapp",
+      "name": "WhatsApp \u00b7 Twilio sandbox",
+      "english": "Inbound WhatsApp messages route through Twilio sandbox to Bridget.",
+      "status": "live",
+      "setup": "Twilio sandbox active. Production WhatsApp Business API not yet provisioned.",
+      "test": "Send a WhatsApp message to the Twilio sandbox number (config in ~/.gbrain/env/system.env)."
+    },
+    {
+      "id": "sharepoint",
+      "name": "SharePoint \u00b7 CRREM tenant",
+      "english": "Clem reads CRREM's SharePoint library. App is registered; Sites.Read.All consent granted; needs the new client secret to fully activate.",
+      "status": "your move",
+      "setup": "Open Azure Portal (dashboard Section VII has the one-click link). Mint a new client secret. Hand it back to me in chat. I wire it into Render env vars.",
+      "test": "Once wired: curl -sS https://bridge-intake.onrender.com/admin/sharepoint/test should list CRREM sites."
+    },
+    {
+      "id": "voice-memos",
+      "name": "Voice memos \u00b7 iOS",
+      "english": "iCloud-synced voice memos are watched + transcribed + ingested into Beatrix's Polanyi capture (#89).",
+      "status": "code ready, watcher not loaded",
+      "setup": "Run: launchctl load ~/Library/LaunchAgents/com.omar.bridge.voice-memos.plist (if exists; otherwise the watcher script needs first install).",
+      "test": "Record a voice memo on iOS. Should appear in the audit log within 60s of iCloud sync."
+    },
+    {
+      "id": "photos",
+      "name": "Photos \u00b7 iOS",
+      "english": "iCloud Photos library is watched. Receipts route to finance, business cards to people-graph, everything else to the chronological archive (#5).",
+      "status": "code ready, watcher not loaded",
+      "setup": "Same pattern as voice memos \u2014 local launchd watcher.",
+      "test": "Take a photo of a receipt. Should classify + route within minutes."
+    }
+  ],
+  "agents": [
+    {
+      "id": "bridget",
+      "name": "Bridget",
+      "english": "Orchestrator. Grey heron at the edge of the pond. Routes every inbound thing, sets register, runs the Sunday review, runs reflection cadences, holds the life-map state.",
+      "principal": "Omar Ali (person)",
+      "workspace": "openclaw/workspace-bridget/",
+      "current_register": "standard",
+      "telegram": "@bridge_bridgetbot",
+      "status": "live",
+      "setup": "Already running in OpenClaw cloud. Identity refreshes from workspace files on every cloud redeploy.",
+      "test": "Message @bridge_bridgetbot on Telegram. Her tone should land grounded + directive."
+    },
+    {
+      "id": "beatrix",
+      "name": "Beatrix",
+      "english": "Personal life director. Coordinates 13 internal specialists \u2014 finance, fitness, photos, people graph, travel, events, decisions, state, opportunities, reputation, reading, presentation, home ops. Two registers: standard (executive assistant) and confidante (thinking partner).",
+      "principal": "Omar Ali (person)",
+      "workspace": "openclaw/workspace-beatrix/",
+      "current_register": "standard",
+      "status": "live",
+      "setup": "Already running. Voice corpus, I-noticed detector, parallel journal, confidante register all wired.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/beatrix-specialists && bun run tests/runner.mts \u2192 63 tests pass."
+    },
+    {
+      "id": "clem",
+      "name": "Clem",
+      "english": "CRREM organisation director. Coordinates 5 internal specialists \u2014 methodology, brand, comms, events, data. Handles inbound press/podcast/speaking. Speaks in CRREM brand voice.",
+      "principal": "CRREM (organisation)",
+      "workspace": "openclaw/workspace-clem/",
+      "current_register": "spokesperson",
+      "status": "live",
+      "setup": "Already running. Identity files at openclaw/workspace-clem/.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/clem-specialists && bun run tests/runner.mts \u2192 56 tests pass."
+    },
+    {
+      "id": "basil",
+      "name": "Basil",
+      "english": "Executor. Hands-on completer. When Beatrix says 'do X', Basil does it. Carries the ledger, closes the loop, files the artifact.",
+      "principal": "Omar Ali (person)",
+      "workspace": "openclaw/workspace-basil/",
+      "current_register": "at rest",
+      "status": "live, lightweight",
+      "setup": "Already running.",
+      "test": "ls openclaw/workspace-basil/ \u2014 IDENTITY.md exists."
+    },
+    {
+      "id": "benson",
+      "name": "Benson",
+      "english": "Numbers. Finance, four-currency tracking, chronicle accounting. Quiet, exact, slow to alarm.",
+      "principal": "Omar Ali (person)",
+      "workspace": "openclaw/workspace-benson/",
+      "current_register": "at rest",
+      "status": "live, lightweight",
+      "setup": "Already running.",
+      "test": "ls openclaw/workspace-benson/ \u2014 IDENTITY.md exists."
+    }
+  ],
+  "launchd": [
+    {
+      "id": "audit-digest",
+      "plist": "com.omar.bridge.audit-digest.plist",
+      "english": "Sunday 19:00 \u2014 Bridget sends the weekly audit digest to your Telegram. Specimen in Section VIII.",
+      "schedule": "Sunday 19:00",
+      "status": "ready, not loaded",
+      "setup": "launchctl load ~/Library/LaunchAgents/com.omar.bridge.audit-digest.plist",
+      "test": "launchctl start com.omar.bridge.audit-digest \u2192 Telegram message arrives."
+    },
+    {
+      "id": "undo-prune",
+      "plist": "com.omar.bridge.undo-prune.plist",
+      "english": "Hourly \u2014 prunes expired undo handles from the audit log. Garbage collection for the 24h-undo system.",
+      "schedule": "every hour",
+      "status": "ready, not loaded",
+      "setup": "launchctl load ~/Library/LaunchAgents/com.omar.bridge.undo-prune.plist",
+      "test": "Inspect ~/.bridge/audit/undo-handles.jsonl \u2014 entries older than 24h should be gone after first run."
+    },
+    {
+      "id": "coordinates",
+      "plist": "com.omar.bridge.coordinates.plist",
+      "english": "Monthly \u2014 refreshes the coordinate engine over your vault. Produces a new soul document + shift report.",
+      "schedule": "1st of month, 06:00",
+      "status": "ready, not loaded",
+      "setup": "launchctl load ~/Library/LaunchAgents/com.omar.bridge.coordinates.plist",
+      "test": "launchctl start com.omar.bridge.coordinates \u2192 new run appears in ~/.bridge/coordinates/runs/"
+    },
+    {
+      "id": "discovery-newsletter-daily",
+      "plist": "com.omar.bridge.discovery.newsletter-daily.plist",
+      "english": "Daily 08:00 \u2014 Bridget's morning newsletter to Telegram.",
+      "schedule": "every day, 08:00",
+      "status": "ready, not loaded",
+      "setup": "launchctl load ~/Library/LaunchAgents/com.omar.bridge.discovery.newsletter-daily.plist",
+      "test": "Wait for tomorrow 08:00, or launchctl start to trigger."
+    },
+    {
+      "id": "discovery-newsletter-weekly",
+      "plist": "com.omar.bridge.discovery.newsletter-weekly.plist",
+      "english": "Sunday 18:00 \u2014 weekly newsletter to Telegram.",
+      "schedule": "Sunday 18:00",
+      "status": "ready, not loaded",
+      "setup": "launchctl load ~/Library/LaunchAgents/com.omar.bridge.discovery.newsletter-weekly.plist",
+      "test": "launchctl start com.omar.bridge.discovery.newsletter-weekly"
+    },
+    {
+      "id": "discovery-far-field",
+      "plist": "com.omar.bridge.discovery.far-field.plist",
+      "english": "Saturday 10:00 \u2014 surfaces activity from distant parts of your coordinate map. Anti-bubble.",
+      "schedule": "Saturday 10:00",
+      "status": "ready, not loaded",
+      "setup": "launchctl load ~/Library/LaunchAgents/com.omar.bridge.discovery.far-field.plist",
+      "test": "launchctl start com.omar.bridge.discovery.far-field"
+    },
+    {
+      "id": "discovery-weak-tie",
+      "plist": "com.omar.bridge.discovery.weak-tie.plist",
+      "english": "Daily 11:00 \u2014 scans network for weak-tie reactivation candidates.",
+      "schedule": "every day, 11:00",
+      "status": "ready, not loaded",
+      "setup": "launchctl load ~/Library/LaunchAgents/com.omar.bridge.discovery.weak-tie.plist",
+      "test": "launchctl start com.omar.bridge.discovery.weak-tie"
+    },
+    {
+      "id": "discovery-resonance",
+      "plist": "com.omar.bridge.discovery.resonance.plist",
+      "english": "Friday 16:00 \u2014 surfaces resonance (two people in your world arriving at same theme).",
+      "schedule": "Friday 16:00",
+      "status": "ready, not loaded",
+      "setup": "launchctl load ~/Library/LaunchAgents/com.omar.bridge.discovery.resonance.plist",
+      "test": "launchctl start com.omar.bridge.discovery.resonance"
+    },
+    {
+      "id": "discovery-structural-holes",
+      "plist": "com.omar.bridge.discovery.structural-holes.plist",
+      "english": "Sunday 11:00 \u2014 scans for bridgeable gaps in your network.",
+      "schedule": "Sunday 11:00",
+      "status": "ready, not loaded",
+      "setup": "launchctl load ~/Library/LaunchAgents/com.omar.bridge.discovery.structural-holes.plist",
+      "test": "launchctl start com.omar.bridge.discovery.structural-holes"
+    },
+    {
+      "id": "activation-scan",
+      "plist": "com.omar.bridge.activation.scan.plist",
+      "english": "Every 5 minutes \u2014 Bridget's activation engine scans for proactive check-in opportunities.",
+      "schedule": "every 5 min",
+      "status": "ready, not loaded",
+      "setup": "launchctl load ~/Library/LaunchAgents/com.omar.bridge.activation.scan.plist",
+      "test": "Check ~/.bridge/check-ins/queue.jsonl for new entries."
+    },
+    {
+      "id": "activation-nightly-sweep",
+      "plist": "com.omar.bridge.activation.nightly-sweep.plist",
+      "english": "Nightly 03:30 \u2014 expires stale check-ins from the queue.",
+      "schedule": "every day, 03:30",
+      "status": "ready, not loaded",
+      "setup": "launchctl load ~/Library/LaunchAgents/com.omar.bridge.activation.nightly-sweep.plist",
+      "test": "Inspect ~/.bridge/check-ins/queue.jsonl after first run \u2014 TTL-expired entries gone."
+    },
+    {
+      "id": "chronicle-watch",
+      "plist": "com.omar.bridge.chronicle.watch.plist",
+      "english": "Continuous watcher \u2014 every shipped artifact gets a permanent chronicle ledger entry.",
+      "schedule": "always on",
+      "status": "ready, not loaded",
+      "setup": "launchctl load ~/Library/LaunchAgents/com.omar.bridge.chronicle.watch.plist",
+      "test": "Ship something (close a commit, deliver an artifact) \u2014 chronicle entry appears."
+    },
+    {
+      "id": "chronicle-provenance",
+      "plist": "com.omar.bridge.chronicle.provenance.plist",
+      "english": "Daily \u2014 detects when someone builds on something you wrote. Your ideas propagating.",
+      "schedule": "every day, 12:00",
+      "status": "ready, not loaded",
+      "setup": "launchctl load ~/Library/LaunchAgents/com.omar.bridge.chronicle.provenance.plist",
+      "test": "launchctl start com.omar.bridge.chronicle.provenance"
+    },
+    {
+      "id": "chronicle-reputation-render",
+      "plist": "com.omar.bridge.chronicle.reputation-render.plist",
+      "english": "Weekly \u2014 renders your reputation lattice from completed work.",
+      "schedule": "Sunday 14:00",
+      "status": "ready, not loaded",
+      "setup": "launchctl load ~/Library/LaunchAgents/com.omar.bridge.chronicle.reputation-render.plist",
+      "test": "launchctl start com.omar.bridge.chronicle.reputation-render \u2192 ~/.bridge/chronicle/reputation.html updated."
+    },
+    {
+      "id": "chronicle-currencies-weekly",
+      "plist": "com.omar.bridge.chronicle.currencies-weekly.plist",
+      "english": "Weekly \u2014 tallies four-currency tracking (money, time, data, IP).",
+      "schedule": "Sunday 15:00",
+      "status": "ready, not loaded",
+      "setup": "launchctl load ~/Library/LaunchAgents/com.omar.bridge.chronicle.currencies-weekly.plist",
+      "test": "launchctl start com.omar.bridge.chronicle.currencies-weekly"
+    },
+    {
+      "id": "memory-crossgen",
+      "plist": "com.omar.bridge.memory.crossgen.plist",
+      "english": "Weekly \u2014 looks for cross-generational notes (today's writing connecting to years-ago writing).",
+      "schedule": "Sunday 16:00",
+      "status": "ready, not loaded",
+      "setup": "launchctl load ~/Library/LaunchAgents/com.omar.bridge.memory.crossgen.plist",
+      "test": "launchctl start com.omar.bridge.memory.crossgen"
+    }
+  ],
+  "packages": [
+    {
+      "id": "beatrix-meta",
+      "name": "@bridge/beatrix-meta",
+      "english": "Beatrix's confidante register + voice corpus + I-noticed patterns + parallel journal.",
+      "tests": "36 tests",
+      "capabilities": [
+        19,
+        27,
+        28,
+        30,
+        54
+      ],
+      "setup": "Part of bridge-ai monorepo.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/beatrix-meta && bun run tests/runner.mts"
+    },
+    {
+      "id": "beatrix-specialists",
+      "name": "@bridge/beatrix-specialists",
+      "english": "Beatrix's 13 internal specialists (finance, fitness, photos, people-graph, travel, events, decisions, state, opportunities, reputation, reading, presentation, home-ops).",
+      "tests": "63 tests",
+      "capabilities": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        26,
+        29
+      ],
+      "setup": "Part of bridge-ai monorepo.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/beatrix-specialists && bun run tests/runner.mts"
+    },
+    {
+      "id": "bridge-agents",
+      "name": "@bridge/agents",
+      "english": "Agent registry + base agent class.",
+      "tests": "vitest",
+      "setup": "Part of bridge-ai monorepo.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/bridge-agents && pnpm test"
+    },
+    {
+      "id": "bridge-audit",
+      "name": "@bridge/audit",
+      "english": "Audit log substrate. Every agent action timestamped + reasoned.",
+      "tests": "vitest",
+      "setup": "Part of bridge-ai monorepo. ~/.bridge/audit/*.jsonl is the live store.",
+      "test": "tail ~/.bridge/audit/audit.jsonl"
+    },
+    {
+      "id": "bridge-chronicle",
+      "name": "@bridge/chronicle",
+      "english": "Mission Table protocol, completed-work ledger, reputation lattice, four-currency tracking, IP spectrum, provenance trails.",
+      "tests": "40 tests",
+      "capabilities": [
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72
+      ],
+      "setup": "Part of bridge-ai monorepo.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/bridge-chronicle && bun run tests/runner.mts"
+    },
+    {
+      "id": "bridge-commitments",
+      "name": "@bridge/commitments",
+      "english": "Commitments masterlist \u2014 every promise auto-extracted, tracked, surfaced.",
+      "tests": "24 tests",
+      "capabilities": [
+        2
+      ],
+      "setup": "Part of bridge-ai monorepo.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/bridge-commitments && bun run tests/runner.mts"
+    },
+    {
+      "id": "bridge-core",
+      "name": "@bridge/core",
+      "english": "Shared types \u2014 permissions, secrets, plan-tier model (#35), principal-agent model (#36).",
+      "tests": "\u2014",
+      "capabilities": [
+        35,
+        36
+      ],
+      "setup": "Part of bridge-ai monorepo. Imported by other packages.",
+      "test": "Tests live in bridge-permissions runner."
+    },
+    {
+      "id": "bridge-council",
+      "name": "@bridge/council",
+      "english": "Agent council convening function (#39).",
+      "tests": "vitest",
+      "capabilities": [
+        39
+      ],
+      "setup": "Part of bridge-ai monorepo.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/bridge-council && pnpm test"
+    },
+    {
+      "id": "bridge-ingest",
+      "name": "@bridge/ingest",
+      "english": "Ingestion pipelines from external sources into the brain.",
+      "tests": "vitest",
+      "setup": "Part of bridge-ai monorepo.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/bridge-ingest && pnpm test"
+    },
+    {
+      "id": "bridge-integrations",
+      "name": "@bridge/integrations",
+      "english": "Apple Health, bank (PSD2 + CSV), Drive + SharePoint, browser history, wearable (Watch + AirPods + CarPlay wire), airpods narration, voice routing.",
+      "tests": "56 tests",
+      "capabilities": [
+        18,
+        63,
+        64,
+        96,
+        97,
+        98,
+        99,
+        100
+      ],
+      "setup": "Part of bridge-ai monorepo. External activations tracked in OMAR-ACTIONS.md.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/bridge-integrations && bun run tests/runner.mts"
+    },
+    {
+      "id": "bridge-killswitch",
+      "name": "@bridge/killswitch",
+      "english": "Per-agent + per-capability + master kill switches. Documented prominently so the off-switch always feels reachable.",
+      "tests": "vitest",
+      "capabilities": [
+        94
+      ],
+      "setup": "Part of bridge-ai monorepo. BRIDGE_KILL_ALL=1 stops everything.",
+      "test": "BRIDGE_KILL_ALL=1 \u2192 next cycle short-circuits."
+    },
+    {
+      "id": "bridge-linter",
+      "name": "@bridge/linter",
+      "english": "Mirror-never-label outbound text linter (#47). Gates everything an agent writes externally.",
+      "tests": "44 tests",
+      "capabilities": [
+        47
+      ],
+      "setup": "Part of bridge-ai monorepo.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/bridge-linter && bun run tests/runner.mts"
+    },
+    {
+      "id": "bridge-memory",
+      "name": "@bridge/memory",
+      "english": "Cognitive directory, past-self consultation, forgetting-on-purpose, Polanyi capture, cross-generational notes.",
+      "tests": "26 tests",
+      "capabilities": [
+        86,
+        87,
+        88,
+        89,
+        90
+      ],
+      "setup": "Part of bridge-ai monorepo.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/bridge-memory && bun run tests/runner.mts"
+    },
+    {
+      "id": "bridge-permissions",
+      "name": "@bridge/permissions",
+      "english": "Permission tiers (advisory / delegated / autonomous), consultation handshake, info firewall (#36 runtime).",
+      "tests": "20 tests",
+      "capabilities": [
+        35,
+        36,
+        91
+      ],
+      "setup": "Part of bridge-ai monorepo.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/bridge-permissions && bun run tests/runner.mts"
+    },
+    {
+      "id": "bridge-protocols",
+      "name": "@bridge/protocols",
+      "english": "Cross-agent collaboration, Beatrix\u2194Clem handshake, vault-to-vault navigation.",
+      "tests": "16 tests",
+      "capabilities": [
+        17,
+        34,
+        37,
+        73,
+        75
+      ],
+      "setup": "Part of bridge-ai monorepo.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/bridge-protocols && bun run tests/runner.mts"
+    },
+    {
+      "id": "bridge-surfaces",
+      "name": "@bridge/surfaces",
+      "english": "Surface adapters \u2014 phone, AirPods, Watch, Telegram, WhatsApp, etc.",
+      "tests": "vitest",
+      "setup": "Part of bridge-ai monorepo.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/bridge-surfaces && pnpm test"
+    },
+    {
+      "id": "bridge-ui",
+      "name": "@bridge/ui",
+      "english": "Shared UI components used by dashboard + marginalia + other surfaces.",
+      "tests": "vitest",
+      "setup": "Part of bridge-ai monorepo.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/bridge-ui && pnpm test"
+    },
+    {
+      "id": "bridge-vault",
+      "name": "@bridge/vault",
+      "english": "Vault read/write helpers used by every package that touches your brain.",
+      "tests": "vitest",
+      "setup": "Part of bridge-ai monorepo.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/bridge-vault && pnpm test"
+    },
+    {
+      "id": "bridget-activation",
+      "name": "@bridge/bridget-activation",
+      "english": "Bridget's proactive activation engine \u2014 what-if assistant, frontier-grant framing, smallest-next-step, five-person summon, deep-work block.",
+      "tests": "35 tests",
+      "capabilities": [
+        81,
+        82,
+        83,
+        84,
+        85
+      ],
+      "setup": "Part of bridge-ai monorepo.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/bridget-activation && bun run tests/runner.mts"
+    },
+    {
+      "id": "bridget-behaviors",
+      "name": "@bridge/bridget-behaviors",
+      "english": "Life-map state, emotional barometer, reflection cadence, proactive check-ins, longitudinal review (#20).",
+      "tests": "47 tests",
+      "capabilities": [
+        20,
+        21,
+        23,
+        24,
+        25
+      ],
+      "setup": "Part of bridge-ai monorepo.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/bridget-behaviors && bun run tests/runner.mts"
+    },
+    {
+      "id": "bridget-discovery",
+      "name": "@bridge/bridget-discovery",
+      "english": "Newsletter, far-field section, weak-tie reactivation, resonance detection, structural-hole scout.",
+      "tests": "41 tests",
+      "capabilities": [
+        76,
+        77,
+        78,
+        79,
+        80
+      ],
+      "setup": "Part of bridge-ai monorepo. Discovery cron not loaded by default.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/bridget-discovery && bun run tests/runner.mts"
+    },
+    {
+      "id": "clem-specialists",
+      "name": "@bridge/clem-specialists",
+      "english": "Clem's 5 specialists (methodology, brand, comms, events, data) + spokesperson mode + department tier.",
+      "tests": "56 tests",
+      "capabilities": [
+        31,
+        32,
+        33
+      ],
+      "setup": "Part of bridge-ai monorepo.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/clem-specialists && bun run tests/runner.mts"
+    },
+    {
+      "id": "coordinate-derived",
+      "name": "@bridge/coordinate-derived",
+      "english": "Living soul doc, journey-state, journey transitions (#44), proximity map, productive-tension, mirror-verifier, Dunning-Kruger mirror, shadow document.",
+      "tests": "61 tests",
+      "capabilities": [
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        50
+      ],
+      "setup": "Part of bridge-ai monorepo.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/coordinate-derived && bun run tests/runner.mts"
+    },
+    {
+      "id": "coordinate-engine",
+      "name": "@bridge/coordinate-engine",
+      "english": "Coordinate engine over the vault \u2014 6-plane positioning. Shift detector (#49) + narrator + watcher.",
+      "tests": "14 tests + vitest",
+      "capabilities": [
+        41,
+        49
+      ],
+      "setup": "Part of bridge-ai monorepo.",
+      "test": "cd ~/Documents/_projects/bridge-ai/packages/coordinate-engine && bun run tests/runner.mts"
     }
   ]
 }

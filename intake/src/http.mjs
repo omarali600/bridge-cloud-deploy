@@ -70,6 +70,18 @@ export function startHttpServer({ port, adminToken: at }) {
       if (path === '/dashboard/capabilities.json' && req.method === 'GET') {
         return serveStaticFile(res, 'capabilities.json', 'application/json; charset=utf-8');
       }
+      if (path === '/dashboard/bridge-logo.svg' && req.method === 'GET') {
+        return serveStaticFile(res, 'bridge-logo.svg', 'image/svg+xml; charset=utf-8');
+      }
+      if (path === '/dashboard/bridge-logo.png' && req.method === 'GET') {
+        return serveStaticFile(res, 'bridge-logo.png', 'image/png');
+      }
+      {
+        const m = path.match(/^\/dashboard\/agents\/([a-z]+)\.png$/);
+        if (m && req.method === 'GET') {
+          return serveStaticFile(res, `agents/${m[1]}.png`, 'image/png');
+        }
+      }
 
       // ─── ingest endpoints ───
       if (path === '/ingest/telegram' && req.method === 'POST') {
