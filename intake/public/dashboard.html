@@ -212,9 +212,9 @@
     .row.open{background:rgba(0,36,255,.04)}
     .show-more{margin-top:18px;padding:14px 18px;background:#fff;border:1px dashed var(--hairline);border-radius:8px;text-align:center;font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:13px;color:var(--ink-mid);cursor:pointer;transition:background .12s,border-color .12s}
     .show-more:hover{background:var(--blue-100);border-color:var(--blue-300);color:var(--blue-700)}
-    #running-list:not(.expanded) .cluster-block:nth-child(n+5){display:none}
+    #running-list:not(.expanded):not(.search-expanded) .cluster-block:nth-child(n+5){display:none}
 
-    .move-card-c{background:#fff;border:1px solid var(--red-300);border-left:4px solid var(--red-500);border-radius:12px;padding:22px 24px;margin-bottom:14px;cursor:pointer;transition:transform .15s,box-shadow .15s,background .15s;position:relative}
+    .move-card-c{background:#fff;border:1px solid var(--red-300);border-left:4px solid var(--red-500);border-radius:12px;padding:22px 24px;margin-bottom:14px;cursor:default;transition:transform .15s,box-shadow .15s,background .15s;position:relative}
     .move-card-c:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(230,57,70,.14);background:linear-gradient(180deg,#fff 0%,var(--red-100) 100%)}
     .move-card-c .id{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--red-700);letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:8px}
     .move-card-c .id .led{width:8px;height:8px;background:var(--red-500);border-radius:50%;animation:pulse-red 2.2s infinite}
@@ -462,7 +462,7 @@
         <div>
           <span class="eyebrow" style="color:var(--blue-700)">The catalog</span>
           <h2>What's <em style="color:var(--green-700)">running</em>, what <em style="color:var(--red-700)">needs you</em>, what's <em style="color:var(--ink-fade)">not coming</em>.</h2>
-          <p style="max-width:64ch;margin-top:10px">One hundred capabilities planned. <strong style="color:var(--ink)">86 built and running</strong>. <strong style="color:var(--ink)" id="cat-pending-line">3 waiting on you</strong>. <strong style="color:var(--ink)">14 dropped on purpose</strong>. Click any row to expand.</p>
+          <p style="max-width:64ch;margin-top:10px">One hundred capabilities planned. <strong style="color:var(--ink)"><span id="cat-built">86</span> built and running</strong>. <strong style="color:var(--ink)" id="cat-pending-line">3 waiting on you</strong>. <strong style="color:var(--ink)"><span id="cat-skipped">14</span> dropped on purpose</strong>. Click any row to expand.</p>
         </div>
         <div class="catalog-legend">
           <span><span class="dot g"></span>Built <strong id="legend-built">86</strong></span>
@@ -479,7 +479,7 @@
             <div class="ct" id="run-ct">capabilities grouped by cluster</div>
           </div>
           <div id="running-list"></div>
-          <div class="show-more" id="catalog-toggle-more">+ show all clusters →</div>
+          <div class="show-more" id="catalog-toggle-more" role="button" tabindex="0">+ show all clusters →</div>
         </div>
 
         <div class="col col-moves">
@@ -668,7 +668,7 @@
     if(e.schedule) out.push(`<h6>Schedule</h6><p>${esc(e.schedule)}</p>`);
     if(e.plist) out.push(`<h6>Launchd plist</h6><p><code style="font-family:'JetBrains Mono',monospace;font-size:12px">${esc(e.plist)}</code></p>`);
     if(e.tests) out.push(`<h6>Tests</h6><p>${esc(e.tests)}</p>`);
-    if(e.capabilities?.length) out.push(`<h6>Capabilities owned</h6><p>${e.capabilities.map(n=>`#${n}`).join(' · ')}</p>`);
+    if(e.capabilities?.length) out.push(`<h6>Capabilities owned</h6><p>${e.capabilities.map(n=>`#${esc(n)}`).join(' · ')}</p>`);
     if(e.setup){out.push(`<h6>How to set it up</h6>`);e.setup.split('\n').forEach(l=>{if(detectCommand(l)) out.push(cmdBlock(l.trim())); else out.push(`<p>${esc(l)}</p>`)})}
     if(e.test){out.push(`<h6>How to test it</h6>`);e.test.split('\n').forEach(l=>{if(detectCommand(l)) out.push(cmdBlock(l.trim())); else out.push(`<p>${esc(l)}</p>`)})}
     return `<div class="drawer">${out.join('')}</div>`;
@@ -749,11 +749,12 @@
     $('#moves-ct').textContent=`${pendingCount} activations · ~3 minutes`;
     $('#hero-pending-line').innerHTML=`${pendingCount||3} are <em>waiting on you</em>.`;
 
-    $('#catalog-toggle-more')?.addEventListener('click',e=>{
-      const root=$('#running-list');
-      const isOpen=root.classList.toggle('expanded');
-      e.target.textContent = isOpen ? '− collapse to top 4 clusters' : '+ show all clusters →';
-    });
+    const catToggle=$('#catalog-toggle-more');
+    if(catToggle){
+      const doCatToggle=()=>{const isOpen=$('#running-list').classList.toggle('expanded');catToggle.textContent=isOpen?'− collapse to top 4 clusters':'+ show all clusters →';};
+      catToggle.addEventListener('click',doCatToggle);
+      catToggle.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();doCatToggle();}});
+    }
   }
 
   // ---- v5.1: agents, activations, counts, count-up, controls ----
@@ -802,7 +803,7 @@
     return `<div class="move-card-c">
       <div class="id"><span class="led"></span>${esc(a.eta||'your move')}</div>
       <h4>${esc(a.label)}</h4><p>${esc(a.english)}</p>
-      ${a.cta_href?`<a class="cta" href="${esc(a.cta_href)}"${/^tel:|^#/.test(a.cta_href)?'':' target="_blank"'}>${esc(a.cta_label||'Open')}</a>`:''}</div>`;
+      ${a.cta_href && /^(https?:|tel:|mailto:|#)/i.test(a.cta_href)?`<a class="cta" href="${esc(a.cta_href)}"${/^tel:|^#/.test(a.cta_href)?'':' target="_blank"'}>${esc(a.cta_label||'Open')}</a>`:''}</div>`;
   }
 
   function renderActivations(data){
@@ -830,6 +831,7 @@
     set('snap-launchd',`${ldLoaded} / ${ldTotal}`);
     set('snap-cloud',`${clLive} / ${clTotal}`);
     set('legend-built',built);set('legend-skipped',skipped);set('legend-pending',yourMove);
+    set('cat-built',built);set('cat-skipped',skipped);
     const hp=$('#hero-pending-line'); if(hp) hp.innerHTML=`${yourMove===1?'One thing is':yourMove+' things are'} <em>waiting on you</em>.`;
     const cp=$('#cat-pending-line'); if(cp) cp.textContent=`${yourMove} waiting on you`;
     const mc=$('#moves-ct'); if(mc) mc.textContent=`${yourMove} activation${yourMove===1?'':'s'} left`;
@@ -900,6 +902,7 @@
       el.classList.toggle('search-hide',!match);
       if(match&&q) visible++;
     }));
+    $('#running-list')?.classList.toggle('search-expanded', !!q);
     $$('.cluster-block').forEach(cl=>{
       const items=cl.querySelectorAll('.row:not(.search-hide)');
       cl.classList.toggle('search-hide',items.length===0);
