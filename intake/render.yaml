@@ -59,6 +59,14 @@ services:
       # Admin token for /admin/* endpoints.
       - key: ADMIN_TOKEN
         generateValue: true
+      # Cloud-brief (S0 substrate spike): bearer token the Mac uses to push
+      # the curated PULSE snapshot to POST /snapshot; standing fallback brief
+      # time (Europe/Amsterdam). CLOUD_BRIEF_TEST_AT (HH:MM) is an optional
+      # one-off test fire.
+      - key: CLOUD_SNAPSHOT_TOKEN
+        sync: false
+      - key: CLOUD_BRIEF_AT
+        value: "06:30"
       # Whether to actually act on classifications or just classify + log.
       # Set to "1" once Omar's reviewed the audit log for a few days.
       - key: INTAKE_LIVE_ROUTING

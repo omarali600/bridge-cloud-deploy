@@ -142,6 +142,18 @@ initDrive({
 });
 initSharepoint({});
 
+// ─── cloud-brief (S0 substrate spike) — isolated module, additive only ───
+
+import('./cloud-brief.mjs').then(({ initCloudBrief }) => {
+  initCloudBrief({
+    stateDir: STATE_DIR,
+    telegramToken: process.env.TELEGRAM_BOT_TOKEN,
+    telegramChatId: process.env.TELEGRAM_CHAT_ID,
+    anthropicKey: process.env.ANTHROPIC_API_KEY,
+    snapshotToken: process.env.CLOUD_SNAPSHOT_TOKEN,
+  });
+}).catch((e) => log(`cloud-brief init failed (non-fatal): ${e.message}`));
+
 // ─── HTTP server ───
 
 const httpPort = Number(process.env.PORT ?? 8080);

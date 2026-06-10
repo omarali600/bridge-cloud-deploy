@@ -8,6 +8,9 @@
  *   POST /ingest/voice-memo              local watcher posts voice memo events
  *   POST /ingest/photo                   local watcher posts photo events
  *   POST /ingest/admin-test              dry-run an arbitrary intake item
+ *   POST /snapshot                       Mac pushes curated PULSE snapshot (Bearer CLOUD_SNAPSHOT_TOKEN)
+ *   GET  /admin/cloud-brief              cloud-brief scheduler status
+ *   POST /admin/cloud-brief/fire         manual cloud-brief fire (spike backstop)
  *   POST /push/email                     Gmail Pub/Sub push handler
  *   GET  /admin/oauth/google/start       returns the Google OAuth URL
  *   GET  /admin/oauth/google/callback    OAuth redirect target
@@ -38,6 +41,7 @@ import { decide } from './routing/thresholds.mjs';
 import * as thresholds from './routing/thresholds.mjs';
 import { audit } from './audit/index.mjs';
 import { metrics } from './metrics.mjs';
+import * as cloudBrief from './cloud-brief.mjs';
 import { log } from './log.mjs';
 
 let adminToken = '';
@@ -103,6 +107,32 @@ export function startHttpServer({ port, adminToken: at }) {
       if (path === '/ingest/admin-test' && req.method === 'POST') {
         if (!checkAdmin(req, url)) return unauthorized(res);
         return handleIngest(req, res, async (body) => ingest({ ...body, surface: body.surface ?? 'admin-test' }));
+      }
+
+      // ─── cloud-brief (S0 substrate spike) ───
+      if (path === '/snapshot' && req.method === 'POST') {
+        // Mac pushes the curated PULSE snapshot. Bearer CLOUD_SNAPSHOT_TOKEN.
+        if (!cloudBrief.checkSnapshotAuth(req)) return unauthorized(res);
+        const body = await readJsonBody(req);
+        try {
+          return sendJson(res, 200, cloudBrief.saveSnapshot(body));
+        } catch (e) {
+          return sendJson(res, 400, { error: e.message });
+        }
+      }
+      if (path === '/admin/cloud-brief' && req.method === 'GET') {
+        if (!checkAdmin(req, url)) return unauthorized(res);
+        return sendJson(res, 200, cloudBrief.status());
+      }
+      if (path === '/admin/cloud-brief/fire' && req.method === 'POST') {
+        // Manual fire backstop for the spike test.
+        if (!checkAdmin(req, url)) return unauthorized(res);
+        try {
+          const out = await cloudBrief.fireBrief({ reason: 'manual' });
+          return sendJson(res, 200, out);
+        } catch (e) {
+          return sendJson(res, 500, { error: e.message });
+        }
       }
 
       // ─── push handlers ───
