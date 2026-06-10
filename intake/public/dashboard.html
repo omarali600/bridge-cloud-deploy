@@ -67,13 +67,13 @@
 
     .container{max-width:1320px;margin:0 auto;padding:0 56px}
     section{padding:80px 0;position:relative}
-    section.dense{padding:60px 0}
+    section.dense{padding:56px 0}
     main > section{border-bottom:1px solid var(--hairline)}
     main > section:last-of-type{border-bottom:0}
-    .sec-head{margin-bottom:36px}
+    .sec-head{margin-bottom:32px}
     .sec-head .meta{font-weight:500;font-size:13px;color:var(--ink-mid);margin-top:8px}
 
-    .hero{padding:84px 0 56px;position:relative;overflow:hidden}
+    .hero{padding:80px 0 64px;position:relative;overflow:hidden}
     .hero-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:64px;align-items:center}
     @media(max-width:1100px){.hero-grid{grid-template-columns:1fr;gap:32px}}
     .hero-deck{margin-top:24px;max-width:50ch;font-size:18px;line-height:1.55;color:var(--ink-soft);font-weight:300}
@@ -113,7 +113,7 @@
     section[class*="section-"] .eyebrow{color:var(--accent-deep)}
     section[class*="section-"] h2 em{color:var(--accent-deep)}
 
-    .agents-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
+    .agents-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
     @media(max-width:1100px){.agents-grid{grid-template-columns:repeat(3,1fr)}}
     @media(max-width:700px){.agents-grid{grid-template-columns:repeat(2,1fr)}}
     .agent{background:#fff;border:1px solid var(--hairline);border-radius:var(--r-card);padding:20px 18px 18px;text-align:center;cursor:pointer;transition:transform .2s,box-shadow .2s,border-color .2s;text-decoration:none;color:inherit;display:block}
@@ -144,17 +144,52 @@
     .move-item .material-symbols-rounded{color:var(--ink-fade);font-size:18px;transition:color .15s,transform .15s}
     .move-item:hover .material-symbols-rounded{color:var(--cobalt);transform:translateX(2px)}
 
-    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
     .grid.two{grid-template-columns:repeat(2,1fr)}
     .grid.four{grid-template-columns:repeat(4,1fr)}
     .grid.five{grid-template-columns:repeat(5,1fr)}
     @media(max-width:1100px){.grid.four,.grid.five{grid-template-columns:repeat(3,1fr)}}
     @media(max-width:900px){.grid,.grid.two,.grid.three,.grid.four,.grid.five{grid-template-columns:repeat(2,1fr)}}
     @media(max-width:600px){.grid,.grid.two,.grid.three,.grid.four,.grid.five{grid-template-columns:1fr}}
+    /* cloud: 5 cards as a balanced 3 + 2 spread (no orphan cell) */
+    #cloud-grid{grid-template-columns:repeat(6,1fr)}
+    #cloud-grid .card{grid-column:span 2}
+    #cloud-grid .card:nth-last-child(-n+2){grid-column:span 3}
+    @media(max-width:900px){
+      #cloud-grid{grid-template-columns:repeat(2,1fr)}
+      #cloud-grid .card,#cloud-grid .card:nth-last-child(-n+2){grid-column:span 1}
+      #cloud-grid .card:last-child{grid-column:span 2}
+    }
+    @media(max-width:600px){
+      #cloud-grid{grid-template-columns:1fr}
+      #cloud-grid .card,#cloud-grid .card:nth-last-child(-n+2),#cloud-grid .card:last-child{grid-column:span 1}
+    }
+    /* surfaces: accordion list */
+    .acc{background:#fff;border:1px solid var(--hairline);border-radius:var(--r-card);box-shadow:var(--shadow-card);overflow:hidden}
+    .acc-row{border-bottom:1px solid var(--hairline-soft);cursor:pointer;transition:background .15s}
+    .acc-row:last-child{border-bottom:0}
+    .acc-row:not(.open):hover{background:var(--accent-band,var(--off))}
+    .acc-head{display:grid;grid-template-columns:280px 1fr auto 20px;gap:16px;align-items:center;padding:14px 20px}
+    .acc-name{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:15px;color:var(--ink);letter-spacing:-0.005em;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .acc-sub{font-size:13px;color:var(--ink-mid);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .acc-chev{color:var(--ink-fade);font-size:12px;text-align:center;transition:transform .25s ease}
+    .acc-row.open .acc-chev{transform:rotate(180deg)}
+    .acc-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .28s ease}
+    .acc-body-in{min-height:0;overflow:hidden}
+    .acc-pad{padding:2px 20px 18px}
+    .acc-row .drawer{border-top:1px dotted var(--hairline);padding-top:12px;margin-top:12px}
+    .acc-row .card-eng{margin-top:0;max-width:72ch}
+    @media(max-width:760px){
+      .acc-head{grid-template-columns:minmax(0,1fr) 20px;grid-template-areas:"n c" "p c";row-gap:7px;gap:10px;padding:12px 14px}
+      .acc-sub{display:none}
+      .acc-head .acc-name{grid-area:n;white-space:normal}
+      .acc-head .pill{grid-area:p;justify-self:start;white-space:normal;text-align:left}
+      .acc-head .acc-chev{grid-area:c}
+      .acc-pad{padding:0 14px 14px}
+    }
     .card{background:#fff;border:1px solid var(--hairline);border-radius:var(--r-card);padding:20px 22px;cursor:pointer;transition:transform .2s,box-shadow .2s,border-color .2s;text-decoration:none;color:inherit;display:block;position:relative}
     .card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift);border-color:var(--accent-tint,var(--blue-100))}
     .card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:10px}
-    .card-id{font-family:'Rubik',sans-serif;font-weight:600;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-deep,var(--cobalt));margin-bottom:3px}
     .card-name{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:18px;color:var(--ink);letter-spacing:-0.01em;line-height:1.3}
     .card-eng{font-family:'Rubik',sans-serif;font-size:14px;line-height:1.55;color:var(--ink-soft);margin-top:4px}
     .card-foot{margin-top:14px;padding-top:12px;border-top:1px solid var(--hairline-soft);display:flex;gap:14px;justify-content:space-between;font-weight:500;font-size:11px;letter-spacing:.08em;color:var(--ink-mid)}
@@ -187,8 +222,15 @@
     @media(max-width:1100px){.spread{grid-template-columns:1fr;gap:48px}}
     .col-head{margin-bottom:18px}
     .col-head .ct{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--ink-mid);margin-top:6px;letter-spacing:.04em}
-    .cluster-block{margin-bottom:24px}
-    .cluster-label{display:flex;justify-content:space-between;align-items:baseline;font-weight:600;font-size:11px;letter-spacing:.16em;text-transform:uppercase;padding:8px 0 6px;border-bottom:1px solid var(--hairline);margin-bottom:6px}
+    .cluster-block{margin-bottom:16px}
+    .cluster-label{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-weight:600;font-size:11px;letter-spacing:.16em;text-transform:uppercase;padding:8px 4px 6px;border-bottom:1px solid var(--hairline);margin-bottom:6px;cursor:pointer;border-radius:6px 6px 0 0;transition:background .12s}
+    .cluster-label:hover{background:var(--off)}
+    .cluster-label span:first-child{flex:1;min-width:0}
+    .cluster-label::after{content:'▾';font-size:10px;color:var(--ink-fade);transition:transform .25s ease;transform-origin:center}
+    .cluster-block.collapsed .cluster-label{margin-bottom:0;border-bottom-color:var(--hairline-soft)}
+    .cluster-block.collapsed .cluster-label::after{transform:rotate(-90deg)}
+    .cluster-block.collapsed .row{display:none}
+    #running-list.search-expanded .cluster-block.collapsed .row{display:grid}
     .cluster-label.c-blue{color:var(--blue-700)}
     .cluster-label.c-green{color:var(--green-700)}
     .cluster-label.c-yellow{color:var(--yellow-700)}
@@ -212,7 +254,6 @@
     .row.open{background:rgba(0,36,255,.04)}
     .show-more{margin-top:18px;padding:14px 18px;background:#fff;border:1px dashed var(--hairline);border-radius:8px;text-align:center;font-family:'Space Grotesk',sans-serif;font-weight:500;font-size:13px;color:var(--ink-mid);cursor:pointer;transition:background .12s,border-color .12s}
     .show-more:hover{background:var(--blue-100);border-color:var(--blue-300);color:var(--blue-700)}
-    #running-list:not(.expanded):not(.search-expanded) .cluster-block:nth-child(n+5){display:none}
 
     .move-card-c{background:#fff;border:1px solid var(--red-300);border-left:4px solid var(--red-500);border-radius:12px;padding:22px 24px;margin-bottom:14px;cursor:default;transition:transform .15s,box-shadow .15s,background .15s;position:relative}
     .move-card-c:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(230,57,70,.14);background:linear-gradient(180deg,#fff 0%,var(--red-100) 100%)}
@@ -376,7 +417,7 @@
       <div class="hero-grid">
         <div>
           <span class="eyebrow"><span class="dot"></span><span id="hero-date">Field operations</span></span>
-          <h1>Hi Omar.<br>Eighty-six things <em>are running</em>.<br><span id="hero-pending-line">One thing is <em>waiting on you</em>.</span></h1>
+          <h1>Hi Omar.<br><span id="hero-built-line">Eighty-six things <em>are running</em>.</span><br><span id="hero-pending-line">One thing is <em>waiting on you</em>.</span></h1>
           <p class="hero-deck">A platform, a philosophy, and a protocol for human alignment. The agents that listen, the cloud that holds, the actions waiting on you. <strong>Click any card to see what it does and how to test it.</strong></p>
           <div class="hero-cta">
             <a class="btn btn-primary" href="#your-move">Resolve activations <span class="material-symbols-rounded">arrow_forward</span></a>
@@ -450,9 +491,9 @@
       <div class="sec-head">
         <span class="eyebrow"><span class="dot"></span>The intake</span>
         <h2>Ten <em>surfaces</em>.</h2>
-        <p class="meta">Where life flows in. Three Gmails, three Calendars, three Drives, Telegram, WhatsApp, SharePoint, voice memos, photos.</p>
+        <p class="meta">Where life flows in. Three Gmails, three Calendars, three Drives, Telegram, WhatsApp, SharePoint, voice memos, photos. <span id="surfaces-ct"></span></p>
       </div>
-      <div class="grid" id="surfaces-grid"></div>
+      <div class="acc" id="surfaces-grid"></div>
     </div>
   </section>
 
@@ -462,7 +503,7 @@
         <div>
           <span class="eyebrow" style="color:var(--blue-700)">The catalog</span>
           <h2>What's <em style="color:var(--green-700)">running</em>, what <em style="color:var(--red-700)">needs you</em>, what's <em style="color:var(--ink-fade)">not coming</em>.</h2>
-          <p style="max-width:64ch;margin-top:10px">One hundred capabilities planned. <strong style="color:var(--ink)"><span id="cat-built">86</span> built and running</strong>. <strong style="color:var(--ink)" id="cat-pending-line">3 waiting on you</strong>. <strong style="color:var(--ink)"><span id="cat-skipped">14</span> dropped on purpose</strong>. Click any row to expand.</p>
+          <p style="max-width:64ch;margin-top:10px">One hundred capabilities planned. <strong style="color:var(--ink)"><span id="cat-built">86</span> built and running</strong>. <strong style="color:var(--ink)" id="cat-pending-line">3 waiting on you</strong>. <strong style="color:var(--ink)"><span id="cat-skipped">14</span> dropped on purpose</strong>. Click a cluster to open its capabilities.</p>
         </div>
         <div class="catalog-legend">
           <span><span class="dot g"></span>Built <strong id="legend-built">86</strong></span>
@@ -479,7 +520,7 @@
             <div class="ct" id="run-ct">capabilities grouped by cluster</div>
           </div>
           <div id="running-list"></div>
-          <div class="show-more" id="catalog-toggle-more" role="button" tabindex="0">+ show all clusters →</div>
+          <div class="show-more" id="catalog-toggle-more" role="button" tabindex="0">+ expand all clusters</div>
         </div>
 
         <div class="col col-moves">
@@ -510,7 +551,7 @@
         <h2>Sixteen <em>daemons</em>, live.</h2>
         <p class="meta">Local launchd agents on your Mac, all 16 loaded and running. Click any card for its schedule and the <code style="font-family:'JetBrains Mono',monospace;background:var(--yellow-100);padding:1px 6px;border-radius:3px;color:var(--yellow-700);font-size:12.5px">launchctl</code> command to reload it after changes.</p>
       </div>
-      <div class="grid" id="launchd-grid"></div>
+      <div class="grid four" id="launchd-grid"></div>
     </div>
   </section>
 
@@ -532,7 +573,7 @@
       <div class="cols">
         <div>
           <a class="brand" href="#" style="margin-bottom:16px"><svg class="brand-logo" id="brand-logo-foot" viewBox="0 0 294 176" style="color:#fff"></svg><span class="brand-mark" style="color:#fff">BRIDGE</span></a>
-          <p class="credo">A platform, a philosophy, and a protocol for human alignment — built on the bet that <strong>human self-knowledge</strong> and <strong>economic ownership</strong> are the two bridges that determine whether AI makes things better or worse.</p>
+          <p class="credo">A platform, a philosophy, and a protocol for human alignment, built on the bet that <strong>human self-knowledge</strong> and <strong>economic ownership</strong> are the two bridges that determine whether AI makes things better or worse.</p>
           <p style="margin-top:14px;font-size:12.5px;color:rgba(255,255,255,.5);letter-spacing:.02em">Aligning humans before we align machines. Seven years of obsession, now running.</p>
         </div>
         <div>
@@ -677,7 +718,6 @@
   function prettyName(e){ if(e.name) return e.name; const id=e.id||''; return id.replace(/[-_]/g,' ').replace(/\b\w/g,c=>c.toUpperCase()); }
   function renderCard(e){
     const klass=statusToClass(e.status);
-    const idTag=e.n!=null?`№ ${String(e.n).padStart(3,'0')}`:esc(e.id||'');
     const meta=[];
     if(e.tests) meta.push(`<span style="color:var(--ink-mid);font-weight:500">${esc(e.tests)}</span>`);
     if(e.schedule) meta.push(`<span>${esc(e.schedule)}</span>`);
@@ -685,7 +725,7 @@
     const searchTxt=esc((e.name||'')+' '+(e.english||'')+' '+(e.setup||'')+' '+(e.test||'')+' '+(e.id||''));
     return `<div class="card" role="button" tabindex="0" aria-expanded="false" data-search="${searchTxt}" data-id="${esc(e.id||e.n||e.name)}" onclick="if(!event.target.closest('a')&&!event.target.closest('.cmd-copy'))toggleCard(this)" onkeydown="cardKey(event,this)">
       <div class="card-head">
-        <div><div class="card-id">${idTag}</div><div class="card-name">${esc(prettyName(e))}</div></div>
+        <div class="card-name">${esc(prettyName(e))}</div>
         <span class="pill ${klass}"><span class="led"></span>${esc(e.status||'')}</span>
       </div>
       <p class="card-eng">${esc(e.english)}</p>
@@ -694,6 +734,29 @@
     </div>`;
   }
   function renderSection(key,gridId,data){const items=data[key]||[]; const grid=$('#'+gridId); if(!grid) return; grid.innerHTML=items.map(e=>renderCard(e)).join('')}
+
+  function renderSurfaces(data){
+    const items=data.intake_surfaces||[]; const root=$('#surfaces-grid'); if(!root) return;
+    root.innerHTML=items.map(e=>{
+      const klass=statusToClass(e.status);
+      const sub=String(e.english||'').split(/(?<=\.)\s/)[0];
+      const searchTxt=esc((e.name||'')+' '+(e.english||'')+' '+(e.setup||'')+' '+(e.test||'')+' '+(e.id||''));
+      return `<div class="acc-row" role="button" tabindex="0" aria-expanded="false" data-search="${searchTxt}" onclick="if(!event.target.closest('a')&&!event.target.closest('.cmd-copy'))toggleCard(this)" onkeydown="cardKey(event,this)">
+        <div class="acc-head">
+          <span class="acc-name">${esc(prettyName(e))}</span>
+          <span class="acc-sub">${esc(sub)}</span>
+          <span class="pill ${klass}"><span class="led"></span>${esc(e.status||'')}</span>
+          <span class="acc-chev">▾</span>
+        </div>
+        <div class="acc-body"><div class="acc-body-in"><div class="acc-pad">
+          <p class="card-eng">${esc(e.english||'')}</p>
+          ${renderDrawer(e)}
+        </div></div></div>
+      </div>`;
+    }).join('');
+    const live=items.filter(e=>statusToClass(e.status)==='live').length;
+    const ct=$('#surfaces-ct'); if(ct) ct.textContent=`${live} of ${items.length} live.`;
+  }
 
   function renderCatalog(data){
     const all=[];
@@ -722,8 +785,8 @@
     let html='';
     order.forEach(cluster=>{
       const items=clusters[cluster]; const cls=clusterColor(cluster);
-      html += `<div class="cluster-block">
-        <div class="cluster-label ${cls}"><span>${esc(cluster)}</span><span class="n">${items.length}</span></div>
+      html += `<div class="cluster-block collapsed">
+        <div class="cluster-label ${cls}" role="button" tabindex="0" aria-expanded="false" onclick="toggleCluster(this.parentElement)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleCluster(this.parentElement)}"><span>${esc(cluster)}</span><span class="n">${items.length}</span></div>
         ${items.map(c=>`
           <div class="row ${cls}" role="button" tabindex="0" aria-expanded="false" data-search="${esc((c.name||'')+' '+(c.english||'')+' '+(c.setup||'')+' '+(c.test||''))}" onclick="toggleCard(this)" onkeydown="cardKey(event,this)">
             <span class="num">${String(c.n).padStart(3,'0')}</span>
@@ -742,7 +805,7 @@
       reason=reason.replace(/SKIPPED per Omar/i,'').replace(/^[ ·—\-,()]+|[ ·—\-,()]+$/g,'').trim()||'explicit choice';
       return `<li class="skipped-item" data-search="${esc((c.name||'')+' '+(c.english||''))}">
         <span class="num">${String(c.n).padStart(3,'0')}</span>
-        <span class="body"><span>${esc(c.name)}</span><span class="why">— ${esc(reason)}</span></span>
+        <span class="body"><span>${esc(c.name)}</span><span class="why">${esc(reason)}</span></span>
       </li>`;
     }).join('');
 
@@ -751,11 +814,22 @@
 
     const catToggle=$('#catalog-toggle-more');
     if(catToggle){
-      const doCatToggle=()=>{const isOpen=$('#running-list').classList.toggle('expanded');catToggle.textContent=isOpen?'− collapse to top 4 clusters':'+ show all clusters →';};
+      const doCatToggle=()=>{
+        const blocks=$$('#running-list .cluster-block');
+        const anyCollapsed=blocks.some(b=>b.classList.contains('collapsed'));
+        blocks.forEach(b=>setCluster(b,anyCollapsed));
+        catToggle.textContent=anyCollapsed?'− collapse all clusters':'+ expand all clusters';
+      };
       catToggle.addEventListener('click',doCatToggle);
       catToggle.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();doCatToggle();}});
     }
   }
+  function setCluster(block,open){
+    block.classList.toggle('collapsed',!open);
+    const lbl=block.querySelector('.cluster-label'); if(lbl) lbl.setAttribute('aria-expanded',open);
+  }
+  function toggleCluster(block){setCluster(block,block.classList.contains('collapsed'))}
+  window.toggleCluster=toggleCluster;
 
   // ---- v5.1: agents, activations, counts, count-up, controls ----
   const AGENT_ROLES={bridget:'Postmaster',beatrix:"Explorer's companion",basil:"Integrator's companion",benson:"Executor's companion",clem:"CRREM's house agent"};
@@ -832,6 +906,7 @@
     set('snap-cloud',`${clLive} / ${clTotal}`);
     set('legend-built',built);set('legend-skipped',skipped);set('legend-pending',yourMove);
     set('cat-built',built);set('cat-skipped',skipped);
+    const hb=$('#hero-built-line'); if(hb) hb.innerHTML=`${built} things <em>are running</em>.`;
     const hp=$('#hero-pending-line'); if(hp) hp.innerHTML=`${yourMove===1?'One thing is':yourMove+' things are'} <em>waiting on you</em>.`;
     const cp=$('#cat-pending-line'); if(cp) cp.textContent=`${yourMove} waiting on you`;
     const mc=$('#moves-ct'); if(mc) mc.textContent=`${yourMove} activation${yourMove===1?'':'s'} left`;
@@ -857,8 +932,11 @@
     });
   }
 
-  function setOpenWithin(root,open){root.querySelectorAll('.card,.agent[role=button]').forEach(el=>{el.classList.toggle('open',open);el.setAttribute('aria-expanded',open)})}
-  function expandAll(open){document.querySelectorAll('.card,.row,.agent[role=button]').forEach(el=>{el.classList.toggle('open',open);el.setAttribute('aria-expanded',open)})}
+  function setOpenWithin(root,open){root.querySelectorAll('.card,.acc-row,.agent[role=button]').forEach(el=>{el.classList.toggle('open',open);el.setAttribute('aria-expanded',open)})}
+  function expandAll(open){
+    document.querySelectorAll('.card,.row,.acc-row,.agent[role=button]').forEach(el=>{el.classList.toggle('open',open);el.setAttribute('aria-expanded',open)});
+    document.querySelectorAll('#running-list .cluster-block').forEach(b=>setCluster(b,open));
+  }
   function addSectionTools(){
     $$('#cloud .sec-head, #surfaces .sec-head, #launchd .sec-head, #packages .sec-head, #agents .sec-head').forEach(h=>{
       if(h.querySelector('.sec-tools')) return;
@@ -878,7 +956,7 @@
       const r=await fetch('/dashboard/capabilities.json',{credentials:'same-origin'});
       const data=await r.json();
       renderSection('cloud_services','cloud-grid',data);
-      renderSection('intake_surfaces','surfaces-grid',data);
+      renderSurfaces(data);
       renderSection('launchd','launchd-grid',data);
       renderSection('packages','packages-grid',data);
       renderAgents(data);
@@ -894,7 +972,7 @@
   const search=$('#global-search');
   function applySearch(q){
     q=(q||'').toLowerCase().trim();
-    const selectors=['.card','.row','.skipped-item','.agent'];
+    const selectors=['.card','.row','.acc-row','.skipped-item','.agent'];
     let visible=0;
     selectors.forEach(sel=>$$(sel).forEach(el=>{
       const hay=(el.dataset.search||el.textContent||'').toLowerCase();
