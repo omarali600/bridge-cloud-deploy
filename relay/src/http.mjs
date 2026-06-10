@@ -12,6 +12,7 @@
 import http from 'node:http';
 import twilio from 'twilio';
 import { handleWhatsappIncoming, isWhatsappReady } from './channels/whatsapp.mjs';
+import { checkOutboxAuth, pullCommands, ackCommands, outboxStatus, commandsEnabled } from './commands.mjs';
 import { log } from './log.mjs';
 
 const TWILIO_AUTH_TOKEN = process.env.TWILIO_AUTH_TOKEN || '';
@@ -49,8 +50,49 @@ export function startHttpServer({ port }) {
           telegram: !!(process.env.TELEGRAM_BOT_TOKEN && process.env.TELEGRAM_CHAT_ID),
           whatsapp: isWhatsappReady(),
           voice: !!process.env.TWILIO_AUTH_TOKEN,
+          commands: commandsEnabled(),
         },
       }));
+      return;
+    }
+
+    // ── S1 command outbox (Bearer OUTBOX_TOKEN, CLOUD_SNAPSHOT_TOKEN pattern) ──
+    if (url.pathname === '/outbox/pull' && req.method === 'GET') {
+      if (!checkOutboxAuth(req)) {
+        res.writeHead(401, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'unauthorized' }));
+        return;
+      }
+      const after = Number(url.searchParams.get('after') ?? '0') || 0;
+      const limit = Math.min(Number(url.searchParams.get('limit') ?? '50') || 50, 200);
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ ok: true, commands: pullCommands(after, limit) }));
+      return;
+    }
+
+    if (url.pathname === '/outbox/ack' && req.method === 'POST') {
+      if (!checkOutboxAuth(req)) {
+        res.writeHead(401, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'unauthorized' }));
+        return;
+      }
+      const body = await readBody(req);
+      let upto = 0;
+      try { upto = Number(JSON.parse(body || '{}').upto) || 0; } catch { /* keep 0 */ }
+      const acked = ackCommands(upto);
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ ok: true, acked_seq: acked }));
+      return;
+    }
+
+    if (url.pathname === '/outbox/status' && req.method === 'GET') {
+      if (!checkOutboxAuth(req)) {
+        res.writeHead(401, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'unauthorized' }));
+        return;
+      }
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ ok: true, ...outboxStatus() }));
       return;
     }
 

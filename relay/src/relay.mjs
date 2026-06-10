@@ -29,6 +29,7 @@ import { startHttpServer } from './http.mjs';
 import { initRouting } from './routing.mjs';
 import { initAgentClient } from './agents.mjs';
 import { initIntake } from './intake-client.mjs';
+import { initCommands } from './commands.mjs';
 import { log } from './log.mjs';
 
 // ───── identity bootstrap ─────
@@ -96,6 +97,8 @@ initIntake({
   intakeUrl: process.env.INTAKE_URL,
   adminToken: process.env.INTAKE_ADMIN_TOKEN,
 });
+// S1 command ingestion (A8): outbox on the service disk + /outbox endpoints.
+initCommands({ stateDir: STATE_DIR });
 
 const httpPort = Number(process.env.PORT ?? 8080);
 startHttpServer({ port: httpPort });

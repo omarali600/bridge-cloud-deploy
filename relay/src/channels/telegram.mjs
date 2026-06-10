@@ -10,6 +10,7 @@ import { setTimeout as sleep } from 'node:timers/promises';
 import { classify } from '../routing.mjs';
 import { invokeAgent } from '../agents.mjs';
 import { forward, intakeEnabled } from '../intake-client.mjs';
+import { commandsEnabled, handlePinnedMessage, auditUnknownChat } from '../commands.mjs';
 import { log } from '../log.mjs';
 
 let token, chatId, offsetFile;
@@ -82,15 +83,25 @@ function startTyping() {
   return () => { stopped = true; };
 }
 
-async function handleMessage(msg) {
+async function handleMessage(msg, updateId) {
   if (!msg.text) return;
   if (String(msg.chat?.id) !== chatId) {
+    // A3: pinned chat only. Drop + audit, never reply.
     log(`Telegram: ignoring chat=${msg.chat?.id}`);
+    auditUnknownChat(msg.chat?.id, msg);
     return;
   }
 
   const text = msg.text;
   log(`Telegram [in] ${text.slice(0, 100)}${text.length > 100 ? '…' : ''}`);
+
+  // S1 command mode (A8): the relay stays the sole getUpdates consumer and
+  // becomes the command parser. Commands + captures go to the durable
+  // outbox; the Mac consumer pulls and answers. One voice only — when the
+  // message is consumed here, the legacy agent-reply path must not run.
+  if (commandsEnabled() && handlePinnedMessage(updateId, msg)) {
+    return;
+  }
 
   if (text.startsWith('/')) {
     const cmd = text.split(/\s+/)[0].toLowerCase();
@@ -169,7 +180,7 @@ async function loop() {
       const j = await tgGetUpdates(offset);
       if (j?.ok && j.result.length) {
         for (const u of j.result) {
-          try { if (u.message) await handleMessage(u.message); } catch (e) { log(`Telegram handler: ${e.message}`); }
+          try { if (u.message) await handleMessage(u.message, u.update_id); } catch (e) { log(`Telegram handler: ${e.message}`); }
           saveOffset(u.update_id + 1);
         }
       } else if (!j?.ok) {
