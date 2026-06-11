@@ -18,6 +18,8 @@
  *   POST /admin/threshold                update action thresholds
  *   POST /admin/test                     classify+route a sample without acting
  *   GET  /admin/audit                    recent audit events
+ *   GET  /wiki/*                         personal wiki (admin auth: ?key= sets cookie, then cookie)
+ *   POST /wiki-upload                    Mac pushes wiki build tarball (Bearer CLOUD_SNAPSHOT_TOKEN)
  *
  * Admin endpoints (except oauth/google/callback) require ?token=ADMIN_TOKEN
  * or Authorization: Bearer ADMIN_TOKEN.
@@ -27,9 +29,11 @@
  */
 
 import http from 'node:http';
-import { readFileSync, existsSync } from 'node:fs';
-import { resolve as resolvePath, dirname } from 'node:path';
+import { readFileSync, existsSync, statSync, mkdirSync, createWriteStream, renameSync, rmSync, symlinkSync, readdirSync, unlinkSync } from 'node:fs';
+import { resolve as resolvePath, extname, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
 import * as telegramSurface from './surfaces/telegram.mjs';
 import * as whatsappSurface from './surfaces/whatsapp.mjs';
 import * as voiceSurface from './surfaces/voicememo.mjs';
@@ -85,6 +89,14 @@ export function startHttpServer({ port, adminToken: at }) {
         if (m && req.method === 'GET') {
           return serveStaticFile(res, `agents/${m[1]}.png`, 'image/png');
         }
+      }
+
+      // ─── personal wiki (static, admin-gated) ───
+      if ((path === '/wiki' || path.startsWith('/wiki/')) && req.method === 'GET') {
+        return serveWiki(req, res, url);
+      }
+      if (path === '/wiki-upload' && req.method === 'POST') {
+        return handleWikiUpload(req, res);
       }
 
       // ─── ingest endpoints ───
@@ -400,6 +412,196 @@ async function serveDashboardData(req, res, url) {
   }
 
   return sendJson(res, 200, result);
+}
+
+// ─── personal wiki helpers ───
+//
+// Static tree on the persistent disk: WIKI_ROOT/releases/<ts>/ holds builds,
+// WIKI_ROOT/current is a symlink swapped atomically on upload. Serving is
+// gated by the same admin auth as /dashboard: visit /wiki/?key=<adminToken>
+// once to set the bridge_admin cookie, then every internal link works on the
+// cookie alone. Uploads come from the Mac (scripts/upload-wiki.sh) as a
+// .tar.gz with Bearer CLOUD_SNAPSHOT_TOKEN.
+
+const execFileAsync = promisify(execFile);
+const WIKI_ROOT = resolvePath(process.env.WIKI_DIR ?? `${process.env.STATE_DIR ?? '/opt/data'}/wiki`);
+const WIKI_CURRENT = resolvePath(WIKI_ROOT, 'current');
+const WIKI_MAX_UPLOAD = 200 * 1024 * 1024; // ~200MB guard
+
+const WIKI_TYPES = {
+  '.html': 'text/html; charset=utf-8',
+  '.htm': 'text/html; charset=utf-8',
+  '.css': 'text/css; charset=utf-8',
+  '.js': 'text/javascript; charset=utf-8',
+  '.mjs': 'text/javascript; charset=utf-8',
+  '.json': 'application/json; charset=utf-8',
+  '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.gif': 'image/gif',
+  '.svg': 'image/svg+xml',
+  '.ico': 'image/x-icon',
+  '.webp': 'image/webp',
+  '.avif': 'image/avif',
+  '.woff2': 'font/woff2',
+  '.woff': 'font/woff',
+  '.ttf': 'font/ttf',
+  '.otf': 'font/otf',
+  '.txt': 'text/plain; charset=utf-8',
+  '.md': 'text/plain; charset=utf-8',
+  '.xml': 'application/xml; charset=utf-8',
+  '.pdf': 'application/pdf',
+  '.map': 'application/json; charset=utf-8',
+};
+
+function wikiPage(res, code, title, bodyHtml) {
+  res.writeHead(code, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' });
+  res.end(`<!doctype html><html><head><meta charset=utf-8><title>${title}</title><style>body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;max-width:520px;margin:80px auto;padding:0 24px;color:#1c1d20;line-height:1.5}h1{font-size:24px;margin-bottom:8px}code{background:#ebe3cf;padding:2px 6px;border-radius:2px;font-size:14px}a{color:#0024ff}</style></head><body>${bodyHtml}</body></html>`);
+}
+
+function wikiUnauthorized(res) {
+  return wikiPage(res, 401, 'Wiki — unauthorized', `<h1>Wiki — private</h1><p>This wiki is private. Visit it once with your setup key in the URL:</p><pre><code>/wiki/?key=YOUR-ADMIN-TOKEN</code></pre><p>After that, the page remembers you for 30 days. No tokens in the URL.</p>`);
+}
+
+function wikiNotFound(res) {
+  return wikiPage(res, 404, 'Wiki — not found', `<h1>Not in the wiki</h1><p>That page is not part of the current build.</p><p><a href="/wiki/">Back to the wiki home</a></p>`);
+}
+
+function serveWiki(req, res, url) {
+  // Magic-link, same pattern as /dashboard: ?key=<adminToken> sets the
+  // cookie and redirects to the clean path so internal links work cookie-only.
+  const keyParam = url.searchParams.get('key');
+  if (keyParam !== null) {
+    if (!adminToken || keyParam !== adminToken) return wikiUnauthorized(res);
+    res.writeHead(302, {
+      'Set-Cookie': `bridge_admin=${encodeURIComponent(adminToken)}; Path=/; Max-Age=2592000; HttpOnly; Secure; SameSite=Lax`,
+      'Location': url.pathname === '/wiki' ? '/wiki/' : url.pathname,
+    });
+    return res.end();
+  }
+
+  if (!checkAdmin(req, url)) return wikiUnauthorized(res);
+
+  // Normalize /wiki → /wiki/ so the homepage's relative links resolve.
+  if (url.pathname === '/wiki') {
+    res.writeHead(302, { Location: '/wiki/' });
+    return res.end();
+  }
+
+  let rel;
+  try {
+    rel = decodeURIComponent(url.pathname.slice('/wiki/'.length));
+  } catch {
+    return wikiNotFound(res);
+  }
+  if (rel.includes('\0')) return wikiNotFound(res);
+  const segs = rel.split('/').filter((s) => s !== '' && s !== '.');
+  if (segs.some((s) => s === '..')) return wikiNotFound(res);
+
+  if (!existsSync(WIKI_CURRENT)) {
+    return wikiPage(res, 404, 'Wiki — no build', `<h1>No wiki build yet</h1><p>The wiki is wired up, with no build uploaded so far. Run <code>scripts/upload-wiki.sh</code> on the Mac to ship one.</p>`);
+  }
+
+  let full = resolvePath(WIKI_CURRENT, ...segs);
+  // Belt-and-braces containment check (segs already exclude "..").
+  if (full !== WIKI_CURRENT && !full.startsWith(WIKI_CURRENT + '/')) return wikiNotFound(res);
+
+  let st = existsSync(full) ? statSync(full) : null;
+  if (st?.isDirectory()) {
+    // Directory request without trailing slash: redirect so relative links hold.
+    if (!url.pathname.endsWith('/')) {
+      res.writeHead(302, { Location: `${url.pathname}/` });
+      return res.end();
+    }
+    full = resolvePath(full, 'index.html');
+    st = existsSync(full) ? statSync(full) : null;
+  }
+  if (!st || !st.isFile()) return wikiNotFound(res);
+
+  const ext = extname(full).toLowerCase();
+  const type = WIKI_TYPES[ext] ?? 'application/octet-stream';
+  const cache = ext === '.html' || ext === '.htm' ? 'private, no-cache' : 'private, max-age=3600';
+  res.writeHead(200, { 'Content-Type': type, 'Cache-Control': cache });
+  res.end(readFileSync(full));
+}
+
+async function handleWikiUpload(req, res) {
+  // Same Bearer contract as POST /snapshot: CLOUD_SNAPSHOT_TOKEN only.
+  if (!cloudBrief.checkSnapshotAuth(req)) return unauthorized(res);
+
+  mkdirSync(resolvePath(WIKI_ROOT, 'releases'), { recursive: true });
+  const ts = Date.now();
+  const tmpTar = resolvePath(WIKI_ROOT, `upload-${ts}.tar.gz`);
+  const releaseDir = resolvePath(WIKI_ROOT, 'releases', String(ts));
+
+  try {
+    // Stream the body to disk with a hard size guard.
+    const bytes = await new Promise((resolve, reject) => {
+      let received = 0;
+      const ws = createWriteStream(tmpTar, { mode: 0o600 });
+      req.on('data', (chunk) => {
+        received += chunk.length;
+        if (received > WIKI_MAX_UPLOAD) {
+          req.unpipe(ws);
+          ws.destroy();
+          req.destroy();
+          reject(new Error(`upload exceeds ${WIKI_MAX_UPLOAD} bytes`));
+        }
+      });
+      req.on('error', reject);
+      ws.on('error', reject);
+      ws.on('finish', () => resolve(received));
+      req.pipe(ws);
+    });
+    if (bytes === 0) throw new Error('empty upload');
+
+    // Inspect member names before extraction: no absolute paths, no "..".
+    const { stdout: listing } = await execFileAsync('tar', ['-tzf', tmpTar], { maxBuffer: 32 * 1024 * 1024 });
+    const entries = listing.split('\n').filter(Boolean);
+    if (!entries.length) throw new Error('tarball has no entries');
+    for (const entry of entries) {
+      if (entry.startsWith('/') || entry.split('/').some((s) => s === '..')) {
+        throw new Error('tarball rejected: unsafe member path');
+      }
+    }
+
+    mkdirSync(releaseDir, { recursive: true });
+    await execFileAsync('tar', ['-xzf', tmpTar, '-C', releaseDir, '--no-same-owner'], { maxBuffer: 16 * 1024 * 1024 });
+
+    // Content root: index.html at the top, or inside a single top-level dir.
+    let contentDir = releaseDir;
+    if (!existsSync(resolvePath(contentDir, 'index.html'))) {
+      const tops = readdirSync(releaseDir).filter((n) => !n.startsWith('.'));
+      if (tops.length === 1 && existsSync(resolvePath(releaseDir, tops[0], 'index.html'))) {
+        contentDir = resolvePath(releaseDir, tops[0]);
+      } else {
+        throw new Error('tarball rejected: no index.html at the root of the build');
+      }
+    }
+
+    // Atomic swap: fresh symlink renamed over `current`.
+    const tmpLink = resolvePath(WIKI_ROOT, `current-${ts}.tmp`);
+    symlinkSync(contentDir, tmpLink);
+    renameSync(tmpLink, WIKI_CURRENT);
+
+    // Keep the new release plus one previous; drop older ones.
+    const releases = readdirSync(resolvePath(WIKI_ROOT, 'releases'))
+      .filter((n) => /^\d+$/.test(n))
+      .sort((a, b) => Number(b) - Number(a));
+    for (const old of releases.slice(2)) {
+      rmSync(resolvePath(WIKI_ROOT, 'releases', old), { recursive: true, force: true });
+    }
+
+    audit.log({ action: 'wiki-upload', target: null, reasoning: 'Mac pushed a new wiki build.', data: { bytes, entries: entries.length, release: ts } });
+    log(`wiki: new build live (release ${ts}, ${entries.length} entries, ${bytes} bytes)`);
+    return sendJson(res, 200, { ok: true, release: ts, entries: entries.length, bytes });
+  } catch (e) {
+    rmSync(releaseDir, { recursive: true, force: true });
+    log(`wiki: upload failed: ${e.message}`);
+    return sendJson(res, 400, { error: e.message });
+  } finally {
+    try { unlinkSync(tmpTar); } catch { /* already gone */ }
+  }
 }
 
 function unauthorized(res) {
